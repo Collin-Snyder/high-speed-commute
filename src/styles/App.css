@@ -55,7 +55,7 @@ p {
   border: 2px solid red;
 }
 
-.playingField {
+.playingField, .levelDesigner {
   width: 1004px;
   height: 629px; 
   display: grid;
@@ -68,7 +68,7 @@ p {
   display: flex;
 }
 
-.gridSquare {
+.gridSquare, .designSquare {
   width: 25px;
   height: 25px;
   font-size: 10px;

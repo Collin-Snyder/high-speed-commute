@@ -9,18 +9,22 @@ class App extends React.Component {
     super(props);
 
     this.state = {
+      mode: "play",
       level: 1,
       playerHome: 281,
       bossHome: 681,
       office: 520,
       playerCar: 281,
       bossCar: 681,
-      layout: []
+      layout: [],
+      designLayout: []
     };
     this.handleKeyDown = this.handleKeyDown.bind(this);
     this.movePlayerCar = this.movePlayerCar.bind(this);
     this.moveBossCar = this.moveBossCar.bind(this);
     this.resetPlayers = this.resetPlayers.bind(this);
+    this.enterDesignMode = this.enterDesignMode.bind(this);
+    this.enterPlayMode = this.enterPlayMode.bind(this);
   }
 
   componentDidMount() {
@@ -28,13 +32,13 @@ class App extends React.Component {
     let layout = createSquares(40, 25);
     this.interval = setInterval(() => {
       this.moveBossCar();
-    }, 100)
+    }, 100);
     setTimeout(() => {
-      this.setState({office: 3});
-    }, 3000)
+      this.setState({ office: 3 });
+    }, 3000);
     setTimeout(() => {
-      this.setState({office: 987})
-    }, 6000)
+      this.setState({ office: 987 });
+    }, 6000);
     this.setState({ layout });
     // this.setState({ layout }, () => {
     //   while (this.state.bossCar !== this.state.office) {
@@ -89,7 +93,7 @@ class App extends React.Component {
   moveBossCar() {
     console.log("Inside moveBossCar");
     let { bossCar, office, layout } = this.state;
-    let direction = determineDirection(layout[bossCar-1], layout[office-1]);
+    let direction = determineDirection(layout[bossCar - 1], layout[office - 1]);
 
     if (direction) {
       let target = layout[bossCar - 1].borders[direction];
@@ -102,17 +106,30 @@ class App extends React.Component {
     this.setState({ bossCar });
   }
 
+  enterDesignMode() {
+    let designLayout = createSquares(40, 25);
+    this.setState({ mode: "design", designLayout });
+  }
+
+  enterPlayMode() {
+    this.setState({ mode: "play" });
+  }
+
   render() {
     return (
       <div className="App">
         <GameModule
+          mode={this.state.mode}
           playerCar={this.state.playerCar}
           playerHome={this.state.playerHome}
           bossCar={this.state.bossCar}
           bossHome={this.state.bossHome}
           office={this.state.office}
           layout={this.state.layout}
+          designLayout={this.state.designLayout}
           resetPlayers={this.resetPlayers}
+          enterDesignMode={this.enterDesignMode}
+          enterPlayMode={this.enterPlayMode}
         />
       </div>
     );
