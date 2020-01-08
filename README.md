@@ -45,16 +45,16 @@ High Speed Commute is an action-packed race to work against your boss. Get there
   </tr>
   <tr>
     <td align="center"><img src="https://freshpet.com/wp-content/uploads/2018/01/puppy_party_freshpet.jpg" alt="Puppy" title="Pyppy" width="80px"/></td>
-    <td align="center"><img src="https://freshpet.com/wp-content/uploads/2018/01/puppy_party_freshpet.jpg" alt="Puppy" title="Puppy" width="60px"/></td>
-    <td align="center"><img src="https://freshpet.com/wp-content/uploads/2018/01/puppy_party_freshpet.jpg" alt="Heroku" title="Heroku" width="60px"/></td>
+    <td align="center"><img src="https://freshpet.com/wp-content/uploads/2018/01/puppy_party_freshpet.jpg" alt="Puppy" title="Puppy" width="80px"/></td>
+    <td align="center"><img src="https://freshpet.com/wp-content/uploads/2018/01/puppy_party_freshpet.jpg" alt="Heroku" title="Heroku" width="80px"/></td>
   </tr>
   <tr>
     <td align="center"><img src="https://freshpet.com/wp-content/uploads/2018/01/puppy_party_freshpet.jpg" alt="Puppy" title="Puppy" width="80px"/></td>
-    <td align="center"><img src="https://freshpet.com/wp-content/uploads/2018/01/puppy_party_freshpet.jpg" alt="Puppy" title="Puppy" width="60px"/></td>
+    <td align="center"><img src="https://freshpet.com/wp-content/uploads/2018/01/puppy_party_freshpet.jpg" alt="Puppy" title="Puppy" width="80px"/></td>
   </tr>
   <tr>
-    <td align="center"><img src="https://freshpet.com/wp-content/uploads/2018/01/puppy_party_freshpet.jpg" alt="Puppy" title="Puppy" width="60px"/></td>
-    <td align="center"><img src="https://freshpet.com/wp-content/uploads/2018/01/puppy_party_freshpet.jpg" alt="Puppy" title="Puppy" width="60px"/></td>
+    <td align="center"><img src="https://freshpet.com/wp-content/uploads/2018/01/puppy_party_freshpet.jpg" alt="Puppy" title="Puppy" width="80px"/></td>
+    <td align="center"><img src="https://freshpet.com/wp-content/uploads/2018/01/puppy_party_freshpet.jpg" alt="Puppy" title="Puppy" width="80px"/></td>
   </tr>
 </table>
 
