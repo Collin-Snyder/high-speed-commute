@@ -21,7 +21,7 @@ const GridSquare = ({ squareInfo, playerCar, bossCar }) => {
 
   return (
     <div className={`gridSquare${special}`} id={squareInfo.id}>
-      {playerCar === squareInfo.id ? <PlayerCar /> : bossCar === squareInfo.id ? <BossCar /> : squareInfo.id}
+      {playerCar === squareInfo.id ? <PlayerCar /> : bossCar === squareInfo.id ? <BossCar /> : ""}
     </div>
   );
 };

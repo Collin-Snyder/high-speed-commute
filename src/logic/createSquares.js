@@ -4,9 +4,9 @@ const createSquares = (width, height) => {
 
   for (let s = 1; s <= squareCount; s++) {
     squares.push({
-      id: s
-      //   row: Math.ceil(s / height),
-      //   column: Math.ceil(s / width)
+      id: s,
+      row: Math.ceil(s / height),
+      column: Math.floor(s % width) > 0 ? Math.floor(s % width) : Math.floor(s-1 % width) + 1
     });
   }
 
