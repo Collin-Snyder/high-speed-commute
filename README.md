@@ -4,7 +4,7 @@ High Speed Commute is an action-packed race to work against your boss. Get there
 
 ## In Action
 
-<a href=''>Heroku Deployment Link</a>
+<a href=#>Heroku Deployment Link</a>
 
 # User Stories
 
@@ -20,14 +20,15 @@ High Speed Commute is an action-packed race to work against your boss. Get there
 - As a user, I want a record of my win or loss to be persisted after the game is over.
 - As a user, I want the UI to look kind of like the scenario (streets, cars)
 
-## Coming later
+## Coming Later:
 
 - As a user, I want to be able to pick the color of my car.
 - As a user, I want to be able to set difficulty levels for the Boss.
+- As a user, I want to lose if I crash into my Boss.
 - As a user, I want the added challenge of stoplights along the route.
 - As a user, I want the added challenge of school zones along the route.
 - As a user, I want the added challenge of road closures along the route.
-- As a user, I want the added challenge of car crashes/trees falling along the route.
+- As a user, I want the added challenge of unexpected car crashes/trees falling along the route.
 - As a user, I want the game to track my time and persist my score along with my win/loss.
 - As a user, I want to be able to see my stats from past games.
 - As a user, I want to be able to see how my stats compare to other players.
