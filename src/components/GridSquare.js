@@ -1,7 +1,8 @@
 import React from "react";
 import PlayerCar from "./PlayerCar";
+import BossCar from "./BossCar";
 
-const GridSquare = ({ squareInfo, playerCar, movePlayerCar }) => {
+const GridSquare = ({ squareInfo, playerCar, bossCar }) => {
   let special = "";
 
   switch (squareInfo.id) {
@@ -20,7 +21,7 @@ const GridSquare = ({ squareInfo, playerCar, movePlayerCar }) => {
 
   return (
     <div className={`gridSquare${special}`} id={squareInfo.id}>
-      {playerCar === squareInfo.id ? <PlayerCar /> : squareInfo.id}
+      {playerCar === squareInfo.id ? <PlayerCar /> : bossCar === squareInfo.id ? <BossCar /> : squareInfo.id}
     </div>
   );
 };

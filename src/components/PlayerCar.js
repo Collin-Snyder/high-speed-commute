@@ -1,16 +1,7 @@
 import React from "react";
 
-export default class PlayerCar extends React.Component {
-    constructor (props) {
-        super (props);
+const PlayerCar = () => {
+  return <span className="playerCar"></span>;
+};
 
-        this.state = {};
-    }
-
-    render () {
-        return (
-            <span className="playerCar"></span>
-        )
-    }
-    
-}
+export default PlayerCar;

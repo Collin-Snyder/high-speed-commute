@@ -55,7 +55,8 @@ class App extends React.Component {
       <div className="App">
         <GameModule
           playerCar={this.state.playerCar}
-          movePlayerCar={this.movePlayerCar}
+          bossCar={this.state.bossCar}
+          office={this.state.office}
           layout={this.state.layout}
         />
       </div>

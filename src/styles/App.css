@@ -87,12 +87,26 @@ p {
   background-color: rgba(0, 255, 0, 0.4);
 }
 
-.playerCar {
+.playerCar, .bossCar {
   display: inline-block;
   width: 25px;
   height: 25px;
-  border-radius: 15px;
-  background-color:blue;
+  border-radius: 13px;
   z-index: 100;
+}
+
+.playerCar {
+  background-color:blue;
+}
+
+.bossCar {
+  background-color: red;
+}
+
+.win, .loss {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
