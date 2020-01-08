@@ -1,7 +1,7 @@
 import React from "react";
 import PlayerCar from "./PlayerCar";
 
-const GridSquare = ({ squareInfo, playerCar }) => {
+const GridSquare = ({ squareInfo, playerCar, movePlayerCar }) => {
   let special = "";
 
   switch (squareInfo.id) {

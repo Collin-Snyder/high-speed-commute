@@ -1,16 +1,46 @@
 const createSquares = (width, height) => {
-    let squares = [];
-    let squareCount = width * height;
+  let squares = [];
+  let squareCount = width * height;
 
-    for (let s = 1; s <= squareCount; s++) {
-        squares.push({id: s, row: Math.ceil(s / height), column: Math.ceil(s / width),})
-    }
+  for (let s = 1; s <= squareCount; s++) {
+    squares.push({
+      id: s
+      //   row: Math.ceil(s / height),
+      //   column: Math.ceil(s / width)
+    });
+  }
 
-    return squares;
-}
+  let squaresWithBorders = squares.map((square, i, squares) =>
+    addBorders(square, squares, width, squareCount)
+  );
 
-const addBorders = (square, squaresList, fieldWidth, fieldHeight) => {
+  return squaresWithBorders;
+};
 
-}
+const addBorders = (square, squaresList, fieldWidth, squareCount) => {
+  square.borders = { left: null, right: null, up: null, down: null };
+
+  if ((square.id - 1) % fieldWidth !== 0) {
+    let squareIndex = square.id - 2;
+    square.borders.left = squaresList[squareIndex];
+  }
+
+  if (square.id % fieldWidth !== 0) {
+    let squareIndex = square.id;
+    square.borders.right = squaresList[squareIndex];
+  }
+
+  if (square.id - fieldWidth > 0) {
+    let squareIndex = square.id - fieldWidth - 1;
+    square.borders.up = squaresList[squareIndex];
+  }
+
+  if (square.id + fieldWidth <= squareCount) {
+    let squareIndex = square.id + fieldWidth - 1;
+    square.borders.down = squaresList[squareIndex];
+  }
+
+  return square;
+};
 
 export default createSquares;
