@@ -1,7 +1,7 @@
 import React from "react";
 import GridSquare from "./GridSquare";
 
-const PlayingField = ({ playerCar, bossCar, office, layout, resetPlayers }) => {
+const PlayingField = ({ playerCar, playerHome, bossCar, bossHome, office, layout, resetPlayers }) => {
   if (playerCar === office) {
     return (
       <div className="playingField win">
@@ -24,7 +24,10 @@ const PlayingField = ({ playerCar, bossCar, office, layout, resetPlayers }) => {
           <GridSquare
             squareInfo={square}
             playerCar={playerCar}
+            playerHome={playerHome}
             bossCar={bossCar}
+            bossHome={bossHome}
+            office={office}
             key={index}
           />
         ))}

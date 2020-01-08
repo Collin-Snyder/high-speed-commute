@@ -29,6 +29,12 @@ class App extends React.Component {
     this.interval = setInterval(() => {
       this.moveBossCar();
     }, 100)
+    setTimeout(() => {
+      this.setState({office: 3});
+    }, 3000)
+    setTimeout(() => {
+      this.setState({office: 987})
+    }, 6000)
     this.setState({ layout });
     // this.setState({ layout }, () => {
     //   while (this.state.bossCar !== this.state.office) {
@@ -101,7 +107,9 @@ class App extends React.Component {
       <div className="App">
         <GameModule
           playerCar={this.state.playerCar}
+          playerHome={this.state.playerHome}
           bossCar={this.state.bossCar}
+          bossHome={this.state.bossHome}
           office={this.state.office}
           layout={this.state.layout}
           resetPlayers={this.resetPlayers}

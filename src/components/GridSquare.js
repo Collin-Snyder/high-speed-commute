@@ -2,17 +2,17 @@ import React from "react";
 import PlayerCar from "./PlayerCar";
 import BossCar from "./BossCar";
 
-const GridSquare = ({ squareInfo, playerCar, bossCar }) => {
+const GridSquare = ({ squareInfo, playerCar, playerHome, bossCar, bossHome, office}) => {
   let special = "";
 
   switch (squareInfo.id) {
-    case 281:
+    case playerHome:
       special = special + " playerHome";
       break;
-    case 681:
+    case bossHome:
       special = special + " bossHome";
       break;
-    case 520:
+    case office:
       special = special + " office";
       break;
     default:
