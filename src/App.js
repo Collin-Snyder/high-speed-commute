@@ -29,14 +29,19 @@ class App extends React.Component {
 
   handleKeyDown(e) {
     console.log("Keydown Event Triggered: ", e.keyCode);
-    if (e.keyCode === 37) {
-      this.movePlayerCar("left");
-    } else if (e.keyCode === 38) {
-      this.movePlayerCar("up");
-    } else if (e.keyCode === 39) {
-      this.movePlayerCar("right");
-    } else if (e.keyCode === 40) {
-      this.movePlayerCar("down");
+    if (
+      this.state.playerCar !== this.state.office &&
+      this.state.bossCar !== this.state.office
+    ) {
+      if (e.keyCode === 37) {
+        this.movePlayerCar("left");
+      } else if (e.keyCode === 38) {
+        this.movePlayerCar("up");
+      } else if (e.keyCode === 39) {
+        this.movePlayerCar("right");
+      } else if (e.keyCode === 40) {
+        this.movePlayerCar("down");
+      }
     }
   }
 
