@@ -44,17 +44,17 @@ High Speed Commute is an action-packed race to work against your boss. Get there
     <td align="center">Deployment</td>
   </tr>
   <tr>
-    <td align="center"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1280px-React-icon.svg.png" alt="React" title="React" width="80px"/></td>
-    <td align="center"><img src="https://nodejs.org/static/images/logos/nodejs-new-pantone-black.png" alt="Node.js" title="Node.js" width="60px"/></td>
-    <td align="center"><img src="https://res.cloudinary.com/practicaldev/image/fetch/s--K2q0A5SX--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://thepracticaldev.s3.amazonaws.com/i/2elgd5zp07wkeilkna63.png" alt="Heroku" title="Heroku" width="60px"/></td>
+    <td align="center"><img src="https://freshpet.com/wp-content/uploads/2018/01/puppy_party_freshpet.jpg" alt="Puppy" title="Pyppy" width="80px"/></td>
+    <td align="center"><img src="https://freshpet.com/wp-content/uploads/2018/01/puppy_party_freshpet.jpg" alt="Puppy" title="Puppy" width="60px"/></td>
+    <td align="center"><img src="https://freshpet.com/wp-content/uploads/2018/01/puppy_party_freshpet.jpg" alt="Heroku" title="Heroku" width="60px"/></td>
   </tr>
   <tr>
-    <td align="center"><img src="https://d33wubrfki0l68.cloudfront.net/22e10665fd27c809674f166b54f5c67e3ac62570/2ceb4/img/users/react-bootstrap.png" alt="React" title="React" width="80px"/></td>
-    <td align="center"><img src="https://buttercms.com/static/images/tech_banners/ExpressJS.png" alt="Express" title="Express" width="60px"/></td>
+    <td align="center"><img src="https://freshpet.com/wp-content/uploads/2018/01/puppy_party_freshpet.jpg" alt="Puppy" title="Puppy" width="80px"/></td>
+    <td align="center"><img src="https://freshpet.com/wp-content/uploads/2018/01/puppy_party_freshpet.jpg" alt="Puppy" title="Puppy" width="60px"/></td>
   </tr>
   <tr>
-    <td align="center"><img src="https://www.chartjs.org/img/chartjs-logo.svg" alt="Chart.js" title="Chart.js" width="60px"/></td>
-    <td align="center"><img src="https://img.stackshare.io/service/5739/atlas-360x360.png" alt="MongoDB Atlas" title="MongoDB Atlas" width="60px"/></td>
+    <td align="center"><img src="https://freshpet.com/wp-content/uploads/2018/01/puppy_party_freshpet.jpg" alt="Puppy" title="Puppy" width="60px"/></td>
+    <td align="center"><img src="https://freshpet.com/wp-content/uploads/2018/01/puppy_party_freshpet.jpg" alt="Puppy" title="Puppy" width="60px"/></td>
   </tr>
 </table>
 
