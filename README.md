@@ -1,68 +1,82 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# HIGH SPEED COMMUTE
 
-## Available Scripts
+High Speed Commute is an action-packed race to work against your boss. Get there first so he doesn't know you're late!
 
-In the project directory, you can run:
+## In Action
 
-### `npm start`
+<a href=''>Heroku Deployment Link</a>
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+# User Stories
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+## Implemented:
 
-### `npm test`
+## Coming Soon:
+- As a user, I want to give myself a username.
+- As a user, I want to use my arrow keys to control my car and move through the street grid.
+- As a user, I want the Boss to pick the fastest route to work and move there at a steady pace.
+- As a user, I want to be given a promotion if I am on time.
+- As a user, I want to be fired if I am late.
+- As a user, I want to be able to reset the game and play again.
+- As a user, I want a record of my win or loss to be persisted after the game is over.
+- As a user, I want the UI to look kind of like the scenario (streets, cars)
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Coming later
 
-### `npm run build`
+- As a user, I want to be able to pick the color of my car.
+- As a user, I want to be able to set difficulty levels for the Boss.
+- As a user, I want the added challenge of stoplights along the route.
+- As a user, I want the added challenge of school zones along the route.
+- As a user, I want the added challenge of road closures along the route.
+- As a user, I want the added challenge of car crashes/trees falling along the route.
+- As a user, I want the game to track my time and persist my score along with my win/loss.
+- As a user, I want to be able to see my stats from past games.
+- As a user, I want to be able to see how my stats compare to other players.
+- As a user, I want more than one level to play.
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+# Stack
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+<table>
+  <tr>
+  </tr>
+  <tr>
+    <td align="center">Front-end</td>
+    <td align="center">Back-end</td>
+    <td align="center">Deployment</td>
+  </tr>
+  <tr>
+    <td align="center"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1280px-React-icon.svg.png" alt="React" title="React" width="80px"/></td>
+    <td align="center"><img src="https://nodejs.org/static/images/logos/nodejs-new-pantone-black.png" alt="Node.js" title="Node.js" width="60px"/></td>
+    <td align="center"><img src="https://res.cloudinary.com/practicaldev/image/fetch/s--K2q0A5SX--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://thepracticaldev.s3.amazonaws.com/i/2elgd5zp07wkeilkna63.png" alt="Heroku" title="Heroku" width="60px"/></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="https://d33wubrfki0l68.cloudfront.net/22e10665fd27c809674f166b54f5c67e3ac62570/2ceb4/img/users/react-bootstrap.png" alt="React" title="React" width="80px"/></td>
+    <td align="center"><img src="https://buttercms.com/static/images/tech_banners/ExpressJS.png" alt="Express" title="Express" width="60px"/></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="https://www.chartjs.org/img/chartjs-logo.svg" alt="Chart.js" title="Chart.js" width="60px"/></td>
+    <td align="center"><img src="https://img.stackshare.io/service/5739/atlas-360x360.png" alt="MongoDB Atlas" title="MongoDB Atlas" width="60px"/></td>
+  </tr>
+</table>
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Front-End
+High Speed Commute was built with ...
 
-### `npm run eject`
+## Back-End 
+...
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## Deployment
+...
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+# Get started
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+- How to run the app on localhost ...
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## Challenges
+- For this project, I wanted to learn ...
 
-## Learn More
+## Learnings
+- ...
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+# Contributors
 
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+[Collin Snyder](https://github.com/Collin-Snyder)
