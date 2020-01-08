@@ -2,6 +2,7 @@ import React from "react";
 import "./styles/App.css";
 import GameModule from "./components/GameModule";
 import createSquares from "./logic/createSquares";
+import { determineDirection } from "./logic/moveBoss";
 
 class App extends React.Component {
   constructor(props) {
@@ -18,13 +19,27 @@ class App extends React.Component {
     };
     this.handleKeyDown = this.handleKeyDown.bind(this);
     this.movePlayerCar = this.movePlayerCar.bind(this);
+    this.moveBossCar = this.moveBossCar.bind(this);
     this.resetPlayers = this.resetPlayers.bind(this);
   }
 
   componentDidMount() {
     document.addEventListener("keydown", this.handleKeyDown);
     let layout = createSquares(40, 25);
+    this.interval = setInterval(() => {
+      this.moveBossCar();
+    }, 100)
     this.setState({ layout });
+    // this.setState({ layout }, () => {
+    //   while (this.state.bossCar !== this.state.office) {
+    //     setTimeout(() => {
+    //     this.moveBossCar();
+    //   }, 1000);}
+    // });
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.interval);
   }
 
   handleKeyDown(e) {
@@ -57,10 +72,28 @@ class App extends React.Component {
   movePlayerCar(direction) {
     let { playerCar, layout } = this.state;
     let target = layout[playerCar - 1].borders[direction];
+
     if (target) {
       playerCar = target.id;
     }
+
     this.setState({ playerCar });
+  }
+
+  moveBossCar() {
+    console.log("Inside moveBossCar");
+    let { bossCar, office, layout } = this.state;
+    let direction = determineDirection(layout[bossCar-1], layout[office-1]);
+
+    if (direction) {
+      let target = layout[bossCar - 1].borders[direction];
+
+      if (target) {
+        bossCar = target.id;
+      }
+    }
+
+    this.setState({ bossCar });
   }
 
   render() {

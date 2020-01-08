@@ -6,7 +6,7 @@ const createSquares = (width, height) => {
     squares.push({
       id: s,
       row: Math.ceil(s / height),
-      column: Math.floor(s % width) > 0 ? Math.floor(s % width) : Math.floor(s-1 % width) + 1
+      column: Math.floor(s % width) > 0 ? Math.floor(s % width) : width
     });
   }
 
