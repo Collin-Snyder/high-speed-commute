@@ -1,7 +1,7 @@
 import React from "react";
 import PlayingField from "./PlayingField";
 
-const GameModule = ({ playerCar, bossCar, office, layout }) => {
+const GameModule = ({ playerCar, bossCar, office, layout, resetPlayers }) => {
   
 
   return (
@@ -12,6 +12,7 @@ const GameModule = ({ playerCar, bossCar, office, layout }) => {
         bossCar={bossCar}
         office={office}
         layout={layout}
+        resetPlayers={resetPlayers}
       />
     </div>
   );

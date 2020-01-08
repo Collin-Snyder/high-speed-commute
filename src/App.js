@@ -16,9 +16,9 @@ class App extends React.Component {
       bossCar: 681,
       layout: []
     };
-
-    this.movePlayerCar = this.movePlayerCar.bind(this);
     this.handleKeyDown = this.handleKeyDown.bind(this);
+    this.movePlayerCar = this.movePlayerCar.bind(this);
+    this.resetPlayers = this.resetPlayers.bind(this);
   }
 
   componentDidMount() {
@@ -40,6 +40,14 @@ class App extends React.Component {
     }
   }
 
+  resetPlayers() {
+    let { playerCar, playerHome, bossCar, bossHome } = this.state;
+
+    playerCar = playerHome;
+    bossCar = bossHome;
+
+    this.setState({ playerCar, bossCar });
+  }
 
   movePlayerCar(direction) {
     let { playerCar, layout } = this.state;
@@ -58,6 +66,7 @@ class App extends React.Component {
           bossCar={this.state.bossCar}
           office={this.state.office}
           layout={this.state.layout}
+          resetPlayers={this.resetPlayers}
         />
       </div>
     );
