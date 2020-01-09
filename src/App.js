@@ -74,10 +74,13 @@ class App extends React.Component {
 
   startBoss() {
     this.setState({ status: "active" }, () => {
-      // this.interval = setInterval(() => {
-      //   this.moveBossCar();
-      // }, 100);
       let pathStack = this.findBossPath();
+      this.interval = setInterval(() => {
+        let nextMove = pathStack.pop();
+        if (nextMove) {
+          this.moveBossCar(nextMove);
+        }
+      }, 100);
     });
   }
 
@@ -102,17 +105,17 @@ class App extends React.Component {
   }
 
   findBossPath() {
-    let {bossHome, office, layout} = this.state;
+    let { bossHome, office, layout } = this.state;
 
     let pathInfo = findPath(layout[bossHome - 1], layout[office - 1], layout);
     console.log(pathInfo.layout[723]);
     console.log(pathInfo.pathStack.length);
 
-    this.setState({layout: pathInfo.layout});
+    this.setState({ layout: pathInfo.layout });
     return pathInfo.pathStack;
   }
 
-  moveBossCar() {
+  moveBossCar(nextMove) {
     // let {
     //   bossCar,
     //   bossCarPrevMove,
@@ -127,12 +130,10 @@ class App extends React.Component {
     //   bossCarPrevQueue
     // );
     // // console.log(`Direction queue at square: ${bossCar}`, directionQueue);
-
     // while (directionQueue.length) {
     //   let direction = directionQueue.shift();
     //   if (direction) {
     //     let target = layout[bossCar - 1].borders[direction];
-
     //     if (target && target.type === "street") {
     //       bossCar = target.id;
     //       bossCarPrevMove = direction;
@@ -141,13 +142,12 @@ class App extends React.Component {
     //     }
     //   }
     // }
-
-    // this.setState({ bossCar, bossCarPrevMove }, () => {
-    //   if (this.state.bossCar === this.state.office) {
-    //     clearInterval(this.interval);
-    //     this.setState({ status: "idle" });
-    //   }
-    // });
+    this.setState({ bossCar: nextMove }, () => {
+      if (this.state.bossCar === this.state.office) {
+        clearInterval(this.interval);
+        this.setState({ status: "idle" });
+      }
+    });
   }
 
   enterDesignMode() {
@@ -163,7 +163,14 @@ class App extends React.Component {
   }
 
   loadDesign(newLayout, newPlayerHome, newBossHome, newOffice) {
-    let { layout, playerHome, bossHome, office, playerCar, bossCar } = this.state;
+    let {
+      layout,
+      playerHome,
+      bossHome,
+      office,
+      playerCar,
+      bossCar
+    } = this.state;
     layout = newLayout.slice();
     playerHome = newPlayerHome;
     playerCar = newPlayerHome;
