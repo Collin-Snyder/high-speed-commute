@@ -29,7 +29,6 @@ const PlayingField = ({
   } else {
     return (
       <div className="playingField">
-        {/* {grid.map((row, index) => <GridRow row={row} key={index}/>)} */}
         {layout.map((square, index) => (
           <GridSquare
             squareInfo={square}

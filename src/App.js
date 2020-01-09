@@ -138,8 +138,11 @@ class App extends React.Component {
   }
 
   enterDesignMode() {
+    clearInterval(this.interval);
     let designLayout = createDesignBoard(40, 25);
-    this.setState({ mode: "design", designLayout });
+    this.setState({ mode: "design", designLayout, status: "idle" }, () => {
+      this.resetPlayers();
+    });
   }
 
   enterPlayMode() {

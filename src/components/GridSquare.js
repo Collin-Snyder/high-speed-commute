@@ -5,7 +5,7 @@ import BossCar from "./BossCar";
 const GridSquare = ({ squareInfo, playerCar, playerHome, bossCar, bossHome, office}) => {
   let special = "";
 
-  special = squareInfo.type === "block" ? " block" : "";
+  special = squareInfo.type === "block" ? " block" : squareInfo.type === "street" ? " street" : "";
 
   switch (squareInfo.id) {
     case playerHome:
@@ -23,7 +23,7 @@ const GridSquare = ({ squareInfo, playerCar, playerHome, bossCar, bossHome, offi
 
   return (
     <div className={`gridSquare${special}`} id={squareInfo.id}>
-      {playerCar === squareInfo.id ? <PlayerCar /> : bossCar === squareInfo.id ? <BossCar /> : squareInfo.id}
+      {playerCar === squareInfo.id ? <PlayerCar /> : bossCar === squareInfo.id ? <BossCar /> : ""}
     </div>
   );
 };
