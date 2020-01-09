@@ -1,5 +1,5 @@
 export const convertLayoutToJSONString = layout => {
-  let convertableLayout = layout.map(square => {
+  let convertibleLayout = layout.map(square => {
     for (let direction in square.borders) {
       if (square.borders[direction]) {
         let borderId = square.borders[direction].id;
@@ -9,7 +9,19 @@ export const convertLayoutToJSONString = layout => {
     return square;
   });
 
-  return JSON.stringify(convertableLayout);
+  return JSON.stringify(convertibleLayout);
 };
 
-export const formatLayoutFromDb = () => {};
+export const formatLayoutFromDb = layout => {
+  let formattedLayout = layout.map((square, i, layout) => {
+    for (let direction in square.borders) {
+      if (square.borders[direction]) {
+        let borderId = square.borders[direction];
+        square.borders[direction] = layout[borderId - 1];
+      }
+    }
+    return square;
+  });
+
+  return formattedLayout;
+};
