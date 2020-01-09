@@ -10,6 +10,7 @@ class App extends React.Component {
 
     this.state = {
       mode: "play",
+      status: "idle",
       level: 1,
       playerHome: 281,
       bossHome: 681,
@@ -23,6 +24,7 @@ class App extends React.Component {
     };
     this.handleKeyDown = this.handleKeyDown.bind(this);
     this.movePlayerCar = this.movePlayerCar.bind(this);
+    this.startBoss = this.startBoss.bind(this);
     this.moveBossCar = this.moveBossCar.bind(this);
     this.resetPlayers = this.resetPlayers.bind(this);
     this.enterDesignMode = this.enterDesignMode.bind(this);
@@ -32,10 +34,6 @@ class App extends React.Component {
   componentDidMount() {
     document.addEventListener("keydown", this.handleKeyDown);
     let layout = createSquares(40, 25);
-    this.interval = setInterval(() => {
-      this.moveBossCar();
-    }, 100);
-
     // setTimeout(() => {
     //   clearInterval(this.interval)
     // }, 8000)
@@ -69,6 +67,14 @@ class App extends React.Component {
     }
   }
 
+  startBoss() {
+    this.setState({ status: "active" }, () => {
+      this.interval = setInterval(() => {
+        this.moveBossCar();
+      }, 100);
+    });
+  }
+
   resetPlayers() {
     let { playerCar, playerHome, bossCar, bossHome } = this.state;
 
@@ -90,16 +96,26 @@ class App extends React.Component {
   }
 
   moveBossCar() {
-
-    let { bossCar, bossCarPrevMove, bossCarPrevQueue, office, layout } = this.state;
-    let directionQueue = getDirectionQueue(layout[bossCar - 1], layout[office - 1], bossCarPrevMove, bossCarPrevQueue);
-    console.log(`Direction queue at square: ${bossCar}`, directionQueue);
+    let {
+      bossCar,
+      bossCarPrevMove,
+      bossCarPrevQueue,
+      office,
+      layout
+    } = this.state;
+    let directionQueue = getDirectionQueue(
+      layout[bossCar - 1],
+      layout[office - 1],
+      bossCarPrevMove,
+      bossCarPrevQueue
+    );
+    // console.log(`Direction queue at square: ${bossCar}`, directionQueue);
 
     while (directionQueue.length) {
       let direction = directionQueue.shift();
       if (direction) {
         let target = layout[bossCar - 1].borders[direction];
-  
+
         if (target && target.type !== "block") {
           bossCar = target.id;
           bossCarPrevMove = direction;
@@ -112,6 +128,7 @@ class App extends React.Component {
     this.setState({ bossCar, bossCarPrevMove }, () => {
       if (this.state.bossCar === this.state.office) {
         clearInterval(this.interval);
+        this.setState({status: "idle"})
       }
     });
   }
@@ -130,6 +147,7 @@ class App extends React.Component {
       <div className="App">
         <GameModule
           mode={this.state.mode}
+          status={this.state.status}
           playerCar={this.state.playerCar}
           playerHome={this.state.playerHome}
           bossCar={this.state.bossCar}
@@ -137,6 +155,7 @@ class App extends React.Component {
           office={this.state.office}
           layout={this.state.layout}
           designLayout={this.state.designLayout}
+          startBoss={this.startBoss}
           resetPlayers={this.resetPlayers}
           enterDesignMode={this.enterDesignMode}
           enterPlayMode={this.enterPlayMode}

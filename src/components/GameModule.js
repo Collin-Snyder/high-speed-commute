@@ -3,6 +3,7 @@ import PlayingField from "./PlayingField";
 
 const GameModule = ({
   mode,
+  status,
   playerCar,
   playerHome,
   bossCar,
@@ -10,10 +11,14 @@ const GameModule = ({
   office,
   layout,
   designLayout,
+  startBoss,
   resetPlayers,
   enterDesignMode,
   enterPlayMode
 }) => {
+
+  let startDisplay = status === "idle" ? "inline-block" : "none";
+    
   return (
     <div className="gameModule">
       <h3>Game Module</h3>
@@ -29,9 +34,14 @@ const GameModule = ({
         resetPlayers={resetPlayers}
       />
       {mode === "play" ? (
-        <button onClick={enterDesignMode}>Switch to Design Mode</button>
+        <div className="buttons" >
+          <button onClick={startBoss} style={{display: startDisplay}}>Start</button>
+          <button onClick={enterDesignMode}>Switch to Design Mode</button>
+        </div>
       ) : (
-        <button onClick={enterPlayMode}>Switch to Play Mode</button>
+        <div className="buttons">
+          <button onClick={enterPlayMode}>Switch to Play Mode</button>
+        </div>
       )}
     </div>
   );

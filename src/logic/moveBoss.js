@@ -49,8 +49,8 @@ export const getDirectionQueue = (currentSquare, targetSquare, prevMove) => {
     Y.standby = Y.optimal === "up" ? "down" : "up";
   }
 
-  console.log("X: ", X);
-  console.log("Y: ", Y)
+  // console.log("X: ", X);
+  // console.log("Y: ", Y);
 
   if (X.diff > Y.diff) {
     if (X.optimal !== backtrack) {
