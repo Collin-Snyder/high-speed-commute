@@ -108,8 +108,6 @@ class App extends React.Component {
     let { bossHome, office, layout } = this.state;
 
     let pathInfo = findPath(layout[bossHome - 1], layout[office - 1], layout);
-    console.log(pathInfo.layout[723]);
-    console.log(pathInfo.pathStack.length);
 
     this.setState({ layout: pathInfo.layout });
     return pathInfo.pathStack;

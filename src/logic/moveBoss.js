@@ -150,7 +150,7 @@ export const findPath = (bossHome, office, layout) => {
         // console.log("Adding ", currentSquare.borders[direction], " to frontier")
         frontier.put(currentSquare.borders[direction]);
         cameFrom[currentSquare.borders[direction].id] = currentId;
-        currentSquare.borders[direction].pathOption = true;
+        // currentSquare.borders[direction].pathOption = true;
       }
     }
     // console.log(frontier.empty())
@@ -161,8 +161,8 @@ export const findPath = (bossHome, office, layout) => {
   while (current !== bossHome.id) {
     // console.log("Path back-tracing iteration: ", current);
     pathStack.push(current);
-    layout[current - 1]["finalPath"] = true;
-    console.log(layout[current - 1]);
+    // layout[current - 1]["finalPath"] = true;
+    // console.log(layout[current - 1]);
     current = cameFrom[current];
   }
 

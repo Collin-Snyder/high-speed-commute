@@ -12,7 +12,7 @@ const GridSquare = ({
 }) => {
   let typeClass = "";
   let keySquareClass = "";
-  let pathClass = "";
+  // let pathClass = "";
   let classList;
 
   typeClass =
@@ -36,15 +36,15 @@ const GridSquare = ({
       keySquareClass = "";
   }
 
-  if (squareInfo.pathOption || squareInfo.finalPath) {
-    if (squareInfo.finalPath) {
-      pathClass = " finalPath";
-    } else {
-      pathClass = " pathOption";
-    }
-  }
+  // if (squareInfo.pathOption || squareInfo.finalPath) {
+  //   if (squareInfo.finalPath) {
+  //     pathClass = " finalPath";
+  //   } else {
+  //     pathClass = " pathOption";
+  //   }
+  // }
 
-  classList = typeClass + keySquareClass + pathClass;
+  classList = typeClass + keySquareClass;
 
   return (
     <div
