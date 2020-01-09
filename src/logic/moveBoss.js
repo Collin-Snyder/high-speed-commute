@@ -97,15 +97,7 @@ export const getDirectionQueue = (currentSquare, targetSquare, prevMove) => {
     }
   }
 
-  // directionQueue[3] = directions[backtrack];
-  // delete directions[backtrack];
   directionQueue[2] = Object.keys(directions)[0];
-
-  // if (prevMove === X.standby) {
-  //   directionQueue.push(Y.standby);
-  // } else if (prevMove === Y.standby) {
-  //   directionQueue.push(X.standby);
-  // }
 
   return directionQueue;
 

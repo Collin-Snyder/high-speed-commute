@@ -47,7 +47,22 @@ const createSquares = (width, height) => {
     558: true,
     598: true,
     638: true,
-    678: true
+    678: true,
+    277: true,
+    278: true,
+    279: true,
+    320: true,
+    399: true,
+    480: true,
+    553: true,
+    554: true,
+    555: true,
+    556: true,
+    596: true,
+    636: true,
+    635: true,
+    634: true,
+    633: true
   };
 
   let squaresWithBlocks = addBlocks(squaresWithBorders, blockList);

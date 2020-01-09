@@ -34,7 +34,7 @@ class App extends React.Component {
     let layout = createSquares(40, 25);
     this.interval = setInterval(() => {
       this.moveBossCar();
-    }, 300);
+    }, 100);
 
     // setTimeout(() => {
     //   clearInterval(this.interval)
