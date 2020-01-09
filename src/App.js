@@ -1,7 +1,9 @@
 import React from "react";
 import "./styles/App.css";
 import GameModule from "./components/GameModule";
+import DesignModule from "./layoutDesigner/DesignModule";
 import createSquares from "./logic/createSquares";
+import createDesignBoard from "./logic/createDesignBoard";
 import { getDirectionQueue } from "./logic/moveBoss";
 
 class App extends React.Component {
@@ -22,6 +24,7 @@ class App extends React.Component {
       layout: [],
       designLayout: []
     };
+
     this.handleKeyDown = this.handleKeyDown.bind(this);
     this.movePlayerCar = this.movePlayerCar.bind(this);
     this.startBoss = this.startBoss.bind(this);
@@ -29,6 +32,7 @@ class App extends React.Component {
     this.resetPlayers = this.resetPlayers.bind(this);
     this.enterDesignMode = this.enterDesignMode.bind(this);
     this.enterPlayMode = this.enterPlayMode.bind(this);
+    this.loadDesign = this.loadDesign.bind(this);
   }
 
   componentDidMount() {
@@ -88,7 +92,7 @@ class App extends React.Component {
     let { playerCar, layout } = this.state;
     let target = layout[playerCar - 1].borders[direction];
 
-    if (target && target.type !== "block") {
+    if (target && target.type === "street") {
       playerCar = target.id;
     }
 
@@ -116,7 +120,7 @@ class App extends React.Component {
       if (direction) {
         let target = layout[bossCar - 1].borders[direction];
 
-        if (target && target.type !== "block") {
+        if (target && target.type === "street") {
           bossCar = target.id;
           bossCarPrevMove = direction;
           bossCarPrevQueue = directionQueue;
@@ -128,18 +132,24 @@ class App extends React.Component {
     this.setState({ bossCar, bossCarPrevMove }, () => {
       if (this.state.bossCar === this.state.office) {
         clearInterval(this.interval);
-        this.setState({status: "idle"})
+        this.setState({ status: "idle" });
       }
     });
   }
 
   enterDesignMode() {
-    let designLayout = createSquares(40, 25);
+    let designLayout = createDesignBoard(40, 25);
     this.setState({ mode: "design", designLayout });
   }
 
   enterPlayMode() {
     this.setState({ mode: "play" });
+  }
+
+  loadDesign(newLayout) {
+    let { layout } = this.state;
+    layout = newLayout.slice();
+    this.setState({ layout });
   }
 
   render() {
@@ -160,6 +170,14 @@ class App extends React.Component {
           enterDesignMode={this.enterDesignMode}
           enterPlayMode={this.enterPlayMode}
         />
+        <div className="designModuleContainer">
+          <DesignModule
+            designLayout={this.state.designLayout}
+            display={this.state.mode === "design" ? "flex" : "none"}
+            enterPlayMode={this.enterPlayMode}
+            loadDesign={this.loadDesign}
+          />
+        </div>
       </div>
     );
   }

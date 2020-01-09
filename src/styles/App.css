@@ -2,8 +2,8 @@
   box-sizing: border-box;
 }
 
-p {
-  margin: none;
+p, h4 {
+  margin: 0;
 }
 
 .App {
@@ -45,14 +45,21 @@ p {
   }
 }
 
-.gameModule {
+.gameModule, .designModule {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 100vw;
   height: 100vh;
+}
+
+.gameModule {
   border: 2px solid red;
+}
+
+.designModule {
+  border: 2px solid blue;
 }
 
 .playingField, .levelDesigner {
@@ -75,8 +82,16 @@ p {
   box-shadow: 1px 1px inset;
 }
 
-.block {
+.gridSquare.block {
   background-color: #1B1B1B;
+}
+
+.designSquare.block {
+  background-color: #81C76D;
+}
+
+.designSquare.street {
+  background-color: #343434;
 }
 
 .playerHome {
@@ -112,5 +127,19 @@ p {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+
+.designTools {
+  display: flex;
+  flex-direction: column;
+}
+
+.designToolSelector {
+  display: flex;
+}
+
+.designToolSelector label {
+  display: inline-block;
+  margin: 20px 30px;
 }
 

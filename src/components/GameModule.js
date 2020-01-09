@@ -16,15 +16,12 @@ const GameModule = ({
   enterDesignMode,
   enterPlayMode
 }) => {
-
+  let display = mode === "play" ? "flex" : "none";
   let startDisplay = status === "idle" ? "inline-block" : "none";
-  let designToolDisplay = mode === "design" ? "flex" : "none";
 
   return (
-    <div className="gameModule">
+    <div className="gameModule" style={{ display }}>
       <h3>Game Module</h3>
-      <div className="designTools" style={{display: designToolDisplay}}>
-      </div>
       <PlayingField
         mode={mode}
         playerCar={playerCar}
@@ -37,8 +34,10 @@ const GameModule = ({
         resetPlayers={resetPlayers}
       />
       {mode === "play" ? (
-        <div className="buttons" >
-          <button onClick={startBoss} style={{display: startDisplay}}>Start</button>
+        <div className="buttons">
+          <button onClick={startBoss} style={{ display: startDisplay }}>
+            Start
+          </button>
           <button onClick={enterDesignMode}>Switch to Design Mode</button>
         </div>
       ) : (
