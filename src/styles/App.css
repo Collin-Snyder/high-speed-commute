@@ -139,3 +139,11 @@ p, h4 {
   margin: 20px 30px;
 }
 
+.pathOption {
+  background-color: orange;
+}
+
+.finalPath {
+  background-color: yellow;
+}
+

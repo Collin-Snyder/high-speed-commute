@@ -112,3 +112,88 @@ export const getDirectionQueue = (currentSquare, targetSquare, prevMove) => {
   //return a direction queue rather than one direction
   //
 };
+
+//create Queue structure
+//turn Frontier into an instance of Queue
+//
+
+export const findPath = (bossHome, office, layout) => {
+  let frontier = new PathQueue();
+  // let has = Object.hasOwnProperty;
+  let cameFrom = {};
+  let pathStack = [];
+
+  //start the queue with the starting square (bossHome)
+  frontier.put(bossHome);
+  //assign bossHome's "cameFrom" property to null
+  cameFrom[bossHome.id] = null;
+
+  //run a loop to expand the frontier in every direction on each iteration and break if office is reached
+  while (frontier.empty() === false) {
+    let currentId = frontier.get();
+    let currentSquare = layout[currentId - 1];
+    // console.log(currentId);
+    // console.log(currentSquare);       
+
+    if (currentId === office.id) {
+      // console.log("Found target!: ", currentId);
+      break;
+    }
+
+    for (let direction in currentSquare.borders) {
+      // console.log("Inside the for loop")
+      if (
+        currentSquare.borders[direction] &&
+        currentSquare.borders[direction].type === "street" &&
+        !cameFrom.hasOwnProperty(currentSquare.borders[direction].id)
+      ) {
+        // console.log("Adding ", currentSquare.borders[direction], " to frontier")
+        frontier.put(currentSquare.borders[direction]);
+        cameFrom[currentSquare.borders[direction].id] = currentId;
+        currentSquare.borders[direction].pathOption = true;
+      }
+    }
+    // console.log(frontier.empty())
+    
+  }
+  let current = office.id;
+  //loop backwards through the path taken to reach the office and add to stack
+  while (current !== bossHome.id) {
+    // console.log("Path back-tracing iteration: ", current);
+    pathStack.push(current);
+    layout[current - 1]["finalPath"] = true;
+    console.log(layout[current - 1]);
+    current = cameFrom[current];
+  }
+
+  return { pathStack, layout };
+};
+
+class PathQueue {
+  constructor() {
+    this.front = 0;
+    this.end = -1;
+    this.storage = {};
+  }
+
+  put(square) {
+    this.end++;
+    this.storage[this.end] = square.id;
+  }
+
+  get() {
+    if (this.empty()) return null;
+
+    let oldFront = this.front;
+    let output = this.storage[oldFront];
+
+    this.front++;
+    delete this.storage[oldFront];
+
+    return output;
+  }
+
+  empty() {
+    return this.front > this.end;
+  }
+}

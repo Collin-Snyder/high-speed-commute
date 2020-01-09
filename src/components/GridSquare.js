@@ -2,28 +2,62 @@ import React from "react";
 import PlayerCar from "./PlayerCar";
 import BossCar from "./BossCar";
 
-const GridSquare = ({ squareInfo, playerCar, playerHome, bossCar, bossHome, office}) => {
-  let special = "";
+const GridSquare = ({
+  squareInfo,
+  playerCar,
+  playerHome,
+  bossCar,
+  bossHome,
+  office
+}) => {
+  let typeClass = "";
+  let keySquareClass = "";
+  let pathClass = "";
+  let classList;
 
-  special = squareInfo.type === "block" ? " block" : squareInfo.type === "street" ? " street" : "";
+  typeClass =
+    squareInfo.type === "block"
+      ? " block"
+      : squareInfo.type === "street"
+      ? " street"
+      : "";
 
   switch (squareInfo.id) {
     case playerHome:
-      special = special + " playerHome";
+      keySquareClass = " playerHome";
       break;
     case bossHome:
-      special = special + " bossHome";
+      keySquareClass = " bossHome";
       break;
     case office:
-      special = special + " office";
+      keySquareClass = " office";
       break;
     default:
-      special = special + "";
+      keySquareClass = "";
   }
 
+  if (squareInfo.pathOption || squareInfo.finalPath) {
+    if (squareInfo.finalPath) {
+      pathClass = " finalPath";
+    } else {
+      pathClass = " pathOption";
+    }
+  }
+
+  classList = typeClass + keySquareClass + pathClass;
+
   return (
-    <div className={`gridSquare${special}`} id={squareInfo.id}>
-      {playerCar === squareInfo.id ? <PlayerCar /> : bossCar === squareInfo.id ? <BossCar /> : ""}
+    <div
+      className={`gridSquare${classList}`}
+      id={squareInfo.id}
+    >
+      {playerCar === squareInfo.id ? (
+        <PlayerCar />
+      ) : bossCar === squareInfo.id ? (
+        <BossCar />
+      ) : (
+        squareInfo.id
+      )}
     </div>
   );
 };

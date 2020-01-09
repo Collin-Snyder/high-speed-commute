@@ -4,7 +4,7 @@ import GameModule from "./components/GameModule";
 import DesignModule from "./layoutDesigner/DesignModule";
 import createSquares from "./logic/createSquares";
 import createDesignBoard from "./logic/createDesignBoard";
-import { getDirectionQueue } from "./logic/moveBoss";
+import { getDirectionQueue, findPath } from "./logic/moveBoss";
 
 class App extends React.Component {
   constructor(props) {
@@ -28,6 +28,7 @@ class App extends React.Component {
     this.handleKeyDown = this.handleKeyDown.bind(this);
     this.movePlayerCar = this.movePlayerCar.bind(this);
     this.startBoss = this.startBoss.bind(this);
+    this.findBossPath = this.findBossPath.bind(this);
     this.moveBossCar = this.moveBossCar.bind(this);
     this.resetPlayers = this.resetPlayers.bind(this);
     this.enterDesignMode = this.enterDesignMode.bind(this);
@@ -73,9 +74,10 @@ class App extends React.Component {
 
   startBoss() {
     this.setState({ status: "active" }, () => {
-      this.interval = setInterval(() => {
-        this.moveBossCar();
-      }, 100);
+      // this.interval = setInterval(() => {
+      //   this.moveBossCar();
+      // }, 100);
+      let pathStack = this.findBossPath();
     });
   }
 
@@ -99,42 +101,53 @@ class App extends React.Component {
     this.setState({ playerCar });
   }
 
+  findBossPath() {
+    let {bossHome, office, layout} = this.state;
+
+    let pathInfo = findPath(layout[bossHome - 1], layout[office - 1], layout);
+    console.log(pathInfo.layout[723]);
+    console.log(pathInfo.pathStack.length);
+
+    this.setState({layout: pathInfo.layout});
+    return pathInfo.pathStack;
+  }
+
   moveBossCar() {
-    let {
-      bossCar,
-      bossCarPrevMove,
-      bossCarPrevQueue,
-      office,
-      layout
-    } = this.state;
-    let directionQueue = getDirectionQueue(
-      layout[bossCar - 1],
-      layout[office - 1],
-      bossCarPrevMove,
-      bossCarPrevQueue
-    );
-    // console.log(`Direction queue at square: ${bossCar}`, directionQueue);
+    // let {
+    //   bossCar,
+    //   bossCarPrevMove,
+    //   bossCarPrevQueue,
+    //   office,
+    //   layout
+    // } = this.state;
+    // let directionQueue = getDirectionQueue(
+    //   layout[bossCar - 1],
+    //   layout[office - 1],
+    //   bossCarPrevMove,
+    //   bossCarPrevQueue
+    // );
+    // // console.log(`Direction queue at square: ${bossCar}`, directionQueue);
 
-    while (directionQueue.length) {
-      let direction = directionQueue.shift();
-      if (direction) {
-        let target = layout[bossCar - 1].borders[direction];
+    // while (directionQueue.length) {
+    //   let direction = directionQueue.shift();
+    //   if (direction) {
+    //     let target = layout[bossCar - 1].borders[direction];
 
-        if (target && target.type === "street") {
-          bossCar = target.id;
-          bossCarPrevMove = direction;
-          bossCarPrevQueue = directionQueue;
-          break;
-        }
-      }
-    }
+    //     if (target && target.type === "street") {
+    //       bossCar = target.id;
+    //       bossCarPrevMove = direction;
+    //       bossCarPrevQueue = directionQueue;
+    //       break;
+    //     }
+    //   }
+    // }
 
-    this.setState({ bossCar, bossCarPrevMove }, () => {
-      if (this.state.bossCar === this.state.office) {
-        clearInterval(this.interval);
-        this.setState({ status: "idle" });
-      }
-    });
+    // this.setState({ bossCar, bossCarPrevMove }, () => {
+    //   if (this.state.bossCar === this.state.office) {
+    //     clearInterval(this.interval);
+    //     this.setState({ status: "idle" });
+    //   }
+    // });
   }
 
   enterDesignMode() {
