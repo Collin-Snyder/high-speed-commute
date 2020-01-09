@@ -75,6 +75,10 @@ p {
   box-shadow: 1px 1px inset;
 }
 
+.block {
+  background-color: brown;
+}
+
 .playerHome {
   background-color: rgba(0, 0, 255, 0.4);
 }

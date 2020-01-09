@@ -5,6 +5,8 @@ import BossCar from "./BossCar";
 const GridSquare = ({ squareInfo, playerCar, playerHome, bossCar, bossHome, office}) => {
   let special = "";
 
+  special = squareInfo.type === "block" ? " block" : "";
+
   switch (squareInfo.id) {
     case playerHome:
       special = special + " playerHome";
@@ -16,12 +18,12 @@ const GridSquare = ({ squareInfo, playerCar, playerHome, bossCar, bossHome, offi
       special = special + " office";
       break;
     default:
-      special = "";
+      special = special + "";
   }
 
   return (
     <div className={`gridSquare${special}`} id={squareInfo.id}>
-      {playerCar === squareInfo.id ? <PlayerCar /> : bossCar === squareInfo.id ? <BossCar /> : ""}
+      {playerCar === squareInfo.id ? <PlayerCar /> : bossCar === squareInfo.id ? <BossCar /> : squareInfo.id}
     </div>
   );
 };

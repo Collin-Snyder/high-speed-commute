@@ -1,54 +1,122 @@
-//check if office column is >, <, or = to current column
-//by how much? store X as difference
-//X: {diff: 40}
-//if office col is greater than current col, store direction as "right" (X: {diff: 40, direction: "right"})
-//else store direction as "left" (X: {diff: 40, direction: "left"})
-//check if office row is >, <, or = to current row
-//by how much? store Y as difference
-//Y: {diff: 5}
-//if office row is greater than current row, store direction as "down" (Y: {diff: 5, direction: "down"})
-//else store direction as "up" (Y: {diff: 5, direction: "up"})
+//1. I want to move toward my target starting with the direction in which I am furthest from it.
+//2. If  two different directions will both move me equally toward my target, OR if I cannot move in the most optimal direction, I should continue moving the same direction as my previous move.
+//3. If I cannot move in the same direction as my previous move, I should move perpendicular to my last move, away from the target.
+//4. If I cannot move perpendicular to my last move, I should backtrack in the opposite direction as my last move until a better option opens up.
 
-//check X.diff vs Y.diff
-//if X.diff > Y.diff
-//move X.direction
-//if X.diff < Y.diff
-//move Y.direction
-//if X.diff = Y.diff
-//move X.direction
-
-export const determineDirection = (currentSquare, targetSquare) => {
-    console.log("Inside determineDirection");
+export const getDirectionQueue = (currentSquare, targetSquare, prevMove) => {
   let X = {};
   let Y = {};
+  let backtrack =
+    prevMove === "up"
+      ? "down"
+      : prevMove === "down"
+      ? "up"
+      : prevMove === "right"
+      ? "left"
+      : "right";
+  let directionQueue = [];
+
+  let directions = { up: "up", down: "down", right: "right", left: "left" };
+
+  directionQueue[3] = backtrack;
+  delete directions[backtrack];
 
   if (targetSquare.column > currentSquare.column) {
     X.diff = targetSquare.column - currentSquare.column;
-    X.direction = "right";
+    X.optimal = "right";
+    X.standby = "left";
   } else if (targetSquare.column < currentSquare.column) {
     X.diff = currentSquare.column - targetSquare.column;
-    X.direction = "left";
+    X.optimal = "left";
+    X.standby = "right";
   } else {
     X.diff = 0;
-    X.direction = null;
+    X.optimal = directions.hasOwnProperty("left") ? "left" : "right";
+    X.standby = backtrack;
   }
 
   if (targetSquare.row > currentSquare.row) {
     Y.diff = targetSquare.row - currentSquare.row;
-    Y.direction = "down";
+    Y.optimal = "down";
+    Y.standby = "up";
   } else if (targetSquare.row < currentSquare.row) {
     Y.diff = currentSquare.row - targetSquare.row;
-    Y.direction = "up";
+    Y.optimal = "up";
+    Y.standby = "down";
   } else {
     Y.diff = 0;
-    Y.direction = null;
+    Y.optimal = backtrack === "up" ? "down" : "up";
+    Y.standby = Y.optimal === "up" ? "down" : "up";
   }
 
+  console.log("X: ", X);
+  console.log("Y: ", Y)
+
   if (X.diff > Y.diff) {
-    return X.direction;
+    if (X.optimal !== backtrack) {
+      directionQueue[0] = X.optimal;
+      delete directions[X.optimal];
+    } else {
+      directionQueue[0] = X.standby;
+      delete directions[X.standby];
+    }
+
+    if (X.optimal === prevMove) {
+      directionQueue[1] = Y.optimal;
+      delete directions[Y.optimal];
+    } else {
+      directionQueue[1] = prevMove;
+      delete directions[prevMove];
+    }
   } else if (X.diff < Y.diff) {
-    return Y.direction;
-  } else {
-    return X.direction || Y.direction;
+    if (Y.optimal !== backtrack) {
+      directionQueue[0] = Y.optimal;
+      delete directions[Y.optimal];
+    } else {
+      directionQueue[0] = Y.standby;
+      delete directions[Y.standby];
+    }
+
+    if (Y.optimal === prevMove) {
+      directionQueue[1] = X.optimal;
+      delete directions[X.optimal];
+    } else {
+      directionQueue[1] = prevMove;
+      delete directions[prevMove];
+    }
+  } else if (X.diff === Y.diff) {
+    directionQueue[0] = prevMove;
+    delete directions[prevMove];
+
+    if (prevMove === X.optimal) {
+      directionQueue[1] = Y.optimal;
+      delete directions[Y.optimal];
+    } else {
+      directionQueue[1] = X.optimal;
+      delete directions[X.optimal];
+    }
   }
+
+  // directionQueue[3] = directions[backtrack];
+  // delete directions[backtrack];
+  directionQueue[2] = Object.keys(directions)[0];
+
+  // if (prevMove === X.standby) {
+  //   directionQueue.push(Y.standby);
+  // } else if (prevMove === Y.standby) {
+  //   directionQueue.push(X.standby);
+  // }
+
+  return directionQueue;
+
+  if (X.diff > Y.diff) {
+    return X.optimal;
+  } else if (X.diff < Y.diff) {
+    return Y.optimal;
+  } else {
+    return X.optimal || Y.optimal;
+  }
+
+  //return a direction queue rather than one direction
+  //
 };

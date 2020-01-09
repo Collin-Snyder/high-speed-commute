@@ -2,7 +2,7 @@ import React from "react";
 import "./styles/App.css";
 import GameModule from "./components/GameModule";
 import createSquares from "./logic/createSquares";
-import { determineDirection } from "./logic/moveBoss";
+import { getDirectionQueue } from "./logic/moveBoss";
 
 class App extends React.Component {
   constructor(props) {
@@ -16,6 +16,8 @@ class App extends React.Component {
       office: 520,
       playerCar: 281,
       bossCar: 681,
+      bossCarPrevMove: null,
+      bossCarPrevQueue: [],
       layout: [],
       designLayout: []
     };
@@ -32,20 +34,18 @@ class App extends React.Component {
     let layout = createSquares(40, 25);
     this.interval = setInterval(() => {
       this.moveBossCar();
-    }, 100);
-    setTimeout(() => {
-      this.setState({ office: 3 });
-    }, 3000);
-    setTimeout(() => {
-      this.setState({ office: 987 });
-    }, 6000);
+    }, 300);
+
+    // setTimeout(() => {
+    //   clearInterval(this.interval)
+    // }, 8000)
+    // setTimeout(() => {
+    //   this.setState({ office: 3 });
+    // }, 3000);
+    // setTimeout(() => {
+    //   this.setState({ office: 987 });
+    // }, 6000);
     this.setState({ layout });
-    // this.setState({ layout }, () => {
-    //   while (this.state.bossCar !== this.state.office) {
-    //     setTimeout(() => {
-    //     this.moveBossCar();
-    //   }, 1000);}
-    // });
   }
 
   componentWillUnmount() {
@@ -53,7 +53,6 @@ class App extends React.Component {
   }
 
   handleKeyDown(e) {
-    console.log("Keydown Event Triggered: ", e.keyCode);
     if (
       this.state.playerCar !== this.state.office &&
       this.state.bossCar !== this.state.office
@@ -91,19 +90,30 @@ class App extends React.Component {
   }
 
   moveBossCar() {
-    console.log("Inside moveBossCar");
-    let { bossCar, office, layout } = this.state;
-    let direction = determineDirection(layout[bossCar - 1], layout[office - 1]);
 
-    if (direction) {
-      let target = layout[bossCar - 1].borders[direction];
+    let { bossCar, bossCarPrevMove, bossCarPrevQueue, office, layout } = this.state;
+    let directionQueue = getDirectionQueue(layout[bossCar - 1], layout[office - 1], bossCarPrevMove, bossCarPrevQueue);
+    console.log(`Direction queue at square: ${bossCar}`, directionQueue);
 
-      if (target) {
-        bossCar = target.id;
+    while (directionQueue.length) {
+      let direction = directionQueue.shift();
+      if (direction) {
+        let target = layout[bossCar - 1].borders[direction];
+  
+        if (target && target.type !== "block") {
+          bossCar = target.id;
+          bossCarPrevMove = direction;
+          bossCarPrevQueue = directionQueue;
+          break;
+        }
       }
     }
 
-    this.setState({ bossCar });
+    this.setState({ bossCar, bossCarPrevMove }, () => {
+      if (this.state.bossCar === this.state.office) {
+        clearInterval(this.interval);
+      }
+    });
   }
 
   enterDesignMode() {
