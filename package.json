@@ -1,0 +1,24 @@
+{
+  "name": "mvp",
+  "version": "1.0.0",
+  "description": "High Speed Commute is an action-packed race to work against your boss. Get there first so he doesn't know you're late!",
+  "main": "./server/index.js",
+  "scripts": {
+    "start": "nodemon ./server/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Collin-Snyder/high-speed-commute.git"
+  },
+  "author": "Collin Snyder",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Collin-Snyder/high-speed-commute/issues"
+  },
+  "homepage": "https://github.com/Collin-Snyder/high-speed-commute#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "nodemon": "^2.0.2"
+  }
+}

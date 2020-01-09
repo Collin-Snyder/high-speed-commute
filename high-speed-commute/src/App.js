@@ -4,7 +4,8 @@ import GameModule from "./components/GameModule";
 import DesignModule from "./layoutDesigner/DesignModule";
 import createSquares from "./logic/createSquares";
 import createDesignBoard from "./logic/createDesignBoard";
-import { getDirectionQueue, findPath } from "./logic/moveBoss";
+import { findPath } from "./logic/moveBoss";
+import { convertLayoutToJSONString } from "./levelHandling/JSONconverters";
 
 class App extends React.Component {
   constructor(props) {
@@ -19,8 +20,6 @@ class App extends React.Component {
       office: 520,
       playerCar: 281,
       bossCar: 681,
-      bossCarPrevMove: null,
-      bossCarPrevQueue: [],
       layout: [],
       designLayout: []
     };
@@ -39,16 +38,9 @@ class App extends React.Component {
   componentDidMount() {
     document.addEventListener("keydown", this.handleKeyDown);
     let layout = createSquares(40, 25);
-    // setTimeout(() => {
-    //   clearInterval(this.interval)
-    // }, 8000)
-    // setTimeout(() => {
-    //   this.setState({ office: 3 });
-    // }, 3000);
-    // setTimeout(() => {
-    //   this.setState({ office: 987 });
-    // }, 6000);
-    this.setState({ layout });
+    this.setState({ layout }, () => {
+      console.log(convertLayoutToJSONString(this.state.layout));
+    });
   }
 
   componentWillUnmount() {
@@ -80,7 +72,7 @@ class App extends React.Component {
         if (nextMove) {
           this.moveBossCar(nextMove);
         }
-      }, 100);
+      }, 500);
     });
   }
 
