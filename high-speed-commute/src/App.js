@@ -5,10 +5,8 @@ import DesignModule from "./layoutDesigner/DesignModule";
 import createSquares from "./logic/createSquares";
 import createDesignBoard from "./logic/createDesignBoard";
 import { findPath } from "./logic/moveBoss";
-import {
-  convertLayoutToJSONString,
-  parseLayout
-} from "./levelHandling/JSONconverters";
+import { formatLayout } from "./levelHandling/JSONconverters";
+import axios from "axios";
 
 class App extends React.Component {
   constructor(props) {
@@ -36,12 +34,14 @@ class App extends React.Component {
     this.enterDesignMode = this.enterDesignMode.bind(this);
     this.enterPlayMode = this.enterPlayMode.bind(this);
     this.loadDesign = this.loadDesign.bind(this);
+    this.loadLevel = this.loadLevel.bind(this);
   }
 
   componentDidMount() {
     document.addEventListener("keydown", this.handleKeyDown);
-    let layout = createSquares(40, 25);
-    this.setState({ layout });
+    // let layout = createSquares(40, 25);
+    this.loadLevel(13);
+    // this.setState({ layout });
   }
 
   componentWillUnmount() {
@@ -66,14 +66,12 @@ class App extends React.Component {
   }
 
   startBoss() {
+    let pathStack = this.findBossPath();
     this.setState({ status: "active" }, () => {
-      let pathStack = this.findBossPath();
       this.interval = setInterval(() => {
         let nextMove = pathStack.pop();
-        if (nextMove) {
-          this.moveBossCar(nextMove);
-        }
-      }, 500);
+        if (nextMove) this.moveBossCar(nextMove);
+      }, 300);
     });
   }
 
@@ -171,7 +169,37 @@ class App extends React.Component {
     this.setState({ layout, playerHome, bossHome, office, playerCar, bossCar });
   }
 
- 
+  loadLevel(levelId) {
+    axios
+      .get(`/api/levels/${levelId}`)
+      .then(data => {
+        let levelInfo = data.data.rows[0];
+        let levelName = levelInfo.level_name;
+        let boardHeight = levelInfo.board_height;
+        let boardWidth = levelInfo.board_width;
+        let playerHome = levelInfo.player_home;
+        let playerCar = playerHome;
+        let bossHome = levelInfo.boss_home;
+        let bossCar = bossHome;
+        let office = levelInfo.office;
+        let unformattedLayout = levelInfo.layout;
+
+        let layout = formatLayout(unformattedLayout);
+
+        this.setState({
+          levelName,
+          boardHeight,
+          boardWidth,
+          playerHome,
+          playerCar,
+          bossHome,
+          bossCar,
+          office,
+          layout
+        });
+      })
+      .catch(err => console.error(err));
+  }
 
   render() {
     return (

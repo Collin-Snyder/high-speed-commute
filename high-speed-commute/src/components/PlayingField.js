@@ -9,7 +9,6 @@ const PlayingField = ({
   bossHome,
   office,
   layout,
-  designLayout,
   resetPlayers
 }) => {
   if (playerCar === office) {

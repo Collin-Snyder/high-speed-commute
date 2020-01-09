@@ -2,7 +2,7 @@ import React from "react";
 import axios from "axios";
 import DesignField from "./DesignField";
 import DesignToolbox from "./DesignToolbox";
-import { convertLayoutToJSONString } from "../levelHandling/JSONconverters";
+import { convertLayoutToJSONString, formatLayout } from "../levelHandling/JSONconverters";
 
 export default class DesignModule extends React.Component {
   constructor(props) {
@@ -26,6 +26,7 @@ export default class DesignModule extends React.Component {
     this.clearBoard = this.clearBoard.bind(this);
     this.sendDesignToGame = this.sendDesignToGame.bind(this);
     this.saveLevelToDatabase = this.saveLevelToDatabase.bind(this);
+    this.loadSavedDesign = this.loadSavedDesign.bind(this);
   }
 
   componentDidUpdate(prevProps) {
@@ -116,6 +117,38 @@ export default class DesignModule extends React.Component {
     );
   }
 
+  loadSavedDesign(levelId) {
+    axios
+      .get(`/api/levels/${levelId}`)
+      .then(data => {
+        let levelInfo = data.data.rows[0];
+        let levelName = levelInfo.level_name;
+        let boardHeight = levelInfo.board_height;
+        let boardWidth = levelInfo.board_width;
+        let playerHome = levelInfo.player_home;
+        let playerCar = playerHome;
+        let bossHome = levelInfo.boss_home;
+        let bossCar = bossHome;
+        let office = levelInfo.office;
+        let unformattedLayout = levelInfo.layout;
+
+        let designLayout = formatLayout(unformattedLayout);
+
+        this.setState({
+          levelName,
+          boardHeight,
+          boardWidth,
+          playerHome,
+          playerCar,
+          bossHome,
+          bossCar,
+          office,
+          designLayout
+        });
+      })
+      .catch(err => console.error(err));
+  }
+
   saveLevelToDatabase() {
     let {
       levelName,
@@ -138,7 +171,7 @@ export default class DesignModule extends React.Component {
       layout: convertLayoutToJSONString(designLayout)
     };
 
-    console.log(levelInfo.layout);
+    console.log("Layout inside saveLevel function in Design Module: ", levelInfo.layout);
 
     axios
       .post("/api/levels", levelInfo)
@@ -160,6 +193,7 @@ export default class DesignModule extends React.Component {
           <DesignToolbox
             handleToolSelection={this.handleToolSelection}
             handleBrushSelection={this.handleBrushSelection}
+            loadSavedDesign={this.loadSavedDesign}
             selectedDesignTool={this.state.selectedDesignTool}
             brushSize={this.state.brushSize}
           />

@@ -56,7 +56,7 @@ const GridSquare = ({
       ) : bossCar === squareInfo.id ? (
         <BossCar />
       ) : (
-        squareInfo.id
+        ""
       )}
     </div>
   );

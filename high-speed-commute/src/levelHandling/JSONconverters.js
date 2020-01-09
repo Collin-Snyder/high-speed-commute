@@ -12,8 +12,7 @@ export const convertLayoutToJSONString = layout => {
   return JSON.stringify(convertibleLayout);
 };
 
-export const parseLayout = layoutStr => {
-  let parsedLayout = JSON.parse(layoutStr);
+export const formatLayout = parsedLayout => {
   let formattedLayout = parsedLayout.map((square, i, parsedLayout) => {
     for (let direction in square.borders) {
       if (square.borders[direction]) {

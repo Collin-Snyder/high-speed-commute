@@ -25,7 +25,7 @@ const DesignSquare = ({ playerHome, bossHome, office, squareInfo, addSquareToDes
           id={squareInfo.id}
           onClick={addSquareToDesign}
         >
-          {/* {squareInfo.id} */}
+          {squareInfo.id}
         </div>
       );
   };

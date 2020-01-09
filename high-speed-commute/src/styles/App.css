@@ -79,11 +79,24 @@ p, h4 {
   width: 25px;
   height: 25px;
   font-size: 10px;
+  /* box-shadow: 1px 1px inset; */
+}
+
+.gridSquare {
+  cursor: default;
+}
+
+.designSquare {
+  cursor: pointer;
   box-shadow: 1px 1px inset;
 }
 
-.block {
+.gridSquare.block {
   background-color: #81C76D;
+}
+
+.designSquare.block {
+  background-color: lightgray;
 }
 
 .street {
@@ -126,6 +139,11 @@ p, h4 {
 }
 
 .designTools {
+  display: flex;
+  flex-direction: column;
+}
+
+.designToolbox {
   display: flex;
   flex-direction: column;
 }
