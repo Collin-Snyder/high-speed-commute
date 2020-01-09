@@ -5,7 +5,10 @@ import DesignModule from "./layoutDesigner/DesignModule";
 import createSquares from "./logic/createSquares";
 import createDesignBoard from "./logic/createDesignBoard";
 import { findPath } from "./logic/moveBoss";
-import { convertLayoutToJSONString, parseLayout } from "./levelHandling/JSONconverters";
+import {
+  convertLayoutToJSONString,
+  parseLayout
+} from "./levelHandling/JSONconverters";
 
 class App extends React.Component {
   constructor(props) {
@@ -38,12 +41,7 @@ class App extends React.Component {
   componentDidMount() {
     document.addEventListener("keydown", this.handleKeyDown);
     let layout = createSquares(40, 25);
-    this.setState({ layout }, () => {
-      let JSONlayout = convertLayoutToJSONString(this.state.layout);
-      console.log(JSONlayout);
-      let reformattedLayout = parseLayout(JSONlayout);
-      console.log(reformattedLayout);
-    });
+    this.setState({ layout });
   }
 
   componentWillUnmount() {
