@@ -17,7 +17,7 @@ class App extends React.Component {
     this.state = {
       mode: "play",
       status: "idle",
-      level: 1,
+      levelName: 1,
       playerHome: 281,
       bossHome: 681,
       office: 520,
@@ -170,6 +170,8 @@ class App extends React.Component {
     office = newOffice;
     this.setState({ layout, playerHome, bossHome, office, playerCar, bossCar });
   }
+
+ 
 
   render() {
     return (

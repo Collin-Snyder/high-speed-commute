@@ -1,6 +1,8 @@
 import React from "react";
+import axios from "axios";
 import DesignField from "./DesignField";
 import DesignToolbox from "./DesignToolbox";
+import { convertLayoutToJSONString } from "../levelHandling/JSONconverters";
 
 export default class DesignModule extends React.Component {
   constructor(props) {
@@ -14,7 +16,8 @@ export default class DesignModule extends React.Component {
       designLayout: [],
       playerHome: 0,
       bossHome: 0,
-      office: 0
+      office: 0,
+      levelName: "My Level"
     };
 
     this.handleToolSelection = this.handleToolSelection.bind(this);
@@ -22,9 +25,10 @@ export default class DesignModule extends React.Component {
     this.addSquareToDesign = this.addSquareToDesign.bind(this);
     this.clearBoard = this.clearBoard.bind(this);
     this.sendDesignToGame = this.sendDesignToGame.bind(this);
+    this.saveLevelToDatabase = this.saveLevelToDatabase.bind(this);
   }
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(prevProps) {
     if (this.props.designLayout !== prevProps.designLayout) {
       this.setState({ designLayout: this.props.designLayout });
     }
@@ -47,10 +51,10 @@ export default class DesignModule extends React.Component {
 
       if (playerHome === squareId) {
         playerHome = 0;
-        designLayout[squareId - 1].type = "block"
+        designLayout[squareId - 1].type = "block";
       } else {
         playerHome = squareId;
-        designLayout[squareId - 1].type = "street"
+        designLayout[squareId - 1].type = "street";
       }
 
       this.setState({ playerHome, designLayout });
@@ -59,10 +63,10 @@ export default class DesignModule extends React.Component {
 
       if (bossHome === squareId) {
         bossHome = 0;
-        designLayout[squareId - 1].type = "block"
+        designLayout[squareId - 1].type = "block";
       } else {
         bossHome = squareId;
-        designLayout[squareId - 1].type = "street"
+        designLayout[squareId - 1].type = "street";
       }
 
       this.setState({ bossHome, designLayout });
@@ -71,10 +75,10 @@ export default class DesignModule extends React.Component {
 
       if (office === squareId) {
         office = 0;
-        designLayout[squareId - 1].type = "block"
+        designLayout[squareId - 1].type = "block";
       } else {
         office = squareId;
-        designLayout[squareId - 1].type = "street"
+        designLayout[squareId - 1].type = "street";
       }
 
       this.setState({ office, designLayout });
@@ -104,7 +108,47 @@ export default class DesignModule extends React.Component {
   clearBoard() {}
 
   sendDesignToGame() {
-    this.props.loadDesign(this.state.designLayout, this.state.playerHome, this.state.bossHome, this.state.office);
+    this.props.loadDesign(
+      this.state.designLayout,
+      this.state.playerHome,
+      this.state.bossHome,
+      this.state.office
+    );
+  }
+
+  saveLevelToDatabase() {
+    let {
+      levelName,
+      boardHeight,
+      boardWidth,
+      playerHome,
+      bossHome,
+      office,
+      designLayout
+    } = this.state;
+
+    let levelInfo = {
+      userId: 1,
+      levelName,
+      boardHeight,
+      boardWidth,
+      playerHome,
+      bossHome,
+      office,
+      layout: convertLayoutToJSONString(designLayout)
+    };
+
+    console.log(levelInfo.layout);
+
+    axios
+      .post("/api/levels", levelInfo)
+      .then(res => {
+        console.log("Successfully saved your level!", res);
+      })
+      .catch(err => {
+        console.log("There was a problem saving your level.");
+        console.error(err);
+      });
   }
 
   render() {
@@ -128,7 +172,8 @@ export default class DesignModule extends React.Component {
           addSquareToDesign={this.addSquareToDesign}
         />
         <div className="buttons">
-          <button onClick={this.sendDesignToGame} >Load Design in Game</button>
+          <button onClick={this.saveLevelToDatabase}>Save Level</button>
+          <button onClick={this.sendDesignToGame}>Play Now!</button>
           <button onClick={this.props.enterPlayMode}>
             Switch to Play Mode
           </button>
