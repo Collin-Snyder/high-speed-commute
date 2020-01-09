@@ -21,6 +21,7 @@ export default class DesignModule extends React.Component {
     this.handleBrushSelection = this.handleBrushSelection.bind(this);
     this.addSquareToDesign = this.addSquareToDesign.bind(this);
     this.clearBoard = this.clearBoard.bind(this);
+    this.sendDesignToGame = this.sendDesignToGame.bind(this);
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -42,35 +43,41 @@ export default class DesignModule extends React.Component {
     let squareId = Number(e.currentTarget.id);
 
     if (selectedDesignTool === "playerHome") {
-      let { playerHome } = this.state;
+      let { designLayout, playerHome } = this.state;
 
       if (playerHome === squareId) {
         playerHome = 0;
+        designLayout[squareId - 1].type = "block"
       } else {
         playerHome = squareId;
+        designLayout[squareId - 1].type = "street"
       }
 
-      this.setState({ playerHome });
+      this.setState({ playerHome, designLayout });
     } else if (selectedDesignTool === "bossHome") {
-      let { bossHome } = this.state;
+      let { designLayout, bossHome } = this.state;
 
       if (bossHome === squareId) {
         bossHome = 0;
+        designLayout[squareId - 1].type = "block"
       } else {
         bossHome = squareId;
+        designLayout[squareId - 1].type = "street"
       }
 
-      this.setState({ bossHome });
+      this.setState({ bossHome, designLayout });
     } else if (selectedDesignTool === "office") {
-      let { office } = this.state;
+      let { designLayout, office } = this.state;
 
       if (office === squareId) {
         office = 0;
+        designLayout[squareId - 1].type = "block"
       } else {
         office = squareId;
+        designLayout[squareId - 1].type = "street"
       }
 
-      this.setState({ office });
+      this.setState({ office, designLayout });
     } else if (selectedDesignTool === "block") {
       let { designLayout } = this.state;
 
@@ -97,7 +104,7 @@ export default class DesignModule extends React.Component {
   clearBoard() {}
 
   sendDesignToGame() {
-    this.props.loadGame(this.state.designLayout);
+    this.props.loadDesign(this.state.designLayout, this.state.playerHome, this.state.bossHome, this.state.office);
   }
 
   render() {
@@ -121,6 +128,7 @@ export default class DesignModule extends React.Component {
           addSquareToDesign={this.addSquareToDesign}
         />
         <div className="buttons">
+          <button onClick={this.sendDesignToGame} >Load Design in Game</button>
           <button onClick={this.props.enterPlayMode}>
             Switch to Play Mode
           </button>

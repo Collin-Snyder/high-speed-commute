@@ -82,15 +82,11 @@ p, h4 {
   box-shadow: 1px 1px inset;
 }
 
-.gridSquare.block {
-  background-color: #1B1B1B;
-}
-
-.designSquare.block {
+.block {
   background-color: #81C76D;
 }
 
-.designSquare.street {
+.street {
   background-color: #343434;
 }
 

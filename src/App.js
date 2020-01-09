@@ -146,10 +146,15 @@ class App extends React.Component {
     this.setState({ mode: "play" });
   }
 
-  loadDesign(newLayout) {
-    let { layout } = this.state;
+  loadDesign(newLayout, newPlayerHome, newBossHome, newOffice) {
+    let { layout, playerHome, bossHome, office, playerCar, bossCar } = this.state;
     layout = newLayout.slice();
-    this.setState({ layout });
+    playerHome = newPlayerHome;
+    playerCar = newPlayerHome;
+    bossHome = newBossHome;
+    bossCar = newBossHome;
+    office = newOffice;
+    this.setState({ layout, playerHome, bossHome, office, playerCar, bossCar });
   }
 
   render() {
