@@ -9,7 +9,7 @@ const DesignToolbox = ({
 }) => {
 
   const handleDesignLoading = () => {
-    loadSavedDesign(12);
+    loadSavedDesign(13);
   }
   return (
     <div className="designToolbox">

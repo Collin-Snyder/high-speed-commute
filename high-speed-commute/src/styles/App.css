@@ -119,16 +119,20 @@ p, h4 {
   display: inline-block;
   width: 25px;
   height: 25px;
-  border-radius: 13px;
+  /* border-radius: 13px; */
   z-index: 100;
 }
 
 .playerCar {
-  background-color:blue;
+  background-image:url("../assets/player_car.png");
+  background-repeat: no-repeat;
+  background-size: contain;
 }
 
 .bossCar {
-  background-color: red;
+  background-image:url("../assets/boss_car.png");
+  background-repeat: no-repeat;
+  background-size: contain;
 }
 
 .win, .loss {

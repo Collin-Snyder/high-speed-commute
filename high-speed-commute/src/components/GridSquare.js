@@ -12,6 +12,7 @@ const GridSquare = ({
 }) => {
   let typeClass = "";
   let keySquareClass = "";
+  let centerLineClass = ""
   // let pathClass = "";
   let classList;
 
@@ -34,6 +35,12 @@ const GridSquare = ({
       break;
     default:
       keySquareClass = "";
+  };
+
+  if (squareInfo.borders.left && squareInfo.borders.right && !squareInfo.borders.up && !squareInfo.borders.down) {
+    centerLineClass = " horizontalLine"
+  } else if (squareInfo.borders.up && squareInfo.borders.down && !squareInfo.borders.right && !squareInfo.borders.left) {
+    centerLineClass = " verticalLine"
   }
 
   // if (squareInfo.pathOption || squareInfo.finalPath) {
@@ -44,7 +51,7 @@ const GridSquare = ({
   //   }
   // }
 
-  classList = typeClass + keySquareClass;
+  classList = typeClass + keySquareClass + centerLineClass;
 
   return (
     <div
