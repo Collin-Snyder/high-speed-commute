@@ -18,10 +18,13 @@ const GameModule = ({
 }) => {
 
   let startDisplay = status === "idle" ? "inline-block" : "none";
-    
+  let designToolDisplay = mode === "design" ? "flex" : "none";
+
   return (
     <div className="gameModule">
       <h3>Game Module</h3>
+      <div className="designTools" style={{display: designToolDisplay}}>
+      </div>
       <PlayingField
         mode={mode}
         playerCar={playerCar}

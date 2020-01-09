@@ -88,7 +88,7 @@ class App extends React.Component {
     let { playerCar, layout } = this.state;
     let target = layout[playerCar - 1].borders[direction];
 
-    if (target) {
+    if (target && target.type !== "block") {
       playerCar = target.id;
     }
 
