@@ -5,7 +5,7 @@ import DesignModule from "./layoutDesigner/DesignModule";
 import createSquares from "./logic/createSquares";
 import createDesignBoard from "./logic/createDesignBoard";
 import { findPath } from "./logic/moveBoss";
-import { convertLayoutToJSONString, formatLayoutFromDb } from "./levelHandling/JSONconverters";
+import { convertLayoutToJSONString, parseLayout } from "./levelHandling/JSONconverters";
 
 class App extends React.Component {
   constructor(props) {
@@ -41,8 +41,7 @@ class App extends React.Component {
     this.setState({ layout }, () => {
       let JSONlayout = convertLayoutToJSONString(this.state.layout);
       console.log(JSONlayout);
-      let parsedLayout = JSON.parse(JSONlayout);
-      let reformattedLayout = formatLayoutFromDb(parsedLayout);
+      let reformattedLayout = parseLayout(JSONlayout);
       console.log(reformattedLayout);
     });
   }

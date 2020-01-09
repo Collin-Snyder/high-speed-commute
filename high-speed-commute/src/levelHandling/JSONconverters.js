@@ -12,12 +12,13 @@ export const convertLayoutToJSONString = layout => {
   return JSON.stringify(convertibleLayout);
 };
 
-export const formatLayoutFromDb = layout => {
-  let formattedLayout = layout.map((square, i, layout) => {
+export const parseLayout = layoutStr => {
+  let parsedLayout = JSON.parse(layoutStr);
+  let formattedLayout = parsedLayout.map((square, i, parsedLayout) => {
     for (let direction in square.borders) {
       if (square.borders[direction]) {
         let borderId = square.borders[direction];
-        square.borders[direction] = layout[borderId - 1];
+        square.borders[direction] = parsedLayout[borderId - 1];
       }
     }
     return square;
