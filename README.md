@@ -2,29 +2,27 @@
 
 High Speed Commute is an action-packed race to work against your boss. Get there first so he doesn't know you're late!
 
-## In Action
+<!-- ## In Action
 
-<a href=#>Heroku Deployment Link</a>
+<a href=#>Heroku Deployment Link</a> -->
 
 # User Stories
 
 ## Implemented:
 
+- As a user, I want to use my arrow keys to control my car and move through the street grid.
+- As a user, I want the Boss to pick the fastest route to work and move there at a steady pace so I can race him.
+- As a user, I want to be given a promotion if I am on time or be fired if I am late.
+- As a user, I want to also lose if I crash into my Boss on the way to work.
+- As a user, I want to be able to reset the game and play again.
+- As a user, I want the UI to have the look and feel of a retro Gameboy or arcade game.
+- As a user, I want to be able to design, save, and play my own levels.
+
 ## Coming Soon:
 - As a user, I want to give myself a username.
-- As a user, I want to use my arrow keys to control my car and move through the street grid.
-- As a user, I want the Boss to pick the fastest route to work and move there at a steady pace.
-- As a user, I want to be given a promotion if I am on time.
-- As a user, I want to be fired if I am late.
-- As a user, I want to be able to reset the game and play again.
 - As a user, I want a record of my win or loss to be persisted after the game is over.
-- As a user, I want the UI to look kind of like the scenario (streets, cars)
-
-## Coming Later:
-
 - As a user, I want to be able to pick the color of my car.
 - As a user, I want to be able to set difficulty levels for the Boss.
-- As a user, I want to lose if I crash into my Boss.
 - As a user, I want the added challenge of stoplights along the route.
 - As a user, I want the added challenge of school zones along the route.
 - As a user, I want the added challenge of road closures along the route.
@@ -42,20 +40,19 @@ High Speed Commute is an action-packed race to work against your boss. Get there
   <tr>
     <td align="center">Front-end</td>
     <td align="center">Back-end</td>
-    <td align="center">Deployment</td>
   </tr>
   <tr>
-    <td align="center"><img src="https://freshpet.com/wp-content/uploads/2018/01/puppy_party_freshpet.jpg" alt="Puppy" title="Pyppy" width="80px"/></td>
-    <td align="center"><img src="https://freshpet.com/wp-content/uploads/2018/01/puppy_party_freshpet.jpg" alt="Puppy" title="Puppy" width="80px"/></td>
+    <td align="center"><img src="https://cdn4.iconfinder.com/data/icons/logos-3/600/React.js_logo-512.png" alt="React" title="React" width="80px"/>React</td>
+    <td align="center"><img src="./high-speed-commute/src/assets/node_logo.png" alt="Node.js" title="Node.js" width="80px"/>Node.js</td>
     <td align="center"><img src="https://freshpet.com/wp-content/uploads/2018/01/puppy_party_freshpet.jpg" alt="Heroku" title="Heroku" width="80px"/></td>
   </tr>
   <tr>
     <td align="center"><img src="https://freshpet.com/wp-content/uploads/2018/01/puppy_party_freshpet.jpg" alt="Puppy" title="Puppy" width="80px"/></td>
-    <td align="center"><img src="https://freshpet.com/wp-content/uploads/2018/01/puppy_party_freshpet.jpg" alt="Puppy" title="Puppy" width="80px"/></td>
+    <td align="center"><img src="https://freshpet.com/wp-content/uploads/2018/01/puppy_party_freshpet.jpg" alt="Express" title="Express" width="80px"/></td>
   </tr>
   <tr>
     <td align="center"><img src="https://freshpet.com/wp-content/uploads/2018/01/puppy_party_freshpet.jpg" alt="Puppy" title="Puppy" width="80px"/></td>
-    <td align="center"><img src="https://freshpet.com/wp-content/uploads/2018/01/puppy_party_freshpet.jpg" alt="Puppy" title="Puppy" width="80px"/></td>
+    <td align="center"><img src="https://freshpet.com/wp-content/uploads/2018/01/puppy_party_freshpet.jpg" alt="PostgreSQL" title="PostgreSQL" width="80px"/></td>
   </tr>
 </table>
 
