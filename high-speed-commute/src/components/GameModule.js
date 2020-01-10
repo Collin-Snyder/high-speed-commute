@@ -1,5 +1,6 @@
 import React from "react";
 import PlayingField from "./PlayingField";
+import LevelsList from "./LevelsList";
 
 const GameModule = ({
   mode,
@@ -10,6 +11,7 @@ const GameModule = ({
   bossHome,
   office,
   layout,
+  userLevels,
   designLayout,
   startBoss,
   resetPlayers,
@@ -21,6 +23,11 @@ const GameModule = ({
 
   return (
     <div className="gameModule" style={{ display }}>
+      <div className="levelsListContainer">
+        <h3>Your Levels</h3>
+        <LevelsList userLevels={userLevels} />
+      </div>
+
       <PlayingField
         mode={mode}
         playerCar={playerCar}
@@ -34,14 +41,22 @@ const GameModule = ({
       />
       {mode === "play" ? (
         <div className="buttons">
-          <button className="btn play" onClick={startBoss} style={{ display: startDisplay }}>
+          <button
+            className="btn play"
+            onClick={startBoss}
+            style={{ display: startDisplay }}
+          >
             Play
           </button>
-          <button className="btn mode" onClick={enterDesignMode}>Design Mode</button>
+          <button className="btn mode" onClick={enterDesignMode}>
+            Design Mode
+          </button>
         </div>
       ) : (
         <div className="buttons">
-          <button className="btn mode" onClick={enterPlayMode}>Play Mode</button>
+          <button className="btn mode" onClick={enterPlayMode}>
+            Play Mode
+          </button>
         </div>
       )}
     </div>

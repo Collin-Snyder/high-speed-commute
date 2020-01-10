@@ -22,7 +22,8 @@ class App extends React.Component {
       playerCar: 281,
       bossCar: 681,
       layout: [],
-      designLayout: []
+      designLayout: [],
+      userLevels: []
     };
 
     this.handleKeyDown = this.handleKeyDown.bind(this);
@@ -35,12 +36,14 @@ class App extends React.Component {
     this.enterPlayMode = this.enterPlayMode.bind(this);
     this.loadDesign = this.loadDesign.bind(this);
     this.loadLevel = this.loadLevel.bind(this);
+    this.getUserLevels = this.getUserLevels.bind(this);
   }
 
   componentDidMount() {
     document.addEventListener("keydown", this.handleKeyDown);
     // let layout = createSquares(40, 25);
     this.loadLevel(13);
+    this.getUserLevels("collin");
     // this.setState({ layout });
   }
 
@@ -201,6 +204,16 @@ class App extends React.Component {
       .catch(err => console.error(err));
   }
 
+  getUserLevels(username) {
+    axios
+      .get(`/api/userlevels/${username}`)
+      .then(data => {
+        console.log(data.data.rows[0]);
+        this.setState({ userLevels: data.data.rows });
+      })
+      .catch(err => console.error(err));
+  }
+
   render() {
     return (
       <div className="App">
@@ -217,6 +230,7 @@ class App extends React.Component {
           office={this.state.office}
           layout={this.state.layout}
           designLayout={this.state.designLayout}
+          userLevels={this.state.userLevels}
           startBoss={this.startBoss}
           resetPlayers={this.resetPlayers}
           enterDesignMode={this.enterDesignMode}

@@ -1,5 +1,7 @@
 * {
   box-sizing: border-box;
+  font-family: "Press Start 2P", cursive;
+  list-style: none;
 }
 
 h1.gameTitle {
@@ -20,11 +22,18 @@ h1.gameOverTitle {
 
 p,
 h4,
-h3 {
+h3,
+ul {
   margin: 0;
+  margin-block-start: 0;
+  margin-block-end: 0;
+  margin-inline-start: 0;
+  margin-inline-end: 0;
+  padding-inline-start: 0;
 }
 
-h3.designModuleTitle, h4.designToolboxTitle {
+h3.designModuleTitle,
+h4.designToolboxTitle {
   font-family: "Press Start 2P", cursive;
 }
 
@@ -56,15 +65,12 @@ h3.designModuleTitle, h4.designToolboxTitle {
 .gameModule,
 .designModule {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  justify-content: space-evenly;
   align-items: center;
   background-color: rgb(80, 205, 255);
 }
 
 .designModule {
-  flex-direction: row;
-  justify-content: space-evenly;
   align-items: center;
 }
 
@@ -81,6 +87,44 @@ h3.designModuleTitle, h4.designToolboxTitle {
   background-color: white;
 }
 
+.levelsListContainer {
+  width: 250px;
+}
+
+.levelsList {
+  display: flex;
+  flex-direction: column;
+  border: 5px groove darkgray;
+  margin: 20px 0;
+  padding: 20px 0;
+  background-color: #fff;
+  align-items: center;
+  justify-content: center;
+}
+
+.levelItem {
+  display: flex;
+  align-items: center;
+}
+
+.levelIconWrapper {
+  flex-basis: 85px;
+}
+
+.levelIcon {
+  display: inline-block;
+  width: 75px;
+  height: 75px;
+  background-image: url("../assets/level_icon.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.levelName {
+  text-align: left;
+  margin-left: 15px;
+}
+
 .gridRow {
   display: flex;
 }
@@ -90,6 +134,7 @@ h3.designModuleTitle, h4.designToolboxTitle {
   width: 25px;
   height: 25px;
   font-size: 10px;
+  font-family: sans-serif;
   /* box-shadow: 1px 1px inset; */
 }
 
@@ -166,8 +211,6 @@ h3.designModuleTitle, h4.designToolboxTitle {
 .designTools {
   display: flex;
   flex-direction: column;
-  
-  
 }
 
 .designToolbox {
@@ -178,6 +221,7 @@ h3.designModuleTitle, h4.designToolboxTitle {
   background-color: #fff;
   align-items: center;
   justify-content: center;
+  width: 250px;
 }
 
 .designToolSelector {
@@ -205,7 +249,7 @@ h3.designModuleTitle, h4.designToolboxTitle {
   display: inline-block;
   color: #fff;
   font-size: 1em;
-  margin: 20px 50px;
+  margin: 20px 0px;
   width: 200px;
   height: 50px;
   font-family: "Press Start 2P", cursive;
@@ -222,24 +266,20 @@ h3.designModuleTitle, h4.designToolboxTitle {
 .btn.mode {
   background-color: rgb(140, 66, 238);
   box-shadow: -4px -4px rgb(88, 41, 150) inset, 0 -4px black, 4px 0 black,
-  0 4px black, -4px 0 black;
+    0 4px black, -4px 0 black;
 }
 
 .btn.startOver {
   margin-top: 50px;
   background-color: rgb(86, 200, 253);
   box-shadow: -4px -4px rgb(7, 107, 153) inset, 0 -4px black, 4px 0 black,
-  0 4px black, -4px 0 black;
+    0 4px black, -4px 0 black;
 }
 
 .btn.save {
   background-color: rgb(255, 183, 88);
   box-shadow: -4px -4px rgb(209, 131, 28) inset, 0 -4px black, 4px 0 black,
-  0 4px black, -4px 0 black;
-}
-
-.btn.design {
-  margin: 20px 0px;
+    0 4px black, -4px 0 black;
 }
 
 .btn.tool {
@@ -266,8 +306,8 @@ h3.designModuleTitle, h4.designToolboxTitle {
 
 .btn.tool.st {
   background-color: #585858;
-  box-shadow: -4px -4px #343434 inset, 0 -4px black, 4px 0 black,
-    0 4px black, -4px 0 black;
+  box-shadow: -4px -4px #343434 inset, 0 -4px black, 4px 0 black, 0 4px black,
+    -4px 0 black;
 }
 
 .btn.tool.erase {
@@ -276,7 +316,7 @@ h3.designModuleTitle, h4.designToolboxTitle {
     0 4px black, -4px 0 black;
 }
 
-.buttons.design {
+.buttons {
   width: 250px;
 }
 
