@@ -16,7 +16,8 @@ const GameModule = ({
   startBoss,
   resetPlayers,
   enterDesignMode,
-  enterPlayMode
+  enterPlayMode,
+  loadLevel
 }) => {
   let display = mode === "play" ? "flex" : "none";
   let startDisplay = status === "idle" ? "inline-block" : "none";
@@ -25,7 +26,7 @@ const GameModule = ({
     <div className="gameModule" style={{ display }}>
       <div className="levelsListContainer">
         <h3>Your Levels</h3>
-        <LevelsList userLevels={userLevels} />
+        <LevelsList loadLevel={loadLevel} userLevels={userLevels} />
       </div>
 
       <PlayingField

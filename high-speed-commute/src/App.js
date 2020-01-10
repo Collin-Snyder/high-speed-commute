@@ -235,6 +235,7 @@ class App extends React.Component {
           resetPlayers={this.resetPlayers}
           enterDesignMode={this.enterDesignMode}
           enterPlayMode={this.enterPlayMode}
+          loadLevel={this.loadLevel}
         />
         <div className="designModuleContainer">
           <DesignModule

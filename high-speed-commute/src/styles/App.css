@@ -105,6 +105,7 @@ h4.designToolboxTitle {
 .levelItem {
   display: flex;
   align-items: center;
+  cursor: pointer;
 }
 
 .levelIconWrapper {

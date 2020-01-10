@@ -1,8 +1,13 @@
 import React from "react";
 
-const LevelItem = ({ levelInfo }) => {
+const LevelItem = ({ levelInfo, loadLevel }) => {
+  const handleLevelClick = e => {
+    e.persist();
+    loadLevel(Number(e.currentTarget.id));
+  };
+
   return (
-    <li className="levelItem">
+    <li onClick={handleLevelClick} className="levelItem" id={levelInfo.id}>
       <div className="levelIconWrapper">
         <span className="levelIcon"></span>
       </div>
