@@ -12,7 +12,7 @@ const GridSquare = ({
 }) => {
   let typeClass = "";
   let keySquareClass = "";
-  let centerLineClass = ""
+  let centerLineClass = "";
   // let pathClass = "";
   let classList;
 

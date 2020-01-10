@@ -13,9 +13,9 @@ const DesignToolbox = ({
   }
   return (
     <div className="designToolbox">
-      <button onClick={handleDesignLoading}>Load Saved Design</button>
+      <button class="btn save" onClick={handleDesignLoading}>Load Saved Design</button>
       <div className="designToolSelector">
-        <label>
+        <label className="btn tool ph">
           <input
             type="radio"
             onChange={handleToolSelection}
@@ -23,10 +23,10 @@ const DesignToolbox = ({
             name="designToolOption"
             checked={selectedDesignTool === "playerHome"}
           />
-          Player Home
+          <span className="toolLabel">Player Home</span>
         </label>
 
-        <label>
+        <label className="btn tool bh">
           <input
             type="radio"
             onChange={handleToolSelection}
@@ -34,10 +34,10 @@ const DesignToolbox = ({
             name="designToolOption"
             checked={selectedDesignTool === "bossHome"}
           />
-          Boss Home
+          <span className="toolLabel">Boss Home</span>
         </label>
 
-        <label>
+        <label className="btn tool o">
           <input
             type="radio"
             onChange={handleToolSelection}
@@ -45,21 +45,11 @@ const DesignToolbox = ({
             name="designToolOption"
             checked={selectedDesignTool === "office"}
           />
-          Office
+          <span className="toolLabel">Office</span>
         </label>
 
-        <label>
-          <input
-            type="radio"
-            onChange={handleToolSelection}
-            value="block"
-            name="designToolOption"
-            checked={selectedDesignTool === "block"}
-          />
-          Block
-        </label>
 
-        <label>
+        <label className="btn tool st">
           <input
             type="radio"
             onChange={handleToolSelection}
@@ -67,7 +57,17 @@ const DesignToolbox = ({
             name="designToolOption"
             checked={selectedDesignTool === "street"}
           />
-          Street
+          <span className="toolLabel">Street</span>
+        </label>
+        <label className="btn tool erase">
+          <input
+            type="radio"
+            onChange={handleToolSelection}
+            value="block"
+            name="designToolOption"
+            checked={selectedDesignTool === "block"}
+          />
+          <span className="toolLabel">Eraser</span>
         </label>
       </div>
     </div>

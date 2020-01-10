@@ -204,6 +204,9 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
+        <div className="appHeader">
+          <h1 className="gameTitle">HIGH SPEED COMMUTE</h1>
+        </div>
         <GameModule
           mode={this.state.mode}
           status={this.state.status}

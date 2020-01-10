@@ -21,7 +21,6 @@ const GameModule = ({
 
   return (
     <div className="gameModule" style={{ display }}>
-      <h3>Game Module</h3>
       <PlayingField
         mode={mode}
         playerCar={playerCar}
@@ -35,14 +34,14 @@ const GameModule = ({
       />
       {mode === "play" ? (
         <div className="buttons">
-          <button onClick={startBoss} style={{ display: startDisplay }}>
-            Start
+          <button className="btn play" onClick={startBoss} style={{ display: startDisplay }}>
+            Play
           </button>
-          <button onClick={enterDesignMode}>Switch to Design Mode</button>
+          <button className="btn mode" onClick={enterDesignMode}>Design Mode</button>
         </div>
       ) : (
         <div className="buttons">
-          <button onClick={enterPlayMode}>Switch to Play Mode</button>
+          <button className="btn mode" onClick={enterPlayMode}>Play Mode</button>
         </div>
       )}
     </div>

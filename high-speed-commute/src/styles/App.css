@@ -2,38 +2,42 @@
   box-sizing: border-box;
 }
 
-p, h4 {
+h1.gameTitle {
+  display: inline-block;
+  background-color: darkgray;
+  color: rgba(255, 211, 0, 1);
+  font-family: "Press Start 2P", cursive;
   margin: 0;
+  padding: 20px;
+  border: 5px groove rgb(180, 180, 180);
+  text-shadow: 4px 4px black;
+}
+
+h1.gameOverTitle {
+  font-family: "Press Start 2P", cursive;
+  margin: 0;
+}
+
+p,
+h4,
+h3 {
+  margin: 0;
+}
+
+h3.designModuleTitle, h4.designToolboxTitle {
+  font-family: "Press Start 2P", cursive;
 }
 
 .App {
   text-align: center;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgb(80, 205, 255);
 }
 
 .App-logo {
   height: 40vmin;
   pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
 }
 
 @keyframes App-logo-spin {
@@ -45,37 +49,44 @@ p, h4 {
   }
 }
 
-.gameModule, .designModule {
+.appHeader {
+  padding: 30px;
+}
+
+.gameModule,
+.designModule {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 100vw;
-  height: 100vh;
-}
-
-.gameModule {
-  border: 2px solid red;
+  background-color: rgb(80, 205, 255);
 }
 
 .designModule {
-  border: 2px solid blue;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
 }
 
-.playingField, .levelDesigner {
-  width: 1004px;
-  height: 629px; 
+.playingField,
+.levelDesigner {
+  width: 1016px;
+  height: 641px;
   display: grid;
   grid-template-rows: repeat(25, 1fr);
   grid-template-columns: repeat(40, 1fr);
-  border: 2px solid green;
+  border: 8px groove rgb(180, 180, 180);
+  /* border: 8px groove black; */
+  /* border-image: url("../assets/rebar_border.png") 20% 20% 18; */
+  background-color: white;
 }
 
 .gridRow {
   display: flex;
 }
 
-.gridSquare, .designSquare {
+.gridSquare,
+.designSquare {
   width: 25px;
   height: 25px;
   font-size: 10px;
@@ -92,7 +103,7 @@ p, h4 {
 }
 
 .gridSquare.block {
-  background-color: #81C76D;
+  background-color: #81c76d;
 }
 
 .designSquare.block {
@@ -112,10 +123,11 @@ p, h4 {
 }
 
 .office {
-  background-color: rgba(0, 255, 0, 0.4);
+  background-color: rgba(255, 211, 0, 1);
 }
 
-.playerCar, .bossCar {
+.playerCar,
+.bossCar {
   display: inline-block;
   width: 25px;
   height: 25px;
@@ -124,41 +136,152 @@ p, h4 {
 }
 
 .playerCar {
-  background-image:url("../assets/player_car.png");
+  background-image: url("../assets/player_car.png");
   background-repeat: no-repeat;
   background-size: contain;
 }
 
 .bossCar {
-  background-image:url("../assets/boss_car.png");
+  background-image: url("../assets/boss_car.png");
   background-repeat: no-repeat;
   background-size: contain;
 }
 
-.win, .loss {
+.win,
+.loss {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
 
+.win {
+  background-color: rgb(127, 218, 100);
+}
+
+.loss {
+  background-color: rgb(235, 85, 85);
+}
+
 .designTools {
   display: flex;
   flex-direction: column;
+  
+  
 }
 
 .designToolbox {
   display: flex;
   flex-direction: column;
+  border: 5px groove darkgray;
+  margin: 20px 0;
+  background-color: #fff;
+  align-items: center;
+  justify-content: center;
 }
 
 .designToolSelector {
   display: flex;
+  flex-direction: column;
+  border: 3px dashed darkgray;
+  margin-bottom: 20px;
 }
 
 .designToolSelector label {
   display: inline-block;
   margin: 20px 30px;
+}
+
+.designToolSelector input {
+  opacity: 0;
+  height: 1px;
+  width: 1px;
+  display: inline;
+  padding: 0;
+  margin: 0;
+}
+
+.btn {
+  display: inline-block;
+  color: #fff;
+  font-size: 1em;
+  margin: 20px 50px;
+  width: 200px;
+  height: 50px;
+  font-family: "Press Start 2P", cursive;
+  border: 0;
+  cursor: pointer;
+}
+
+.btn.play {
+  background-color: rgb(130, 231, 104);
+  box-shadow: -4px -4px rgb(50, 143, 50) inset, 0 -4px black, 4px 0 black,
+    0 4px black, -4px 0 black;
+}
+
+.btn.mode {
+  background-color: rgb(140, 66, 238);
+  box-shadow: -4px -4px rgb(88, 41, 150) inset, 0 -4px black, 4px 0 black,
+  0 4px black, -4px 0 black;
+}
+
+.btn.startOver {
+  margin-top: 50px;
+  background-color: rgb(86, 200, 253);
+  box-shadow: -4px -4px rgb(7, 107, 153) inset, 0 -4px black, 4px 0 black,
+  0 4px black, -4px 0 black;
+}
+
+.btn.save {
+  background-color: rgb(255, 183, 88);
+  box-shadow: -4px -4px rgb(209, 131, 28) inset, 0 -4px black, 4px 0 black,
+  0 4px black, -4px 0 black;
+}
+
+.btn.design {
+  margin: 20px 0px;
+}
+
+.btn.tool {
+  width: 130px;
+}
+
+.btn.tool.ph {
+  background-color: rgba(0, 0, 255, 0.4);
+  box-shadow: -4px -4px rgba(0, 0, 63, 0.4) inset, 0 -4px black, 4px 0 black,
+    0 4px black, -4px 0 black;
+}
+
+.btn.tool.bh {
+  background-color: rgba(255, 0, 0, 0.4);
+  box-shadow: -4px -4px rgba(24, 0, 0, 0.329) inset, 0 -4px black, 4px 0 black,
+    0 4px black, -4px 0 black;
+}
+
+.btn.tool.o {
+  background-color: rgba(255, 211, 0, 1);
+  box-shadow: -4px -4px rgb(153, 128, 0) inset, 0 -4px black, 4px 0 black,
+    0 4px black, -4px 0 black;
+}
+
+.btn.tool.st {
+  background-color: #585858;
+  box-shadow: -4px -4px #343434 inset, 0 -4px black, 4px 0 black,
+    0 4px black, -4px 0 black;
+}
+
+.btn.tool.erase {
+  background-color: lightgray;
+  box-shadow: -4px -4px rgb(114, 114, 114) inset, 0 -4px black, 4px 0 black,
+    0 4px black, -4px 0 black;
+}
+
+.buttons.design {
+  width: 250px;
+}
+
+.toolLabel {
+  display: inline-block;
 }
 
 /* .pathOption {
@@ -168,4 +291,3 @@ p, h4 {
 .finalPath {
   background-color: yellow;
 } */
-

@@ -2,7 +2,10 @@ import React from "react";
 import axios from "axios";
 import DesignField from "./DesignField";
 import DesignToolbox from "./DesignToolbox";
-import { convertLayoutToJSONString, formatLayout } from "../levelHandling/JSONconverters";
+import {
+  convertLayoutToJSONString,
+  formatLayout
+} from "../levelHandling/JSONconverters";
 
 export default class DesignModule extends React.Component {
   constructor(props) {
@@ -86,18 +89,14 @@ export default class DesignModule extends React.Component {
     } else if (selectedDesignTool === "block") {
       let { designLayout } = this.state;
 
-      if (designLayout[squareId - 1].type === "block") {
-        designLayout[squareId - 1].type = "empty";
-      } else {
-        designLayout[squareId - 1].type = "block";
-      }
+      designLayout[squareId - 1].type = "block";
 
       this.setState({ designLayout });
     } else if (selectedDesignTool === "street") {
       let { designLayout } = this.state;
 
       if (designLayout[squareId - 1].type === "street") {
-        designLayout[squareId - 1].type = "empty";
+        designLayout[squareId - 1].type = "block";
       } else {
         designLayout[squareId - 1].type = "street";
       }
@@ -171,7 +170,10 @@ export default class DesignModule extends React.Component {
       layout: convertLayoutToJSONString(designLayout)
     };
 
-    console.log("Layout inside saveLevel function in Design Module: ", levelInfo.layout);
+    console.log(
+      "Layout inside saveLevel function in Design Module: ",
+      levelInfo.layout
+    );
 
     axios
       .post("/api/levels", levelInfo)
@@ -187,9 +189,9 @@ export default class DesignModule extends React.Component {
   render() {
     return (
       <div className="designModule" style={{ display: this.props.display }}>
-        <h3>Design Module</h3>
+        {/* <h3 className="designModuleTitle">Design Mode</h3> */}
         <div className="designTools">
-          <h4>Design Tools</h4>
+          <h4 className="designToolboxTitle">Design Tools</h4>
           <DesignToolbox
             handleToolSelection={this.handleToolSelection}
             handleBrushSelection={this.handleBrushSelection}
@@ -205,10 +207,20 @@ export default class DesignModule extends React.Component {
           designLayout={this.state.designLayout}
           addSquareToDesign={this.addSquareToDesign}
         />
-        <div className="buttons">
-          <button onClick={this.saveLevelToDatabase}>Save Level</button>
-          <button onClick={this.sendDesignToGame}>Play Now!</button>
-          <button onClick={this.props.enterPlayMode}>
+        <div className="buttons design">
+          <button
+            className="btn save design"
+            onClick={this.saveLevelToDatabase}
+          >
+            Save Level
+          </button>
+          <button className="btn play design" onClick={this.sendDesignToGame}>
+            Play Now!
+          </button>
+          <button
+            className="btn mode design"
+            onClick={this.props.enterPlayMode}
+          >
             Switch to Play Mode
           </button>
         </div>

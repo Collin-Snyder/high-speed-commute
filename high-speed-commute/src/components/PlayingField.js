@@ -14,15 +14,15 @@ const PlayingField = ({
   if (playerCar === office) {
     return (
       <div className="playingField win">
-        <h1>Whew! You're not late. You get a promotion!</h1>
-        <button onClick={resetPlayers}>Ready for tomorrow?</button>
+        <h1 className="gameOverTitle">Whew! You're not late.<br></br>You got a promotion!</h1>
+        <button className="btn startOver" onClick={resetPlayers}>Ready for tomorrow?</button>
       </div>
     );
   } else if (bossCar === office) {
     return (
       <div className="playingField loss">
-        <h1>Yikes! You got fired.</h1>
-        <button onClick={resetPlayers}>Get a new job and try again?</button>
+        <h1 className="gameOverTitle">Yikes! You got fired.</h1>
+        <button className="btn startOver"onClick={resetPlayers}>Try again next job?</button>
       </div>
     );
   } else {
