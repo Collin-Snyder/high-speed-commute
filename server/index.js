@@ -16,9 +16,9 @@ app.get("/api/levels/:id", (req, res) => {
 });
 
 app.post("/api/levels", (req, res) => {
-  saveLevel(req.body, err => {
-    if (err) res.send(err);
-    else res.send("Successfully saved your level!");
+  saveLevel(req.body, result => {
+    console.log(result);
+    res.send(result);
   });
 });
 

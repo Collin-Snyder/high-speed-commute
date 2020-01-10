@@ -22,7 +22,8 @@ export default class DesignModule extends React.Component {
       office: 0,
       levelName: "",
       inputVisible: false,
-      playButtonVisible: false
+      playButtonVisible: false,
+      lastSavedLevel: null
     };
 
     this.handleToolSelection = this.handleToolSelection.bind(this);
@@ -113,6 +114,7 @@ export default class DesignModule extends React.Component {
 
   sendDesignToGame() {
     this.props.loadDesign(
+      this.state.levelName,
       this.state.designLayout,
       this.state.playerHome,
       this.state.bossHome,
@@ -183,7 +185,7 @@ export default class DesignModule extends React.Component {
     axios
       .post("/api/levels", levelInfo)
       .then(res => {
-        console.log("Successfully saved your level!", res);
+        this.setState({lastSavedLevel: res.data.rows[0].id})
       })
       .catch(err => {
         console.log("There was a problem saving your level.");

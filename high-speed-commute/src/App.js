@@ -161,7 +161,7 @@ class App extends React.Component {
     });
   }
 
-  loadDesign(newLayout, newPlayerHome, newBossHome, newOffice) {
+  loadDesign( levelName, newLayout, newPlayerHome, newBossHome, newOffice) {
     let { layout, playerHome, bossHome, office } = this.state;
 
     let uglyLayout = newLayout.slice();

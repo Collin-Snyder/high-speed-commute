@@ -13,7 +13,7 @@ module.exports.saveLevel = (levelInfo, callback) => {
   console.log("Layout inside query function: ", levelInfo.layout);
   client
     .query(
-      "INSERT INTO user_levels (user_id, level_name, board_height, board_width, player_home, boss_home, office, layout) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)",
+      "INSERT INTO user_levels (user_id, level_name, board_height, board_width, player_home, boss_home, office, layout) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING id",
       [
         levelInfo.userId,
         levelInfo.levelName,
@@ -25,7 +25,7 @@ module.exports.saveLevel = (levelInfo, callback) => {
         levelInfo.layout
       ]
     )
-    .then(result => callback())
+    .then(result => callback(result))
     .catch(err => callback(err));
 };
 
