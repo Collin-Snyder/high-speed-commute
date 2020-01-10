@@ -9,22 +9,37 @@ const PlayingField = ({
   bossHome,
   office,
   layout,
-  resetPlayers
+  collision,
+  resetPlayers,
+  fullReset
 }) => {
   if (playerCar === office) {
     return (
       <div className="playingField win">
-        <h1 className="gameOverTitle">Whew! You're not late.<br></br>You got a promotion!</h1>
-        <button className="btn startOver" onClick={resetPlayers}>Ready for tomorrow?</button>
+        <h1 className="gameOverTitle">
+          Whew! You're not late.<br></br>You got a promotion!
+        </h1>
+        <button className="btn startOver" onClick={fullReset}>
+          Ready for tomorrow?
+        </button>
       </div>
     );
   } else if (bossCar === office) {
     return (
       <div className="playingField loss">
         <h1 className="gameOverTitle">Yikes! You got fired.</h1>
-        <button className="btn startOver"onClick={resetPlayers}>Try again next job?</button>
+        <button className="btn startOver" onClick={fullReset}>
+          Try again next job?
+        </button>
       </div>
     );
+  } else if (collision === true) {
+    return <div className="playingField collision">
+      <h1 className="gameOverTitle">Oops, you hit your boss. <br></br>You'll never work <br></br>in this town again.</h1>
+      <button className="btn startOver collision" onClick={fullReset}>
+          Try again in a new state?
+        </button>
+    </div>;
   } else {
     return (
       <div className="playingField">

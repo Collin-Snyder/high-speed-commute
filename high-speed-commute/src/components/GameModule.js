@@ -12,9 +12,11 @@ const GameModule = ({
   office,
   layout,
   userLevels,
+  collision,
   designLayout,
   startBoss,
   resetPlayers,
+  fullReset,
   enterDesignMode,
   enterPlayMode,
   loadLevel
@@ -38,28 +40,27 @@ const GameModule = ({
         office={office}
         layout={layout}
         designLayout={designLayout}
+        collision={collision}
         resetPlayers={resetPlayers}
+        fullReset={fullReset}
       />
-      {mode === "play" ? (
-        <div className="buttons">
-          <button
-            className="btn play"
-            onClick={startBoss}
-            style={{ display: startDisplay }}
-          >
-            Play
-          </button>
-          <button className="btn mode" onClick={enterDesignMode}>
-            Design Mode
-          </button>
-        </div>
-      ) : (
-        <div className="buttons">
-          <button className="btn mode" onClick={enterPlayMode}>
-            Play Mode
-          </button>
-        </div>
-      )}
+
+      <div className="buttons">
+        <button
+          className="btn play"
+          onClick={startBoss}
+          style={{ display: startDisplay }}
+        >
+          Play
+        </button>
+        <button
+          className="btn mode"
+          onClick={enterDesignMode}
+          style={{ display: startDisplay }}
+        >
+          Design Mode
+        </button>
+      </div>
     </div>
   );
 };

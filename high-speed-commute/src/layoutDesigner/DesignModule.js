@@ -20,7 +20,8 @@ export default class DesignModule extends React.Component {
       playerHome: 0,
       bossHome: 0,
       office: 0,
-      levelName: "My Level"
+      levelName: "",
+      inputVisible: false
     };
 
     this.handleToolSelection = this.handleToolSelection.bind(this);
@@ -30,6 +31,8 @@ export default class DesignModule extends React.Component {
     this.sendDesignToGame = this.sendDesignToGame.bind(this);
     this.saveLevelToDatabase = this.saveLevelToDatabase.bind(this);
     this.loadSavedDesign = this.loadSavedDesign.bind(this);
+    this.toggleInput = this.toggleInput.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
   }
 
   componentDidUpdate(prevProps) {
@@ -186,6 +189,16 @@ export default class DesignModule extends React.Component {
       });
   }
 
+  toggleInput() {
+    let { inputVisible } = this.state;
+
+    this.setState({inputVisible: !inputVisible});
+  }
+
+  handleInputChange(e) {
+    this.setState({levelName: e.target.value});
+  }
+
   render() {
     return (
       <div className="designModule" style={{ display: this.props.display }}>
@@ -201,28 +214,33 @@ export default class DesignModule extends React.Component {
           />
         </div>
         <DesignField
+          inputVisible={this.state.inputVisible}
+          inputValue={this.state.levelName}
           playerHome={this.state.playerHome}
           bossHome={this.state.bossHome}
           office={this.state.office}
           designLayout={this.state.designLayout}
           addSquareToDesign={this.addSquareToDesign}
+          handleInputChange={this.handleInputChange}
+          saveLevel={this.saveLevelToDatabase}
+          toggleInput={this.toggleInput}
         />
         <div className="buttons design">
           <button
             className="btn save design"
-            onClick={this.saveLevelToDatabase}
+            onClick={this.toggleInput}
           >
             Save Level
           </button>
           <button className="btn play design" onClick={this.sendDesignToGame}>
             Play Now!
           </button>
-          <button
+          {/* <button
             className="btn mode design"
             onClick={this.props.enterPlayMode}
           >
             Switch to Play Mode
-          </button>
+          </button> */}
         </div>
       </div>
     );

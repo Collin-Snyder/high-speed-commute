@@ -23,7 +23,8 @@ class App extends React.Component {
       bossCar: 681,
       layout: [],
       designLayout: [],
-      userLevels: []
+      userLevels: [],
+      collision: false
     };
 
     this.handleKeyDown = this.handleKeyDown.bind(this);
@@ -33,10 +34,10 @@ class App extends React.Component {
     this.moveBossCar = this.moveBossCar.bind(this);
     this.resetPlayers = this.resetPlayers.bind(this);
     this.enterDesignMode = this.enterDesignMode.bind(this);
-    this.enterPlayMode = this.enterPlayMode.bind(this);
     this.loadDesign = this.loadDesign.bind(this);
     this.loadLevel = this.loadLevel.bind(this);
     this.getUserLevels = this.getUserLevels.bind(this);
+    this.fullReset = this.fullReset.bind(this);
   }
 
   componentDidMount() {
@@ -88,14 +89,21 @@ class App extends React.Component {
   }
 
   movePlayerCar(direction) {
-    let { playerCar, layout } = this.state;
+    let { playerCar, bossCar, collision, layout } = this.state;
     let target = layout[playerCar - 1].borders[direction];
 
     if (target && target.type === "street") {
       playerCar = target.id;
+      if (playerCar === bossCar) {
+        collision = true;
+      }
+      if (playerCar === this.state.office) {
+        clearInterval(this.interval)
+      }
+
     }
 
-    this.setState({ playerCar });
+    this.setState({ playerCar, collision });
   }
 
   findBossPath() {
@@ -138,6 +146,9 @@ class App extends React.Component {
       if (this.state.bossCar === this.state.office) {
         clearInterval(this.interval);
         this.setState({ status: "idle" });
+      } else if (this.state.bossCar === this.state.playerCar) {
+        clearInterval(this.interval);
+        this.setState({ collision: true });
       }
     });
   }
@@ -150,26 +161,20 @@ class App extends React.Component {
     });
   }
 
-  enterPlayMode() {
-    this.setState({ mode: "play" });
-  }
-
   loadDesign(newLayout, newPlayerHome, newBossHome, newOffice) {
-    let {
-      layout,
-      playerHome,
-      bossHome,
-      office,
-      playerCar,
-      bossCar
-    } = this.state;
+    let { layout, playerHome, bossHome, office } = this.state;
+
     layout = newLayout.slice();
     playerHome = newPlayerHome;
-    playerCar = newPlayerHome;
     bossHome = newBossHome;
-    bossCar = newBossHome;
     office = newOffice;
-    this.setState({ layout, playerHome, bossHome, office, playerCar, bossCar });
+
+    this.setState(
+      { layout, playerHome, bossHome, office },
+      () => {
+        this.fullReset();
+      }
+    );
   }
 
   loadLevel(levelId) {
@@ -214,6 +219,26 @@ class App extends React.Component {
       .catch(err => console.error(err));
   }
 
+  fullReset() {
+    let {
+      mode,
+      status,
+      playerCar,
+      playerHome,
+      bossCar,
+      bossHome,
+      collision
+    } = this.state;
+
+    mode = "play";
+    status = "idle";
+    playerCar = playerHome;
+    bossCar = bossHome;
+    collision = false;
+
+    this.setState({ mode, status, playerCar, bossCar, collision });
+  }
+
   render() {
     return (
       <div className="App">
@@ -231,10 +256,11 @@ class App extends React.Component {
           layout={this.state.layout}
           designLayout={this.state.designLayout}
           userLevels={this.state.userLevels}
+          collision={this.state.collision}
           startBoss={this.startBoss}
           resetPlayers={this.resetPlayers}
+          fullReset={this.fullReset}
           enterDesignMode={this.enterDesignMode}
-          enterPlayMode={this.enterPlayMode}
           loadLevel={this.loadLevel}
         />
         <div className="designModuleContainer">

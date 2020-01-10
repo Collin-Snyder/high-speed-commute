@@ -91,6 +91,20 @@ h4.designToolboxTitle {
   width: 250px;
 }
 
+.levelNameInput {
+  position: absolute;
+  top: 400px;
+  left: 600px;
+  width: 500px;
+  height: 50px;
+  border: none;
+  background-color: #fff;
+  box-shadow: -4px -4px rgb(194, 194, 194) inset, 0 -4px black, 4px 0 black,
+    0 4px black, -4px 0 black;
+  font-size: 1em;
+  padding-left: 20px;
+}
+
 .levelsList {
   display: flex;
   flex-direction: column;
@@ -106,10 +120,14 @@ h4.designToolboxTitle {
   display: flex;
   align-items: center;
   cursor: pointer;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 
 .levelIconWrapper {
   flex-basis: 85px;
+  flex-shrink: 0;
+  flex-grow: 0;
 }
 
 .levelIcon {
@@ -194,7 +212,7 @@ h4.designToolboxTitle {
 }
 
 .win,
-.loss {
+.loss, .collision {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -207,6 +225,11 @@ h4.designToolboxTitle {
 
 .loss {
   background-color: rgb(235, 85, 85);
+}
+
+.collision {
+  color: white;
+  background-color: black;
 }
 
 .designTools {
@@ -275,6 +298,12 @@ h4.designToolboxTitle {
   background-color: rgb(86, 200, 253);
   box-shadow: -4px -4px rgb(7, 107, 153) inset, 0 -4px black, 4px 0 black,
     0 4px black, -4px 0 black;
+}
+
+.btn.startOver.collision {
+  height: 60px;
+  box-shadow: -4px -4px rgb(7, 107, 153) inset, 0 -4px white, 4px 0 white,
+    0 4px white, -4px 0 white;
 }
 
 .btn.save {

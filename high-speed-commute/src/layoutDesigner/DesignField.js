@@ -1,7 +1,25 @@
 import React from "react";
 import DesignSquare from "./DesignSquare";
 
-const PlayingField = ({ playerHome, bossHome, office, designLayout, addSquareToDesign }) => {
+const DesignField = ({
+  inputVisible,
+  inputValue,
+  handleInputChange,
+  playerHome,
+  bossHome,
+  office,
+  designLayout,
+  addSquareToDesign,
+  saveLevel,
+  toggleInput
+}) => {
+  const handleKeyPress = e => {
+    if (e.key === "Enter") {
+      saveLevel();
+      toggleInput();
+    }
+  };
+
   return (
     <div className="levelDesigner">
       {designLayout.map((square, index) => (
@@ -14,8 +32,17 @@ const PlayingField = ({ playerHome, bossHome, office, designLayout, addSquareToD
           key={index}
         />
       ))}
+      <input
+        type="text"
+        value={inputValue}
+        onChange={handleInputChange}
+        onKeyPress={handleKeyPress}
+        placeholder="Enter your level's name"
+        className="levelNameInput"
+        style={{ display: inputVisible ? "inline-block" : "none" }}
+      />
     </div>
   );
 };
 
-export default PlayingField;
+export default DesignField;
