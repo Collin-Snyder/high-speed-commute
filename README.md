@@ -42,17 +42,17 @@ High Speed Commute is an action-packed race to work against your boss. Get there
     <td align="center">Back-end</td>
   </tr>
   <tr>
-    <td align="center"><img src="https://cdn4.iconfinder.com/data/icons/logos-3/600/React.js_logo-512.png" alt="React" title="React" width="80px"/></td>
+    <!-- <td align="center"><img src="https://cdn4.iconfinder.com/data/icons/logos-3/600/React.js_logo-512.png" alt="React" title="React" width="80px"/></td> -->
+    <td align="center"><img src="./high-speed-commute/src/assets/react_logo.png" alt="React" title="React" width="80px"/></td>
     <td align="center"><img src="./high-speed-commute/src/assets/node_logo.png" alt="Node.js" title="Node.js" width="80px"/></td>
-    <td align="center"><img src="https://freshpet.com/wp-content/uploads/2018/01/puppy_party_freshpet.jpg" alt="Heroku" title="Heroku" width="80px"/></td>
   </tr>
   <tr>
     <td align="center"><img src="https://freshpet.com/wp-content/uploads/2018/01/puppy_party_freshpet.jpg" alt="Puppy" title="Puppy" width="80px"/></td>
-    <td align="center"><img src="https://freshpet.com/wp-content/uploads/2018/01/puppy_party_freshpet.jpg" alt="Express" title="Express" width="80px"/></td>
+    <td align="center"><img src="./high-speed-commute/src/assets/express_logo.png" alt="Express" title="Express" width="80px"/></td>
   </tr>
   <tr>
     <td align="center"><img src="https://freshpet.com/wp-content/uploads/2018/01/puppy_party_freshpet.jpg" alt="Puppy" title="Puppy" width="80px"/></td>
-    <td align="center"><img src="https://freshpet.com/wp-content/uploads/2018/01/puppy_party_freshpet.jpg" alt="PostgreSQL" title="PostgreSQL" width="80px"/></td>
+    <td align="center"><img src="./high-speed-commute/src/assets/postgres_logo.png" alt="PostgreSQL" title="PostgreSQL" width="80px"/></td>
   </tr>
 </table>
 
