@@ -44,11 +44,7 @@ High Speed Commute is an action-packed race to work against your boss. Get there
   <tr>
     <!-- <td align="center"><img src="https://cdn4.iconfinder.com/data/icons/logos-3/600/React.js_logo-512.png" alt="React" title="React" width="80px"/></td> -->
     <td align="center"><img src="./high-speed-commute/src/assets/react_logo.png" alt="React" title="React" width="80px"/></td>
-    <td align="center"><img src="./high-speed-commute/src/assets/node_logo.png" alt="Node.js" title="Node.js" width="80px"/></td>
-  </tr>
-  <tr>
-    <td align="center"></td>
-    <td align="center"><img src="./high-speed-commute/src/assets/express_logo.png" alt="Express" title="Express" width="80px"/></td>
+    <td align="center"><img src="./high-speed-commute/src/assets/node_express_logo.png" alt="Node.js" title="Node.js" width="80px"/></td>
   </tr>
   <tr>
     <!-- <td align="center"><img src="https://freshpet.com/wp-content/uploads/2018/01/puppy_party_freshpet.jpg" alt="Puppy" title="Puppy" width="80px"/></td> -->
