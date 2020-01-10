@@ -114,7 +114,7 @@ export default class DesignModule extends React.Component {
 
   sendDesignToGame() {
     this.props.loadDesign(
-      this.state.levelName,
+      this.state.lastSavedLevel,
       this.state.designLayout,
       this.state.playerHome,
       this.state.bossHome,

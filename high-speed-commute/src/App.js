@@ -161,19 +161,20 @@ class App extends React.Component {
     });
   }
 
-  loadDesign( levelName, newLayout, newPlayerHome, newBossHome, newOffice) {
-    let { layout, playerHome, bossHome, office } = this.state;
+  loadDesign( levelId, newLayout, newPlayerHome, newBossHome, newOffice) {
+    // let { layout, playerHome, bossHome, office } = this.state;
+    this.loadLevel(levelId);
+    this.getUserLevels("collin");
+    // let uglyLayout = newLayout.slice();
+    // layout = prettify(uglyLayout);
 
-    let uglyLayout = newLayout.slice();
-    layout = prettify(uglyLayout);
+    // playerHome = newPlayerHome;
+    // bossHome = newBossHome;
+    // office = newOffice;
 
-    playerHome = newPlayerHome;
-    bossHome = newBossHome;
-    office = newOffice;
-
-    this.setState({ layout, playerHome, bossHome, office }, () => {
-      this.fullReset();
-    });
+    // this.setState({ layout, playerHome, bossHome, office }, () => {
+    //   this.fullReset();
+    // });
   }
 
   loadLevel(levelId) {
@@ -204,7 +205,7 @@ class App extends React.Component {
           bossCar,
           office,
           layout
-        });
+        }, () => {this.fullReset()});
       })
       .catch(err => console.error(err));
   }
