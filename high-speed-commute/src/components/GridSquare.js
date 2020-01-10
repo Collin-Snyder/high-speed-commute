@@ -52,21 +52,37 @@ const GridSquare = ({
   // }
 
   classList = typeClass + keySquareClass + centerLineClass;
-
-  return (
-    <div
-      className={`gridSquare${classList}`}
-      id={squareInfo.id}
-    >
-      {playerCar === squareInfo.id ? (
-        <PlayerCar />
-      ) : bossCar === squareInfo.id ? (
-        <BossCar />
-      ) : (
-        ""
-      )}
-    </div>
-  );
+  if (squareInfo.type === "block") {
+    return (
+      <div
+        className={`gridSquare${classList}`}
+        id={squareInfo.id}
+      >
+        {squareInfo["tree"] ? (
+          <span className="tree"></span>
+        ) : squareInfo["house"] ? (
+          <span className="house"></span>
+        ) : (
+          ""
+        )}
+      </div>
+    );
+  } else {
+    return (
+      <div
+        className={`gridSquare${classList}`}
+        id={squareInfo.id}
+      >
+        {playerCar === squareInfo.id ? (
+          <PlayerCar />
+        ) : bossCar === squareInfo.id ? (
+          <BossCar />
+        ) : (
+          ""
+        )}
+      </div>
+    );
+  }
 };
 
 export default GridSquare;

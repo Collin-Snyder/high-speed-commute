@@ -164,8 +164,8 @@ class App extends React.Component {
   loadDesign(newLayout, newPlayerHome, newBossHome, newOffice) {
     let { layout, playerHome, bossHome, office } = this.state;
 
-    uglyLayout = newLayout.slice();
-    let layout = prettify(layout);
+    let uglyLayout = newLayout.slice();
+    layout = prettify(uglyLayout);
 
     playerHome = newPlayerHome;
     bossHome = newBossHome;
@@ -191,7 +191,8 @@ class App extends React.Component {
         let office = levelInfo.office;
         let unformattedLayout = levelInfo.layout;
 
-        let layout = formatLayout(unformattedLayout);
+        let uglyLayout = formatLayout(unformattedLayout);
+        let layout = prettify(uglyLayout);
 
         this.setState({
           levelName,

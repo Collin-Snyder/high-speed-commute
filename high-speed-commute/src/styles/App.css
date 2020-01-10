@@ -191,11 +191,12 @@ h4.designToolboxTitle {
 }
 
 .playerCar,
-.bossCar {
+.bossCar,
+.tree,
+.house {
   display: inline-block;
   width: 25px;
   height: 25px;
-  /* border-radius: 13px; */
   z-index: 100;
 }
 
@@ -211,8 +212,21 @@ h4.designToolboxTitle {
   background-size: contain;
 }
 
+.tree {
+  background-image: url("../assets/tree.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.house {
+  background-image: url("../assets/house.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
 .win,
-.loss, .collision {
+.loss,
+.collision {
   display: flex;
   flex-direction: column;
   align-items: center;
