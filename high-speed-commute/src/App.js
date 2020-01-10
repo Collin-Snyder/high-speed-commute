@@ -5,6 +5,7 @@ import DesignModule from "./layoutDesigner/DesignModule";
 import createSquares from "./logic/createSquares";
 import createDesignBoard from "./logic/createDesignBoard";
 import { findPath } from "./logic/moveBoss";
+import { prettify } from "./logic/prettify";
 import { formatLayout } from "./levelHandling/JSONconverters";
 import axios from "axios";
 
@@ -98,9 +99,8 @@ class App extends React.Component {
         collision = true;
       }
       if (playerCar === this.state.office) {
-        clearInterval(this.interval)
+        clearInterval(this.interval);
       }
-
     }
 
     this.setState({ playerCar, collision });
@@ -164,17 +164,16 @@ class App extends React.Component {
   loadDesign(newLayout, newPlayerHome, newBossHome, newOffice) {
     let { layout, playerHome, bossHome, office } = this.state;
 
-    layout = newLayout.slice();
+    uglyLayout = newLayout.slice();
+    let layout = prettify(layout);
+
     playerHome = newPlayerHome;
     bossHome = newBossHome;
     office = newOffice;
 
-    this.setState(
-      { layout, playerHome, bossHome, office },
-      () => {
-        this.fullReset();
-      }
-    );
+    this.setState({ layout, playerHome, bossHome, office }, () => {
+      this.fullReset();
+    });
   }
 
   loadLevel(levelId) {
