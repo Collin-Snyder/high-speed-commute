@@ -21,7 +21,8 @@ export default class DesignModule extends React.Component {
       bossHome: 0,
       office: 0,
       levelName: "",
-      inputVisible: false
+      inputVisible: false,
+      playButtonVisible: false
     };
 
     this.handleToolSelection = this.handleToolSelection.bind(this);
@@ -117,6 +118,7 @@ export default class DesignModule extends React.Component {
       this.state.bossHome,
       this.state.office
     );
+    this.setState({playButtonVisible: false})
   }
 
   loadSavedDesign(levelId) {
@@ -190,13 +192,15 @@ export default class DesignModule extends React.Component {
   }
 
   toggleInput() {
-    let { inputVisible } = this.state;
+    let { inputVisible, playButtonVisible } = this.state;
 
-    this.setState({inputVisible: !inputVisible});
+    if (inputVisible) playButtonVisible = true;
+
+    this.setState({ inputVisible: !inputVisible, playButtonVisible });
   }
 
   handleInputChange(e) {
-    this.setState({levelName: e.target.value});
+    this.setState({ levelName: e.target.value });
   }
 
   render() {
@@ -226,13 +230,16 @@ export default class DesignModule extends React.Component {
           toggleInput={this.toggleInput}
         />
         <div className="buttons design">
-          <button
-            className="btn save design"
-            onClick={this.toggleInput}
-          >
+          <button className="btn save design" onClick={this.toggleInput}>
             Save Level
           </button>
-          <button className="btn play design" onClick={this.sendDesignToGame}>
+          <button
+            style={{
+              display: this.state.playButtonVisible ? "inline-block" : "none"
+            }}
+            className="btn play design"
+            onClick={this.sendDesignToGame}
+          >
             Play Now!
           </button>
           {/* <button
