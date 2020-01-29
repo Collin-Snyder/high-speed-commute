@@ -54,20 +54,26 @@ High Speed Commute is an action-packed race to work against your boss. Get there
 </table>
 
 ## Front-End
-High Speed Commute was built with ...
+High Speed Commute was built with Javascript and vanilla React (create-react-app) on the front end. For this application I wanted to keep the technology simple to focus on the logic and data structure of the game.
 
 ## Back-End 
-...
+High Speed Commute uses Node.js and Express to create a server that interacts with a PostgreSQL database and provides all user, game, and level information to the React app.
 
 ## Deployment
-...
+[Coming eventually]
 
-# Get started
+<!-- # Get started
 
-- How to run the app on localhost ...
+How to run the app on localhost:
+
+  - In first terminal window: 
+    - git clone https://github.com/Collin-Snyder/high-speed-commute.git
+    - cd
+  -  -->
+
 
 ## Challenges
-- For this project, I wanted to learn ...
+- In building High Speed Commute, I wanted to learn more about pathfinding algorithms used to move non-player characters, since the Boss character has to both find a working path to a given target and also navigate a maze in the process. Initially I attempted to implement
 
 ## Learnings
 - ...
