@@ -63,9 +63,9 @@ const DesignToolbox = ({
           <input
             type="radio"
             onChange={handleToolSelection}
-            value="block"
+            value="eraser"
             name="designToolOption"
-            checked={selectedDesignTool === "block"}
+            checked={selectedDesignTool === "eraser"}
           />
           <span className="toolLabel">Eraser</span>
         </label>

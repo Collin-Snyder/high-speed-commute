@@ -91,12 +91,16 @@ export default class DesignModule extends React.Component {
       }
 
       this.setState({ office, designLayout });
-    } else if (selectedDesignTool === "block") {
-      let { designLayout } = this.state;
+    } else if (selectedDesignTool === "eraser") {
+      let { designLayout, playerHome, bossHome, office } = this.state;
 
       designLayout[squareId - 1].type = "block";
 
-      this.setState({ designLayout });
+      if (squareId === playerHome) playerHome = 0;
+      else if (squareId === bossHome) bossHome = 0;
+      else if (squareId === office) office = 0;
+
+      this.setState({ designLayout, playerHome, bossHome, office });
     } else if (selectedDesignTool === "street") {
       let { designLayout } = this.state;
 

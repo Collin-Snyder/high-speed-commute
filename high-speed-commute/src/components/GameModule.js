@@ -51,7 +51,7 @@ const GameModule = ({
           onClick={startBoss}
           style={{ display: startDisplay }}
         >
-          Play
+          Start
         </button>
         <button
           className="btn mode"
