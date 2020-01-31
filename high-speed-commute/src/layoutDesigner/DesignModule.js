@@ -120,7 +120,7 @@ export default class DesignModule extends React.Component {
       this.state.bossHome,
       this.state.office
     );
-    this.setState({playButtonVisible: false})
+    this.setState({ playButtonVisible: false });
   }
 
   loadSavedDesign(levelId) {
@@ -185,7 +185,7 @@ export default class DesignModule extends React.Component {
     axios
       .post("/api/levels", levelInfo)
       .then(res => {
-        this.setState({lastSavedLevel: res.data.rows[0].id})
+        this.setState({ lastSavedLevel: res.data.rows[0].id });
       })
       .catch(err => {
         console.log("There was a problem saving your level.");
@@ -194,11 +194,14 @@ export default class DesignModule extends React.Component {
   }
 
   toggleInput() {
-    let { inputVisible, playButtonVisible } = this.state;
+    let { inputVisible, playButtonVisible, levelName } = this.state;
 
-    if (inputVisible) playButtonVisible = true;
+    if (inputVisible) {
+      playButtonVisible = true;
+      levelName = "";
+    }
 
-    this.setState({ inputVisible: !inputVisible, playButtonVisible });
+    this.setState({ inputVisible: !inputVisible, playButtonVisible, levelName });
   }
 
   handleInputChange(e) {

@@ -17,6 +17,7 @@ const DesignField = ({
     if (e.key === "Enter") {
       saveLevel();
       toggleInput();
+      this.setState({inputValue: ""})
     }
   };
 

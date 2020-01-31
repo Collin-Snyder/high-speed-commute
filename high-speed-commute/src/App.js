@@ -204,7 +204,8 @@ class App extends React.Component {
           bossHome,
           bossCar,
           office,
-          layout
+          layout,
+          designLayout: layout
         }, () => {this.fullReset()});
       })
       .catch(err => console.error(err));
