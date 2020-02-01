@@ -266,11 +266,24 @@ export default class DesignModule extends React.Component {
           toggleInput={this.toggleInput}
         />
         <div className="buttons design">
+          <button class="btn save" onClick={this.handleDesignLoading}>
+            Load Saved Design
+          </button>
           <button className="btn save design" onClick={this.toggleInput}>
             Save Level
           </button>
-          <button class="btn save" onClick={this.handleDesignLoading}>
-            Load Saved Design
+          <button
+            style={{
+              display:
+                this.state.playerHome > 0 &&
+                this.state.bossHome > 0 &&
+                this.state.office > 0
+                  ? "inline-block"
+                  : "none"
+            }}
+            className="btn save design"
+          >
+            Test Level
           </button>
           <button
             style={{

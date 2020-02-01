@@ -266,7 +266,7 @@ h4.designToolboxTitle {
   display: flex;
   flex-direction: column;
   border: 3px dashed darkgray;
-  margin-bottom: 20px;
+  margin-top: 20px;
 }
 
 .designToolSelector label {
@@ -327,7 +327,7 @@ h4.designToolboxTitle {
 }
 
 .btn.clear {
-  background-color: rgb(249, 82, 82);
+  background-color: rgb(249, 82, 82); 
   box-shadow: -4px -4px rgb(180, 59, 59) inset, 0 -4px black, 4px 0 black,
     0 4px black, -4px 0 black;
 }

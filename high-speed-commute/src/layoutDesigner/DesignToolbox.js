@@ -10,7 +10,6 @@ const DesignToolbox = ({
 
   return (
     <div className="designToolbox">
-      <button class="btn clear" onClick={clearBoard}>Clear Design</button>
       <div className="designToolSelector">
         <label className="btn tool ph">
           <input
@@ -22,7 +21,6 @@ const DesignToolbox = ({
           />
           <span className="toolLabel">Player Home</span>
         </label>
-
         <label className="btn tool bh">
           <input
             type="radio"
@@ -33,7 +31,6 @@ const DesignToolbox = ({
           />
           <span className="toolLabel">Boss Home</span>
         </label>
-
         <label className="btn tool o">
           <input
             type="radio"
@@ -44,8 +41,6 @@ const DesignToolbox = ({
           />
           <span className="toolLabel">Office</span>
         </label>
-
-
         <label className="btn tool st">
           <input
             type="radio"
@@ -67,6 +62,7 @@ const DesignToolbox = ({
           <span className="toolLabel">Eraser</span>
         </label>
       </div>
+      <button class="btn clear" onClick={clearBoard}>Clear Design</button>
     </div>
   );
 };
