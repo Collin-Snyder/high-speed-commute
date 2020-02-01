@@ -326,6 +326,12 @@ h4.designToolboxTitle {
     0 4px black, -4px 0 black;
 }
 
+.btn.clear {
+  background-color: rgb(249, 82, 82);
+  box-shadow: -4px -4px rgb(180, 59, 59) inset, 0 -4px black, 4px 0 black,
+    0 4px black, -4px 0 black;
+}
+
 .btn.tool {
   width: 130px;
 }

@@ -2,6 +2,7 @@ import React from "react";
 import axios from "axios";
 import DesignField from "./DesignField";
 import DesignToolbox from "./DesignToolbox";
+import createDesignBoard from "../logic/createDesignBoard";
 import {
   convertLayoutToJSONString,
   formatLayout
@@ -32,6 +33,7 @@ export default class DesignModule extends React.Component {
     this.clearBoard = this.clearBoard.bind(this);
     this.sendDesignToGame = this.sendDesignToGame.bind(this);
     this.saveLevelToDatabase = this.saveLevelToDatabase.bind(this);
+    this.handleDesignLoading = this.handleDesignLoading.bind(this);
     this.loadSavedDesign = this.loadSavedDesign.bind(this);
     this.toggleInput = this.toggleInput.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -123,7 +125,15 @@ export default class DesignModule extends React.Component {
     }
   }
 
-  clearBoard() {}
+  clearBoard() {
+    let { designLayout, playerHome, bossHome, office } = this.state;
+    designLayout = designLayout.map(square => {
+      square.type = "block";
+      return square;
+    });
+    playerHome = bossHome = office = 0;
+    this.setState({ designLayout, playerHome, bossHome, office });
+  }
 
   sendDesignToGame() {
     this.props.loadDesign(
@@ -134,6 +144,10 @@ export default class DesignModule extends React.Component {
       this.state.office
     );
     this.setState({ playButtonVisible: false });
+  }
+
+  handleDesignLoading() {
+    console.log("Loading design");
   }
 
   loadSavedDesign(levelId) {
@@ -214,7 +228,11 @@ export default class DesignModule extends React.Component {
       levelName = "";
     }
 
-    this.setState({ inputVisible: !inputVisible, playButtonVisible, levelName });
+    this.setState({
+      inputVisible: !inputVisible,
+      playButtonVisible,
+      levelName
+    });
   }
 
   handleInputChange(e) {
@@ -230,9 +248,9 @@ export default class DesignModule extends React.Component {
           <DesignToolbox
             handleToolSelection={this.handleToolSelection}
             handleBrushSelection={this.handleBrushSelection}
-            loadSavedDesign={this.loadSavedDesign}
             selectedDesignTool={this.state.selectedDesignTool}
             brushSize={this.state.brushSize}
+            clearBoard={this.clearBoard}
           />
         </div>
         <DesignField
@@ -250,6 +268,9 @@ export default class DesignModule extends React.Component {
         <div className="buttons design">
           <button className="btn save design" onClick={this.toggleInput}>
             Save Level
+          </button>
+          <button class="btn save" onClick={this.handleDesignLoading}>
+            Load Saved Design
           </button>
           <button
             style={{

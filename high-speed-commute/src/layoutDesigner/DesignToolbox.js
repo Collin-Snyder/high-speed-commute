@@ -3,17 +3,14 @@ import React from "react";
 const DesignToolbox = ({
   handleToolSelection,
   handleBrushSelection,
-  loadSavedDesign,
   selectedDesignTool,
-  brushSize
+  brushSize,
+  clearBoard
 }) => {
 
-  const handleDesignLoading = () => {
-    loadSavedDesign(13);
-  }
   return (
     <div className="designToolbox">
-      <button class="btn save" onClick={handleDesignLoading}>Load Saved Design</button>
+      <button class="btn clear" onClick={clearBoard}>Clear Design</button>
       <div className="designToolSelector">
         <label className="btn tool ph">
           <input
