@@ -2,6 +2,7 @@ import React from "react";
 import axios from "axios";
 import DesignField from "./DesignField";
 import DesignToolbox from "./DesignToolbox";
+import LevelItem from "../components/LevelItem";
 import createDesignBoard from "../logic/createDesignBoard";
 import {
   convertLayoutToJSONString,
@@ -300,6 +301,16 @@ export default class DesignModule extends React.Component {
           >
             Switch to Play Mode
           </button> */}
+        </div>
+        <div className="loadSavedLevelModal">
+          <div className="modalBackground">
+            <div className="modalContent">
+              <h2>Your Saved Levels</h2>
+              <div className="userLevelSelector">
+                {this.props.userLevels.map((level, index) => <LevelItem levelInfo={level} loadLevel={this.loadSavedDesign} key={index} />)}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     );

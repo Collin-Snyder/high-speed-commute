@@ -271,6 +271,7 @@ class App extends React.Component {
             display={this.state.mode === "design" ? "flex" : "none"}
             enterPlayMode={this.enterPlayMode}
             loadDesign={this.loadDesign}
+            userLevels={this.state.userLevels}
           />
         </div>
       </div>
