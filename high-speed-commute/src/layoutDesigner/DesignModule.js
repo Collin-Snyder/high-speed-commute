@@ -2,7 +2,7 @@ import React from "react";
 import axios from "axios";
 import DesignField from "./DesignField";
 import DesignToolbox from "./DesignToolbox";
-import LevelItem from "../components/LevelItem";
+import LoadSavedLevelModal from "./LoadSavedLevelModal";
 import createDesignBoard from "../logic/createDesignBoard";
 import {
   convertLayoutToJSONString,
@@ -25,7 +25,8 @@ export default class DesignModule extends React.Component {
       levelName: "",
       inputVisible: false,
       playButtonVisible: false,
-      lastSavedLevel: null
+      lastSavedLevel: null,
+      modalVisible: false
     };
 
     this.handleToolSelection = this.handleToolSelection.bind(this);
@@ -34,9 +35,9 @@ export default class DesignModule extends React.Component {
     this.clearBoard = this.clearBoard.bind(this);
     this.sendDesignToGame = this.sendDesignToGame.bind(this);
     this.saveLevelToDatabase = this.saveLevelToDatabase.bind(this);
-    this.handleDesignLoading = this.handleDesignLoading.bind(this);
     this.loadSavedDesign = this.loadSavedDesign.bind(this);
     this.toggleInput = this.toggleInput.bind(this);
+    this.toggleModal = this.toggleModal.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
   }
 
@@ -147,10 +148,6 @@ export default class DesignModule extends React.Component {
     this.setState({ playButtonVisible: false });
   }
 
-  handleDesignLoading() {
-    console.log("Loading design");
-  }
-
   loadSavedDesign(levelId) {
     axios
       .get(`/api/levels/${levelId}`)
@@ -236,6 +233,11 @@ export default class DesignModule extends React.Component {
     });
   }
 
+  toggleModal() {
+    let { modalVisible } = this.state;
+    this.setState({ modalVisible: !modalVisible });
+  }
+
   handleInputChange(e) {
     this.setState({ levelName: e.target.value });
   }
@@ -267,7 +269,7 @@ export default class DesignModule extends React.Component {
           toggleInput={this.toggleInput}
         />
         <div className="buttons design">
-          <button class="btn save" onClick={this.handleDesignLoading}>
+          <button class="btn save" onClick={this.toggleModal}>
             Load Saved Design
           </button>
           <button className="btn save design" onClick={this.toggleInput}>
@@ -302,15 +304,11 @@ export default class DesignModule extends React.Component {
             Switch to Play Mode
           </button> */}
         </div>
-        <div className="loadSavedLevelModal">
-          <div className="modalBackground">
-            <div className="modalContent">
-              <h2>Your Saved Levels</h2>
-              <div className="userLevelSelector">
-                {this.props.userLevels.map((level, index) => <LevelItem levelInfo={level} loadLevel={this.loadSavedDesign} key={index} />)}
-              </div>
-            </div>
-          </div>
+        <div
+          className="loadSavedLevelModal"
+          style={{ display: this.state.modalVisible ? "block" : "none" }}
+        >
+          <LoadSavedLevelModal toggleModal={this.toggleModal} userLevels={this.props.userLevels} loadSavedDesign={this.loadSavedDesign} />
         </div>
       </div>
     );
