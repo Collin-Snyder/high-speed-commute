@@ -125,6 +125,10 @@ h4.designToolboxTitle {
   padding-bottom: 10px;
 }
 
+.levelItem:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
 .levelIconWrapper {
   flex-basis: 85px;
   flex-shrink: 0;
@@ -396,12 +400,25 @@ h4.designToolboxTitle {
 
 .modalContent {
   width: 50%;
-  border: 3px groove rgb(180, 180, 180);
-  background-color: #fff;
+  border: 5px groove rgb(180, 180, 180);
+  background-color: darkgray;
+  padding: 20px;
+}
+
+.savedLevelTitle {
+  /* color: rgba(0, 0, 255, 0.4); */
+  color: rgba(255, 211, 0, 1);
+  text-shadow: 4px 4px black;
 }
 
 .userLevelSelector {
-  
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin-top: 20px;
+  padding: 10px;
+  border: 5px double lightgray;
+  border-radius: 15px;
+  background-color: #fff;
 }
 
 /* .pathOption {
