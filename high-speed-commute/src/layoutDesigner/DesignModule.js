@@ -62,6 +62,9 @@ export default class DesignModule extends React.Component {
         playerHome = 0;
         designLayout[squareId - 1].type = "block";
       } else {
+        if (playerHome > 0) {
+          designLayout[playerHome - 1].type = "block";
+        }
         playerHome = squareId;
         designLayout[squareId - 1].type = "street";
       }
@@ -74,6 +77,9 @@ export default class DesignModule extends React.Component {
         bossHome = 0;
         designLayout[squareId - 1].type = "block";
       } else {
+        if (bossHome > 0) {
+          designLayout[bossHome - 1].type = "block";
+        }
         bossHome = squareId;
         designLayout[squareId - 1].type = "street";
       }
@@ -86,6 +92,9 @@ export default class DesignModule extends React.Component {
         office = 0;
         designLayout[squareId - 1].type = "block";
       } else {
+        if (office > 0) {
+          designLayout[office - 1].type = "block";
+        }
         office = squareId;
         designLayout[squareId - 1].type = "street";
       }
