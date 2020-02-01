@@ -161,20 +161,9 @@ class App extends React.Component {
     });
   }
 
-  loadDesign( levelId, newLayout, newPlayerHome, newBossHome, newOffice) {
-    // let { layout, playerHome, bossHome, office } = this.state;
+  loadDesign( levelId) {
     this.loadLevel(levelId);
     this.getUserLevels("collin");
-    // let uglyLayout = newLayout.slice();
-    // layout = prettify(uglyLayout);
-
-    // playerHome = newPlayerHome;
-    // bossHome = newBossHome;
-    // office = newOffice;
-
-    // this.setState({ layout, playerHome, bossHome, office }, () => {
-    //   this.fullReset();
-    // });
   }
 
   loadLevel(levelId) {

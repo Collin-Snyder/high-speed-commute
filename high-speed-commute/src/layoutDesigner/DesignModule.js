@@ -139,13 +139,11 @@ export default class DesignModule extends React.Component {
 
   sendDesignToGame() {
     this.props.loadDesign(
-      this.state.lastSavedLevel,
-      this.state.designLayout,
-      this.state.playerHome,
-      this.state.bossHome,
-      this.state.office
+      this.state.lastSavedLevel
     );
-    this.setState({ playButtonVisible: false });
+    let {playerHome, bossHome, office} = this.state;
+    playerHome = bossHome = office = 0;
+    this.setState({ playerHome, bossHome, office, playButtonVisible: false });
   }
 
   loadSavedDesign(levelId) {

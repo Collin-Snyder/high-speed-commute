@@ -114,7 +114,9 @@ h4.designToolboxTitle {
   padding: 20px 0;
   background-color: #fff;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
+  max-height: 70vh;
+  overflow: scroll;
 }
 
 .levelItem {
@@ -284,8 +286,6 @@ h4.designToolboxTitle {
 .toolSelectorRadio {
   position: absolute;
   opacity: 0;
-  height: 1px;
-  width: 1px;
   display: inline;
   padding: 0;
   margin: 0;
@@ -301,6 +301,10 @@ h4.designToolboxTitle {
   font-family: "Press Start 2P", cursive;
   border: 0;
   cursor: pointer;
+}
+
+.btn:focus, input:focus {
+  outline: none;
 }
 
 .btn.play {
@@ -382,7 +386,7 @@ h4.designToolboxTitle {
   display: inline-block;
 }
 
-.loadSavedLevelModal {
+.loadSavedLevelModal, .levelNameInputModal {
   position: absolute;
   width: 100vw;
   height: 100vh;

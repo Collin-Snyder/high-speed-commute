@@ -20,6 +20,10 @@ const DesignField = ({
     }
   };
 
+  const handleInputClick = e => {
+    e.stopPropagation();
+  }
+
   return (
     <div className="levelDesigner">
       {designLayout.map((square, index) => (
@@ -32,15 +36,19 @@ const DesignField = ({
           key={index}
         />
       ))}
-      <input
-        type="text"
-        value={inputValue}
-        onChange={handleInputChange}
-        onKeyPress={handleKeyPress}
-        placeholder="Enter your level's name"
-        className="levelNameInput"
-        style={{ display: inputVisible ? "inline-block" : "none" }}
-      />
+      <div className="levelNameInputModal" style={{ display: inputVisible ? "block" : "none" }}>
+        <div className="modalBackground" onClick={toggleInput}>
+          <input
+            type="text"
+            value={inputValue}
+            onChange={handleInputChange}
+            onKeyPress={handleKeyPress}
+            onClick={handleInputClick}
+            placeholder="Enter your level's name"
+            className="levelNameInput"
+          />
+        </div>
+      </div>
     </div>
   );
 };
