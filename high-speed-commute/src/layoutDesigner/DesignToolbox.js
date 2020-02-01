@@ -18,6 +18,7 @@ const DesignToolbox = ({
             value="playerHome"
             name="designToolOption"
             checked={selectedDesignTool === "playerHome"}
+            className="toolSelectorRadio"
           />
           <span className="toolLabel">Player Home</span>
         </label>
@@ -28,6 +29,7 @@ const DesignToolbox = ({
             value="bossHome"
             name="designToolOption"
             checked={selectedDesignTool === "bossHome"}
+            className="toolSelectorRadio"
           />
           <span className="toolLabel">Boss Home</span>
         </label>
@@ -38,6 +40,7 @@ const DesignToolbox = ({
             value="office"
             name="designToolOption"
             checked={selectedDesignTool === "office"}
+            className="toolSelectorRadio"
           />
           <span className="toolLabel">Office</span>
         </label>
@@ -48,6 +51,7 @@ const DesignToolbox = ({
             value="street"
             name="designToolOption"
             checked={selectedDesignTool === "street"}
+            className="toolSelectorRadio"
           />
           <span className="toolLabel">Street</span>
         </label>
@@ -58,6 +62,7 @@ const DesignToolbox = ({
             value="eraser"
             name="designToolOption"
             checked={selectedDesignTool === "eraser"}
+            className="toolSelectorRadio"
           />
           <span className="toolLabel">Eraser</span>
         </label>

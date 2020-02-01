@@ -275,11 +275,14 @@ h4.designToolboxTitle {
 }
 
 .designToolSelector label {
-  display: inline-block;
+  display: inline-flex;
   margin: 20px 30px;
+  align-items: center;
+  justify-content: center;
 }
 
-.designToolSelector input {
+.toolSelectorRadio {
+  position: absolute;
   opacity: 0;
   height: 1px;
   width: 1px;
