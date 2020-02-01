@@ -111,7 +111,7 @@ h4.designToolboxTitle {
   flex-direction: column;
   border: 5px groove darkgray;
   margin: 20px 0;
-  padding: 20px 0;
+  /* padding: 20px 0; */
   background-color: #fff;
   align-items: center;
   justify-content: flex-start;
