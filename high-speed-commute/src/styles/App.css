@@ -112,6 +112,7 @@ h4.designToolboxTitle {
   border: 5px groove darkgray;
   margin: 20px 0;
   /* padding: 20px 0; */
+  padding: 10px;
   background-color: #fff;
   align-items: center;
   justify-content: flex-start;
@@ -312,10 +313,21 @@ h4.designToolboxTitle {
   box-shadow: -4px -4px rgb(50, 143, 50) inset, 0 -4px black, 4px 0 black,
     0 4px black, -4px 0 black;
 }
+.btn.play:active {
+  background-color: rgb(125, 194, 108);
+  box-shadow: 4px 4px rgb(43, 122, 43) inset, 0 -4px black, 4px 0 black,
+    0 4px black, -4px 0 black;
+}
 
 .btn.mode {
   background-color: rgb(140, 66, 238);
   box-shadow: -4px -4px rgb(88, 41, 150) inset, 0 -4px black, 4px 0 black,
+    0 4px black, -4px 0 black;
+}
+
+.btn.mode:active {
+  background-color: rgb(100, 39, 180);
+  box-shadow: 4px 4px rgb(71, 33, 121) inset, 0 -4px black, 4px 0 black,
     0 4px black, -4px 0 black;
 }
 
@@ -338,9 +350,21 @@ h4.designToolboxTitle {
     0 4px black, -4px 0 black;
 }
 
+.btn.save:active {
+  background-color: rgb(252, 162, 45);
+  box-shadow: 4px 4px rgb(138, 90, 29)inset, 0 -4px black, 4px 0 black,
+    0 4px black, -4px 0 black;
+}
+
 .btn.clear {
   background-color: rgb(249, 82, 82); 
   box-shadow: -4px -4px rgb(180, 59, 59) inset, 0 -4px black, 4px 0 black,
+    0 4px black, -4px 0 black;
+}
+
+.btn.clear:active {
+  background-color: rgb(206, 44, 44); 
+  box-shadow: 4px 4px rgb(122, 40, 40) inset, 0 -4px black, 4px 0 black,
     0 4px black, -4px 0 black;
 }
 
@@ -354,15 +378,31 @@ h4.designToolboxTitle {
     0 4px black, -4px 0 black;
 }
 
+.btn.tool.ph:active {
+  background-color:rgba(0, 0, 255, 0.6);
+  box-shadow: 4px 4px  rgb(70, 70, 184) inset, 0 -4px black, 4px 0 black,
+    0 4px black, -4px 0 black;
+}
+
 .btn.tool.bh {
   background-color: rgba(255, 0, 0, 0.4);
   box-shadow: -4px -4px rgba(24, 0, 0, 0.329) inset, 0 -4px black, 4px 0 black,
+    0 4px black, -4px 0 black;
+}
+.btn.tool.bh:active {
+  background-color: rgb(226, 78, 78);
+  box-shadow: 4px 4px rgb(161, 44, 44) inset, 0 -4px black, 4px 0 black,
     0 4px black, -4px 0 black;
 }
 
 .btn.tool.o {
   background-color: rgba(255, 211, 0, 1);
   box-shadow: -4px -4px rgb(153, 128, 0) inset, 0 -4px black, 4px 0 black,
+    0 4px black, -4px 0 black;
+}
+.btn.tool.o:active {
+  background-color: rgb(235, 180, 0);
+  box-shadow: 4px 4px rgb(133, 111, 0) inset, 0 -4px black, 4px 0 black,
     0 4px black, -4px 0 black;
 }
 
@@ -372,9 +412,21 @@ h4.designToolboxTitle {
     -4px 0 black;
 }
 
+.btn.tool.st:active {
+  background-color: #353535;
+  box-shadow: 4px 4px #272727 inset, 0 -4px black, 4px 0 black, 0 4px black,
+    -4px 0 black;
+}
+
 .btn.tool.erase {
   background-color: lightgray;
   box-shadow: -4px -4px rgb(114, 114, 114) inset, 0 -4px black, 4px 0 black,
+    0 4px black, -4px 0 black;
+}
+
+.btn.tool.erase:active {
+  background-color: rgb(146, 146, 146);
+  box-shadow: 4px 4px rgb(114, 114, 114) inset, 0 -4px black, 4px 0 black,
     0 4px black, -4px 0 black;
 }
 

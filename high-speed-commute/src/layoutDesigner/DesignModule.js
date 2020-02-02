@@ -146,6 +146,8 @@ export default class DesignModule extends React.Component {
     this.setState({ playerHome, bossHome, office, playButtonVisible: false });
   }
 
+  enterPlayMode() {}
+
   loadSavedDesign(levelId) {
     axios
       .get(`/api/levels/${levelId}`)
@@ -199,11 +201,6 @@ export default class DesignModule extends React.Component {
       office,
       layout: convertLayoutToJSONString(designLayout)
     };
-
-    console.log(
-      "Layout inside saveLevel function in Design Module: ",
-      levelInfo.layout
-    );
 
     axios
       .post("/api/levels", levelInfo)
@@ -285,6 +282,9 @@ export default class DesignModule extends React.Component {
             className="btn save design"
           >
             Test Level
+          </button>
+          <button className="btn mode">
+            Back To Play Mode
           </button>
           <button
             style={{
