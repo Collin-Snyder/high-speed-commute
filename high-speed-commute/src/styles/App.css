@@ -378,7 +378,7 @@ h4.designToolboxTitle {
     0 4px black, -4px 0 black;
 }
 
-.btn.tool.ph:active {
+.btn.tool.ph:active, .btn.tool.ph.checked {
   background-color:rgba(0, 0, 255, 0.6);
   box-shadow: 4px 4px  rgb(70, 70, 184) inset, 0 -4px black, 4px 0 black,
     0 4px black, -4px 0 black;
@@ -389,7 +389,7 @@ h4.designToolboxTitle {
   box-shadow: -4px -4px rgba(24, 0, 0, 0.329) inset, 0 -4px black, 4px 0 black,
     0 4px black, -4px 0 black;
 }
-.btn.tool.bh:active {
+.btn.tool.bh:active, .btn.tool.bh.checked {
   background-color: rgb(226, 78, 78);
   box-shadow: 4px 4px rgb(161, 44, 44) inset, 0 -4px black, 4px 0 black,
     0 4px black, -4px 0 black;
@@ -400,7 +400,7 @@ h4.designToolboxTitle {
   box-shadow: -4px -4px rgb(153, 128, 0) inset, 0 -4px black, 4px 0 black,
     0 4px black, -4px 0 black;
 }
-.btn.tool.o:active {
+.btn.tool.o:active, .btn.tool.o.checked {
   background-color: rgb(235, 180, 0);
   box-shadow: 4px 4px rgb(133, 111, 0) inset, 0 -4px black, 4px 0 black,
     0 4px black, -4px 0 black;
@@ -412,7 +412,7 @@ h4.designToolboxTitle {
     -4px 0 black;
 }
 
-.btn.tool.st:active {
+.btn.tool.st:active, .btn.tool.st.checked {
   background-color: #353535;
   box-shadow: 4px 4px #272727 inset, 0 -4px black, 4px 0 black, 0 4px black,
     -4px 0 black;
@@ -424,10 +424,15 @@ h4.designToolboxTitle {
     0 4px black, -4px 0 black;
 }
 
-.btn.tool.erase:active {
+.btn.tool.erase:active, .btn.tool.erase.checked {
   background-color: rgb(146, 146, 146);
   box-shadow: 4px 4px rgb(114, 114, 114) inset, 0 -4px black, 4px 0 black,
     0 4px black, -4px 0 black;
+}
+
+.btn.tool.checked {
+  outline:  rgba(255, 211, 0, 1) solid  4px ;
+  outline-offset: 5px;
 }
 
 .buttons {

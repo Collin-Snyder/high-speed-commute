@@ -11,7 +11,7 @@ const DesignToolbox = ({
   return (
     <div className="designToolbox">
       <div className="designToolSelector">
-        <label className="btn tool ph">
+        <label className={"btn tool ph" + (selectedDesignTool === "playerHome" ? " checked" : "")}>
           <input
             type="radio"
             onChange={handleToolSelection}
@@ -22,7 +22,7 @@ const DesignToolbox = ({
           />
           <span className="toolLabel">Player Home</span>
         </label>
-        <label className="btn tool bh">
+        <label className={"btn tool bh" + (selectedDesignTool === "bossHome" ? " checked" : "")}>
           <input
             type="radio"
             onChange={handleToolSelection}
@@ -33,7 +33,7 @@ const DesignToolbox = ({
           />
           <span className="toolLabel">Boss Home</span>
         </label>
-        <label className="btn tool o">
+        <label className={"btn tool o" + (selectedDesignTool === "office" ? " checked" : "")}>
           <input
             type="radio"
             onChange={handleToolSelection}
@@ -44,7 +44,7 @@ const DesignToolbox = ({
           />
           <span className="toolLabel">Office</span>
         </label>
-        <label className="btn tool st">
+        <label className={"btn tool st" + (selectedDesignTool === "street" ? " checked" : "")}>
           <input
             type="radio"
             onChange={handleToolSelection}
@@ -55,7 +55,7 @@ const DesignToolbox = ({
           />
           <span className="toolLabel">Street</span>
         </label>
-        <label className="btn tool erase">
+        <label className={"btn tool erase" + (selectedDesignTool === "eraser" ? " checked" : "")}>
           <input
             type="radio"
             onChange={handleToolSelection}
