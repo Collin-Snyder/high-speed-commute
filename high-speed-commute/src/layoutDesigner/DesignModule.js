@@ -2,7 +2,8 @@ import React from "react";
 import axios from "axios";
 import DesignField from "./DesignField";
 import DesignToolbox from "./DesignToolbox";
-import LoadSavedLevelModal from "./LoadSavedLevelModal";
+import LoadSavedDesignModal from "./LoadSavedDesignModal";
+import SaveWarningModal from "./SaveWarningModal";
 import createDesignBoard from "../logic/createDesignBoard";
 import {
   convertLayoutToJSONString,
@@ -26,7 +27,11 @@ export default class DesignModule extends React.Component {
       inputVisible: false,
       playButtonVisible: false,
       lastSavedLevel: null,
-      modalVisible: false
+      modalVisibility: {
+        loadDesignModal: false,
+        saveWarningModal: false
+      },
+      saved: true
     };
 
     this.handleToolSelection = this.handleToolSelection.bind(this);
@@ -34,6 +39,7 @@ export default class DesignModule extends React.Component {
     this.addSquareToDesign = this.addSquareToDesign.bind(this);
     this.clearBoard = this.clearBoard.bind(this);
     this.sendDesignToGame = this.sendDesignToGame.bind(this);
+    this.enterPlayMode = this.enterPlayMode.bind(this);
     this.saveLevelToDatabase = this.saveLevelToDatabase.bind(this);
     this.loadSavedDesign = this.loadSavedDesign.bind(this);
     this.toggleInput = this.toggleInput.bind(this);
@@ -73,7 +79,7 @@ export default class DesignModule extends React.Component {
         designLayout[squareId - 1].type = "street";
       }
 
-      this.setState({ playerHome, designLayout });
+      this.setState({ playerHome, designLayout, saved: false });
     } else if (selectedDesignTool === "bossHome") {
       let { designLayout, bossHome } = this.state;
 
@@ -88,7 +94,7 @@ export default class DesignModule extends React.Component {
         designLayout[squareId - 1].type = "street";
       }
 
-      this.setState({ bossHome, designLayout });
+      this.setState({ bossHome, designLayout, saved: false });
     } else if (selectedDesignTool === "office") {
       let { designLayout, office } = this.state;
 
@@ -103,7 +109,7 @@ export default class DesignModule extends React.Component {
         designLayout[squareId - 1].type = "street";
       }
 
-      this.setState({ office, designLayout });
+      this.setState({ office, designLayout, saved: false });
     } else if (selectedDesignTool === "eraser") {
       let { designLayout, playerHome, bossHome, office } = this.state;
 
@@ -113,7 +119,13 @@ export default class DesignModule extends React.Component {
       else if (squareId === bossHome) bossHome = 0;
       else if (squareId === office) office = 0;
 
-      this.setState({ designLayout, playerHome, bossHome, office });
+      this.setState({
+        designLayout,
+        playerHome,
+        bossHome,
+        office,
+        saved: false
+      });
     } else if (selectedDesignTool === "street") {
       let { designLayout } = this.state;
 
@@ -123,7 +135,7 @@ export default class DesignModule extends React.Component {
         designLayout[squareId - 1].type = "street";
       }
 
-      this.setState({ designLayout });
+      this.setState({ designLayout, saved: false });
     }
   }
 
@@ -138,15 +150,25 @@ export default class DesignModule extends React.Component {
   }
 
   sendDesignToGame() {
-    this.props.loadDesign(
-      this.state.lastSavedLevel
-    );
-    let {playerHome, bossHome, office} = this.state;
+    this.props.loadDesign(this.state.lastSavedLevel);
+    let { playerHome, bossHome, office } = this.state;
     playerHome = bossHome = office = 0;
     this.setState({ playerHome, bossHome, office, playButtonVisible: false });
   }
 
-  enterPlayMode() {}
+  enterPlayMode() {
+    if (!this.state.saved) {
+      //render warning message to save level
+      let { modalVisibility } = this.state;
+      modalVisibility.saveWarningModal = true;
+      this.setState({ modalVisibility });
+    } else {
+      this.props.enterPlayMode();
+      let { playerHome, bossHome, office } = this.state;
+      playerHome = bossHome = office = 0;
+      this.setState({ playerHome, bossHome, office, playButtonVisible: false });
+    }
+  }
 
   loadSavedDesign(levelId) {
     axios
@@ -205,7 +227,7 @@ export default class DesignModule extends React.Component {
     axios
       .post("/api/levels", levelInfo)
       .then(res => {
-        this.setState({ lastSavedLevel: res.data.rows[0].id });
+        this.setState({ lastSavedLevel: res.data.rows[0].id, saved: true });
       })
       .catch(err => {
         console.log("There was a problem saving your level.");
@@ -228,9 +250,10 @@ export default class DesignModule extends React.Component {
     });
   }
 
-  toggleModal() {
-    let { modalVisible } = this.state;
-    this.setState({ modalVisible: !modalVisible });
+  toggleModal(modalName) {
+    let { modalVisibility } = this.state;
+    modalVisibility[modalName] = !modalVisibility[modalName];
+    this.setState({ modalVisibility });
   }
 
   handleInputChange(e) {
@@ -264,7 +287,12 @@ export default class DesignModule extends React.Component {
           toggleInput={this.toggleInput}
         />
         <div className="buttons design">
-          <button class="btn save" onClick={this.toggleModal}>
+          <button
+            class="btn save"
+            onClick={() => {
+              this.toggleModal("loadDesignModal");
+            }}
+          >
             Load Saved Design
           </button>
           <button className="btn save design" onClick={this.toggleInput}>
@@ -283,7 +311,7 @@ export default class DesignModule extends React.Component {
           >
             Test Level
           </button>
-          <button className="btn mode">
+          <button className="btn mode" onClick={this.enterPlayMode}>
             Back To Play Mode
           </button>
           <button
@@ -303,10 +331,28 @@ export default class DesignModule extends React.Component {
           </button> */}
         </div>
         <div
-          className="loadSavedLevelModal"
-          style={{ display: this.state.modalVisible ? "block" : "none" }}
+          className="modal"
+          style={{
+            display: this.state.modalVisibility.loadDesignModal
+              ? "block"
+              : "none"
+          }}
         >
-          <LoadSavedLevelModal toggleModal={this.toggleModal} userLevels={this.props.userLevels} loadSavedDesign={this.loadSavedDesign} />
+          <LoadSavedDesignModal
+            toggleModal={this.toggleModal}
+            userLevels={this.props.userLevels}
+            loadSavedDesign={this.loadSavedDesign}
+          />
+        </div>
+        <div
+          className="modal"
+          style={{
+            display: this.state.modalVisibility.saveWarningModal
+              ? "block"
+              : "none"
+          }}
+        >
+          <SaveWarningModal toggleModal={this.toggleModal} />
         </div>
       </div>
     );

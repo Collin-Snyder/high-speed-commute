@@ -35,6 +35,7 @@ class App extends React.Component {
     this.moveBossCar = this.moveBossCar.bind(this);
     this.resetPlayers = this.resetPlayers.bind(this);
     this.enterDesignMode = this.enterDesignMode.bind(this);
+    this.enterPlayMode = this.enterPlayMode.bind(this);
     this.loadDesign = this.loadDesign.bind(this);
     this.loadLevel = this.loadLevel.bind(this);
     this.getUserLevels = this.getUserLevels.bind(this);
@@ -159,6 +160,10 @@ class App extends React.Component {
     this.setState({ mode: "design", designLayout, status: "idle" }, () => {
       this.resetPlayers();
     });
+  }
+
+  enterPlayMode() {
+    this.setState({mode: "play", status: "idle"})
   }
 
   loadDesign( levelId) {

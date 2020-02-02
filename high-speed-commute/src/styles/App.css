@@ -443,7 +443,7 @@ h4.designToolboxTitle {
   display: inline-block;
 }
 
-.loadSavedLevelModal, .levelNameInputModal {
+.modal {
   position: absolute;
   width: 100vw;
   height: 100vh;
@@ -475,7 +475,7 @@ h4.designToolboxTitle {
   text-shadow: 4px 4px black;
 }
 
-.userLevelSelector {
+.userLevelSelector, .saveWarningButtons {
   display: grid;
   grid-template-columns: 1fr 1fr;
   margin-top: 20px;
@@ -483,6 +483,11 @@ h4.designToolboxTitle {
   border: 5px double lightgray;
   border-radius: 15px;
   background-color: #fff;
+}
+
+.saveWarningButtons {
+  display: flex;
+  justify-content: space-evenly;
 }
 
 /* .pathOption {
