@@ -163,10 +163,12 @@ class App extends React.Component {
   }
 
   enterPlayMode() {
-    this.setState({mode: "play", status: "idle"})
+    this.setState({ mode: "play", status: "idle" }, () => {
+      this.getUserLevels("collin");
+    });
   }
 
-  loadDesign( levelId) {
+  loadDesign(levelId) {
     this.loadLevel(levelId);
     this.getUserLevels("collin");
   }
@@ -189,18 +191,23 @@ class App extends React.Component {
         let uglyLayout = formatLayout(unformattedLayout);
         let layout = prettify(uglyLayout);
 
-        this.setState({
-          levelName,
-          boardHeight,
-          boardWidth,
-          playerHome,
-          playerCar,
-          bossHome,
-          bossCar,
-          office,
-          layout,
-          designLayout: layout
-        }, () => {this.fullReset()});
+        this.setState(
+          {
+            levelName,
+            boardHeight,
+            boardWidth,
+            playerHome,
+            playerCar,
+            bossHome,
+            bossCar,
+            office,
+            layout,
+            designLayout: layout
+          },
+          () => {
+            this.fullReset();
+          }
+        );
       })
       .catch(err => console.error(err));
   }

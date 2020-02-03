@@ -1,17 +1,31 @@
 import React from "react";
 import LevelItem from "../components/LevelItem";
 
-const SaveWarningModal = ({toggleModal}) => {
-
+const SaveWarningModal = ({ toggleModal, toggleInput }) => {
   const closeModal = () => {
     toggleModal("saveWarningModal");
-  }
+  };
+
+  const saveChanges = () => {
+    closeModal();
+    toggleInput();
+  };
+
   return (
     <div className="modalBackground" onClick={closeModal}>
-      <div className="modalContent" onClick={e => {e.stopPropagation()}}>
-        <h4 className="saveWarningTitle">You have unsaved changes that will be lost.</h4>
+      <div
+        className="modalContent"
+        onClick={e => {
+          e.stopPropagation();
+        }}
+      >
+        <h4 className="saveWarningTitle">
+          You have unsaved changes that will be lost.
+        </h4>
         <div className="saveWarningButtons">
-          <button className="btn save">Save Changes</button>
+          <button className="btn save" onClick={saveChanges}>
+            Save Changes
+          </button>
           <button className="btn mode">Discard</button>
         </div>
       </div>

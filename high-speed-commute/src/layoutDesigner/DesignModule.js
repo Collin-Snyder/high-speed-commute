@@ -160,12 +160,16 @@ export default class DesignModule extends React.Component {
     if (!this.state.saved) {
       //render warning message to save level
       let { modalVisibility } = this.state;
+
       modalVisibility.saveWarningModal = true;
+
       this.setState({ modalVisibility });
     } else {
       this.props.enterPlayMode();
+
       let { playerHome, bossHome, office } = this.state;
       playerHome = bossHome = office = 0;
+
       this.setState({ playerHome, bossHome, office, playButtonVisible: false });
     }
   }
@@ -352,7 +356,7 @@ export default class DesignModule extends React.Component {
               : "none"
           }}
         >
-          <SaveWarningModal toggleModal={this.toggleModal} />
+          <SaveWarningModal toggleModal={this.toggleModal} toggleInput={this.toggleInput}/>
         </div>
       </div>
     );

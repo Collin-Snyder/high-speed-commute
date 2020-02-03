@@ -344,6 +344,12 @@ h4.designToolboxTitle {
     0 4px white, -4px 0 white;
 }
 
+.btn.startOver:active {
+  background-color: rgb(84, 173, 214);
+  box-shadow: 4px 4px rgb(7, 107, 153) inset, 0 -4px black, 4px 0 black,
+    0 4px black, -4px 0 black;
+}
+
 .btn.save {
   background-color: rgb(255, 183, 88);
   box-shadow: -4px -4px rgb(209, 131, 28) inset, 0 -4px black, 4px 0 black,
