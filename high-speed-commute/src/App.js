@@ -223,6 +223,7 @@ class App extends React.Component {
   }
 
   fullReset() {
+    clearInterval(this.interval);
     let {
       mode,
       status,

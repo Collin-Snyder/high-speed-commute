@@ -17,7 +17,7 @@ const PlayingField = ({
     return (
       <div className="playingField win">
         <h1 className="gameOverTitle">
-          Whew! You made it.
+          Whew! You made it on time.
         </h1>
         <button className="btn startOver" onClick={fullReset}>
           Ready for tomorrow?
@@ -27,7 +27,7 @@ const PlayingField = ({
   } else if (bossCar === office) {
     return (
       <div className="playingField loss">
-        <h1 className="gameOverTitle">Yikes! You got in trouble.</h1>
+        <h1 className="gameOverTitle">Yikes! You're late.</h1>
         <button className="btn startOver" onClick={fullReset}>
           Try again?
         </button>
