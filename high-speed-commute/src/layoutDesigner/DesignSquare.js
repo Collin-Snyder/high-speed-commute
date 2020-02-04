@@ -19,11 +19,19 @@ const DesignSquare = ({ playerHome, bossHome, office, squareInfo, addSquareToDes
       special = special;
   }
 
+  const handleDrag = e => {
+    e.dataTransfer.setDragImage(document.getElementById("dragImage"), 0, 0);
+  }
+
       return (
         <div
           className={`designSquare${special}`}
           id={squareInfo.id}
-          onClick={addSquareToDesign}
+          onClick={(e) => {addSquareToDesign(e)}}
+          draggable
+          onDragStart={handleDrag}
+          onDragEnter={(e) => {addSquareToDesign(e, true)}}
+          // onDrop={()=>{console.log("Square is being targeted")}}
         >
           {squareInfo.id}
         </div>

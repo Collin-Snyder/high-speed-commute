@@ -59,7 +59,7 @@ export default class DesignModule extends React.Component {
 
   handleBrushSelection(e) {}
 
-  addSquareToDesign(e) {
+  addSquareToDesign(e, drag=false) {
     e.persist();
 
     let { selectedDesignTool } = this.state;
@@ -129,7 +129,7 @@ export default class DesignModule extends React.Component {
     } else if (selectedDesignTool === "street") {
       let { designLayout } = this.state;
 
-      if (designLayout[squareId - 1].type === "street") {
+      if (!drag && designLayout[squareId - 1].type === "street") {
         designLayout[squareId - 1].type = "block";
       } else {
         designLayout[squareId - 1].type = "street";

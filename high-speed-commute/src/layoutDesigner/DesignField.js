@@ -22,6 +22,7 @@ const DesignField = ({
 
   return (
     <div className="levelDesigner">
+       <img id="dragImage" style={{opacity: 0, position: "absolute"}} src="https://lh3.googleusercontent.com/proxy/pkVRYWgvekmqFl7y9FOHIyNVUFM3-aTjfVK5DTZ9W3WdoKtz0j8OkTA6gUdfMql_4lwFxMsS1rq3-nJZ0owweGo1xA" width="1px" height="1px"/>
       {designLayout.map((square, index) => (
         <DesignSquare
           playerHome={playerHome}
