@@ -3,7 +3,7 @@ import LevelItem from "../components/LevelItem";
 
 const SaveWarningModal = ({ toggleModal, toggleInput }) => {
   const closeModal = () => {
-    toggleModal("saveWarningModal");
+    toggleModal("saveChangesNew");
   };
 
   const saveChanges = () => {
