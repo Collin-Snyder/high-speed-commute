@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import StateMachine from "javascript-state-machine";
 import DesignField from "./DesignField";
 import DesignToolbox from "./DesignToolbox";
 import LoadSavedDesignModal from "./LoadSavedDesignModal";
@@ -9,6 +10,24 @@ import {
   convertLayoutToJSONString,
   formatLayout
 } from "../levelHandling/JSONconverters";
+
+// const saveMachine = new StateMachine({
+//   init: "savedNew",
+//   data: {
+//     isSaved: true,
+//     currentLevel: null,
+//     prompt: null,
+//     exiting: false
+//   },
+//   transitions: [
+//     {name: "changeNewDesign", from: "savedNew", to: "unsavedNew"},
+//     {name: "changeExistingDesign", from: "savedExisting", to: "unsavedExisting"},
+//     {name: "openLevelNameInputOnExit", from: "unsavedNew", to: "inputLevelNameOnExit"},
+//     {name: "openSaveChangesPromptOnExit", from: "unsavedNew", to: "saveChangesPromptOnExit"},
+//   ],
+
+
+// })
 
 export default class DesignModule extends React.Component {
   constructor(props) {
@@ -31,9 +50,26 @@ export default class DesignModule extends React.Component {
         loadDesignModal: false,
         saveWarningModal: false
       },
-      saved: true
+      isSaved: true,
+      saveStates: {
+        isSaved: true,
+        currentLevel: null,
+        exiting: false
+      }
     };
 
+    // this.state2 = {
+    //   saveStates: {
+    //     isSaved: true,
+    //     currentLevel: null,
+    //     exiting: false,
+    //     promptVisibility: {
+    //       saveChangesNew: false,
+    //       saveChanges: false,
+    //       levelName: false
+    //     }
+    //   }
+    // }
     this.handleToolSelection = this.handleToolSelection.bind(this);
     this.handleBrushSelection = this.handleBrushSelection.bind(this);
     this.addSquareToDesign = this.addSquareToDesign.bind(this);
@@ -157,7 +193,7 @@ export default class DesignModule extends React.Component {
   }
 
   enterPlayMode() {
-    if (!this.state.saved) {
+    if (!this.state.isSaved) {
       //render warning message to save level
       let { modalVisibility } = this.state;
 

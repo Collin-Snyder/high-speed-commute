@@ -216,7 +216,6 @@ class App extends React.Component {
     axios
       .get(`/api/userlevels/${username}`)
       .then(data => {
-        console.log(data.data.rows[0]);
         this.setState({ userLevels: data.data.rows });
       })
       .catch(err => console.error(err));

@@ -17,7 +17,6 @@ app.get("/api/levels/:id", (req, res) => {
 
 app.post("/api/levels", (req, res) => {
   saveLevel(req.body, result => {
-    console.log(result);
     res.send(result);
   });
 });
