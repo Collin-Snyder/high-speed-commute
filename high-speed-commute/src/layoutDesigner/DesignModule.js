@@ -368,6 +368,16 @@ export default class DesignModule extends React.Component {
 
   render() {
     return (
+      <>
+      <div className="designModuleLevelName"
+            style={{
+              display: this.state.saveStates.currentLevel
+                ? "inline-block"
+                : "none"
+            }}
+          >
+            {this.state.levelName}
+          </div>
       <div className="designModule" style={{ display: this.props.display }}>
         {/* <h3 className="designModuleTitle">Design Mode</h3> */}
         <div className="designTools">
@@ -393,6 +403,7 @@ export default class DesignModule extends React.Component {
           toggleInput={this.toggleInput}
         />
         <div className="buttons design">
+          
           <button
             class="btn save"
             onClick={() => {
@@ -486,6 +497,7 @@ export default class DesignModule extends React.Component {
           />
         </div>
       </div>
+      </>
     );
   }
 }
