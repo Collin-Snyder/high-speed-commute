@@ -1,7 +1,7 @@
 import React from "react";
 import LevelItem from "../components/LevelItem";
 
-const SaveWarningModal = ({ toggleModal, toggleInput }) => {
+const SaveWarningModal = ({ toggleModal, toggleInput, enterPlayMode }) => {
   const closeModal = () => {
     toggleModal("saveChangesNew");
   };
@@ -26,7 +26,7 @@ const SaveWarningModal = ({ toggleModal, toggleInput }) => {
           <button className="btn save" onClick={saveChanges}>
             Save Changes
           </button>
-          <button className="btn mode">Discard</button>
+          <button className="btn mode" onClick={() => enterPlayMode(null, true)}>Discard</button>
         </div>
       </div>
     </div>

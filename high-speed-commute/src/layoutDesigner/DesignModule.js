@@ -210,8 +210,8 @@ export default class DesignModule extends React.Component {
     this.setState({ playerHome, bossHome, office, playButtonVisible: false });
   }
 
-  enterPlayMode() {
-    if (!this.state.saveStates.isSaved) {
+  enterPlayMode(e, discard = false) {
+    if (!this.state.saveStates.isSaved && !discard) {
       //render warning message to save level
       let { modalVisibility } = this.state;
 
@@ -221,15 +221,25 @@ export default class DesignModule extends React.Component {
     } else {
       this.props.enterPlayMode();
 
-      let { playerHome, bossHome, office, saveStates } = this.state;
+      let {
+        playerHome,
+        bossHome,
+        office,
+        saveStates,
+        modalVisibility
+      } = this.state;
       playerHome = bossHome = office = 0;
       saveStates.currentLevel = null;
+      for (let modal in modalVisibility) {
+        modalVisibility[modal] = false;
+      }
 
       this.setState({
         playerHome,
         bossHome,
         office,
         saveStates,
+        modalVisibility,
         playButtonVisible: false
       });
     }
@@ -321,11 +331,14 @@ export default class DesignModule extends React.Component {
       layout: convertLayoutToJSONString(designLayout)
     };
 
-    axios.patch("/api/levels", levelInfo).then(res => {
-      console.log("Made the update request!");
-      saveStates.isSaved = true;
-      this.setState({saveStates});
-    }).catch(err => console.error("Uh oh, there was a problem: ", err));
+    axios
+      .patch("/api/levels", levelInfo)
+      .then(res => {
+        console.log("Made the update request!");
+        saveStates.isSaved = true;
+        this.setState({ saveStates });
+      })
+      .catch(err => console.error("Uh oh, there was a problem: ", err));
   }
 
   toggleInput() {
@@ -390,6 +403,9 @@ export default class DesignModule extends React.Component {
           </button>
           <button
             className="btn save design"
+            style={{
+              display: !this.state.saveStates.isSaved ? "inline-block" : "none"
+            }}
             onClick={
               this.state.saveStates.currentLevel
                 ? this.updateExistingLevel
@@ -397,6 +413,19 @@ export default class DesignModule extends React.Component {
             }
           >
             Save Level
+          </button>
+          <button
+            className="btn save design"
+            style={{
+              display:
+                this.state.saveStates.currentLevel &&
+                !this.state.saveStates.isSaved
+                  ? "inline-block"
+                  : "none"
+            }}
+            onClick={this.toggleInput}
+          >
+            Save As New Level
           </button>
           <button
             style={{
@@ -453,6 +482,7 @@ export default class DesignModule extends React.Component {
           <SaveWarningModal
             toggleModal={this.toggleModal}
             toggleInput={this.toggleInput}
+            enterPlayMode={this.enterPlayMode}
           />
         </div>
       </div>
