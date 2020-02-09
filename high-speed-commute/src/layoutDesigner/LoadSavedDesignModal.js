@@ -4,7 +4,7 @@ import LevelItem from "../components/LevelItem";
 const LoadSavedLevelModal = ({toggleModal, userLevels, loadSavedDesign}) => {
 
   const closeModal = () => {
-    toggleModal("loadDesignModal");
+    toggleModal("loadDesign");
   }
 
   return (

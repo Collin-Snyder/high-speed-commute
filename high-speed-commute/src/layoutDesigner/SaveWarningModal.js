@@ -1,14 +1,26 @@
 import React from "react";
-import LevelItem from "../components/LevelItem";
 
-const SaveWarningModal = ({ toggleModal, toggleInput }) => {
+const SaveWarningModal = ({
+  toggleModal,
+  enterPlayMode,
+  updateExistingLevel,
+  currentLevel,
+  levelName
+}) => {
+  console.log("Level name: ", levelName)
   const closeModal = () => {
-    toggleModal("saveWarningModal");
+    toggleModal("saveChangesNew");
   };
 
-  const saveChanges = () => {
-    closeModal();
-    toggleInput();
+  const saveChanges = (isExistingLevel) => {
+    if (isExistingLevel) {
+      closeModal();
+      updateExistingLevel();
+      enterPlayMode(null, true);
+    } else {
+      closeModal();
+      toggleModal("inputLevelName");
+    }
   };
 
   return (
@@ -20,13 +32,27 @@ const SaveWarningModal = ({ toggleModal, toggleInput }) => {
         }}
       >
         <h4 className="saveWarningTitle">
-          You have unsaved changes that will be lost.
+          {levelName ? `Save your changes to ${levelName}?`: "You have unsaved changes that will be lost."}
         </h4>
         <div className="saveWarningButtons">
-          <button className="btn save" onClick={saveChanges}>
+          <button
+            className="btn save"
+            onClick={() => {
+              if (currentLevel) {
+                saveChanges(true);
+              } else {
+                saveChanges(false);
+              }
+            }}
+          >
             Save Changes
           </button>
-          <button className="btn mode">Discard</button>
+          <button
+            className="btn mode"
+            onClick={() => enterPlayMode(null, true)}
+          >
+            Discard
+          </button>
         </div>
       </div>
     </div>

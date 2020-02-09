@@ -254,6 +254,10 @@ h4.designToolboxTitle {
   background-color: black;
 }
 
+.designModuleLevelName {
+  margin-bottom: 10px;
+}
+
 .designTools {
   display: flex;
   flex-direction: column;
@@ -292,6 +296,27 @@ h4.designToolboxTitle {
   margin: 0;
 }
 
+.saveConfirmation {
+  font-size: 0.7em;
+  width: 200px;
+  height: 50px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  /* background-color: #fff;
+  border: 5px double green;
+  border-radius: 15px; */
+}
+
+.checkmark {
+  background-image: url("../assets/checkmark-larger.png");
+  background-repeat: no-repeat;
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+  margin-left: 5px;
+}
+
 .btn {
   display: inline-block;
   color: #fff;
@@ -309,8 +334,8 @@ h4.designToolboxTitle {
 }
 
 .btn.play {
-  background-color: rgb(130, 231, 104);
-  box-shadow: -4px -4px rgb(50, 143, 50) inset, 0 -4px black, 4px 0 black,
+  background-color: #82e768;
+  box-shadow: -4px -4px #328f32 inset, 0 -4px black, 4px 0 black,
     0 4px black, -4px 0 black;
 }
 .btn.play:active {

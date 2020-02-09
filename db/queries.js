@@ -9,7 +9,7 @@ module.exports.getUser = () => {};
 
 module.exports.addUser = () => {};
 
-module.exports.saveLevel = (levelInfo, callback) => {
+module.exports.saveNewLevel = (levelInfo, callback) => {
   client
     .query(
       "INSERT INTO user_levels (user_id, level_name, board_height, board_width, player_home, boss_home, office, layout) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING id",
@@ -22,6 +22,22 @@ module.exports.saveLevel = (levelInfo, callback) => {
         levelInfo.bossHome,
         levelInfo.office,
         levelInfo.layout
+      ]
+    )
+    .then(result => callback(result))
+    .catch(err => callback(err));
+};
+
+module.exports.updateLevel = (levelInfo, callback) => {
+  client
+    .query(
+      "UPDATE user_levels SET player_home = $1, boss_home = $2, office = $3, layout = $4 WHERE id = $5",
+      [
+        levelInfo.playerHome,
+        levelInfo.bossHome,
+        levelInfo.office,
+        levelInfo.layout,
+        levelInfo.levelId
       ]
     )
     .then(result => callback(result))

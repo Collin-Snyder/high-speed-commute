@@ -1,6 +1,6 @@
 const express = require("express");
 const path = require("path");
-const { saveLevel, getLevel, getUserLevels } = require("../db/queries");
+const { saveNewLevel, updateLevel, getLevel, getUserLevels } = require("../db/queries");
 const port = 5000;
 
 const app = express();
@@ -16,10 +16,16 @@ app.get("/api/levels/:id", (req, res) => {
 });
 
 app.post("/api/levels", (req, res) => {
-  saveLevel(req.body, result => {
+  saveNewLevel(req.body, result => {
     res.send(result);
   });
 });
+
+app.patch("/api/levels", (req, res) => {
+  updateLevel(req.body, result => {
+    res.send(result);
+  })
+})
 
 app.get("/api/userlevels/:username", (req, res) => {
   getUserLevels(req.params.username, result => {
