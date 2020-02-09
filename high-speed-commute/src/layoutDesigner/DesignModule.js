@@ -204,7 +204,7 @@ export default class DesignModule extends React.Component {
   }
 
   sendDesignToGame() {
-    this.props.loadDesign(this.state.lastSavedLevel);
+    this.props.loadDesign(this.state.saveStates.currentLevel);
     let { playerHome, bossHome, office } = this.state;
     playerHome = bossHome = office = 0;
     this.setState({ playerHome, bossHome, office, playButtonVisible: false });
@@ -391,7 +391,7 @@ export default class DesignModule extends React.Component {
           />
         </div>
         <DesignField
-          inputVisible={this.state.inputVisible}
+          inputVisible={this.state.modalVisibility.inputLevelName}
           inputValue={this.state.levelName}
           playerHome={this.state.playerHome}
           bossHome={this.state.bossHome}
@@ -400,7 +400,7 @@ export default class DesignModule extends React.Component {
           addSquareToDesign={this.addSquareToDesign}
           handleInputChange={this.handleInputChange}
           saveLevel={this.saveLevelToDatabase}
-          toggleInput={this.toggleInput}
+          toggleModal={this.toggleModal}
         />
         <div className="buttons design">
           
@@ -420,7 +420,7 @@ export default class DesignModule extends React.Component {
             onClick={
               this.state.saveStates.currentLevel
                 ? this.updateExistingLevel
-                : this.toggleInput
+                : () => {this.toggleModal("inputLevelName")}
             }
           >
             Save Level
@@ -434,7 +434,7 @@ export default class DesignModule extends React.Component {
                   ? "inline-block"
                   : "none"
             }}
-            onClick={this.toggleInput}
+            onClick={() => {this.toggleModal("inputLevelName")}}
           >
             Save As New Level
           </button>
@@ -492,7 +492,6 @@ export default class DesignModule extends React.Component {
         >
           <SaveWarningModal
             toggleModal={this.toggleModal}
-            toggleInput={this.toggleInput}
             enterPlayMode={this.enterPlayMode}
           />
         </div>

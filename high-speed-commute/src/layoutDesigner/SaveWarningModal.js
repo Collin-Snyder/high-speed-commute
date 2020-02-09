@@ -1,14 +1,14 @@
 import React from "react";
 import LevelItem from "../components/LevelItem";
 
-const SaveWarningModal = ({ toggleModal, toggleInput, enterPlayMode }) => {
+const SaveWarningModal = ({ toggleModal, enterPlayMode }) => {
   const closeModal = () => {
     toggleModal("saveChangesNew");
   };
 
   const saveChanges = () => {
     closeModal();
-    toggleInput();
+    toggleModal("inputLevelName");
   };
 
   return (

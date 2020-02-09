@@ -11,12 +11,12 @@ const DesignField = ({
   designLayout,
   addSquareToDesign,
   saveLevel,
-  toggleInput
+  toggleModal
 }) => {
   const handleKeyPress = e => {
     if (e.key === "Enter") {
       saveLevel();
-      toggleInput();
+      toggleModal("inputLevelName");
     }
   };
 
@@ -34,7 +34,7 @@ const DesignField = ({
         />
       ))}
       <div className="modal" style={{ display: inputVisible ? "block" : "none" }}>
-        <div className="modalBackground" onClick={toggleInput}>
+        <div className="modalBackground" onClick={() => {toggleModal("inputLevelName")}}>
           <input
             type="text"
             value={inputValue}
