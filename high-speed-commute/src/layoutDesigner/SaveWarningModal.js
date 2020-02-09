@@ -1,5 +1,4 @@
 import React from "react";
-import LevelItem from "../components/LevelItem";
 
 const SaveWarningModal = ({ toggleModal, enterPlayMode }) => {
   const closeModal = () => {
