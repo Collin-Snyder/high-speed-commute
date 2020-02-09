@@ -502,14 +502,19 @@ export default class DesignModule extends React.Component {
           <div
             className="modal"
             style={{
-              display: this.state.modalVisibility.saveChangesNew
-                ? "block"
-                : "none"
+              display:
+                this.state.modalVisibility.saveChangesNew ||
+                this.state.modalVisibility.saveChanges
+                  ? "block"
+                  : "none"
             }}
           >
             <SaveWarningModal
               toggleModal={this.toggleModal}
               enterPlayMode={this.enterPlayMode}
+              updateExistingLevel={this.updateExistingLevel}
+              currentLevel={this.state.saveStates.currentLevel}
+              levelName={this.state.levelName}
             />
           </div>
           <div
