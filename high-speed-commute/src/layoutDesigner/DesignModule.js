@@ -55,7 +55,8 @@ export default class DesignModule extends React.Component {
       saveStates: {
         isSaved: true,
         currentLevel: null,
-        exiting: false
+        exiting: false,
+        confirmationVisible: false
       }
     };
 
@@ -314,13 +315,20 @@ export default class DesignModule extends React.Component {
       .post("/api/levels", levelInfo)
       .then(res => {
         saveStates.isSaved = true;
+        saveStates.confirmationVisible = true;
         saveStates.currentLevel = res.data.rows[0].id;
         this.setState({ saveStates }, () => {
-          if (this.state.saveStates.exiting) {
-            this.enterPlayMode();
-          }
-        });
-      })
+          setTimeout(() => {
+            let { saveStates } = this.state;
+            saveStates.confirmationVisible = false;
+            this.setState({ saveStates }, () => {
+                if (this.state.saveStates.exiting) {
+                  this.enterPlayMode();
+                }
+              }
+          )}, 1000);
+          });
+        })
       .catch(err => {
         console.log("There was a problem saving your level.");
         console.error(err);
@@ -345,7 +353,14 @@ export default class DesignModule extends React.Component {
       .then(res => {
         console.log("Made the update request!");
         saveStates.isSaved = true;
-        this.setState({ saveStates });
+        saveStates.confirmationVisible = true;
+        this.setState({ saveStates }, () => {
+          setTimeout(() => {
+            let { saveStates } = this.state;
+            saveStates.confirmationVisible = false;
+            this.setState({ saveStates });
+          }, 1000);
+        });
       })
       .catch(err => console.error("Uh oh, there was a problem: ", err));
   }
@@ -423,6 +438,18 @@ export default class DesignModule extends React.Component {
             >
               Load Saved Design
             </button>
+            <div
+              className="saveConfirmation"
+              style={{
+                display: this.state.saveStates.confirmationVisible
+                  ? "inline-flex"
+                  : "none"
+              }}
+            >
+              <span style={{ display: "inline-block" }}>
+                Changes Saved!<i className="checkmark"></i>
+              </span>
+            </div>
             <button
               className="btn save design"
               style={{
