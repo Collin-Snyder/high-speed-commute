@@ -5,8 +5,7 @@ const InputLevelNameModal = ({
   handleInputChange,
   saveLevel,
   toggleModal,
-  enterPlayMode,
-  exiting
+  enterPlayMode
 }) => {
   const handleKeyPress = e => {
     if (e.key === "Enter") {
@@ -18,7 +17,6 @@ const InputLevelNameModal = ({
     if (e.key === "Enter") {
       saveLevel();
       toggleModal("inputLevelName");
-      enterPlayMode(null, true);
     }
   };
 
@@ -33,7 +31,7 @@ const InputLevelNameModal = ({
         type="text"
         value={inputValue}
         onChange={handleInputChange}
-        onKeyPress={exiting ? handleExitKeyPress : handleKeyPress}
+        onKeyPress={handleKeyPress}
         onClick={e => {
           e.stopPropagation();
         }}
