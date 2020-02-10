@@ -2,6 +2,7 @@ import React from "react";
 import "./styles/App.css";
 import GameModule from "./components/GameModule";
 import DesignModule from "./layoutDesigner/DesignModule";
+import BossErrorModal from "./components/BossErrorModal";
 import createSquares from "./logic/createSquares";
 import createDesignBoard from "./logic/createDesignBoard";
 import { findPath } from "./logic/moveBoss";
@@ -25,7 +26,8 @@ class App extends React.Component {
       layout: [],
       designLayout: [],
       userLevels: [],
-      collision: false
+      collision: false,
+      bossError: false
     };
 
     this.handleKeyDown = this.handleKeyDown.bind(this);
@@ -41,6 +43,7 @@ class App extends React.Component {
     this.deleteLevel = this.deleteLevel.bind(this);
     this.getUserLevels = this.getUserLevels.bind(this);
     this.fullReset = this.fullReset.bind(this);
+    this.closeBossModal = this.closeBossModal.bind(this);
   }
 
   componentDidMount() {
@@ -74,6 +77,13 @@ class App extends React.Component {
 
   startBoss() {
     let pathStack = this.findBossPath();
+    if (!pathStack) {
+      console.log(
+        "There is no possible path for the Boss to reach the goal. Make changes to your level and try again."
+      );
+      this.setState({ bossError: true });
+      return;
+    }
     this.setState({ status: "active" }, () => {
       this.interval = setInterval(() => {
         let nextMove = pathStack.pop();
@@ -112,6 +122,8 @@ class App extends React.Component {
     let { bossHome, office, layout } = this.state;
 
     let pathInfo = findPath(layout[bossHome - 1], layout[office - 1], layout);
+
+    if (!pathInfo) return null;
 
     this.setState({ layout: pathInfo.layout });
     return pathInfo.pathStack;
@@ -153,6 +165,10 @@ class App extends React.Component {
         this.setState({ collision: true });
       }
     });
+  }
+
+  closeBossModal() {
+    this.setState({ bossError: false });
   }
 
   enterDesignMode() {
@@ -287,6 +303,12 @@ class App extends React.Component {
             loadDesign={this.loadDesign}
             userLevels={this.state.userLevels}
           />
+        </div>
+        <div
+          className="modal"
+          style={{ display: this.state.bossError ? "block" : "none" }}
+        >
+          <BossErrorModal closeBossModal={this.closeBossModal} />
         </div>
       </div>
     );

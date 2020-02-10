@@ -122,6 +122,7 @@ export const findPath = (bossHome, office, layout) => {
   // let has = Object.hasOwnProperty;
   let cameFrom = {};
   let pathStack = [];
+  let foundTarget = false;
 
   //start the queue with the starting square (bossHome)
   frontier.put(bossHome);
@@ -137,6 +138,7 @@ export const findPath = (bossHome, office, layout) => {
 
     if (currentId === office.id) {
       // console.log("Found target!: ", currentId);
+      foundTarget = true;
       break;
     }
 
@@ -156,6 +158,9 @@ export const findPath = (bossHome, office, layout) => {
     // console.log(frontier.empty())
     
   }
+
+  if (!foundTarget) return null;
+  
   let current = office.id;
   //loop backwards through the path taken to reach the office and add to stack
   while (current !== bossHome.id) {

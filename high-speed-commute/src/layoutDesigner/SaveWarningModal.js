@@ -35,7 +35,7 @@ const SaveWarningModal = ({
           {levelName ? `Save your changes to ${levelName}?`: "You have unsaved changes that will be lost."}
         </h4>
         <div className="saveWarningButtons">
-          <button
+          <div
             className="btn save"
             onClick={() => {
               if (currentLevel) {
@@ -46,13 +46,13 @@ const SaveWarningModal = ({
             }}
           >
             Save Changes
-          </button>
-          <button
+          </div>
+          <div
             className="btn mode"
             onClick={() => enterPlayMode(null, true)}
           >
             Discard
-          </button>
+          </div>
         </div>
       </div>
     </div>

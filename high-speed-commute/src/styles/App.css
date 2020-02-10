@@ -105,7 +105,7 @@ h4.designToolboxTitle {
     0 4px black, -4px 0 black;
   font-size: 1em;
   padding-left: 20px;
-  cursor: text;
+  cursor: text; 
 }
 
 .levelsList {
@@ -320,6 +320,14 @@ h4.designToolboxTitle {
   margin-left: 5px;
 }
 
+.bang {
+  background-image: url("../assets/Bang2.png");
+  background-repeat: no-repeat;
+  display: inline-block;
+  height: 110px;
+  width: 100px;
+}
+
 .btn {
   display: inline-flex;
   align-items: center;
@@ -420,8 +428,8 @@ h4.designToolboxTitle {
 }
 
 .btn.clear, .delete {
-  background-color: rgb(249, 82, 82); 
-  box-shadow: -4px -4px rgb(180, 59, 59) inset, 0 -4px black, 4px 0 black,
+  background-color: #f95252; 
+  box-shadow: -4px -4px #b43b3b inset, 0 -4px black, 4px 0 black,
     0 4px black, -4px 0 black;
 }
 
@@ -532,6 +540,14 @@ h4.designToolboxTitle {
   padding: 20px;
 }
 
+.modalContent.bossError {
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
 .savedLevelTitle {
   /* color: rgba(0, 0, 255, 0.4); */
   color: rgba(255, 211, 0, 1);
@@ -551,6 +567,13 @@ h4.designToolboxTitle {
 .saveWarningButtons {
   display: flex;
   justify-content: space-evenly;
+}
+
+.bossErrorTitle {
+  max-width: 75%;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  line-height: 2em;
 }
 
 /* .pathOption {
