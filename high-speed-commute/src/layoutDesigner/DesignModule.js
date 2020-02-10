@@ -12,23 +12,6 @@ import {
   formatLayout
 } from "../levelHandling/JSONconverters";
 
-// const saveMachine = new StateMachine({
-//   init: "savedNew",
-//   data: {
-//     isSaved: true,
-//     currentLevel: null,
-//     prompt: null,
-//     exiting: false
-//   },
-//   transitions: [
-//     {name: "changeNewDesign", from: "savedNew", to: "unsavedNew"},
-//     {name: "changeExistingDesign", from: "savedExisting", to: "unsavedExisting"},
-//     {name: "openLevelNameInputOnExit", from: "unsavedNew", to: "inputLevelNameOnExit"},
-//     {name: "openSaveChangesPromptOnExit", from: "unsavedNew", to: "saveChangesPromptOnExit"},
-//   ],
-
-// })
-
 export default class DesignModule extends React.Component {
   constructor(props) {
     super(props);
@@ -42,10 +25,10 @@ export default class DesignModule extends React.Component {
       playerHome: 0,
       bossHome: 0,
       office: 0,
+      stoplights: {},
       levelName: "",
       inputVisible: false,
       playButtonVisible: false,
-      // lastSavedLevel: null,
       modalVisibility: {
         loadDesign: false,
         saveChangesNew: false,
@@ -60,19 +43,6 @@ export default class DesignModule extends React.Component {
         saveError: false
       }
     };
-
-    // this.state2 = {
-    //   saveStates: {
-    //     isSaved: true,
-    //     currentLevel: null,
-    //     exiting: false,
-    //     promptVisibility: {
-    //       saveChangesNew: false,
-    //       saveChanges: false,
-    //       levelName: false
-    //     }
-    //   }
-    // }
 
     this.handleToolSelection = this.handleToolSelection.bind(this);
     this.handleBrushSelection = this.handleBrushSelection.bind(this);

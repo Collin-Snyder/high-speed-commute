@@ -21,6 +21,7 @@ class App extends React.Component {
       playerHome: 281,
       bossHome: 681,
       office: 520,
+      stoplights: {},
       playerCar: 281,
       bossCar: 681,
       layout: [],
@@ -105,7 +106,7 @@ class App extends React.Component {
     let { playerCar, bossCar, collision, layout } = this.state;
     let target = layout[playerCar - 1].borders[direction];
 
-    if (target && target.type === "street") {
+    if (target && target.type === "street" && target.stoplight !== "red") {
       playerCar = target.id;
       if (playerCar === bossCar) {
         collision = true;
