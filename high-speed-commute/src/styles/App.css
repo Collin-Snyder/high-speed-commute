@@ -89,7 +89,7 @@ h4.designToolboxTitle {
 }
 
 .levelsListContainer {
-  width: 250px;
+  width: 300px;
 }
 
 .levelNameInput {
@@ -120,12 +120,13 @@ h4.designToolboxTitle {
   overflow: scroll;
 }
 
-.levelItem {
+.levelItemGroup, .levelItem {
   display: flex;
   align-items: center;
   cursor: pointer;
   padding-top: 10px;
   padding-bottom: 10px;
+  width: 100%;
 }
 
 .levelItem:hover {
@@ -150,6 +151,7 @@ h4.designToolboxTitle {
 .levelName {
   text-align: left;
   margin-left: 15px;
+  overflow-wrap: break-word;
 }
 
 .gridRow {
@@ -318,7 +320,9 @@ h4.designToolboxTitle {
 }
 
 .btn {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   color: #fff;
   font-size: 1em;
   margin: 20px 0px;
@@ -331,6 +335,33 @@ h4.designToolboxTitle {
 
 .btn:focus, input:focus {
   outline: none;
+  font-family: "Press Start 2P", cursive;
+  border: 0;
+  cursor: pointer;
+  height: 25px;
+}
+
+.delete {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  height: 30px;
+  min-width: 30px;
+  margin-right: 10px;
+  position: relative;
+}
+
+.X {
+  display: inline-block;
+  position: absolute;
+  top: 6px;
+  left: 6px;
+}
+
+.X:active {
+  top: 10px;
+  left: 10px;
 }
 
 .btn.play {
@@ -387,13 +418,13 @@ h4.designToolboxTitle {
     0 4px black, -4px 0 black;
 }
 
-.btn.clear {
+.btn.clear, .delete {
   background-color: rgb(249, 82, 82); 
   box-shadow: -4px -4px rgb(180, 59, 59) inset, 0 -4px black, 4px 0 black,
     0 4px black, -4px 0 black;
 }
 
-.btn.clear:active {
+.btn.clear:active, .delete:active {
   background-color: rgb(206, 44, 44); 
   box-shadow: 4px 4px rgb(122, 40, 40) inset, 0 -4px black, 4px 0 black,
     0 4px black, -4px 0 black;

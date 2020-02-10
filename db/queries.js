@@ -44,6 +44,13 @@ module.exports.updateLevel = (levelInfo, callback) => {
     .catch(err => callback(err));
 };
 
+module.exports.deleteLevel = (levelId, callback) => {
+  client
+    .query("DELETE FROM user_levels WHERE id = $1", [levelId])
+    .then(result => callback(result))
+    .catch(err => callback(err));
+};
+
 module.exports.getLevel = (levelId, callback) => {
   client
     .query("SELECT * FROM user_levels WHERE id = $1", [levelId])

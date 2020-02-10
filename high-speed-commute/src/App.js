@@ -38,6 +38,7 @@ class App extends React.Component {
     this.enterPlayMode = this.enterPlayMode.bind(this);
     this.loadDesign = this.loadDesign.bind(this);
     this.loadLevel = this.loadLevel.bind(this);
+    this.deleteLevel = this.deleteLevel.bind(this);
     this.getUserLevels = this.getUserLevels.bind(this);
     this.fullReset = this.fullReset.bind(this);
   }
@@ -212,6 +213,17 @@ class App extends React.Component {
       .catch(err => console.error(err));
   }
 
+  deleteLevel(levelId) {
+    axios
+      .delete(`/api/levels`, { data: { levelId } })
+      .then(result => {
+        console.log(result);
+        this.getUserLevels("collin");
+        this.loadLevel(13);
+      })
+      .catch(err => console.log(err));
+  }
+
   getUserLevels(username) {
     axios
       .get(`/api/userlevels/${username}`)
@@ -265,6 +277,7 @@ class App extends React.Component {
           fullReset={this.fullReset}
           enterDesignMode={this.enterDesignMode}
           loadLevel={this.loadLevel}
+          deleteLevel={this.deleteLevel}
         />
         <div className="designModuleContainer">
           <DesignModule

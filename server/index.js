@@ -1,6 +1,6 @@
 const express = require("express");
 const path = require("path");
-const { saveNewLevel, updateLevel, getLevel, getUserLevels } = require("../db/queries");
+const { saveNewLevel, updateLevel, getLevel, getUserLevels, deleteLevel } = require("../db/queries");
 const port = 5000;
 
 const app = express();
@@ -23,6 +23,13 @@ app.post("/api/levels", (req, res) => {
 
 app.patch("/api/levels", (req, res) => {
   updateLevel(req.body, result => {
+    res.send(result);
+  })
+})
+
+app.delete("/api/levels", (req, res) => {
+  deleteLevel(req.body.levelId, result => {
+    console.log(result);
     res.send(result);
   })
 })

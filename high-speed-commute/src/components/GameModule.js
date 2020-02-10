@@ -19,16 +19,17 @@ const GameModule = ({
   fullReset,
   enterDesignMode,
   enterPlayMode,
-  loadLevel
+  loadLevel,
+  deleteLevel
 }) => {
   let display = mode === "play" ? "flex" : "none";
-  let startDisplay = status === "idle" ? "inline-block" : "none";
+  let startDisplay = status === "idle" ? "inline-flex" : "none";
 
   return (
     <div className="gameModule" style={{ display }}>
       <div className="levelsListContainer">
         <h3>Your Levels</h3>
-        <LevelsList loadLevel={loadLevel} userLevels={userLevels} />
+        <LevelsList loadLevel={loadLevel} userLevels={userLevels} deleteLevel={deleteLevel} />
       </div>
 
       <PlayingField
@@ -46,20 +47,20 @@ const GameModule = ({
       />
 
       <div className="buttons">
-        <button
+        <div
           className="btn play"
           onClick={startBoss}
           style={{ display: startDisplay }}
         >
           Start
-        </button>
-        <button
+        </div>
+        <div
           className="btn mode"
           onClick={enterDesignMode}
           style={{ display: startDisplay }}
         >
           Design Mode
-        </button>
+        </div>
       </div>
     </div>
   );

@@ -56,7 +56,8 @@ export default class DesignModule extends React.Component {
         isSaved: true,
         currentLevel: null,
         exiting: false,
-        confirmationVisible: false
+        confirmationVisible: false,
+        saveError: false
       }
     };
 
@@ -430,14 +431,14 @@ export default class DesignModule extends React.Component {
             exiting={this.state.saveStates.exiting}
           />
           <div className="buttons design">
-            <button
+            <div
               class="btn save"
               onClick={() => {
                 this.toggleModal("loadDesign");
               }}
             >
               Load Saved Design
-            </button>
+            </div>
             <div
               className="saveConfirmation"
               style={{
@@ -450,7 +451,7 @@ export default class DesignModule extends React.Component {
                 Changes Saved!<i className="checkmark"></i>
               </span>
             </div>
-            <button
+            <div
               className="btn save design"
               style={{
                 display: !this.state.saveStates.isSaved
@@ -466,8 +467,8 @@ export default class DesignModule extends React.Component {
               }
             >
               Save Level
-            </button>
-            <button
+            </div>
+            <div
               className="btn save design"
               style={{
                 display:
@@ -481,8 +482,8 @@ export default class DesignModule extends React.Component {
               }}
             >
               Save As New Level
-            </button>
-            <button
+            </div>
+            <div
               style={{
                 display:
                   this.state.playerHome > 0 &&
@@ -494,11 +495,11 @@ export default class DesignModule extends React.Component {
               className="btn save design"
             >
               Test Level
-            </button>
-            <button className="btn mode" onClick={this.enterPlayMode}>
+            </div>
+            <div className="btn mode" onClick={this.enterPlayMode}>
               Back To Play Mode
-            </button>
-            <button
+            </div>
+            <div
               style={{
                 display: this.state.playButtonVisible ? "inline-block" : "none"
               }}
@@ -506,13 +507,13 @@ export default class DesignModule extends React.Component {
               onClick={this.sendDesignToGame}
             >
               Play Now!
-            </button>
-            {/* <button
+            </div>
+            {/* <div
             className="btn mode design"
             onClick={this.props.enterPlayMode}
           >
             Switch to Play Mode
-          </button> */}
+          </div> */}
           </div>
           <div
             className="modal"
