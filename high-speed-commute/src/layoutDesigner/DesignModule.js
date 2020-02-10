@@ -455,7 +455,7 @@ export default class DesignModule extends React.Component {
               className="btn save"
               style={{
                 display: !this.state.saveStates.isSaved
-                  ? "inline-block"
+                  ? "inline-flex"
                   : "none"
               }}
               onClick={
@@ -474,7 +474,7 @@ export default class DesignModule extends React.Component {
                 display:
                   this.state.saveStates.currentLevel &&
                   !this.state.saveStates.isSaved
-                    ? "inline-block"
+                    ? "inline-flex"
                     : "none"
               }}
               onClick={() => {
@@ -489,10 +489,10 @@ export default class DesignModule extends React.Component {
                   this.state.playerHome > 0 &&
                   this.state.bossHome > 0 &&
                   this.state.office > 0
-                    ? "inline-block"
+                    ? "inline-flex"
                     : "none"
               }}
-              className="btn save design"
+              className="btn save"
             >
               Test Level
             </div>
@@ -501,7 +501,7 @@ export default class DesignModule extends React.Component {
             </div>
             <div
               style={{
-                display: this.state.playButtonVisible ? "inline-block" : "none"
+                display: this.state.playButtonVisible ? "inline-flex" : "none"
               }}
               className="btn play design"
               onClick={this.sendDesignToGame}
