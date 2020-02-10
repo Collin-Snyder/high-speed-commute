@@ -13,12 +13,6 @@ const InputLevelNameModal = ({
       toggleModal("inputLevelName");
     }
   };
-  const handleExitKeyPress = e => {
-    if (e.key === "Enter") {
-      saveLevel();
-      toggleModal("inputLevelName");
-    }
-  };
 
   return (
     <div
@@ -32,9 +26,9 @@ const InputLevelNameModal = ({
         value={inputValue}
         onChange={handleInputChange}
         onKeyPress={handleKeyPress}
-        onClick={e => {
-          e.stopPropagation();
-        }}
+        onClick={e => 
+          e.stopPropagation()
+        }
         placeholder="Enter your level's name"
         className="levelNameInput"
       />

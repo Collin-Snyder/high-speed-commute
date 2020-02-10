@@ -452,7 +452,7 @@ export default class DesignModule extends React.Component {
               </span>
             </div>
             <div
-              className="btn save design"
+              className="btn save"
               style={{
                 display: !this.state.saveStates.isSaved
                   ? "inline-block"
@@ -469,7 +469,7 @@ export default class DesignModule extends React.Component {
               Save Level
             </div>
             <div
-              className="btn save design"
+              className="btn save"
               style={{
                 display:
                   this.state.saveStates.currentLevel &&

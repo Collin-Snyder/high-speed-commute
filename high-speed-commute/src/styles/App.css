@@ -98,12 +98,14 @@ h4.designToolboxTitle {
   left: 600px;
   width: 500px;
   height: 50px;
+  min-height: 50px;
   border: none;
   background-color: #fff;
   box-shadow: -4px -4px rgb(194, 194, 194) inset, 0 -4px black, 4px 0 black,
     0 4px black, -4px 0 black;
   font-size: 1em;
   padding-left: 20px;
+  cursor: text;
 }
 
 .levelsList {
