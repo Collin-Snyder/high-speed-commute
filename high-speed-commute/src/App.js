@@ -21,7 +21,7 @@ class App extends React.Component {
       playerHome: 281,
       bossHome: 681,
       office: 520,
-      stoplights: {},
+      stoplights: { 213: 5000, 328: 5000, 571: 5000, 416: 5000 },
       playerCar: 281,
       bossCar: 681,
       layout: [],
@@ -47,7 +47,7 @@ class App extends React.Component {
     this.getUserLevels = this.getUserLevels.bind(this);
     this.fullReset = this.fullReset.bind(this);
     this.closeBossModal = this.closeBossModal.bind(this);
-    this.runStoplight = this.runStoplight.bind(this);
+    this.cycleStoplight = this.cycleStoplight.bind(this);
   }
 
   componentDidMount() {
@@ -60,6 +60,9 @@ class App extends React.Component {
 
   componentWillUnmount() {
     clearInterval(this.interval);
+    for (let interval in this.stoplightIntervals) {
+      clearInterval(this.stoplightIntervals[interval]);
+    }
   }
 
   handleKeyDown(e) {
@@ -90,7 +93,13 @@ class App extends React.Component {
     }
     this.setState({ status: "active" }, () => {
       for (let stoplight in this.state.stoplights) {
-        this.runStoplight(stoplight, this.state.stoplights[stoplight]);
+        setTimeout(() => {
+          this.cycleStoplight(stoplight);
+          this.stoplightIntervals[stoplight] = setInterval(() => {
+            this.cycleStoplight(stoplight);
+          }, this.state.stoplights[stoplight] + 7000);
+        }, this.state.stoplights[stoplight]);
+        
       }
 
       this.interval = setInterval(() => {
@@ -120,6 +129,9 @@ class App extends React.Component {
       }
       if (playerCar === this.state.office) {
         clearInterval(this.interval);
+        for (let interval in this.stoplightIntervals) {
+          clearInterval(this.stoplightIntervals[interval]);
+        }
       }
     }
 
@@ -138,71 +150,38 @@ class App extends React.Component {
   }
 
   moveBossCar(nextMove) {
-    // let {
-    //   bossCar,
-    //   bossCarPrevMove,
-    //   bossCarPrevQueue,
-    //   office,
-    //   layout
-    // } = this.state;
-    // let directionQueue = getDirectionQueue(
-    //   layout[bossCar - 1],
-    //   layout[office - 1],
-    //   bossCarPrevMove,
-    //   bossCarPrevQueue
-    // );
-    // // console.log(`Direction queue at square: ${bossCar}`, directionQueue);
-    // while (directionQueue.length) {
-    //   let direction = directionQueue.shift();
-    //   if (direction) {
-    //     let target = layout[bossCar - 1].borders[direction];
-    //     if (target && target.type === "street") {
-    //       bossCar = target.id;
-    //       bossCarPrevMove = direction;
-    //       bossCarPrevQueue = directionQueue;
-    //       break;
-    //     }
-    //   }
-    // }
     this.setState({ bossCar: nextMove }, () => {
       if (this.state.bossCar === this.state.office) {
         clearInterval(this.interval);
+        for (let interval in this.stoplightIntervals) {
+          clearInterval(this.stoplightIntervals[interval]);
+        }
         this.setState({ status: "idle" });
       } else if (this.state.bossCar === this.state.playerCar) {
         clearInterval(this.interval);
+        for (let interval in this.stoplightIntervals) {
+          clearInterval(this.stoplightIntervals[interval]);
+        }
         this.setState({ collision: true });
       }
     });
   }
 
-  runStoplight(squareId, interval) {
-    this.stoplightIntervals[squareId] = setInterval(() => {
-      setTimeout(() => {
-        let { layout } = this.state;
-        layout[squareId - 1].stoplight = "yellow";
-        this.setState(
-          { layout },
-          () => {
-            setTimeout(() => {
-              let { layout } = this.state;
-              layout[squareId - 1].stoplight = "red";
-              this.setState(
-                { layout },
-                () => {
-                  setTimeout(() => {
-                    let { layout } = this.state;
-                    layout[squareId - 1].stoplight = "green";
-                    this.setState({ layout });
-                  }, 5000);
-                },
-                2000
-              );
-            });
-          },
-          interval
-        );
-      }, interval + 7000);
-    });
+  cycleStoplight(squareId) {
+    let { layout } = this.state;
+    layout[squareId - 1].stoplight = "yellow";
+    this.setState({ layout });
+    setTimeout(() => {
+      let { layout } = this.state;
+      layout[squareId - 1].stoplight = "red";
+      this.setState({ layout });
+    }, 2000);
+    setTimeout(() => {
+      let { layout } = this.state;
+      layout[squareId - 1].stoplight = "green";
+      this.setState({ layout });
+    }, 7000);
+    
   }
 
   closeBossModal() {
@@ -211,6 +190,9 @@ class App extends React.Component {
 
   enterDesignMode() {
     clearInterval(this.interval);
+    for (let interval in this.stoplightIntervals) {
+      clearInterval(this.stoplightIntervals[interval]);
+    }
     let designLayout = createDesignBoard(40, 25);
     this.setState({ mode: "design", designLayout, status: "idle" }, () => {
       this.resetPlayers();
@@ -289,6 +271,9 @@ class App extends React.Component {
 
   fullReset() {
     clearInterval(this.interval);
+    for (let interval in this.stoplightIntervals) {
+      clearInterval(this.stoplightIntervals[interval]);
+    }
     let {
       mode,
       status,
