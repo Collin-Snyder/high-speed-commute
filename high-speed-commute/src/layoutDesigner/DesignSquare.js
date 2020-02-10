@@ -1,22 +1,37 @@
 import React from "react";
 
 const DesignSquare = ({ playerHome, bossHome, office, squareInfo, addSquareToDesign }) => {
-  let special = "";
+  let keySquareClass = "";
+  let stoplightClass = "";
 
-  special = squareInfo.type === "block" ? " block" : squareInfo.type === "street" ? " street" : "";
+  keySquareClass = squareInfo.type === "block" ? " block" : squareInfo.type === "street" ? " street" : "";
 
   switch (squareInfo.id) {
     case playerHome:
-      special = " playerHome";
+      keySquareClass = " playerHome";
       break;
     case bossHome:
-      special = " bossHome";
+      keySquareClass = " bossHome";
       break;
     case office:
-      special = " office";
+      keySquareClass = " office";
       break;
     default:
-      special = special;
+      keySquareClass = keySquareClass;
+  }
+
+  switch (squareInfo.stoplight) {
+    case "green":
+      stoplightClass = " greenlight";
+      break;
+    case "yellow":
+      stoplightClass = " yellowlight";
+      break;
+    case "red":
+      stoplightClass = " redlight";
+      break;
+    default: 
+      stoplightClass = "";
   }
 
   const handleDrag = e => {
@@ -25,13 +40,12 @@ const DesignSquare = ({ playerHome, bossHome, office, squareInfo, addSquareToDes
 
       return (
         <div
-          className={`designSquare${special}`}
+          className={`designSquare${keySquareClass}${stoplightClass}`}
           id={squareInfo.id}
           onClick={(e) => {addSquareToDesign(e)}}
           draggable
           onDragStart={handleDrag}
           onDragEnter={(e) => {addSquareToDesign(e, true)}}
-          // onDrop={()=>{console.log("Square is being targeted")}}
         >
           {squareInfo.id}
         </div>
