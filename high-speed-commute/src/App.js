@@ -21,7 +21,16 @@ class App extends React.Component {
       playerHome: 281,
       bossHome: 681,
       office: 520,
-      stoplights: { 213: 5000, 328: 5000, 571: 5000, 416: 5000 },
+      stoplights: {
+        213: 3000,
+        328: 3000,
+        571: 3000,
+        416: 3000,
+        699: 3000,
+        542: 3000,
+        103: 3000,
+        786: 3000
+      },
       playerCar: 281,
       bossCar: 681,
       layout: [],
@@ -99,12 +108,17 @@ class App extends React.Component {
             this.cycleStoplight(stoplight);
           }, this.state.stoplights[stoplight] + 7000);
         }, this.state.stoplights[stoplight]);
-        
       }
 
       this.interval = setInterval(() => {
         let nextMove = pathStack.pop();
-        if (nextMove) this.moveBossCar(nextMove);
+        if (nextMove) {
+          if (this.state.layout[nextMove - 1].stoplight === "red") {
+            pathStack.push(nextMove);
+          } else {
+            this.moveBossCar(nextMove);
+          }
+        }
       }, 300);
     });
   }
@@ -181,7 +195,6 @@ class App extends React.Component {
       layout[squareId - 1].stoplight = "green";
       this.setState({ layout });
     }, 7000);
-    
   }
 
   closeBossModal() {
