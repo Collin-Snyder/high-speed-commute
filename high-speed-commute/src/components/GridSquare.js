@@ -12,6 +12,7 @@ const GridSquare = ({
 }) => {
   let typeClass = "";
   let keySquareClass = "";
+  let stoplightClass = "";
   let centerLineClass = "";
   // let pathClass = "";
   let classList;
@@ -37,6 +38,20 @@ const GridSquare = ({
       keySquareClass = "";
   };
 
+  switch (squareInfo.stoplight) {
+    case "green":
+      stoplightClass = " greenlight";
+      break;
+    case "yellow":
+      stoplightClass = " yellowlight";
+      break;
+    case "red":
+      stoplightClass = " redlight";
+      break;
+    default: 
+      stoplightClass = "";
+  }
+
   if (squareInfo.borders.left && squareInfo.borders.right && !squareInfo.borders.up && !squareInfo.borders.down) {
     centerLineClass = " horizontalLine"
   } else if (squareInfo.borders.up && squareInfo.borders.down && !squareInfo.borders.right && !squareInfo.borders.left) {
@@ -51,7 +66,7 @@ const GridSquare = ({
   //   }
   // }
 
-  classList = typeClass + keySquareClass + centerLineClass;
+  classList = typeClass + keySquareClass + centerLineClass + stoplightClass;
   if (squareInfo.type === "block") {
     return (
       <div

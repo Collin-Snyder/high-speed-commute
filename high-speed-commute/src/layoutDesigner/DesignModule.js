@@ -7,6 +7,7 @@ import LoadSavedDesignModal from "./LoadSavedDesignModal";
 import SaveWarningModal from "./SaveWarningModal";
 import InputLevelNameModal from "./InputLevelNameModal";
 import createDesignBoard from "../logic/createDesignBoard";
+import { randomNumBtwn } from "../logic/randomNumber";
 import {
   convertLayoutToJSONString,
   formatLayout
@@ -163,6 +164,20 @@ export default class DesignModule extends React.Component {
       saveStates.isSaved = false;
 
       this.setState({ designLayout, saveStates });
+    } else if (selectedDesignTool === "stoplight") {
+      let { designLayout, saveStates, stoplights } = this.state;
+
+      if (!drag && stoplights.hasOwnProperty(squareId - 1)) {
+        designLayout[squareId - 1].stoplight = null;
+        delete stoplights[squareId - 1];
+      } else if (designLayout[squareId - 1].type === "street") {
+        designLayout[squareId - 1].stoplight = "green";
+        stoplights[squareId - 1] = randomNumBtwn(5, 20) * 1000;
+      }
+
+      saveStates.isSaved = false;
+
+      this.setState({ designLayout, saveStates, stoplights });
     }
   }
 
@@ -293,13 +308,13 @@ export default class DesignModule extends React.Component {
             let { saveStates } = this.state;
             saveStates.confirmationVisible = false;
             this.setState({ saveStates }, () => {
-                if (this.state.saveStates.exiting) {
-                  this.enterPlayMode();
-                }
+              if (this.state.saveStates.exiting) {
+                this.enterPlayMode();
               }
-          )}, 1000);
-          });
-        })
+            });
+          }, 1000);
+        });
+      })
       .catch(err => {
         console.log("There was a problem saving your level.");
         console.error(err);
@@ -424,9 +439,7 @@ export default class DesignModule extends React.Component {
             <div
               className="btn save"
               style={{
-                display: !this.state.saveStates.isSaved
-                  ? "inline-flex"
-                  : "none"
+                display: !this.state.saveStates.isSaved ? "inline-flex" : "none"
               }}
               onClick={
                 this.state.saveStates.currentLevel

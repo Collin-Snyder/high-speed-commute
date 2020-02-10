@@ -31,6 +31,8 @@ class App extends React.Component {
       bossError: false
     };
 
+    this.stoplightIntervals = {};
+
     this.handleKeyDown = this.handleKeyDown.bind(this);
     this.movePlayerCar = this.movePlayerCar.bind(this);
     this.startBoss = this.startBoss.bind(this);
@@ -45,6 +47,7 @@ class App extends React.Component {
     this.getUserLevels = this.getUserLevels.bind(this);
     this.fullReset = this.fullReset.bind(this);
     this.closeBossModal = this.closeBossModal.bind(this);
+    this.runStoplight = this.runStoplight.bind(this);
   }
 
   componentDidMount() {
@@ -86,6 +89,10 @@ class App extends React.Component {
       return;
     }
     this.setState({ status: "active" }, () => {
+      for (let stoplight in this.state.stoplights) {
+        this.runStoplight(stoplight, this.state.stoplights[stoplight]);
+      }
+
       this.interval = setInterval(() => {
         let nextMove = pathStack.pop();
         if (nextMove) this.moveBossCar(nextMove);
@@ -165,6 +172,36 @@ class App extends React.Component {
         clearInterval(this.interval);
         this.setState({ collision: true });
       }
+    });
+  }
+
+  runStoplight(squareId, interval) {
+    this.stoplightIntervals[squareId] = setInterval(() => {
+      setTimeout(() => {
+        let { layout } = this.state;
+        layout[squareId - 1].stoplight = "yellow";
+        this.setState(
+          { layout },
+          () => {
+            setTimeout(() => {
+              let { layout } = this.state;
+              layout[squareId - 1].stoplight = "red";
+              this.setState(
+                { layout },
+                () => {
+                  setTimeout(() => {
+                    let { layout } = this.state;
+                    layout[squareId - 1].stoplight = "green";
+                    this.setState({ layout });
+                  }, 5000);
+                },
+                2000
+              );
+            });
+          },
+          interval
+        );
+      }, interval + 7000);
     });
   }
 
