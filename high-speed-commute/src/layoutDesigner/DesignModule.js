@@ -61,7 +61,19 @@ export default class DesignModule extends React.Component {
 
   componentDidUpdate(prevProps) {
     if (this.props.designLayout !== prevProps.designLayout) {
+      if (
+        !this.props.designLayout[0].borders.hasOwnProperty("up") ||
+        !this.props.designLayout[0].borders.hasOwnProperty("down") ||
+        !this.props.designLayout[0].borders.hasOwnProperty("right") ||
+        !this.props.designLayout[0].borders.hasOwnProperty("left")
+      ) {
+        console.log("BORDER ERROR ALERT IN DESIGN MODULE CDU");
+      }
       this.setState({ designLayout: this.props.designLayout });
+    }
+
+    if (this.props.stoplights !== prevProps.stoplights) {
+      this.setState({ stoplights: this.props.stoplights });
     }
   }
 
@@ -74,7 +86,7 @@ export default class DesignModule extends React.Component {
   addSquareToDesign(e, drag = false) {
     e.persist();
 
-    let { selectedDesignTool } = this.state;
+    let { selectedDesignTool, stoplights } = this.state;
     let squareId = Number(e.currentTarget.id);
 
     if (selectedDesignTool === "playerHome") {
@@ -88,6 +100,7 @@ export default class DesignModule extends React.Component {
           designLayout[playerHome - 1].type = "block";
         }
         playerHome = squareId;
+        designLayout[squareId - 1].type = "street";
         designLayout[squareId - 1].type = "street";
       }
 
@@ -167,28 +180,30 @@ export default class DesignModule extends React.Component {
     } else if (selectedDesignTool === "stoplight") {
       let { designLayout, saveStates, stoplights } = this.state;
 
-      if (!drag && stoplights.hasOwnProperty(squareId - 1)) {
+      if (!drag && stoplights.hasOwnProperty(squareId)) {
         designLayout[squareId - 1].stoplight = null;
-        delete stoplights[squareId - 1];
+        delete stoplights[squareId];
+        saveStates.isSaved = false;
       } else if (designLayout[squareId - 1].type === "street") {
         designLayout[squareId - 1].stoplight = "green";
-        stoplights[squareId - 1] = randomNumBtwn(5, 20) * 1000;
+        stoplights[squareId] = randomNumBtwn(4, 12) * 1000;
+        saveStates.isSaved = false;
       }
-
-      saveStates.isSaved = false;
 
       this.setState({ designLayout, saveStates, stoplights });
     }
   }
 
   clearBoard() {
-    let { designLayout, playerHome, bossHome, office } = this.state;
+    let { designLayout, playerHome, bossHome, office, stoplights } = this.state;
     designLayout = designLayout.map(square => {
       square.type = "block";
+      square.stoplight = null;
       return square;
     });
     playerHome = bossHome = office = 0;
-    this.setState({ designLayout, playerHome, bossHome, office });
+    stoplights = {};
+    this.setState({ designLayout, playerHome, bossHome, office, stoplights });
   }
 
   sendDesignToGame() {
@@ -208,7 +223,7 @@ export default class DesignModule extends React.Component {
 
       this.setState({ modalVisibility, saveStates });
     } else {
-      this.props.enterPlayMode();
+      this.props.enterPlayMode(this.state.saveStates.currentLevel);
 
       let {
         playerHome,
@@ -250,6 +265,7 @@ export default class DesignModule extends React.Component {
         let bossHome = levelInfo.boss_home;
         let bossCar = bossHome;
         let office = levelInfo.office;
+        let stoplights = levelInfo.stoplights;
         let unformattedLayout = levelInfo.layout;
 
         let designLayout = formatLayout(unformattedLayout);
@@ -268,6 +284,7 @@ export default class DesignModule extends React.Component {
           bossCar,
           office,
           designLayout,
+          stoplights,
           saveStates
         });
       })
@@ -283,6 +300,7 @@ export default class DesignModule extends React.Component {
       bossHome,
       office,
       designLayout,
+      stoplights,
       saveStates
     } = this.state;
 
@@ -294,6 +312,7 @@ export default class DesignModule extends React.Component {
       playerHome,
       bossHome,
       office,
+      stoplights: JSON.stringify(stoplights),
       layout: convertLayoutToJSONString(designLayout)
     };
 
@@ -324,13 +343,21 @@ export default class DesignModule extends React.Component {
   updateExistingLevel() {
     //update saveState.currentLevel in database with current state of layout
     console.log(`Updating level ${this.state.saveStates.currentLevel}`);
-    let { playerHome, bossHome, office, designLayout, saveStates } = this.state;
+    let {
+      playerHome,
+      bossHome,
+      office,
+      designLayout,
+      stoplights,
+      saveStates
+    } = this.state;
 
     let levelInfo = {
       levelId: saveStates.currentLevel,
       playerHome,
       bossHome,
       office,
+      stoplights: JSON.stringify(stoplights),
       layout: convertLayoutToJSONString(designLayout)
     };
 
@@ -407,6 +434,7 @@ export default class DesignModule extends React.Component {
             playerHome={this.state.playerHome}
             bossHome={this.state.bossHome}
             office={this.state.office}
+            stoplights={this.state.stoplights}
             designLayout={this.state.designLayout}
             addSquareToDesign={this.addSquareToDesign}
             handleInputChange={this.handleInputChange}

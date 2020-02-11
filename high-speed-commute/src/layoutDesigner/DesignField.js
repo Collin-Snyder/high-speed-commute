@@ -8,6 +8,7 @@ const DesignField = ({
   playerHome,
   bossHome,
   office,
+  stoplights,
   designLayout,
   addSquareToDesign,
   saveLevel,
@@ -34,6 +35,7 @@ const DesignField = ({
       />
       {designLayout.map((square, index) => (
         <DesignSquare
+          isStoplight={stoplights.hasOwnProperty(square.id) ? true : false}
           playerHome={playerHome}
           bossHome={bossHome}
           office={office}

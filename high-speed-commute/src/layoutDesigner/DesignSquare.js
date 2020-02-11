@@ -1,6 +1,6 @@
 import React from "react";
 
-const DesignSquare = ({ playerHome, bossHome, office, squareInfo, addSquareToDesign }) => {
+const DesignSquare = ({ playerHome, bossHome, office, squareInfo, addSquareToDesign, isStoplight }) => {
   let keySquareClass = "";
   let stoplightClass = "";
 
@@ -20,18 +20,8 @@ const DesignSquare = ({ playerHome, bossHome, office, squareInfo, addSquareToDes
       keySquareClass = keySquareClass;
   }
 
-  switch (squareInfo.stoplight) {
-    case "green":
-      stoplightClass = " greenlight";
-      break;
-    case "yellow":
-      stoplightClass = " yellowlight";
-      break;
-    case "red":
-      stoplightClass = " redlight";
-      break;
-    default: 
-      stoplightClass = "";
+  if (isStoplight) {
+    stoplightClass = " greenlight"
   }
 
   const handleDrag = e => {

@@ -19,26 +19,26 @@ const PlayingField = ({
         <h1 className="gameOverTitle">
           Whew! You made it on time.
         </h1>
-        <button className="btn startOver" onClick={fullReset}>
+        <div className="btn startOver" onClick={fullReset}>
           Ready for tomorrow?
-        </button>
+        </div>
       </div>
     );
   } else if (bossCar === office) {
     return (
       <div className="playingField loss">
         <h1 className="gameOverTitle">Yikes! You're late.</h1>
-        <button className="btn startOver" onClick={fullReset}>
+        <div className="btn startOver" onClick={fullReset}>
           Try again?
-        </button>
+        </div>
       </div>
     );
   } else if (collision === true) {
     return <div className="playingField collision">
       <h1 className="gameOverTitle">Oops, you hit your boss. <br></br>You'll never work <br></br>in this town again.</h1>
-      <button className="btn startOver collision" onClick={fullReset}>
+      <div className="btn startOver collision" onClick={fullReset}>
           Try again in a new state?
-        </button>
+        </div>
     </div>;
   } else {
     return (

@@ -90,6 +90,7 @@ h4.designToolboxTitle {
 
 .levelsListContainer {
   width: 300px;
+  overflow-wrap: break-word;
 }
 
 .levelNameInput {
@@ -128,6 +129,7 @@ h4.designToolboxTitle {
   padding-top: 10px;
   padding-bottom: 10px;
   width: 100%;
+  overflow-wrap: break-word;
 }
 
 .levelItem:hover {

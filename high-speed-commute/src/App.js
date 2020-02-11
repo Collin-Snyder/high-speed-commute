@@ -21,16 +21,7 @@ class App extends React.Component {
       playerHome: 281,
       bossHome: 681,
       office: 520,
-      stoplights: {
-        213: 3000,
-        328: 3000,
-        571: 3000,
-        416: 3000,
-        699: 3000,
-        542: 3000,
-        103: 3000,
-        786: 3000
-      },
+      stoplights: {},
       playerCar: 281,
       bossCar: 681,
       layout: [],
@@ -137,9 +128,15 @@ class App extends React.Component {
     let target = layout[playerCar - 1].borders[direction];
 
     if (target && target.type === "street" && target.stoplight !== "red") {
+      layout[playerCar - 1].playerCar = false;
       playerCar = target.id;
+      layout[playerCar - 1].playerCar = true;
       if (playerCar === bossCar) {
         collision = true;
+        clearInterval(this.interval);
+        for (let interval in this.stoplightIntervals) {
+          clearInterval(this.stoplightIntervals[interval]);
+        }
       }
       if (playerCar === this.state.office) {
         clearInterval(this.interval);
@@ -149,7 +146,7 @@ class App extends React.Component {
       }
     }
 
-    this.setState({ playerCar, collision });
+    this.setState({ playerCar, layout, collision });
   }
 
   findBossPath() {
@@ -164,7 +161,11 @@ class App extends React.Component {
   }
 
   moveBossCar(nextMove) {
-    this.setState({ bossCar: nextMove }, () => {
+    let {bossCar, layout} = this.state;
+    layout[bossCar - 1].bossCar = false;
+    bossCar = nextMove;
+    layout[bossCar - 1].bossCar = true;
+    this.setState({ bossCar: nextMove, layout }, () => {
       if (this.state.bossCar === this.state.office) {
         clearInterval(this.interval);
         for (let interval in this.stoplightIntervals) {
@@ -207,12 +208,24 @@ class App extends React.Component {
       clearInterval(this.stoplightIntervals[interval]);
     }
     let designLayout = createDesignBoard(40, 25);
-    this.setState({ mode: "design", designLayout, status: "idle" }, () => {
-      this.resetPlayers();
-    });
+    if (
+      !designLayout[0].borders.hasOwnProperty("up") ||
+      !designLayout[0].borders.hasOwnProperty("down") ||
+      !designLayout[0].borders.hasOwnProperty("right") ||
+      !designLayout[0].borders.hasOwnProperty("left")
+    ) {
+      console.log("BORDER ERROR ALERT IN APP - enterDesignMode");
+    }
+    this.setState(
+      { mode: "design", designLayout, status: "idle", stoplights: {} },
+      () => {
+        this.resetPlayers();
+      }
+    );
   }
 
-  enterPlayMode() {
+  enterPlayMode(levelId) {
+    this.loadLevel(levelId);
     this.setState({ mode: "play", status: "idle" }, () => {
       this.getUserLevels("collin");
     });
@@ -236,10 +249,14 @@ class App extends React.Component {
         let bossHome = levelInfo.boss_home;
         let bossCar = bossHome;
         let office = levelInfo.office;
+        let stoplights = levelInfo.stoplights;
         let unformattedLayout = levelInfo.layout;
 
         let uglyLayout = formatLayout(unformattedLayout);
         let layout = prettify(uglyLayout);
+
+        layout[playerHome - 1].playerCar = true;
+        layout[bossHome - 1].bossCar = true;
 
         this.setState(
           {
@@ -252,6 +269,7 @@ class App extends React.Component {
             bossCar,
             office,
             layout,
+            stoplights,
             designLayout: layout
           },
           () => {
@@ -294,16 +312,21 @@ class App extends React.Component {
       playerHome,
       bossCar,
       bossHome,
-      collision
+      collision,
+      layout
     } = this.state;
 
     mode = "play";
     status = "idle";
+    layout[playerCar - 1].playerCar = false;
+    layout[bossCar - 1].bossCar = false;
     playerCar = playerHome;
     bossCar = bossHome;
+    layout[playerCar - 1].playerCar = true;
+    layout[bossCar - 1].bossCar = true;
     collision = false;
 
-    this.setState({ mode, status, playerCar, bossCar, collision });
+    this.setState({ mode, status, playerCar, bossCar, collision, layout });
   }
 
   render() {
@@ -334,6 +357,7 @@ class App extends React.Component {
         <div className="designModuleContainer">
           <DesignModule
             designLayout={this.state.designLayout}
+            stoplights={this.state.stoplights}
             display={this.state.mode === "design" ? "flex" : "none"}
             enterPlayMode={this.enterPlayMode}
             loadDesign={this.loadDesign}

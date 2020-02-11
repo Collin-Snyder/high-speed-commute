@@ -8,7 +8,9 @@ const createDesignBoard = (width, height) => {
       row: Math.ceil(s / height),
       column: Math.floor(s % width) > 0 ? Math.floor(s % width) : width,
       type: "block",
-      stoplight: null
+      stoplight: null,
+      playerCar: false,
+      bossCar: false
     });
   }
 
