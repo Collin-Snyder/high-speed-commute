@@ -12,7 +12,7 @@ module.exports.addUser = () => {};
 module.exports.saveNewLevel = (levelInfo, callback) => {
   client
     .query(
-      "INSERT INTO user_levels (user_id, level_name, board_height, board_width, player_home, boss_home, office, layout) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING id",
+      "INSERT INTO user_levels (user_id, level_name, board_height, board_width, player_home, boss_home, office, layout, stoplights) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING id",
       [
         levelInfo.userId,
         levelInfo.levelName,
@@ -21,7 +21,8 @@ module.exports.saveNewLevel = (levelInfo, callback) => {
         levelInfo.playerHome,
         levelInfo.bossHome,
         levelInfo.office,
-        levelInfo.layout
+        levelInfo.layout,
+        levelInfo.stoplights
       ]
     )
     .then(result => callback(result))
@@ -31,13 +32,14 @@ module.exports.saveNewLevel = (levelInfo, callback) => {
 module.exports.updateLevel = (levelInfo, callback) => {
   client
     .query(
-      "UPDATE user_levels SET player_home = $1, boss_home = $2, office = $3, layout = $4 WHERE id = $5",
+      "UPDATE user_levels SET player_home = $1, boss_home = $2, office = $3, layout = $4, stoplights = $6 WHERE id = $5",
       [
         levelInfo.playerHome,
         levelInfo.bossHome,
         levelInfo.office,
         levelInfo.layout,
-        levelInfo.levelId
+        levelInfo.levelId,
+        levelInfo.stoplights
       ]
     )
     .then(result => callback(result))

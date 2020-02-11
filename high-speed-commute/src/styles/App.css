@@ -90,6 +90,7 @@ h4.designToolboxTitle {
 
 .levelsListContainer {
   width: 300px;
+  overflow-wrap: break-word;
 }
 
 .levelNameInput {
@@ -128,6 +129,7 @@ h4.designToolboxTitle {
   padding-top: 10px;
   padding-bottom: 10px;
   width: 100%;
+  overflow-wrap: break-word;
 }
 
 .levelItem:hover {
@@ -274,7 +276,7 @@ h4.designToolboxTitle {
   background-color: #fff;
   align-items: center;
   justify-content: center;
-  width: 250px;
+  width: 300px;
 }
 
 .designToolSelector {
@@ -282,6 +284,8 @@ h4.designToolboxTitle {
   flex-direction: column;
   border: 3px dashed darkgray;
   margin-top: 20px;
+  align-items: center;
+  width: 75%;
 }
 
 .designToolSelector label {
@@ -440,7 +444,7 @@ h4.designToolboxTitle {
 }
 
 .btn.tool {
-  width: 130px;
+  width: 150px;
 }
 
 .btn.tool.ph {
@@ -485,6 +489,18 @@ h4.designToolboxTitle {
 
 .btn.tool.st:active, .btn.tool.st.checked {
   background-color: #353535;
+  box-shadow: 4px 4px #272727 inset, 0 -4px black, 4px 0 black, 0 4px black,
+    -4px 0 black;
+}
+
+.btn.tool.sl {
+  background-image: linear-gradient(to right, red, yellow, green);
+  box-shadow: -4px -4px #343434 inset, 0 -4px black, 4px 0 black, 0 4px black,
+    -4px 0 black;
+}
+
+.btn.tool.sl:active {
+  background-image: linear-gradient(to right, red,yellow,green);
   box-shadow: 4px 4px #272727 inset, 0 -4px black, 4px 0 black, 0 4px black,
     -4px 0 black;
 }
@@ -574,6 +590,19 @@ h4.designToolboxTitle {
   margin-top: 20px;
   margin-bottom: 20px;
   line-height: 2em;
+}
+
+.greenlight {
+  box-shadow: 3px 3px rgb(0, 255, 0) inset, -3px -3px rgb(0, 255, 0) inset;
+  /* border-radius: 10px; */
+}
+
+.yellowlight {
+  box-shadow: 3px 3px rgb(242, 255, 0) inset, -3px -3px rgb(242, 255, 0) inset;
+}
+
+.redlight {
+  box-shadow: 3px 3px rgb(255, 0, 0) inset, -3px -3px rgb(255, 0, 0) inset;
 }
 
 /* .pathOption {

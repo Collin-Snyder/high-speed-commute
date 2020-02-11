@@ -55,6 +55,17 @@ const DesignToolbox = ({
           />
           <span className="toolLabel">Street</span>
         </label>
+        <label className={"btn tool sl" + (selectedDesignTool === "stoplight" ? " checked" : "")}>
+          <input
+            type="radio"
+            onChange={handleToolSelection}
+            value="stoplight"
+            name="designToolOption"
+            checked={selectedDesignTool === "stoplight"}
+            className="toolSelectorRadio"
+          />
+          <span className="toolLabel">Stoplight</span>
+        </label>
         <label className={"btn tool erase" + (selectedDesignTool === "eraser" ? " checked" : "")}>
           <input
             type="radio"

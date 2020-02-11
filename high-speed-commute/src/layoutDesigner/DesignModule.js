@@ -7,27 +7,11 @@ import LoadSavedDesignModal from "./LoadSavedDesignModal";
 import SaveWarningModal from "./SaveWarningModal";
 import InputLevelNameModal from "./InputLevelNameModal";
 import createDesignBoard from "../logic/createDesignBoard";
+import { randomNumBtwn } from "../logic/randomNumber";
 import {
   convertLayoutToJSONString,
   formatLayout
 } from "../levelHandling/JSONconverters";
-
-// const saveMachine = new StateMachine({
-//   init: "savedNew",
-//   data: {
-//     isSaved: true,
-//     currentLevel: null,
-//     prompt: null,
-//     exiting: false
-//   },
-//   transitions: [
-//     {name: "changeNewDesign", from: "savedNew", to: "unsavedNew"},
-//     {name: "changeExistingDesign", from: "savedExisting", to: "unsavedExisting"},
-//     {name: "openLevelNameInputOnExit", from: "unsavedNew", to: "inputLevelNameOnExit"},
-//     {name: "openSaveChangesPromptOnExit", from: "unsavedNew", to: "saveChangesPromptOnExit"},
-//   ],
-
-// })
 
 export default class DesignModule extends React.Component {
   constructor(props) {
@@ -42,10 +26,10 @@ export default class DesignModule extends React.Component {
       playerHome: 0,
       bossHome: 0,
       office: 0,
+      stoplights: {},
       levelName: "",
       inputVisible: false,
       playButtonVisible: false,
-      // lastSavedLevel: null,
       modalVisibility: {
         loadDesign: false,
         saveChangesNew: false,
@@ -60,19 +44,6 @@ export default class DesignModule extends React.Component {
         saveError: false
       }
     };
-
-    // this.state2 = {
-    //   saveStates: {
-    //     isSaved: true,
-    //     currentLevel: null,
-    //     exiting: false,
-    //     promptVisibility: {
-    //       saveChangesNew: false,
-    //       saveChanges: false,
-    //       levelName: false
-    //     }
-    //   }
-    // }
 
     this.handleToolSelection = this.handleToolSelection.bind(this);
     this.handleBrushSelection = this.handleBrushSelection.bind(this);
@@ -90,7 +61,19 @@ export default class DesignModule extends React.Component {
 
   componentDidUpdate(prevProps) {
     if (this.props.designLayout !== prevProps.designLayout) {
+      if (
+        !this.props.designLayout[0].borders.hasOwnProperty("up") ||
+        !this.props.designLayout[0].borders.hasOwnProperty("down") ||
+        !this.props.designLayout[0].borders.hasOwnProperty("right") ||
+        !this.props.designLayout[0].borders.hasOwnProperty("left")
+      ) {
+        console.log("BORDER ERROR ALERT IN DESIGN MODULE CDU");
+      }
       this.setState({ designLayout: this.props.designLayout });
+    }
+
+    if (this.props.stoplights !== prevProps.stoplights) {
+      this.setState({ stoplights: this.props.stoplights });
     }
   }
 
@@ -103,7 +86,7 @@ export default class DesignModule extends React.Component {
   addSquareToDesign(e, drag = false) {
     e.persist();
 
-    let { selectedDesignTool } = this.state;
+    let { selectedDesignTool, stoplights } = this.state;
     let squareId = Number(e.currentTarget.id);
 
     if (selectedDesignTool === "playerHome") {
@@ -117,6 +100,7 @@ export default class DesignModule extends React.Component {
           designLayout[playerHome - 1].type = "block";
         }
         playerHome = squareId;
+        designLayout[squareId - 1].type = "street";
         designLayout[squareId - 1].type = "street";
       }
 
@@ -193,17 +177,33 @@ export default class DesignModule extends React.Component {
       saveStates.isSaved = false;
 
       this.setState({ designLayout, saveStates });
+    } else if (selectedDesignTool === "stoplight") {
+      let { designLayout, saveStates, stoplights } = this.state;
+
+      if (!drag && stoplights.hasOwnProperty(squareId)) {
+        designLayout[squareId - 1].stoplight = null;
+        delete stoplights[squareId];
+        saveStates.isSaved = false;
+      } else if (designLayout[squareId - 1].type === "street") {
+        designLayout[squareId - 1].stoplight = "green";
+        stoplights[squareId] = randomNumBtwn(4, 12) * 1000;
+        saveStates.isSaved = false;
+      }
+
+      this.setState({ designLayout, saveStates, stoplights });
     }
   }
 
   clearBoard() {
-    let { designLayout, playerHome, bossHome, office } = this.state;
+    let { designLayout, playerHome, bossHome, office, stoplights } = this.state;
     designLayout = designLayout.map(square => {
       square.type = "block";
+      square.stoplight = null;
       return square;
     });
     playerHome = bossHome = office = 0;
-    this.setState({ designLayout, playerHome, bossHome, office });
+    stoplights = {};
+    this.setState({ designLayout, playerHome, bossHome, office, stoplights });
   }
 
   sendDesignToGame() {
@@ -223,7 +223,7 @@ export default class DesignModule extends React.Component {
 
       this.setState({ modalVisibility, saveStates });
     } else {
-      this.props.enterPlayMode();
+      this.props.enterPlayMode(this.state.saveStates.currentLevel);
 
       let {
         playerHome,
@@ -265,6 +265,7 @@ export default class DesignModule extends React.Component {
         let bossHome = levelInfo.boss_home;
         let bossCar = bossHome;
         let office = levelInfo.office;
+        let stoplights = levelInfo.stoplights;
         let unformattedLayout = levelInfo.layout;
 
         let designLayout = formatLayout(unformattedLayout);
@@ -283,6 +284,7 @@ export default class DesignModule extends React.Component {
           bossCar,
           office,
           designLayout,
+          stoplights,
           saveStates
         });
       })
@@ -298,6 +300,7 @@ export default class DesignModule extends React.Component {
       bossHome,
       office,
       designLayout,
+      stoplights,
       saveStates
     } = this.state;
 
@@ -309,6 +312,7 @@ export default class DesignModule extends React.Component {
       playerHome,
       bossHome,
       office,
+      stoplights: JSON.stringify(stoplights),
       layout: convertLayoutToJSONString(designLayout)
     };
 
@@ -323,13 +327,13 @@ export default class DesignModule extends React.Component {
             let { saveStates } = this.state;
             saveStates.confirmationVisible = false;
             this.setState({ saveStates }, () => {
-                if (this.state.saveStates.exiting) {
-                  this.enterPlayMode();
-                }
+              if (this.state.saveStates.exiting) {
+                this.enterPlayMode();
               }
-          )}, 1000);
-          });
-        })
+            });
+          }, 1000);
+        });
+      })
       .catch(err => {
         console.log("There was a problem saving your level.");
         console.error(err);
@@ -339,13 +343,21 @@ export default class DesignModule extends React.Component {
   updateExistingLevel() {
     //update saveState.currentLevel in database with current state of layout
     console.log(`Updating level ${this.state.saveStates.currentLevel}`);
-    let { playerHome, bossHome, office, designLayout, saveStates } = this.state;
+    let {
+      playerHome,
+      bossHome,
+      office,
+      designLayout,
+      stoplights,
+      saveStates
+    } = this.state;
 
     let levelInfo = {
       levelId: saveStates.currentLevel,
       playerHome,
       bossHome,
       office,
+      stoplights: JSON.stringify(stoplights),
       layout: convertLayoutToJSONString(designLayout)
     };
 
@@ -422,6 +434,7 @@ export default class DesignModule extends React.Component {
             playerHome={this.state.playerHome}
             bossHome={this.state.bossHome}
             office={this.state.office}
+            stoplights={this.state.stoplights}
             designLayout={this.state.designLayout}
             addSquareToDesign={this.addSquareToDesign}
             handleInputChange={this.handleInputChange}
@@ -454,9 +467,7 @@ export default class DesignModule extends React.Component {
             <div
               className="btn save"
               style={{
-                display: !this.state.saveStates.isSaved
-                  ? "inline-flex"
-                  : "none"
+                display: !this.state.saveStates.isSaved ? "inline-flex" : "none"
               }}
               onClick={
                 this.state.saveStates.currentLevel

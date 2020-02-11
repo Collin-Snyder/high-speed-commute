@@ -7,7 +7,6 @@ const SaveWarningModal = ({
   currentLevel,
   levelName
 }) => {
-  console.log("Level name: ", levelName)
   const closeModal = () => {
     toggleModal("saveChangesNew");
   };

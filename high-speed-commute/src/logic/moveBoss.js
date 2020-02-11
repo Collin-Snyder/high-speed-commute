@@ -132,9 +132,10 @@ export const findPath = (bossHome, office, layout) => {
   //run a loop to expand the frontier in every direction on each iteration and break if office is reached
   while (frontier.empty() === false) {
     let currentId = frontier.get();
+
     let currentSquare = layout[currentId - 1];
     // console.log(currentId);
-    // console.log(currentSquare);       
+     
 
     if (currentId === office.id) {
       // console.log("Found target!: ", currentId);
@@ -143,13 +144,12 @@ export const findPath = (bossHome, office, layout) => {
     }
 
     for (let direction in currentSquare.borders) {
-      // console.log("Inside the for loop")
+
       if (
         currentSquare.borders[direction] &&
         currentSquare.borders[direction].type === "street" &&
         !cameFrom.hasOwnProperty(currentSquare.borders[direction].id)
       ) {
-        // console.log("Adding ", currentSquare.borders[direction], " to frontier")
         frontier.put(currentSquare.borders[direction]);
         cameFrom[currentSquare.borders[direction].id] = currentId;
         // currentSquare.borders[direction].pathOption = true;
@@ -160,7 +160,7 @@ export const findPath = (bossHome, office, layout) => {
   }
 
   if (!foundTarget) return null;
-  
+
   let current = office.id;
   //loop backwards through the path taken to reach the office and add to stack
   while (current !== bossHome.id) {
