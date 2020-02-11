@@ -29,7 +29,6 @@ app.patch("/api/levels", (req, res) => {
 
 app.delete("/api/levels", (req, res) => {
   deleteLevel(req.body.levelId, result => {
-    console.log(result);
     res.send(result);
   })
 })

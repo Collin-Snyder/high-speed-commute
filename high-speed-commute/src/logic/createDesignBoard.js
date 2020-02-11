@@ -10,7 +10,8 @@ const createDesignBoard = (width, height) => {
       type: "block",
       stoplight: null,
       playerCar: false,
-      bossCar: false
+      bossCar: false,
+      schoolZone: false
     });
   }
 

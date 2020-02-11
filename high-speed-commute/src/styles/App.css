@@ -130,6 +130,12 @@ h4.designToolboxTitle {
   padding-bottom: 10px;
   width: 100%;
   overflow-wrap: break-word;
+  word-wrap: break-word;
+  overflow: hidden;
+}
+
+.levelItemGroup {
+  max-width: 300px;
 }
 
 .levelItem:hover {
@@ -155,6 +161,8 @@ h4.designToolboxTitle {
   text-align: left;
   margin-left: 15px;
   overflow-wrap: break-word;
+  font-size: 1em;
+  word-wrap: break-word;
 }
 
 .gridRow {
@@ -167,6 +175,7 @@ h4.designToolboxTitle {
   height: 25px;
   font-size: 10px;
   font-family: sans-serif;
+  transition: box-shadow 0.5s;
   /* box-shadow: 1px 1px inset; */
 }
 
@@ -594,16 +603,21 @@ h4.designToolboxTitle {
 
 .greenlight {
   box-shadow: 3px 3px rgb(0, 255, 0) inset, -3px -3px rgb(0, 255, 0) inset;
+  transition: 0.4s;
   /* border-radius: 10px; */
 }
 
 .yellowlight {
   box-shadow: 3px 3px rgb(242, 255, 0) inset, -3px -3px rgb(242, 255, 0) inset;
+  transition: 0.4s;
 }
 
 .redlight {
   box-shadow: 3px 3px rgb(255, 0, 0) inset, -3px -3px rgb(255, 0, 0) inset;
+  transition: 0.4s;
 }
+
+
 
 /* .pathOption {
   background-color: orange;
