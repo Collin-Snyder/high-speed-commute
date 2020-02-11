@@ -627,7 +627,7 @@ h4.designToolboxTitle {
 }
 
 .schoolzone {
-  background-image: linear-gradient(to right, rgba(255, 211, 0, 1), black);
+  background-image: radial-gradient( rgba(255, 211, 0, 1) 50%, black);
 }
 
 
