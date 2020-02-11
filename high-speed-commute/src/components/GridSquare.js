@@ -1,4 +1,4 @@
-import React from "react";
+import React, {memo} from "react";
 import PlayerCar from "./PlayerCar";
 import BossCar from "./BossCar";
 
@@ -20,14 +20,14 @@ class GameSquare extends React.PureComponent {
 
     this.setState({
       typeClass:
-        this.props.squareInfo.type === "block"
+        this.props.type === "block"
           ? " block"
-          : this.props.squareInfo.type === "street"
+          : this.props.type === "street"
           ? " street"
           : ""
     });
 
-    switch (this.props.squareInfo.id) {
+    switch (this.props.id) {
       case this.props.playerHome:
         keySquareClass = " playerHome";
         break;
@@ -42,7 +42,7 @@ class GameSquare extends React.PureComponent {
     }
     this.setState({ keySquareClass });
 
-    switch (this.props.squareInfo.stoplight) {
+    switch (this.props.stoplight) {
       case "green":
         stoplightClass = " greenlight";
         break;
@@ -58,28 +58,13 @@ class GameSquare extends React.PureComponent {
     this.setState({ stoplightClass });
   }
 
-  shouldComponentUpdate(nextProps) {
-    if (
-      this.props.squareInfo.type != nextProps.squareInfo.type ||
-      this.props.playerHome != nextProps.playerHome ||
-      this.props.bossHome != nextProps.bossHome ||
-      this.props.office != nextProps.office ||
-      this.props.squareInfo.bossCar != nextProps.bossCar ||
-      this.props.squareInfo.playerCar != nextProps.playerCar ||
-      this.props.squareInfo.stoplight != nextProps.squareInfo.stoplight
-    ) {
-      return true;
-    }
-    return false;
-  }
-
   componentDidUpdate(prevProps) {
-    if (this.props.squareInfo.type !== prevProps.squareInfo.type) {
+    if (this.props.type !== prevProps.type) {
       this.setState({
         typeClass:
-          this.props.squareInfo.type === "block"
+          this.props.type === "block"
             ? " block"
-            : this.props.squareInfo.type === "street"
+            : this.props.type === "street"
             ? " street"
             : ""
       });
@@ -91,7 +76,7 @@ class GameSquare extends React.PureComponent {
       this.props.office !== prevProps.office
     ) {
       let keySquareClass;
-      switch (this.props.squareInfo.id) {
+      switch (this.props.id) {
         case this.props.playerHome:
           keySquareClass = " playerHome";
           break;
@@ -107,36 +92,18 @@ class GameSquare extends React.PureComponent {
       this.setState({ keySquareClass });
     }
 
-    // if (this.props.squareInfo.stoplight !== prevProps.stoplight) {
-    //   let stoplightClass;
-    //   switch (this.props.squareInfo.stoplight) {
-    //     case "green":
-    //       stoplightClass = " greenlight";
-    //       break;
-    //     case "yellow":
-    //       stoplightClass = " yellowlight";
-    //       break;
-    //     case "red":
-    //       stoplightClass = " redlight";
-    //       break;
-    //     default:
-    //       stoplightClass = "";
-    //   }
-    //   setTimeout(() => {this.setState({ stoplightClass })}, 0)
-    //   // this.setState({ stoplightClass });
-    // }
-  }
-
   render() {
-    if (this.props.squareInfo.type === "block") {
+    if (this.props.id === 41)
+      console.log("UNNECESSARY SQAURE RERENDER");
+    if (this.props.type === "block") {
       return (
         <div
-          className={`gridSquare${this.state.keySquareClass}${this.state.typeClass}`}
-          id={this.props.squareInfo.id}
+          className={`gridSquare${this.state.keySquareClass} block`}
+          id={this.props.id}
         >
-          {this.props.squareInfo["tree"] ? (
+          {this.props.tree ? (
             <span className="tree"></span>
-          ) : this.props.squareInfo["house"] ? (
+          ) : this.props.house ? (
             <span className="house"></span>
           ) : (
             ""
@@ -146,12 +113,28 @@ class GameSquare extends React.PureComponent {
     } else {
       return (
         <div
-          className={`gridSquare${this.state.keySquareClass}${this.props.squareInfo.stoplight === "green" ? " greenlight" : this.props.squareInfo.stoplight === "yellow" ? " yellowlight" : this.props.squareInfo.stoplight === "red" ? " redlight" : ""}${this.state.typeClass}`}
-          id={this.props.squareInfo.id}
+          className={`gridSquare street ${
+            this.props.id === this.props.playerHome
+              ? ` playerHome`
+              : this.props.id === this.props.bossHome
+              ? ` bossHome`
+              : this.props.id === this.props.office
+              ? ` office`
+              : ``
+          }${
+            this.props.stoplight === "green"
+              ? " greenlight"
+              : this.props.stoplight === "yellow"
+              ? " yellowlight"
+              : this.props.stoplight === "red"
+              ? " redlight"
+              : ""
+          }`}
+          id={this.props.id}
         >
-          {this.props.squareInfo.playerCar ? (
+          {this.props.playerCar ? (
             <PlayerCar />
-          ) : this.props.squareInfo.bossCar ? (
+          ) : this.props.bossCar ? (
             <BossCar />
           ) : (
             ""
@@ -160,92 +143,6 @@ class GameSquare extends React.PureComponent {
       );
     }
   }
-}
-
-// const GridSquare = ({
-//   squareInfo,
-//   playerCar,
-//   playerHome,
-//   bossCar,
-//   bossHome,
-//   office
-// }) => {
-//   let typeClass = "";
-//   let keySquareClass = "";
-//   let stoplightClass = "";
-//   let centerLineClass = "";
-//   // let pathClass = "";
-//   let classList;
-
-//   typeClass =
-//     squareInfo.type === "block"
-//       ? " block"
-//       : squareInfo.type === "street"
-//       ? " street"
-//       : "";
-
-//   switch (squareInfo.id) {
-//     case playerHome:
-//       keySquareClass = " playerHome";
-//       break;
-//     case bossHome:
-//       keySquareClass = " bossHome";
-//       break;
-//     case office:
-//       keySquareClass = " office";
-//       break;
-//     default:
-//       keySquareClass = "";
-//   }
-
-//   switch (squareInfo.stoplight) {
-//     case "green":
-//       stoplightClass = " greenlight";
-//       break;
-//     case "yellow":
-//       stoplightClass = " yellowlight";
-//       break;
-//     case "red":
-//       stoplightClass = " redlight";
-//       break;
-//     default:
-//       stoplightClass = "";
-//   }
-
-//   // if (squareInfo.pathOption || squareInfo.finalPath) {
-//   //   if (squareInfo.finalPath) {
-//   //     pathClass = " finalPath";
-//   //   } else {
-//   //     pathClass = " pathOption";
-//   //   }
-//   // }
-
-//   classList = typeClass + keySquareClass + centerLineClass + stoplightClass;
-//   if (squareInfo.type === "block") {
-//     return (
-//       <div className={`gridSquare${classList}`} id={squareInfo.id}>
-//         {squareInfo["tree"] ? (
-//           <span className="tree"></span>
-//         ) : squareInfo["house"] ? (
-//           <span className="house"></span>
-//         ) : (
-//           ""
-//         )}
-//       </div>
-//     );
-//   } else {
-//     return (
-//       <div className={`gridSquare${classList}`} id={squareInfo.id}>
-//         {playerCar === squareInfo.id ? (
-//           <PlayerCar />
-//         ) : bossCar === squareInfo.id ? (
-//           <BossCar />
-//         ) : (
-//           ""
-//         )}
-//       </div>
-//     );
-//   }
-// };
+}};
 
 export default GameSquare;
