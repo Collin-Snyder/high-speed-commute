@@ -36,6 +36,7 @@ const DesignField = ({
       {designLayout.map((square, index) => (
         <DesignSquare
           isStoplight={stoplights.hasOwnProperty(square.id) ? true : false}
+          isSchoolZone={square.schoolZone === true}
           playerHome={playerHome}
           bossHome={bossHome}
           office={office}

@@ -86,56 +86,57 @@ export default class DesignModule extends React.Component {
   addSquareToDesign(e, drag = false) {
     e.persist();
 
-    let { selectedDesignTool, stoplights } = this.state;
+    let { selectedDesignTool, designLayout, saveStates } = this.state;
     let squareId = Number(e.currentTarget.id);
+    let currentSquare = designLayout[squareId - 1];
 
     if (selectedDesignTool === "playerHome") {
-      let { designLayout, playerHome, saveStates } = this.state;
+      let { playerHome } = this.state;
 
       if (playerHome === squareId) {
         playerHome = 0;
-        designLayout[squareId - 1].type = "block";
+        currentSquare.type = "block";
       } else {
         if (playerHome > 0) {
           designLayout[playerHome - 1].type = "block";
         }
         playerHome = squareId;
-        designLayout[squareId - 1].type = "street";
-        designLayout[squareId - 1].type = "street";
+        currentSquare.type = "street";
+        currentSquare.type = "street";
       }
 
       saveStates.isSaved = false;
 
       this.setState({ playerHome, designLayout, saveStates });
     } else if (selectedDesignTool === "bossHome") {
-      let { designLayout, bossHome, saveStates } = this.state;
+      let { bossHome } = this.state;
 
       if (bossHome === squareId) {
         bossHome = 0;
-        designLayout[squareId - 1].type = "block";
+        currentSquare.type = "block";
       } else {
         if (bossHome > 0) {
           designLayout[bossHome - 1].type = "block";
         }
         bossHome = squareId;
-        designLayout[squareId - 1].type = "street";
+        currentSquare.type = "street";
       }
 
       saveStates.isSaved = false;
 
       this.setState({ bossHome, designLayout, saveStates });
     } else if (selectedDesignTool === "office") {
-      let { designLayout, office, saveStates } = this.state;
+      let { office } = this.state;
 
       if (office === squareId) {
         office = 0;
-        designLayout[squareId - 1].type = "block";
+        currentSquare.type = "block";
       } else {
         if (office > 0) {
           designLayout[office - 1].type = "block";
         }
         office = squareId;
-        designLayout[squareId - 1].type = "street";
+        currentSquare.type = "street";
       }
 
       saveStates.isSaved = false;
@@ -143,18 +144,26 @@ export default class DesignModule extends React.Component {
       this.setState({ office, designLayout, saveStates });
     } else if (selectedDesignTool === "eraser") {
       let {
-        designLayout,
         playerHome,
         bossHome,
         office,
-        saveStates
+        stoplights
       } = this.state;
 
-      designLayout[squareId - 1].type = "block";
+      currentSquare.type = "block";
 
       if (squareId === playerHome) playerHome = 0;
       else if (squareId === bossHome) bossHome = 0;
       else if (squareId === office) office = 0;
+
+      if (currentSquare.stoplight) {
+        currentSquare.stoplight = null;
+        delete stoplights[squareId];
+      }
+
+      if (currentSquare.schoolZone) {
+        currentSquare.schoolZone = false;
+      }
 
       saveStates.isSaved = false;
 
@@ -163,34 +172,51 @@ export default class DesignModule extends React.Component {
         playerHome,
         bossHome,
         office,
+        stoplights,
         saveStates
       });
     } else if (selectedDesignTool === "street") {
-      let { designLayout, saveStates } = this.state;
+      let { stoplights } = this.state;
 
-      if (!drag && designLayout[squareId - 1].type === "street") {
-        designLayout[squareId - 1].type = "block";
+      if (
+        currentSquare.stoplight ||
+        currentSquare.schoolZone
+      ) {
+        currentSquare.schoolZone = false;
+        currentSquare.stoplight = null;
+        delete stoplights[squareId];
+      } else if (!drag && currentSquare.type === "street") {
+        currentSquare.type = "block";
       } else {
-        designLayout[squareId - 1].type = "street";
+        currentSquare.type = "street";
       }
 
       saveStates.isSaved = false;
 
       this.setState({ designLayout, saveStates });
     } else if (selectedDesignTool === "stoplight") {
-      let { designLayout, saveStates, stoplights } = this.state;
+      let { stoplights } = this.state;
 
       if (!drag && stoplights.hasOwnProperty(squareId)) {
-        designLayout[squareId - 1].stoplight = null;
+        currentSquare.stoplight = null;
         delete stoplights[squareId];
         saveStates.isSaved = false;
-      } else if (designLayout[squareId - 1].type === "street") {
-        designLayout[squareId - 1].stoplight = "green";
+      } else if (currentSquare.type === "street") {
+        currentSquare.stoplight = "green";
         stoplights[squareId] = randomNumBtwn(4, 12) * 1000;
         saveStates.isSaved = false;
       }
 
       this.setState({ designLayout, saveStates, stoplights });
+    } else if (selectedDesignTool === "schoolzone") {
+      if (!drag && currentSquare.schoolZone === true) {
+        currentSquare.schoolZone = false;
+        saveStates.isSaved = false;
+      } else if (currentSquare.type === "street") {
+        currentSquare.schoolZone = true;
+        saveStates.isSaved = false;
+      }
+      this.setState({ designLayout, saveStates });
     }
   }
 

@@ -1,8 +1,9 @@
 import React from "react";
 
-const DesignSquare = ({ playerHome, bossHome, office, squareInfo, addSquareToDesign, isStoplight }) => {
+const DesignSquare = ({ playerHome, bossHome, office, squareInfo, addSquareToDesign, isStoplight, isSchoolZone }) => {
   let keySquareClass = "";
   let stoplightClass = "";
+  let schoolZoneClass = "";
 
   keySquareClass = squareInfo.type === "block" ? " block" : squareInfo.type === "street" ? " street" : "";
 
@@ -20,9 +21,9 @@ const DesignSquare = ({ playerHome, bossHome, office, squareInfo, addSquareToDes
       keySquareClass = keySquareClass;
   }
 
-  if (isStoplight) {
-    stoplightClass = " greenlight"
-  }
+  if (isStoplight) stoplightClass = " greenlight";
+
+  if (isSchoolZone) schoolZoneClass = " schoolzone";
 
   const handleDrag = e => {
     e.dataTransfer.setDragImage(document.getElementById("dragImage"), 0, 0);
@@ -30,7 +31,7 @@ const DesignSquare = ({ playerHome, bossHome, office, squareInfo, addSquareToDes
 
       return (
         <div
-          className={`designSquare${keySquareClass}${stoplightClass}`}
+          className={`designSquare${keySquareClass}${stoplightClass}${schoolZoneClass}`}
           id={squareInfo.id}
           onClick={(e) => {addSquareToDesign(e)}}
           draggable
