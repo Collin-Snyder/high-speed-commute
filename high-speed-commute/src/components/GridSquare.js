@@ -1,4 +1,4 @@
-import React, {memo} from "react";
+import React, { memo } from "react";
 import PlayerCar from "./PlayerCar";
 import BossCar from "./BossCar";
 
@@ -91,10 +91,10 @@ class GameSquare extends React.PureComponent {
       }
       this.setState({ keySquareClass });
     }
+  }
 
   render() {
-    if (this.props.id === 41)
-      console.log("UNNECESSARY SQAURE RERENDER");
+    if (this.props.id === 41) console.log("UNNECESSARY SQAURE RERENDER");
     if (this.props.type === "block") {
       return (
         <div
@@ -143,6 +143,6 @@ class GameSquare extends React.PureComponent {
       );
     }
   }
-}};
+}
 
 export default GameSquare;
