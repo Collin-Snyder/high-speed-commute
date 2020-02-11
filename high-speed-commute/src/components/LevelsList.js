@@ -6,7 +6,7 @@ const LevelsList = ({ userLevels, loadLevel, deleteLevel }) => {
     <div className="levelsList">
       <ul>
         {userLevels.map((level, index) => (
-          <div className="levelItemGroup">
+          <div className="levelItemGroup" key={index}>
           <span className="delete" onClick={() => {deleteLevel(level.id)}}><i className="X">X</i></span>
           <LevelItem levelInfo={level} loadLevel={loadLevel} key={index} />
           </div>

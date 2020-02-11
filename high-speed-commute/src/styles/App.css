@@ -514,6 +514,18 @@ h4.designToolboxTitle {
     -4px 0 black;
 }
 
+.btn.tool.sz {
+  background-image: repeating-linear-gradient(to right, yellow, black, yellow, black, yellow, black, yellow, black, yellow);
+  box-shadow: -4px -4px #343434 inset, 0 -4px black, 4px 0 black, 0 4px black,
+    -4px 0 black;
+}
+
+.btn.tool.sz:active {
+  background-image: repeating-linear-gradient(to right, rgb(162, 162, 0), black, rgb(162, 162, 0), black, rgb(162, 162, 0), black, rgb(162, 162, 0), black, rgb(162, 162, 0));
+  box-shadow: 4px 4px #272727 inset, 0 -4px black, 4px 0 black, 0 4px black,
+    -4px 0 black;
+}
+
 .btn.tool.erase {
   background-color: lightgray;
   box-shadow: -4px -4px rgb(114, 114, 114) inset, 0 -4px black, 4px 0 black,
@@ -603,18 +615,19 @@ h4.designToolboxTitle {
 
 .greenlight {
   box-shadow: 3px 3px rgb(0, 255, 0) inset, -3px -3px rgb(0, 255, 0) inset;
-  transition: 0.4s;
   /* border-radius: 10px; */
 }
 
 .yellowlight {
   box-shadow: 3px 3px rgb(242, 255, 0) inset, -3px -3px rgb(242, 255, 0) inset;
-  transition: 0.4s;
 }
 
 .redlight {
   box-shadow: 3px 3px rgb(255, 0, 0) inset, -3px -3px rgb(255, 0, 0) inset;
-  transition: 0.4s;
+}
+
+.schoolzone {
+  background-image: radial-gradient( rgba(255, 211, 0, 1) 50%, black);
 }
 
 

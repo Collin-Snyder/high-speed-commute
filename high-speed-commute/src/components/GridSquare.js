@@ -122,14 +122,14 @@ class GameSquare extends React.PureComponent {
               ? ` office`
               : ``
           }${
-            this.props.stoplight === "green"
-              ? " greenlight"
-              : this.props.stoplight === "yellow"
-              ? " yellowlight"
-              : this.props.stoplight === "red"
-              ? " redlight"
-              : ""
-          }`}
+            this.props.stoplight === `green`
+              ? ` greenlight`
+              : this.props.stoplight === `yellow`
+              ? ` yellowlight`
+              : this.props.stoplight === `red`
+              ? ` redlight`
+              : ``
+          }${this.props.schoolzone ? ` schoolzone` : ``}`}
           id={this.props.id}
         >
           {this.props.playerCar ? (

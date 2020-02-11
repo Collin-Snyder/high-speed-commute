@@ -27,6 +27,13 @@ class App extends React.Component {
       layout: [],
       designLayout: [],
       userLevels: [],
+      playerMovable: true,
+      bossMovable: true,
+      schoolZoneState: {
+        playerInSchoolZone: false,
+        bossInSchoolZone: false,
+        schoolZoneInterval: 1000
+      },
       collision: false,
       bossError: false
     };
@@ -48,6 +55,8 @@ class App extends React.Component {
     this.fullReset = this.fullReset.bind(this);
     this.closeBossModal = this.closeBossModal.bind(this);
     this.cycleStoplight = this.cycleStoplight.bind(this);
+    this.enterSchoolZone = this.enterSchoolZone.bind(this);
+    this.exitSchoolZone = this.exitSchoolZone.bind(this);
   }
 
   componentDidMount() {
@@ -59,13 +68,14 @@ class App extends React.Component {
   }
 
   componentWillUnmount() {
-    clearInterval(this.interval);
+    clearInterval(this.bossInterval);
     for (let interval in this.stoplightIntervals) {
       clearInterval(this.stoplightIntervals[interval]);
     }
   }
 
   handleKeyDown(e) {
+    e.preventDefault();
     if (
       this.state.playerCar !== this.state.office &&
       this.state.bossCar !== this.state.office
@@ -101,13 +111,15 @@ class App extends React.Component {
         }, this.state.stoplights[stoplight]);
       }
 
-      this.interval = setInterval(() => {
-        let nextMove = pathStack.pop();
-        if (nextMove) {
-          if (this.state.layout[nextMove - 1].stoplight === "red") {
-            pathStack.push(nextMove);
-          } else {
-            this.moveBossCar(nextMove);
+      this.bossInterval = setInterval(() => {
+        if (this.state.bossMovable) {
+          let nextMove = pathStack.pop();
+          if (nextMove) {
+            if (this.state.layout[nextMove - 1].stoplight === "red") {
+              pathStack.push(nextMove);
+            } else {
+              this.moveBossCar(nextMove);
+            }
           }
         }
       }, 300);
@@ -124,29 +136,45 @@ class App extends React.Component {
   }
 
   movePlayerCar(direction) {
-    let { playerCar, bossCar, collision, layout } = this.state;
-    let target = layout[playerCar - 1].borders[direction];
+    if (this.state.playerMovable) {
+      let { playerCar, bossCar, collision, layout, playerMovable } = this.state;
+      let target = layout[playerCar - 1].borders[direction];
 
-    if (target && target.type === "street" && target.stoplight !== "red") {
-      layout[playerCar - 1].playerCar = false;
-      playerCar = target.id;
-      layout[playerCar - 1].playerCar = true;
-      if (playerCar === bossCar) {
-        collision = true;
-        clearInterval(this.interval);
-        for (let interval in this.stoplightIntervals) {
-          clearInterval(this.stoplightIntervals[interval]);
+      if (target && target.type === "street" && target.stoplight !== "red") {
+        layout[playerCar - 1].playerCar = false;
+        playerCar = target.id;
+        layout[playerCar - 1].playerCar = true;
+        if (this.state.schoolZoneState.playerInSchoolZone) {
+          if (!layout[playerCar - 1].schoolZone) {
+            this.exitSchoolZone("player");
+          } else {
+            playerMovable = false;
+          }
+        }
+
+        if (playerCar === bossCar) {
+          collision = true;
+          clearInterval(this.bossInterval);
+          for (let interval in this.stoplightIntervals) {
+            clearInterval(this.stoplightIntervals[interval]);
+          }
+        }
+        if (playerCar === this.state.office) {
+          clearInterval(this.bossInterval);
+          for (let interval in this.stoplightIntervals) {
+            clearInterval(this.stoplightIntervals[interval]);
+          }
         }
       }
-      if (playerCar === this.state.office) {
-        clearInterval(this.interval);
-        for (let interval in this.stoplightIntervals) {
-          clearInterval(this.stoplightIntervals[interval]);
+      this.setState({ playerCar, layout, collision, playerMovable }, () => {
+        if (
+          layout[playerCar - 1].schoolZone &&
+          !this.state.schoolZoneState.playerInSchoolZone
+        ) {
+          this.enterSchoolZone("player");
         }
-      }
+      });
     }
-
-    this.setState({ playerCar, layout, collision });
   }
 
   findBossPath() {
@@ -161,19 +189,33 @@ class App extends React.Component {
   }
 
   moveBossCar(nextMove) {
-    let {bossCar, layout} = this.state;
+    let { bossCar, layout, bossMovable } = this.state;
     layout[bossCar - 1].bossCar = false;
     bossCar = nextMove;
     layout[bossCar - 1].bossCar = true;
-    this.setState({ bossCar: nextMove, layout }, () => {
-      if (this.state.bossCar === this.state.office) {
-        clearInterval(this.interval);
+
+    if (this.state.schoolZoneState.bossInSchoolZone) {
+      if (!layout[bossCar - 1].schoolZone) {
+        this.exitSchoolZone("boss");
+      } else {
+        bossMovable = false;
+      }
+    }
+
+    this.setState({ bossCar: nextMove, layout, bossMovable }, () => {
+      if (
+        layout[bossCar - 1].schoolZone &&
+        !this.state.schoolZoneState.bossInSchoolZone
+      ) {
+        this.enterSchoolZone("boss");
+      } else if (this.state.bossCar === this.state.office) {
+        clearInterval(this.bossInterval);
         for (let interval in this.stoplightIntervals) {
           clearInterval(this.stoplightIntervals[interval]);
         }
         this.setState({ status: "idle" });
       } else if (this.state.bossCar === this.state.playerCar) {
-        clearInterval(this.interval);
+        clearInterval(this.bossInterval);
         for (let interval in this.stoplightIntervals) {
           clearInterval(this.stoplightIntervals[interval]);
         }
@@ -198,12 +240,56 @@ class App extends React.Component {
     }, 7000);
   }
 
+  enterSchoolZone(who) {
+    let { schoolZoneState } = this.state;
+    if (who === "player") {
+      console.log("Player entering school zone");
+      let { playerMovable } = this.state;
+      playerMovable = false;
+      schoolZoneState.playerInSchoolZone = true;
+      this.setState({ playerMovable, schoolZoneState }, () => {
+        this.playerSchoolZoneInterval = setInterval(() => {
+          this.setState({ playerMovable: true });
+        }, this.state.schoolZoneState.schoolZoneInterval);
+      });
+    } else if (who === "boss") {
+      console.log("Boss entering school zone");
+      let { bossMovable } = this.state;
+      bossMovable = false;
+      schoolZoneState.bossInSchoolZone = true;
+      this.setState({ bossMovable, schoolZoneState }, () => {
+        this.bossSchoolZoneInterval = setInterval(() => {
+          this.setState({ bossMovable: true });
+        }, this.state.schoolZoneState.schoolZoneInterval);
+      });
+    }
+  }
+
+  exitSchoolZone(who) {
+    let { schoolZoneState } = this.state;
+    if (who === "player") {
+      console.log("Player exiting school zone");
+      let { playerMovable } = this.state;
+      playerMovable = true;
+      schoolZoneState.playerInSchoolZone = false;
+      clearInterval(this.playerSchoolZoneInterval);
+      this.setState({ playerMovable, schoolZoneState });
+    } else if (who === "boss") {
+      console.log("Boss exiting school zone");
+      let { bossMovable } = this.state;
+      bossMovable = true;
+      schoolZoneState.bossInSchoolZone = false;
+      clearInterval(this.bossSchoolZoneInterval);
+      this.setState({ bossMovable, schoolZoneState });
+    }
+  }
+
   closeBossModal() {
     this.setState({ bossError: false });
   }
 
   enterDesignMode() {
-    clearInterval(this.interval);
+    clearInterval(this.bossInterval);
     for (let interval in this.stoplightIntervals) {
       clearInterval(this.stoplightIntervals[interval]);
     }
@@ -301,7 +387,7 @@ class App extends React.Component {
   }
 
   fullReset() {
-    clearInterval(this.interval);
+    clearInterval(this.bossInterval);
     for (let interval in this.stoplightIntervals) {
       clearInterval(this.stoplightIntervals[interval]);
     }

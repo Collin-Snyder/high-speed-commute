@@ -56,6 +56,7 @@ const PlayingField = ({
               playerCar={square.playerCar}
               bossCar={square.bossCar}
               stoplight={square.stoplight}
+              schoolzone={square.schoolZone}
               tree={square.tree || null}
               house={square.house || null}
               // squareInfo={square}
