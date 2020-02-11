@@ -514,6 +514,18 @@ h4.designToolboxTitle {
     -4px 0 black;
 }
 
+.btn.tool.sz {
+  background-image: repeating-linear-gradient(to right, yellow, black, yellow, black, yellow, black, yellow, black, yellow);
+  box-shadow: -4px -4px #343434 inset, 0 -4px black, 4px 0 black, 0 4px black,
+    -4px 0 black;
+}
+
+.btn.tool.sz:active {
+  background-image: repeating-linear-gradient(to right, rgb(162, 162, 0), black, rgb(162, 162, 0), black, rgb(162, 162, 0), black, rgb(162, 162, 0), black, rgb(162, 162, 0));
+  box-shadow: 4px 4px #272727 inset, 0 -4px black, 4px 0 black, 0 4px black,
+    -4px 0 black;
+}
+
 .btn.tool.erase {
   background-color: lightgray;
   box-shadow: -4px -4px rgb(114, 114, 114) inset, 0 -4px black, 4px 0 black,
