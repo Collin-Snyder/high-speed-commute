@@ -60,6 +60,8 @@ class App extends React.Component {
     this.cycleStoplight = this.cycleStoplight.bind(this);
     this.enterSchoolZone = this.enterSchoolZone.bind(this);
     this.exitSchoolZone = this.exitSchoolZone.bind(this);
+    this.caffeinate = this.caffeinate.bind(this);
+    this.decaffeinate = this.decaffeinate.bind(this);
   }
 
   componentDidMount() {
@@ -93,23 +95,35 @@ class App extends React.Component {
       // } else if (e.keyCode === 40) {
       //   this.movePlayerCar("down");
       // }
-        if (e.keyCode === 37) {
-          if (this.state.layout[this.state.playerCar - 1].borders.left.type === "street"){
-            this.setState({playerDirection: "left"});
-          }
-        } else if (e.keyCode === 38) {
-          if (this.state.layout[this.state.playerCar - 1].borders.up.type === "street"){
-            this.setState({playerDirection: "up"}); 
-          }
-        } else if (e.keyCode === 39) {
-          if (this.state.layout[this.state.playerCar - 1].borders.right.type === "street"){
-            this.setState({playerDirection: "right"});
-          }
-        } else if (e.keyCode === 40) {
-          if (this.state.layout[this.state.playerCar - 1].borders.down.type === "street"){
-            this.setState({playerDirection: "down"});
-          }
+      if (e.keyCode === 37) {
+        if (
+          this.state.layout[this.state.playerCar - 1].borders.left.type ===
+          "street"
+        ) {
+          this.setState({ playerDirection: "left" });
         }
+      } else if (e.keyCode === 38) {
+        if (
+          this.state.layout[this.state.playerCar - 1].borders.up.type ===
+          "street"
+        ) {
+          this.setState({ playerDirection: "up" });
+        }
+      } else if (e.keyCode === 39) {
+        if (
+          this.state.layout[this.state.playerCar - 1].borders.right.type ===
+          "street"
+        ) {
+          this.setState({ playerDirection: "right" });
+        }
+      } else if (e.keyCode === 40) {
+        if (
+          this.state.layout[this.state.playerCar - 1].borders.down.type ===
+          "street"
+        ) {
+          this.setState({ playerDirection: "down" });
+        }
+      }
     }
   }
 
@@ -149,10 +163,10 @@ class App extends React.Component {
 
   startPlayer() {
     this.playerInterval = setInterval(() => {
-      if(this.state.playerMovable) {
-        this.movePlayerCar(this.state.playerDirection)
+      if (this.state.playerMovable) {
+        this.movePlayerCar(this.state.playerDirection);
       }
-    }, 300)
+    }, 300 - this.state.caffeineCount * 75);
   }
 
   resetPlayers() {
@@ -315,6 +329,20 @@ class App extends React.Component {
       clearInterval(this.bossSchoolZoneInterval);
       this.setState({ bossMovable, schoolZoneState });
     }
+  }
+
+  caffeinate() {
+    let { caffeineCount } = this.state;
+    caffeineCount++;
+    this.setState({ caffeineCount }, () => {
+      setTimeout(() => {this.decaffeinate()}, 5000);
+    });
+  }
+
+  decaffeinate() {
+    let { caffeineCount } = this.state;
+    caffeineCount--;
+    this.setState({ caffeineCount });
   }
 
   closeBossModal() {
