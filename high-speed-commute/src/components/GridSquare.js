@@ -1,6 +1,7 @@
 import React, { memo } from "react";
 import PlayerCar from "./PlayerCar";
 import BossCar from "./BossCar";
+import Coffee from "./Coffee";
 
 class GameSquare extends React.PureComponent {
   constructor(props) {
@@ -178,6 +179,7 @@ class GameSquare extends React.PureComponent {
           ) : (
             ""
           )}
+          {this.props.coffee ? <Coffee /> : ""}
         </div>
       );
     }

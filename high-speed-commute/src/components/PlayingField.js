@@ -13,6 +13,7 @@ const PlayingField = ({
   resetPlayers,
   fullReset
 }) => {
+  const t0 = performance.now();
   if (playerCar === office) {
     return (
       <div className="playingField win">
@@ -59,6 +60,7 @@ const PlayingField = ({
               schoolzone={square.schoolZone}
               tree={square.tree || null}
               house={square.house || null}
+              coffee={square.coffee}
               borders={square.borders}
               // squareInfo={square}
 
@@ -74,6 +76,9 @@ const PlayingField = ({
       </div>
     );
   }
+  const t1 = performance.now();
+
+  console.log(`Time to run PlayingField function with map: ${t1 - t0}ms`);
 };
 
 export default PlayingField;

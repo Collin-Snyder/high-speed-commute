@@ -144,6 +144,7 @@ class App extends React.Component {
         layout[playerCar - 1].playerCar = false;
         playerCar = target.id;
         layout[playerCar - 1].playerCar = true;
+        layout[playerCar - 1].coffee = false;
         if (this.state.schoolZoneState.playerInSchoolZone) {
           if (!layout[playerCar - 1].schoolZone) {
             this.exitSchoolZone("player");
