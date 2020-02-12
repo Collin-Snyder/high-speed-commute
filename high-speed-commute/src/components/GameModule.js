@@ -15,6 +15,7 @@ const GameModule = ({
   collision,
   designLayout,
   startBoss,
+  startPlayer,
   resetPlayers,
   fullReset,
   enterDesignMode,
@@ -29,7 +30,11 @@ const GameModule = ({
     <div className="gameModule" style={{ display }}>
       <div className="levelsListContainer">
         <h3>Your Levels</h3>
-        <LevelsList loadLevel={loadLevel} userLevels={userLevels} deleteLevel={deleteLevel} />
+        <LevelsList
+          loadLevel={loadLevel}
+          userLevels={userLevels}
+          deleteLevel={deleteLevel}
+        />
       </div>
 
       <PlayingField
@@ -49,7 +54,10 @@ const GameModule = ({
       <div className="buttons">
         <div
           className="btn play"
-          onClick={startBoss}
+          onClick={() => {
+            startBoss();
+            startPlayer();
+          }}
           style={{ display: startDisplay }}
         >
           Start

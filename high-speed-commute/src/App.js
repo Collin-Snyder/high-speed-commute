@@ -27,6 +27,8 @@ class App extends React.Component {
       layout: [],
       designLayout: [],
       userLevels: [],
+      playerDirection: null,
+      caffeineCount: 0,
       playerMovable: true,
       bossMovable: true,
       schoolZoneState: {
@@ -43,6 +45,7 @@ class App extends React.Component {
     this.handleKeyDown = this.handleKeyDown.bind(this);
     this.movePlayerCar = this.movePlayerCar.bind(this);
     this.startBoss = this.startBoss.bind(this);
+    this.startPlayer = this.startPlayer.bind(this);
     this.findBossPath = this.findBossPath.bind(this);
     this.moveBossCar = this.moveBossCar.bind(this);
     this.resetPlayers = this.resetPlayers.bind(this);
@@ -69,6 +72,7 @@ class App extends React.Component {
 
   componentWillUnmount() {
     clearInterval(this.bossInterval);
+    clearInterval(this.playerInterval);
     for (let interval in this.stoplightIntervals) {
       clearInterval(this.stoplightIntervals[interval]);
     }
@@ -80,15 +84,32 @@ class App extends React.Component {
       this.state.playerCar !== this.state.office &&
       this.state.bossCar !== this.state.office
     ) {
-      if (e.keyCode === 37) {
-        this.movePlayerCar("left");
-      } else if (e.keyCode === 38) {
-        this.movePlayerCar("up");
-      } else if (e.keyCode === 39) {
-        this.movePlayerCar("right");
-      } else if (e.keyCode === 40) {
-        this.movePlayerCar("down");
-      }
+      // if (e.keyCode === 37) {
+      //   this.movePlayerCar("left");
+      // } else if (e.keyCode === 38) {
+      //   this.movePlayerCar("up");
+      // } else if (e.keyCode === 39) {
+      //   this.movePlayerCar("right");
+      // } else if (e.keyCode === 40) {
+      //   this.movePlayerCar("down");
+      // }
+        if (e.keyCode === 37) {
+          if (this.state.layout[this.state.playerCar - 1].borders.left.type === "street"){
+            this.setState({playerDirection: "left"});
+          }
+        } else if (e.keyCode === 38) {
+          if (this.state.layout[this.state.playerCar - 1].borders.up.type === "street"){
+            this.setState({playerDirection: "up"}); 
+          }
+        } else if (e.keyCode === 39) {
+          if (this.state.layout[this.state.playerCar - 1].borders.right.type === "street"){
+            this.setState({playerDirection: "right"});
+          }
+        } else if (e.keyCode === 40) {
+          if (this.state.layout[this.state.playerCar - 1].borders.down.type === "street"){
+            this.setState({playerDirection: "down"});
+          }
+        }
     }
   }
 
@@ -126,6 +147,14 @@ class App extends React.Component {
     });
   }
 
+  startPlayer() {
+    this.playerInterval = setInterval(() => {
+      if(this.state.playerMovable) {
+        this.movePlayerCar(this.state.playerDirection)
+      }
+    }, 300)
+  }
+
   resetPlayers() {
     let { playerCar, playerHome, bossCar, bossHome } = this.state;
 
@@ -136,7 +165,7 @@ class App extends React.Component {
   }
 
   movePlayerCar(direction) {
-    if (this.state.playerMovable) {
+    if (this.state.playerMovable && direction) {
       let { playerCar, bossCar, collision, layout, playerMovable } = this.state;
       let target = layout[playerCar - 1].borders[direction];
 
@@ -156,12 +185,14 @@ class App extends React.Component {
         if (playerCar === bossCar) {
           collision = true;
           clearInterval(this.bossInterval);
+          clearInterval(this.playerInterval);
           for (let interval in this.stoplightIntervals) {
             clearInterval(this.stoplightIntervals[interval]);
           }
         }
         if (playerCar === this.state.office) {
           clearInterval(this.bossInterval);
+          clearInterval(this.playerInterval);
           for (let interval in this.stoplightIntervals) {
             clearInterval(this.stoplightIntervals[interval]);
           }
@@ -211,12 +242,13 @@ class App extends React.Component {
         this.enterSchoolZone("boss");
       } else if (this.state.bossCar === this.state.office) {
         clearInterval(this.bossInterval);
+        clearInterval(this.playerInterval);
         for (let interval in this.stoplightIntervals) {
           clearInterval(this.stoplightIntervals[interval]);
         }
         this.setState({ status: "idle" });
       } else if (this.state.bossCar === this.state.playerCar) {
-        clearInterval(this.bossInterval);
+        clearInterval(this.playerInterval);
         for (let interval in this.stoplightIntervals) {
           clearInterval(this.stoplightIntervals[interval]);
         }
@@ -291,6 +323,7 @@ class App extends React.Component {
 
   enterDesignMode() {
     clearInterval(this.bossInterval);
+    clearInterval(this.playerInterval);
     for (let interval in this.stoplightIntervals) {
       clearInterval(this.stoplightIntervals[interval]);
     }
@@ -389,6 +422,7 @@ class App extends React.Component {
 
   fullReset() {
     clearInterval(this.bossInterval);
+    clearInterval(this.playerInterval);
     for (let interval in this.stoplightIntervals) {
       clearInterval(this.stoplightIntervals[interval]);
     }
@@ -435,6 +469,7 @@ class App extends React.Component {
           userLevels={this.state.userLevels}
           collision={this.state.collision}
           startBoss={this.startBoss}
+          startPlayer={this.startPlayer}
           resetPlayers={this.resetPlayers}
           fullReset={this.fullReset}
           enterDesignMode={this.enterDesignMode}
