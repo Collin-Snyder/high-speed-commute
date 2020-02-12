@@ -77,6 +77,17 @@ const DesignToolbox = ({
           />
           <span className="toolLabel">School Zone</span>
         </label>
+        <label className={"btn tool cf" + (selectedDesignTool === "coffee" ? " checked" : "")}>
+          <input
+            type="radio"
+            onChange={handleToolSelection}
+            value="coffee"
+            name="designToolOption"
+            checked={selectedDesignTool === "coffee"}
+            className="toolSelectorRadio"
+          />
+          <span className="toolLabel">Coffee</span>
+        </label>
         <label className={"btn tool erase" + (selectedDesignTool === "eraser" ? " checked" : "")}>
           <input
             type="radio"

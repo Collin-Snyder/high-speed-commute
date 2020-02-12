@@ -86,138 +86,155 @@ export default class DesignModule extends React.Component {
   addSquareToDesign(e, drag = false) {
     e.persist();
 
-    let { selectedDesignTool, designLayout, saveStates } = this.state;
+    let { selectedDesignTool, designLayout, saveStates, playerHome, bossHome, office, stoplights } = this.state;
     let squareId = Number(e.currentTarget.id);
     let currentSquare = designLayout[squareId - 1];
 
-    if (selectedDesignTool === "playerHome") {
-      let { playerHome } = this.state;
+    switch (selectedDesignTool) {
+      case "playerHome":
+        // let { playerHome } = this.state;
 
-      if (playerHome === squareId) {
-        playerHome = 0;
-        currentSquare.type = "block";
-      } else {
-        if (playerHome > 0) {
-          designLayout[playerHome - 1].type = "block";
+        if (playerHome === squareId) {
+          playerHome = 0;
+          currentSquare.type = "block";
+        } else {
+          if (playerHome > 0) {
+            designLayout[playerHome - 1].type = "block";
+          }
+          playerHome = squareId;
+          currentSquare.type = "street";
+          currentSquare.type = "street";
         }
-        playerHome = squareId;
-        currentSquare.type = "street";
-        currentSquare.type = "street";
-      }
 
-      saveStates.isSaved = false;
+        saveStates.isSaved = false;
 
-      this.setState({ playerHome, designLayout, saveStates });
-    } else if (selectedDesignTool === "bossHome") {
-      let { bossHome } = this.state;
+        this.setState({ playerHome, designLayout, saveStates });
+        break;
+      case "bossHome":
+        // let { bossHome } = this.state;
 
-      if (bossHome === squareId) {
-        bossHome = 0;
-        currentSquare.type = "block";
-      } else {
-        if (bossHome > 0) {
-          designLayout[bossHome - 1].type = "block";
+        if (bossHome === squareId) {
+          bossHome = 0;
+          currentSquare.type = "block";
+        } else {
+          if (bossHome > 0) {
+            designLayout[bossHome - 1].type = "block";
+          }
+          bossHome = squareId;
+          currentSquare.type = "street";
         }
-        bossHome = squareId;
-        currentSquare.type = "street";
-      }
 
-      saveStates.isSaved = false;
+        saveStates.isSaved = false;
 
-      this.setState({ bossHome, designLayout, saveStates });
-    } else if (selectedDesignTool === "office") {
-      let { office } = this.state;
+        this.setState({ bossHome, designLayout, saveStates });
+        break;
+      case "office":
+        // let { office } = this.state;
 
-      if (office === squareId) {
-        office = 0;
-        currentSquare.type = "block";
-      } else {
-        if (office > 0) {
-          designLayout[office - 1].type = "block";
+        if (office === squareId) {
+          office = 0;
+          currentSquare.type = "block";
+        } else {
+          if (office > 0) {
+            designLayout[office - 1].type = "block";
+          }
+          office = squareId;
+          currentSquare.type = "street";
         }
-        office = squareId;
-        currentSquare.type = "street";
-      }
 
-      saveStates.isSaved = false;
+        saveStates.isSaved = false;
 
-      this.setState({ office, designLayout, saveStates });
-    } else if (selectedDesignTool === "eraser") {
-      let {
-        playerHome,
-        bossHome,
-        office,
-        stoplights
-      } = this.state;
+        this.setState({ office, designLayout, saveStates });
+        break;
+      case "street":
+        if (currentSquare.stoplight || currentSquare.schoolZone || currentSquare.coffee) {
+          currentSquare.schoolZone = false;
+          currentSquare.stoplight = null;
+          currentSquare.coffee = false;
+          delete stoplights[squareId];
+        } else if (!drag && currentSquare.type === "street") {
+          currentSquare.type = "block";
+        } else {
+          currentSquare.type = "street";
+        }
 
-      currentSquare.type = "block";
+        saveStates.isSaved = false;
 
-      if (squareId === playerHome) playerHome = 0;
-      else if (squareId === bossHome) bossHome = 0;
-      else if (squareId === office) office = 0;
+        this.setState({ designLayout, saveStates });
+        break;
+      case "stoplight":
+        if (!drag && stoplights.hasOwnProperty(squareId)) {
+          currentSquare.stoplight = null;
+          delete stoplights[squareId];
+          saveStates.isSaved = false;
+        } else if (currentSquare.type === "street") {
+          currentSquare.stoplight = "green";
+          stoplights[squareId] = randomNumBtwn(4, 12) * 1000;
+          saveStates.isSaved = false;
+          if (currentSquare.schoolZone) currentSquare.schoolZone = false;
+        }
 
-      if (currentSquare.stoplight) {
-        currentSquare.stoplight = null;
-        delete stoplights[squareId];
-      }
-
-      if (currentSquare.schoolZone) {
-        currentSquare.schoolZone = false;
-      }
-
-      saveStates.isSaved = false;
-
-      this.setState({
-        designLayout,
-        playerHome,
-        bossHome,
-        office,
-        stoplights,
-        saveStates
-      });
-    } else if (selectedDesignTool === "street") {
-      let { stoplights } = this.state;
-
-      if (
-        currentSquare.stoplight ||
-        currentSquare.schoolZone
-      ) {
-        currentSquare.schoolZone = false;
-        currentSquare.stoplight = null;
-        delete stoplights[squareId];
-      } else if (!drag && currentSquare.type === "street") {
+        this.setState({ designLayout, saveStates, stoplights });
+        break;
+      case "schoolzone":
+        if (!drag && currentSquare.schoolZone === true) {
+          currentSquare.schoolZone = false;
+          saveStates.isSaved = false;
+        } else if (
+          currentSquare.type === "street" &&
+          !currentSquare.stoplight
+        ) {
+          currentSquare.schoolZone = true;
+          saveStates.isSaved = false;
+        }
+        this.setState({ designLayout, saveStates });
+        break;
+      case "coffee":
+        if (!drag && currentSquare.coffee === true) {
+          currentSquare.coffee = false;
+          saveStates.isSaved = false;
+        } else if (
+          currentSquare.type === "street" &&
+          currentSquare.stoplight === null
+        ) {
+          currentSquare.coffee = true;
+          saveStates.isSaved = false;
+        }
+        this.setState({ designLayout, saveStates });
+        break;
+      case "eraser":
         currentSquare.type = "block";
-      } else {
-        currentSquare.type = "street";
-      }
 
-      saveStates.isSaved = false;
+        if (squareId === playerHome) playerHome = 0;
+        else if (squareId === bossHome) bossHome = 0;
+        else if (squareId === office) office = 0;
 
-      this.setState({ designLayout, saveStates });
-    } else if (selectedDesignTool === "stoplight") {
-      let { stoplights } = this.state;
+        if (currentSquare.stoplight) {
+          currentSquare.stoplight = null;
+          delete stoplights[squareId];
+        }
 
-      if (!drag && stoplights.hasOwnProperty(squareId)) {
-        currentSquare.stoplight = null;
-        delete stoplights[squareId];
-        saveStates.isSaved = false;
-      } else if (currentSquare.type === "street") {
-        currentSquare.stoplight = "green";
-        stoplights[squareId] = randomNumBtwn(4, 12) * 1000;
-        saveStates.isSaved = false;
-        if (currentSquare.schoolZone) currentSquare.schoolZone = false;
-      }
+        if (currentSquare.schoolZone) {
+          currentSquare.schoolZone = false;
+        }
 
-      this.setState({ designLayout, saveStates, stoplights });
-    } else if (selectedDesignTool === "schoolzone") {
-      if (!drag && currentSquare.schoolZone === true) {
-        currentSquare.schoolZone = false;
+        if (currentSquare.coffee) {
+          currentSquare.coffee = false;
+        }
+
         saveStates.isSaved = false;
-      } else if (currentSquare.type === "street" && !currentSquare.stoplight) {
-        currentSquare.schoolZone = true;
-        saveStates.isSaved = false;
-      }
-      this.setState({ designLayout, saveStates });
+
+        this.setState({
+          designLayout,
+          playerHome,
+          bossHome,
+          office,
+          stoplights,
+          saveStates
+        });
+        break;
+      default:
+        return;
     }
   }
 

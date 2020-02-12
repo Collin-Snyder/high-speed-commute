@@ -171,6 +171,7 @@ h4.designToolboxTitle {
 
 .gridSquare,
 .designSquare {
+  position: relative;
   width: 25px;
   height: 25px;
   font-size: 10px;
@@ -215,7 +216,7 @@ h4.designToolboxTitle {
 .playerCar,
 .bossCar,
 .tree,
-.house {
+.house, .coffee {
   display: inline-block;
   width: 25px;
   height: 25px;
@@ -242,6 +243,15 @@ h4.designToolboxTitle {
 
 .house {
   background-image: url("../assets/house.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.coffee {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-image: url("../assets/coffee.png");
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -508,8 +518,8 @@ h4.designToolboxTitle {
     -4px 0 black;
 }
 
-.btn.tool.sl:active {
-  background-image: linear-gradient(to right, red,yellow,green);
+.btn.tool.sl:active, .btn.tool.sl.checked {
+  background-image: linear-gradient(to right, darkred, goldenrod,darkgreen);
   box-shadow: 4px 4px #272727 inset, 0 -4px black, 4px 0 black, 0 4px black,
     -4px 0 black;
 }
@@ -520,9 +530,21 @@ h4.designToolboxTitle {
     -4px 0 black;
 }
 
-.btn.tool.sz:active {
+.btn.tool.sz:active, .btn.tool.sz.checked {
   background-image: repeating-linear-gradient(to right, rgb(162, 162, 0), black, rgb(162, 162, 0), black, rgb(162, 162, 0), black, rgb(162, 162, 0), black, rgb(162, 162, 0));
   box-shadow: 4px 4px #272727 inset, 0 -4px black, 4px 0 black, 0 4px black,
+    -4px 0 black;
+}
+
+.btn.tool.cf {
+  background-color: #4a2c2a;
+  box-shadow: -4px -4px #35201e inset, 0 -4px black, 4px 0 black, 0 4px black,
+    -4px 0 black;
+}
+
+.btn.tool.cf:active, .btn.tool.cf.checked {
+  background-color: #35201e;
+  box-shadow: 4px 4px #1a100f inset, 0 -4px black, 4px 0 black, 0 4px black,
     -4px 0 black;
 }
 

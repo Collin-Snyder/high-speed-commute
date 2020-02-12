@@ -11,7 +11,8 @@ const createDesignBoard = (width, height) => {
       stoplight: null,
       playerCar: false,
       bossCar: false, 
-      schoolZone: false
+      schoolZone: false,
+      coffee: false
     });
   }
 

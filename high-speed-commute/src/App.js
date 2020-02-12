@@ -75,7 +75,7 @@ class App extends React.Component {
   }
 
   handleKeyDown(e) {
-    e.preventDefault();
+    // e.preventDefault();
     if (
       this.state.playerCar !== this.state.office &&
       this.state.bossCar !== this.state.office

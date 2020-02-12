@@ -1,5 +1,7 @@
 import React from "react";
 
+import Coffee from "../components/Coffee";
+
 class DesignSquare extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -106,70 +108,11 @@ class DesignSquare extends React.PureComponent {
           this.props.addSquareToDesign(e, true);
         }}
       >
-        {this.props.squareInfo.id}
+        {this.props.id}
+        {this.props.coffee ? <Coffee /> : <></>}
       </div>
     );
   }
 }
-
-const DesignSquare1 = ({
-  playerHome,
-  bossHome,
-  office,
-  squareInfo,
-  addSquareToDesign,
-  isStoplight,
-  isSchoolZone
-}) => {
-  let keySquareClass = "";
-  let stoplightClass = "";
-  let schoolZoneClass = "";
-
-  keySquareClass =
-    squareInfo.type === "block"
-      ? " block"
-      : squareInfo.type === "street"
-      ? " street"
-      : "";
-
-  switch (squareInfo.id) {
-    case playerHome:
-      keySquareClass = " playerHome";
-      break;
-    case bossHome:
-      keySquareClass = " bossHome";
-      break;
-    case office:
-      keySquareClass = " office";
-      break;
-    default:
-      keySquareClass = keySquareClass;
-  }
-
-  if (isStoplight) stoplightClass = " greenlight";
-
-  if (isSchoolZone) schoolZoneClass = " schoolzone";
-
-  const handleDrag = e => {
-    e.dataTransfer.setDragImage(document.getElementById("dragImage"), 0, 0);
-  };
-
-  return (
-    <div
-      className={`designSquare${keySquareClass}${stoplightClass}${schoolZoneClass}`}
-      id={squareInfo.id}
-      onClick={e => {
-        addSquareToDesign(e);
-      }}
-      draggable
-      onDragStart={handleDrag}
-      onDragEnter={e => {
-        addSquareToDesign(e, true);
-      }}
-    >
-      {squareInfo.id}
-    </div>
-  );
-};
 
 export default DesignSquare;

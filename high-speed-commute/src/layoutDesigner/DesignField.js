@@ -44,6 +44,7 @@ const DesignField = ({
           schoolzone={square.schoolZone}
           tree={square.tree || null}
           house={square.house || null}
+          coffee={square.coffee}
           borders={square.borders}
           isStoplight={stoplights.hasOwnProperty(square.id) ? true : false}
           isSchoolZone={square.schoolZone === true}
