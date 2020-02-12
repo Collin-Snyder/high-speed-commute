@@ -205,6 +205,7 @@ export default class DesignModule extends React.Component {
         currentSquare.stoplight = "green";
         stoplights[squareId] = randomNumBtwn(4, 12) * 1000;
         saveStates.isSaved = false;
+        if (currentSquare.schoolZone) currentSquare.schoolZone = false;
       }
 
       this.setState({ designLayout, saveStates, stoplights });
@@ -212,7 +213,7 @@ export default class DesignModule extends React.Component {
       if (!drag && currentSquare.schoolZone === true) {
         currentSquare.schoolZone = false;
         saveStates.isSaved = false;
-      } else if (currentSquare.type === "street") {
+      } else if (currentSquare.type === "street" && !currentSquare.stoplight) {
         currentSquare.schoolZone = true;
         saveStates.isSaved = false;
       }
@@ -225,6 +226,7 @@ export default class DesignModule extends React.Component {
     designLayout = designLayout.map(square => {
       square.type = "block";
       square.stoplight = null;
+      square.schoolZone = false;
       return square;
     });
     playerHome = bossHome = office = 0;

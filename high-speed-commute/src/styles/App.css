@@ -614,23 +614,37 @@ h4.designToolboxTitle {
 }
 
 .greenlight {
-  box-shadow: 3px 3px rgb(0, 255, 0) inset, -3px -3px rgb(0, 255, 0) inset;
-  /* border-radius: 10px; */
+  /* box-shadow: 3px 3px rgb(0, 255, 0) inset, -3px -3px rgb(0, 255, 0) inset; */
+  background-image: url(../assets/greenlight.png);
+  background-size: contain;
+  background-repeat: no-repeat;
 }
 
 .yellowlight {
-  box-shadow: 3px 3px rgb(242, 255, 0) inset, -3px -3px rgb(242, 255, 0) inset;
+  /* box-shadow: 3px 3px #a78600 inset, -3px -3px #ffcc00 inset; */
+  background-image: url(../assets/yellowlight.png);
+  background-size: contain;
+  background-repeat: no-repeat;
 }
 
 .redlight {
-  box-shadow: 3px 3px rgb(255, 0, 0) inset, -3px -3px rgb(255, 0, 0) inset;
+  /* box-shadow: 3px 3px rgb(255, 0, 0) inset, -3px -3px rgb(255, 0, 0) inset; */
+  background-image: url(../assets/redlight.png);
+  background-size: contain;
+  background-repeat: no-repeat;
 }
 
 .schoolzone {
-  background-image: radial-gradient( rgba(255, 211, 0, 1) 50%, black);
+  background-image: url(../assets/schoolzone.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  /* background-color: #ffd300; */
+  /* background-image: radial-gradient(#ffd300 50%, black); */
 }
 
-
+/* @keyframes schoolzone {
+  from {box}
+} */
 
 /* .pathOption {
   background-color: orange;

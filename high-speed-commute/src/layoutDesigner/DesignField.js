@@ -35,6 +35,16 @@ const DesignField = ({
       />
       {designLayout.map((square, index) => (
         <DesignSquare
+          id={square.id}
+          type={square.type}
+          layout={square.layout}
+          playerCar={square.playerCar}
+          bossCar={square.bossCar}
+          stoplight={square.stoplight}
+          schoolzone={square.schoolZone}
+          tree={square.tree || null}
+          house={square.house || null}
+          borders={square.borders}
           isStoplight={stoplights.hasOwnProperty(square.id) ? true : false}
           isSchoolZone={square.schoolZone === true}
           playerHome={playerHome}
@@ -42,7 +52,7 @@ const DesignField = ({
           office={office}
           squareInfo={square}
           addSquareToDesign={addSquareToDesign}
-          key={index}
+          key={square.id}
         />
       ))}
     </div>

@@ -10,13 +10,15 @@ class GameSquare extends React.PureComponent {
       typeClass: "",
       keySquareClass: "",
       stoplightClass: "",
-      centerLineClass: ""
+      centerLineClass: "",
+      schoolZoneShadows: ""
     };
   }
 
   componentDidMount() {
     let keySquareClass;
     let stoplightClass;
+    let schoolZoneClass = "";
 
     this.setState({
       typeClass:
@@ -26,6 +28,14 @@ class GameSquare extends React.PureComponent {
           ? " street"
           : ""
     });
+
+    // if (this.props.schoolzone) {
+    //   if (this.props.borders.up === null) schoolZoneClass += " szup";
+    //   if (this.props.borders.down === null) schoolZoneClass += " szdown";
+    //   if (this.props.borders.left === null) schoolZoneClass += " szleft";
+    //   if (this.props.borders.right === null) schoolZoneClass += " szright";
+    //   this.setState({ schoolZoneClass });
+    // }
 
     switch (this.props.id) {
       case this.props.playerHome:
@@ -69,6 +79,34 @@ class GameSquare extends React.PureComponent {
             : ""
       });
     }
+
+    // let schoolZoneShadows = [];
+
+    // if (
+    //   this.props.schoolzone !== prevProps.schoolzone &&
+    //   this.props.schoolzone
+    // ) {
+    //   // if (this.props.borders.up && this.props.borders.up.type === "block")
+    //   //   schoolZoneShadows.push("0px 5px #ffd300 inset");
+    //   // if (this.props.borders.down && this.props.borders.down.type === "block")
+    //   //   schoolZoneShadows.push("0px -5px #ffd300 inset");
+    //   // if (this.props.borders.left && this.props.borders.left.type === "block")
+    //   //   schoolZoneShadows.push("5px 0px #ffd300 inset");
+    //   // if (this.props.borders.right && this.props.borders.right.type === "block")
+    //   //   schoolZoneShadows.push("-5px 0px #ffd300 inset");
+    //   if (this.props.borders.up && this.props.borders.up.schoolZone === false)
+    //     schoolZoneShadows.push("0px 5px #ffd300 inset");
+    //   if (this.props.borders.down && this.props.borders.down.schoolZone === false)
+    //     schoolZoneShadows.push("0px -5px #ffd300 inset");
+    //   if (this.props.borders.left && this.props.borders.left.schoolZone === false)
+    //     schoolZoneShadows.push("5px 0px #ffd300 inset");
+    //   if (this.props.borders.right && this.props.borders.right.schoolZone === false)
+    //     schoolZoneShadows.push("-5px 0px #ffd300 inset");
+    //   let shadows = schoolZoneShadows.join(", ");
+    //   this.setState({ schoolZoneShadows }, () => {
+    //     this.forceUpdate();
+    //   });
+    // }
 
     if (
       this.props.playerHome !== prevProps.playerHome ||
@@ -131,6 +169,7 @@ class GameSquare extends React.PureComponent {
               : ``
           }${this.props.schoolzone ? ` schoolzone` : ``}`}
           id={this.props.id}
+          style={{ "box-shadow": this.state.schoolZoneShadows }}
         >
           {this.props.playerCar ? (
             <PlayerCar />

@@ -59,6 +59,7 @@ const PlayingField = ({
               schoolzone={square.schoolZone}
               tree={square.tree || null}
               house={square.house || null}
+              borders={square.borders}
               // squareInfo={square}
 
               // playerCar={playerCar}
