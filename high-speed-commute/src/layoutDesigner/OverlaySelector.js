@@ -13,8 +13,8 @@ const OverlaySelector = ({
           <label className={"btn overlay p" + (playerOverlay ? " checked" : "")}>
             <input
               type="checkbox"
-              onChange={() => {toggleOverlay("playerPath")}}
-              value="playerPath"
+              onChange={() => {toggleOverlay("playerOverlay")}}
+              value="playerOverlay"
               name="overlayOption"
               checked={playerOverlay}
               className="overlayOption"

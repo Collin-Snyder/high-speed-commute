@@ -4,6 +4,7 @@ import StateMachine from "javascript-state-machine";
 import DesignField from "./DesignField";
 import DesignToolbox from "./DesignToolbox";
 import OverlaySelector from "./OverlaySelector";
+import OverlayInfo from "./OverlayInfo";
 import LoadSavedDesignModal from "./LoadSavedDesignModal";
 import SaveWarningModal from "./SaveWarningModal";
 import InputLevelNameModal from "./InputLevelNameModal";
@@ -213,7 +214,7 @@ export default class DesignModule extends React.Component {
         saveStates.isSaved = false;
 
         this.setState({ designLayout, saveStates }, () => {
-          if (!drag && this.state.overlayVisibility.bossOverlay) this.findBossPath();
+          if (this.state.overlayVisibility.bossOverlay) this.findBossPath();
         });
         break;
       case "stoplight":
@@ -294,7 +295,7 @@ export default class DesignModule extends React.Component {
             saveStates
           },
           () => {
-            if (!drag && this.state.overlayVisibility.bossOverlay) this.findBossPath();
+            if (this.state.overlayVisibility.bossOverlay) this.findBossPath();
           }
         );
         break;
@@ -565,7 +566,7 @@ export default class DesignModule extends React.Component {
             <h4 className="designToolboxTitle">Overlays</h4>
             <OverlaySelector
               bossOverlay={this.state.overlayVisibility.bossOverlay}
-              playerPath={this.state.overlayVisibility.playerPath}
+              playerOverlay={this.state.overlayVisibility.playerOverlay}
               toggleOverlay={this.toggleOverlay}
               clearOverlays={this.clearOverlays}
             />
@@ -587,7 +588,12 @@ export default class DesignModule extends React.Component {
               exiting={this.state.saveStates.exiting}
               overlays={this.state.overlayVisibility}
             />
-            <div className="overlayInfo">No overlays</div>
+            <div className="overlayInfo">
+              <OverlayInfo
+                bossOverlay={this.state.overlayVisibility.bossOverlay}
+                bossPathLength={this.state.bossPath.length}
+              />
+            </div>
           </div>
           <div className="buttons design">
             <div
