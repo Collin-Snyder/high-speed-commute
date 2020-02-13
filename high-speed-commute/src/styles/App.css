@@ -88,6 +88,17 @@ h4.designToolboxTitle {
   background-color: white;
 }
 
+.overlayInfo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1016px;
+  height: 100px;
+  border: 5px groove darkgray;
+  background-color: #fff;
+  margin: 20px auto;
+}
+
 .levelsListContainer {
   width: 300px;
   overflow-wrap: break-word;
@@ -285,26 +296,31 @@ h4.designToolboxTitle {
 .designTools {
   display: flex;
   flex-direction: column;
+  width: 400px;
+  align-items: center;
 }
 
-.designToolbox {
+.designToolbox, .overlaySelector {
   display: flex;
   flex-direction: column;
   border: 5px groove darkgray;
   margin: 20px 0;
+  padding: 0px 15px;
   background-color: #fff;
   align-items: center;
   justify-content: center;
-  width: 300px;
+  width: 330px;
 }
 
-.designToolSelector {
-  display: flex;
-  flex-direction: column;
+.designToolSelector, .overlayOptions {
+  /* display: flex;
+  flex-direction: column; */
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   border: 3px dashed darkgray;
   margin-top: 20px;
   align-items: center;
-  width: 75%;
+  width: 280px;
 }
 
 .designToolSelector label {
@@ -314,7 +330,7 @@ h4.designToolboxTitle {
   justify-content: center;
 }
 
-.toolSelectorRadio {
+.toolSelectorRadio, .overlayOption {
   position: absolute;
   opacity: 0;
   display: inline;
@@ -462,28 +478,30 @@ h4.designToolboxTitle {
     0 4px black, -4px 0 black;
 }
 
-.btn.tool {
-  width: 150px;
+.btn.tool, .btn.overlay {
+  width: 100px;
+  margin: 15px 15px;
+  font-size: 0.8em;
 }
 
-.btn.tool.ph {
+.btn.tool.ph, .btn.overlay.p {
   background-color: rgba(0, 0, 255, 0.4);
   box-shadow: -4px -4px rgba(0, 0, 63, 0.4) inset, 0 -4px black, 4px 0 black,
     0 4px black, -4px 0 black;
 }
 
-.btn.tool.ph:active, .btn.tool.ph.checked {
+.btn.tool.ph:active, .btn.tool.ph.checked, .btn.overlay.p.checked {
   background-color:rgba(0, 0, 255, 0.6);
   box-shadow: 4px 4px  rgb(70, 70, 184) inset, 0 -4px black, 4px 0 black,
     0 4px black, -4px 0 black;
 }
 
-.btn.tool.bh {
+.btn.tool.bh, .btn.overlay.b {
   background-color: rgba(255, 0, 0, 0.4);
   box-shadow: -4px -4px rgba(24, 0, 0, 0.329) inset, 0 -4px black, 4px 0 black,
     0 4px black, -4px 0 black;
 }
-.btn.tool.bh:active, .btn.tool.bh.checked {
+.btn.tool.bh:active, .btn.tool.bh.checked, .btn.overlay.b.checked {
   background-color: rgb(226, 78, 78);
   box-shadow: 4px 4px rgb(161, 44, 44) inset, 0 -4px black, 4px 0 black,
     0 4px black, -4px 0 black;

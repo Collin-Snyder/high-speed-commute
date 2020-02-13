@@ -52,6 +52,13 @@ const GameModule = ({
       />
 
       <div className="buttons">
+      <div
+          className="btn mode"
+          onClick={enterDesignMode}
+          style={{ display: startDisplay }}
+        >
+          Design
+        </div>
         <div
           className="btn play"
           onClick={() => {
@@ -60,14 +67,7 @@ const GameModule = ({
           }}
           style={{ display: startDisplay }}
         >
-          Start
-        </div>
-        <div
-          className="btn mode"
-          onClick={enterDesignMode}
-          style={{ display: startDisplay }}
-        >
-          Design
+          Race
         </div>
       </div>
     </div>

@@ -3,6 +3,7 @@ import axios from "axios";
 import StateMachine from "javascript-state-machine";
 import DesignField from "./DesignField";
 import DesignToolbox from "./DesignToolbox";
+import OverlaySelector from "./OverlaySelector";
 import LoadSavedDesignModal from "./LoadSavedDesignModal";
 import SaveWarningModal from "./SaveWarningModal";
 import InputLevelNameModal from "./InputLevelNameModal";
@@ -31,6 +32,10 @@ export default class DesignModule extends React.Component {
       levelName: "",
       inputVisible: false,
       playButtonVisible: false,
+      overlayVisibility: {
+        bossPath: false,
+        playerPath: false
+      },
       modalVisibility: {
         loadDesign: false,
         saveChangesNew: false,
@@ -58,6 +63,8 @@ export default class DesignModule extends React.Component {
     this.toggleInput = this.toggleInput.bind(this);
     this.toggleModal = this.toggleModal.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
+    this.toggleOverlay = this.toggleOverlay.bind(this);
+    this.clearOverlays = this.clearOverlays.bind(this);
   }
 
   componentDidUpdate(prevProps) {
@@ -87,7 +94,16 @@ export default class DesignModule extends React.Component {
   addSquareToDesign(e, drag = false) {
     e.persist();
 
-    let { selectedDesignTool, designLayout, saveStates, playerHome, bossHome, office, stoplights, coffees } = this.state;
+    let {
+      selectedDesignTool,
+      designLayout,
+      saveStates,
+      playerHome,
+      bossHome,
+      office,
+      stoplights,
+      coffees
+    } = this.state;
     let squareId = Number(e.currentTarget.id);
     let currentSquare = designLayout[squareId - 1];
 
@@ -148,7 +164,11 @@ export default class DesignModule extends React.Component {
         this.setState({ office, designLayout, saveStates });
         break;
       case "street":
-        if (currentSquare.stoplight || currentSquare.schoolZone || currentSquare.coffee) {
+        if (
+          currentSquare.stoplight ||
+          currentSquare.schoolZone ||
+          currentSquare.coffee
+        ) {
           currentSquare.schoolZone = false;
           currentSquare.stoplight = null;
           currentSquare.coffee = false;
@@ -458,6 +478,19 @@ export default class DesignModule extends React.Component {
     this.setState({ modalVisibility });
   }
 
+  toggleOverlay(overlay) {
+    let { overlayVisibility } = this.state;
+    overlayVisibility[overlay] = !overlayVisibility[overlay];
+    this.setState({ overlayVisibility });
+  }
+
+  clearOverlays() {
+    let { overlayVisibility } = this.state;
+    overlayVisibility.playerPath = false;
+    overlayVisibility.bossPath = false;
+    this.setState({ overlayVisibility });
+  }
+
   handleInputChange(e) {
     this.setState({ levelName: e.target.value });
   }
@@ -486,22 +519,32 @@ export default class DesignModule extends React.Component {
               brushSize={this.state.brushSize}
               clearBoard={this.clearBoard}
             />
+            <h4 className="designToolboxTitle">Overlays</h4>
+            <OverlaySelector
+              bossPath={this.state.overlayVisibility.bossPath}
+              playerPath={this.state.overlayVisibility.playerPath}
+              toggleOverlay={this.toggleOverlay}
+              clearOverlays={this.clearOverlays}
+            />
           </div>
-          <DesignField
-            inputVisible={this.state.modalVisibility.inputLevelName}
-            inputValue={this.state.levelName}
-            playerHome={this.state.playerHome}
-            bossHome={this.state.bossHome}
-            office={this.state.office}
-            stoplights={this.state.stoplights}
-            designLayout={this.state.designLayout}
-            addSquareToDesign={this.addSquareToDesign}
-            handleInputChange={this.handleInputChange}
-            saveLevel={this.saveLevelToDatabase}
-            toggleModal={this.toggleModal}
-            enterPlayMode={this.enterPlayMode}
-            exiting={this.state.saveStates.exiting}
-          />
+          <div className="designer">
+            <DesignField
+              inputVisible={this.state.modalVisibility.inputLevelName}
+              inputValue={this.state.levelName}
+              playerHome={this.state.playerHome}
+              bossHome={this.state.bossHome}
+              office={this.state.office}
+              stoplights={this.state.stoplights}
+              designLayout={this.state.designLayout}
+              addSquareToDesign={this.addSquareToDesign}
+              handleInputChange={this.handleInputChange}
+              saveLevel={this.saveLevelToDatabase}
+              toggleModal={this.toggleModal}
+              enterPlayMode={this.enterPlayMode}
+              exiting={this.state.saveStates.exiting}
+            />
+            <div className="overlayInfo">No overlays</div>
+          </div>
           <div className="buttons design">
             <div
               class="btn save"

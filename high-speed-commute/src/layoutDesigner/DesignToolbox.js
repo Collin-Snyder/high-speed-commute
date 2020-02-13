@@ -64,7 +64,7 @@ const DesignToolbox = ({
             checked={selectedDesignTool === "stoplight"}
             className="toolSelectorRadio"
           />
-          <span className="toolLabel">Stoplight</span>
+          <span className="toolLabel">Stop light</span>
         </label>
         <label className={"btn tool sz" + (selectedDesignTool === "schoolzone" ? " checked" : "")}>
           <input
