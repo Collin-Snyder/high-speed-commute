@@ -7,7 +7,7 @@ import OverlaySelector from "./OverlaySelector";
 import LoadSavedDesignModal from "./LoadSavedDesignModal";
 import SaveWarningModal from "./SaveWarningModal";
 import InputLevelNameModal from "./InputLevelNameModal";
-import {findPath} from "../logic/moveBoss";
+import { findPath } from "../logic/moveBoss";
 import createDesignBoard from "../logic/createDesignBoard";
 import { randomNumBtwn } from "../logic/randomNumber";
 import {
@@ -34,9 +34,11 @@ export default class DesignModule extends React.Component {
       inputVisible: false,
       playButtonVisible: false,
       overlayVisibility: {
-        bossPath: false,
-        playerPath: false
+        bossOverlay: false,
+        playerOverlay: false
       },
+      bossPath: [],
+      playerPath: [],
       modalVisibility: {
         loadDesign: false,
         saveChangesNew: false,
@@ -94,13 +96,24 @@ export default class DesignModule extends React.Component {
   handleBrushSelection(e) {}
 
   findBossPath() {
-    let { bossHome, office, designLayout } = this.state;
+    let { bossHome, office, designLayout, bossPath } = this.state;
 
-    let pathInfo = findPath(designLayout[bossHome - 1], designLayout[office - 1], designLayout);
+    for (let square of bossPath) {
+      designLayout[square - 1].bossPath = false;
+    }
+
+    let pathInfo = findPath(
+      designLayout[bossHome - 1],
+      designLayout[office - 1],
+      designLayout
+    );
 
     if (!pathInfo) return null;
 
-    this.setState({ designLayout: pathInfo.layout });
+    this.setState({
+      designLayout: pathInfo.layout,
+      bossPath: pathInfo.pathStack
+    });
     return pathInfo.pathStack;
   }
 
@@ -117,6 +130,7 @@ export default class DesignModule extends React.Component {
       stoplights,
       coffees
     } = this.state;
+
     let squareId = Number(e.currentTarget.id);
     let currentSquare = designLayout[squareId - 1];
 
@@ -156,7 +170,9 @@ export default class DesignModule extends React.Component {
 
         saveStates.isSaved = false;
 
-        this.setState({ bossHome, designLayout, saveStates });
+        this.setState({ bossHome, designLayout, saveStates }, () => {
+          if (this.state.overlayVisibility.bossOverlay) this.findBossPath();
+        });
         break;
       case "office":
         // let { office } = this.state;
@@ -174,7 +190,9 @@ export default class DesignModule extends React.Component {
 
         saveStates.isSaved = false;
 
-        this.setState({ office, designLayout, saveStates });
+        this.setState({ office, designLayout, saveStates }, () => {
+          if (this.state.overlayVisibility.bossOverlay) this.findBossPath();
+        });
         break;
       case "street":
         if (
@@ -194,7 +212,9 @@ export default class DesignModule extends React.Component {
 
         saveStates.isSaved = false;
 
-        this.setState({ designLayout, saveStates });
+        this.setState({ designLayout, saveStates }, () => {
+          if (!drag && this.state.overlayVisibility.bossOverlay) this.findBossPath();
+        });
         break;
       case "stoplight":
         if (!drag && stoplights.hasOwnProperty(squareId)) {
@@ -264,14 +284,19 @@ export default class DesignModule extends React.Component {
 
         saveStates.isSaved = false;
 
-        this.setState({
-          designLayout,
-          playerHome,
-          bossHome,
-          office,
-          stoplights,
-          saveStates
-        });
+        this.setState(
+          {
+            designLayout,
+            playerHome,
+            bossHome,
+            office,
+            stoplights,
+            saveStates
+          },
+          () => {
+            if (!drag && this.state.overlayVisibility.bossOverlay) this.findBossPath();
+          }
+        );
         break;
       default:
         return;
@@ -494,8 +519,9 @@ export default class DesignModule extends React.Component {
   toggleOverlay(overlay) {
     let { overlayVisibility } = this.state;
     overlayVisibility[overlay] = !overlayVisibility[overlay];
+    //if toggling overlay OFF, we need to erase the previous path properties from square objects
     this.setState({ overlayVisibility }, () => {
-      if (this.state.overlayVisibility.bossPath) {
+      if (this.state.overlayVisibility.bossOverlay) {
         this.findBossPath();
       }
     });
@@ -503,8 +529,8 @@ export default class DesignModule extends React.Component {
 
   clearOverlays() {
     let { overlayVisibility } = this.state;
-    overlayVisibility.playerPath = false;
-    overlayVisibility.bossPath = false;
+    overlayVisibility.playerOverlay = false;
+    overlayVisibility.bossOverlay = false;
     this.setState({ overlayVisibility });
   }
 
@@ -538,7 +564,7 @@ export default class DesignModule extends React.Component {
             />
             <h4 className="designToolboxTitle">Overlays</h4>
             <OverlaySelector
-              bossPath={this.state.overlayVisibility.bossPath}
+              bossOverlay={this.state.overlayVisibility.bossOverlay}
               playerPath={this.state.overlayVisibility.playerPath}
               toggleOverlay={this.toggleOverlay}
               clearOverlays={this.clearOverlays}

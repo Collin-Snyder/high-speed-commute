@@ -227,35 +227,38 @@ h4.designToolboxTitle {
 .playerCar,
 .bossCar,
 .tree,
-.house, .coffee {
+.house, .coffee, .bossPathTile, .playerPathTile {
   display: inline-block;
   width: 25px;
   height: 25px;
-  z-index: 100;
 }
 
 .playerCar {
   background-image: url("../assets/player_car.png");
   background-repeat: no-repeat;
   background-size: contain;
+  z-index: 100;
 }
 
 .bossCar {
   background-image: url("../assets/boss_car.png");
   background-repeat: no-repeat;
   background-size: contain;
+  z-index: 100;
 }
 
 .tree {
   background-image: url("../assets/tree.png");
   background-repeat: no-repeat;
   background-size: contain;
+  z-index: 100;
 }
 
 .house {
   background-image: url("../assets/house.png");
   background-repeat: no-repeat;
   background-size: contain;
+  z-index: 100;
 }
 
 .coffee {
@@ -265,6 +268,15 @@ h4.designToolboxTitle {
   background-image: url("../assets/coffee.png");
   background-repeat: no-repeat;
   background-size: contain;
+  z-index: 90;
+}
+
+.bossPathTile {
+  background-color: rgba(255, 0, 0, 0.4);
+  z-index: 80;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 .win,
@@ -501,7 +513,7 @@ h4.designToolboxTitle {
   box-shadow: -4px -4px rgba(24, 0, 0, 0.329) inset, 0 -4px black, 4px 0 black,
     0 4px black, -4px 0 black;
 }
-.btn.tool.bh:active, .btn.tool.bh.checked, .btn.overlay.b.checked {
+.btn.tool.bh:active, .btn.tool.bh.checked, .btn.overlay.b.bossPathTilechecked {
   background-color: rgb(226, 78, 78);
   box-shadow: 4px 4px rgb(161, 44, 44) inset, 0 -4px black, 4px 0 black,
     0 4px black, -4px 0 black;

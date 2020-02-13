@@ -1,8 +1,8 @@
 import React from "react";
 
 const OverlaySelector = ({
-    bossPath,
-    playerPath,
+    bossOverlay,
+    playerOverlay,
     toggleOverlay,
     clearOverlays
   }) => {
@@ -10,24 +10,24 @@ const OverlaySelector = ({
     return (
       <div className="overlaySelector">
         <div className="overlayOptions">
-          <label className={"btn overlay p" + (playerPath ? " checked" : "")}>
+          <label className={"btn overlay p" + (playerOverlay ? " checked" : "")}>
             <input
               type="checkbox"
               onChange={() => {toggleOverlay("playerPath")}}
               value="playerPath"
               name="overlayOption"
-              checked={playerPath}
+              checked={playerOverlay}
               className="overlayOption"
             />
             <span className="overlayLabel">Player Path</span>
           </label>
-          <label className={"btn overlay b" + (bossPath ? " checked" : "")}>
+          <label className={"btn overlay b" + (bossOverlay ? " checked" : "")}>
             <input
               type="checkbox"
-              onChange={() => {toggleOverlay("bossPath")}}
-              value="bossPath"
+              onChange={() => {toggleOverlay("bossOverlay")}}
+              value="bossOverlay"
               name="overlayOption"
-              checked={bossPath}
+              checked={bossOverlay}
               className="overlayOption"
             />
             <span className="overlayLabel">Boss Path</span>
