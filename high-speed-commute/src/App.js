@@ -22,11 +22,14 @@ class App extends React.Component {
       bossHome: 681,
       office: 520,
       stoplights: {},
+      coffees: {},
       playerCar: 281,
       bossCar: 681,
       layout: [],
       designLayout: [],
       userLevels: [],
+      playerDirection: null,
+      caffeineCount: 0,
       playerMovable: true,
       bossMovable: true,
       schoolZoneState: {
@@ -43,6 +46,7 @@ class App extends React.Component {
     this.handleKeyDown = this.handleKeyDown.bind(this);
     this.movePlayerCar = this.movePlayerCar.bind(this);
     this.startBoss = this.startBoss.bind(this);
+    this.startPlayer = this.startPlayer.bind(this);
     this.findBossPath = this.findBossPath.bind(this);
     this.moveBossCar = this.moveBossCar.bind(this);
     this.resetPlayers = this.resetPlayers.bind(this);
@@ -57,6 +61,8 @@ class App extends React.Component {
     this.cycleStoplight = this.cycleStoplight.bind(this);
     this.enterSchoolZone = this.enterSchoolZone.bind(this);
     this.exitSchoolZone = this.exitSchoolZone.bind(this);
+    this.caffeinate = this.caffeinate.bind(this);
+    this.decaffeinate = this.decaffeinate.bind(this);
   }
 
   componentDidMount() {
@@ -69,6 +75,7 @@ class App extends React.Component {
 
   componentWillUnmount() {
     clearInterval(this.bossInterval);
+    clearInterval(this.playerInterval);
     for (let interval in this.stoplightIntervals) {
       clearInterval(this.stoplightIntervals[interval]);
     }
@@ -80,14 +87,43 @@ class App extends React.Component {
       this.state.playerCar !== this.state.office &&
       this.state.bossCar !== this.state.office
     ) {
+      // if (e.keyCode === 37) {
+      //   this.movePlayerCar("left");
+      // } else if (e.keyCode === 38) {
+      //   this.movePlayerCar("up");
+      // } else if (e.keyCode === 39) {
+      //   this.movePlayerCar("right");
+      // } else if (e.keyCode === 40) {
+      //   this.movePlayerCar("down");
+      // }
       if (e.keyCode === 37) {
-        this.movePlayerCar("left");
+        if (
+          this.state.layout[this.state.playerCar - 1].borders.left.type ===
+          "street"
+        ) {
+          this.setState({ playerDirection: "left" });
+        }
       } else if (e.keyCode === 38) {
-        this.movePlayerCar("up");
+        if (
+          this.state.layout[this.state.playerCar - 1].borders.up.type ===
+          "street"
+        ) {
+          this.setState({ playerDirection: "up" });
+        }
       } else if (e.keyCode === 39) {
-        this.movePlayerCar("right");
+        if (
+          this.state.layout[this.state.playerCar - 1].borders.right.type ===
+          "street"
+        ) {
+          this.setState({ playerDirection: "right" });
+        }
       } else if (e.keyCode === 40) {
-        this.movePlayerCar("down");
+        if (
+          this.state.layout[this.state.playerCar - 1].borders.down.type ===
+          "street"
+        ) {
+          this.setState({ playerDirection: "down" });
+        }
       }
     }
   }
@@ -126,6 +162,14 @@ class App extends React.Component {
     });
   }
 
+  startPlayer() {
+    this.playerInterval = setInterval(() => {
+      if (this.state.playerMovable) {
+        this.movePlayerCar(this.state.playerDirection);
+      }
+    }, 275 / (this.state.caffeineCount + 1))
+  }
+
   resetPlayers() {
     let { playerCar, playerHome, bossCar, bossHome } = this.state;
 
@@ -136,7 +180,7 @@ class App extends React.Component {
   }
 
   movePlayerCar(direction) {
-    if (this.state.playerMovable) {
+    if (this.state.playerMovable && direction) {
       let { playerCar, bossCar, collision, layout, playerMovable } = this.state;
       let target = layout[playerCar - 1].borders[direction];
 
@@ -144,7 +188,10 @@ class App extends React.Component {
         layout[playerCar - 1].playerCar = false;
         playerCar = target.id;
         layout[playerCar - 1].playerCar = true;
-        layout[playerCar - 1].coffee = false;
+        if (layout[playerCar - 1].coffee) {
+          this.caffeinate();
+          layout[playerCar - 1].coffee = false;
+        }
         if (this.state.schoolZoneState.playerInSchoolZone) {
           if (!layout[playerCar - 1].schoolZone) {
             this.exitSchoolZone("player");
@@ -156,12 +203,14 @@ class App extends React.Component {
         if (playerCar === bossCar) {
           collision = true;
           clearInterval(this.bossInterval);
+          clearInterval(this.playerInterval);
           for (let interval in this.stoplightIntervals) {
             clearInterval(this.stoplightIntervals[interval]);
           }
         }
         if (playerCar === this.state.office) {
           clearInterval(this.bossInterval);
+          clearInterval(this.playerInterval);
           for (let interval in this.stoplightIntervals) {
             clearInterval(this.stoplightIntervals[interval]);
           }
@@ -211,12 +260,13 @@ class App extends React.Component {
         this.enterSchoolZone("boss");
       } else if (this.state.bossCar === this.state.office) {
         clearInterval(this.bossInterval);
+        clearInterval(this.playerInterval);
         for (let interval in this.stoplightIntervals) {
           clearInterval(this.stoplightIntervals[interval]);
         }
         this.setState({ status: "idle" });
       } else if (this.state.bossCar === this.state.playerCar) {
-        clearInterval(this.bossInterval);
+        clearInterval(this.playerInterval);
         for (let interval in this.stoplightIntervals) {
           clearInterval(this.stoplightIntervals[interval]);
         }
@@ -285,12 +335,40 @@ class App extends React.Component {
     }
   }
 
+  caffeinate() {
+    let { caffeineCount } = this.state;
+    caffeineCount++;
+    this.setState({ caffeineCount }, () => {
+      clearInterval(this.playerInterval);
+      this.playerInterval = setInterval(() => {
+        if (this.state.playerMovable) {
+          this.movePlayerCar(this.state.playerDirection);
+        }
+      }, 275 / (this.state.caffeineCount + 1));
+      setTimeout(() => {this.decaffeinate()}, 5000);
+    });
+  }
+
+  decaffeinate() {
+    let { caffeineCount } = this.state;
+    caffeineCount--;
+    this.setState({ caffeineCount }, () => {
+      clearInterval(this.playerInterval);
+      this.playerInterval = setInterval(() => {
+        if (this.state.playerMovable) {
+          this.movePlayerCar(this.state.playerDirection);
+        }
+      }, 275 / (this.state.caffeineCount + 1));
+    });
+  }
+
   closeBossModal() {
     this.setState({ bossError: false });
   }
 
   enterDesignMode() {
     clearInterval(this.bossInterval);
+    clearInterval(this.playerInterval);
     for (let interval in this.stoplightIntervals) {
       clearInterval(this.stoplightIntervals[interval]);
     }
@@ -337,6 +415,7 @@ class App extends React.Component {
         let bossCar = bossHome;
         let office = levelInfo.office;
         let stoplights = levelInfo.stoplights;
+        let coffees = levelInfo.coffees;
         let unformattedLayout = levelInfo.layout;
 
         let uglyLayout = formatLayout(unformattedLayout);
@@ -357,6 +436,7 @@ class App extends React.Component {
             office,
             layout,
             stoplights,
+            coffees,
             designLayout: layout
           },
           () => {
@@ -389,6 +469,7 @@ class App extends React.Component {
 
   fullReset() {
     clearInterval(this.bossInterval);
+    clearInterval(this.playerInterval);
     for (let interval in this.stoplightIntervals) {
       clearInterval(this.stoplightIntervals[interval]);
     }
@@ -413,6 +494,10 @@ class App extends React.Component {
     layout[bossCar - 1].bossCar = true;
     collision = false;
 
+    for (let coffeeSquare in this.state.coffees) {
+      layout[coffeeSquare - 1].coffee = true;
+    }
+
     this.setState({ mode, status, playerCar, bossCar, collision, layout });
   }
 
@@ -435,6 +520,7 @@ class App extends React.Component {
           userLevels={this.state.userLevels}
           collision={this.state.collision}
           startBoss={this.startBoss}
+          startPlayer={this.startPlayer}
           resetPlayers={this.resetPlayers}
           fullReset={this.fullReset}
           enterDesignMode={this.enterDesignMode}

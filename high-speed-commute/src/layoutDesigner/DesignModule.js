@@ -27,6 +27,7 @@ export default class DesignModule extends React.Component {
       bossHome: 0,
       office: 0,
       stoplights: {},
+      coffees: {},
       levelName: "",
       inputVisible: false,
       playButtonVisible: false,
@@ -86,7 +87,7 @@ export default class DesignModule extends React.Component {
   addSquareToDesign(e, drag = false) {
     e.persist();
 
-    let { selectedDesignTool, designLayout, saveStates, playerHome, bossHome, office, stoplights } = this.state;
+    let { selectedDesignTool, designLayout, saveStates, playerHome, bossHome, office, stoplights, coffees } = this.state;
     let squareId = Number(e.currentTarget.id);
     let currentSquare = designLayout[squareId - 1];
 
@@ -192,15 +193,21 @@ export default class DesignModule extends React.Component {
       case "coffee":
         if (!drag && currentSquare.coffee === true) {
           currentSquare.coffee = false;
+          delete coffees[currentSquare.id];
           saveStates.isSaved = false;
         } else if (
           currentSquare.type === "street" &&
           currentSquare.stoplight === null
         ) {
           currentSquare.coffee = true;
+          console.log("Saving coffee");
+          console.log(currentSquare.id);
+          coffees[currentSquare.id] = true;
+          console.log(coffees);
+          console.log("Coffees in state: ", this.state.coffees);
           saveStates.isSaved = false;
         }
-        this.setState({ designLayout, saveStates });
+        this.setState({ designLayout, saveStates, coffees });
         break;
       case "eraser":
         currentSquare.type = "block";
@@ -311,6 +318,7 @@ export default class DesignModule extends React.Component {
         let bossCar = bossHome;
         let office = levelInfo.office;
         let stoplights = levelInfo.stoplights;
+        let coffees = levelInfo.coffees;
         let unformattedLayout = levelInfo.layout;
 
         let designLayout = formatLayout(unformattedLayout);
@@ -330,6 +338,7 @@ export default class DesignModule extends React.Component {
           office,
           designLayout,
           stoplights,
+          coffees,
           saveStates
         });
       })
@@ -346,6 +355,7 @@ export default class DesignModule extends React.Component {
       office,
       designLayout,
       stoplights,
+      coffees,
       saveStates
     } = this.state;
 
@@ -358,8 +368,10 @@ export default class DesignModule extends React.Component {
       bossHome,
       office,
       stoplights: JSON.stringify(stoplights),
+      coffees: JSON.stringify(coffees),
       layout: convertLayoutToJSONString(designLayout)
     };
+    console.log("Level Info coffees going to database: ", levelInfo.coffees);
 
     axios
       .post("/api/levels", levelInfo)
@@ -394,6 +406,7 @@ export default class DesignModule extends React.Component {
       office,
       designLayout,
       stoplights,
+      coffees,
       saveStates
     } = this.state;
 
@@ -402,6 +415,7 @@ export default class DesignModule extends React.Component {
       playerHome,
       bossHome,
       office,
+      coffees: JSON.stringify(coffees),
       stoplights: JSON.stringify(stoplights),
       layout: convertLayoutToJSONString(designLayout)
     };
@@ -539,21 +553,8 @@ export default class DesignModule extends React.Component {
             >
               Save As New Level
             </div>
-            <div
-              style={{
-                display:
-                  this.state.playerHome > 0 &&
-                  this.state.bossHome > 0 &&
-                  this.state.office > 0
-                    ? "inline-flex"
-                    : "none"
-              }}
-              className="btn save"
-            >
-              Test Level
-            </div>
             <div className="btn mode" onClick={this.enterPlayMode}>
-              Back To Play Mode
+              Test
             </div>
             <div
               style={{
