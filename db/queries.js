@@ -32,14 +32,15 @@ module.exports.saveNewLevel = (levelInfo, callback) => {
 module.exports.updateLevel = (levelInfo, callback) => {
   client
     .query(
-      "UPDATE user_levels SET player_home = $1, boss_home = $2, office = $3, layout = $4, stoplights = $6 WHERE id = $5",
+      "UPDATE user_levels SET player_home = $1, boss_home = $2, office = $3, layout = $4, stoplights = $5, coffees = $6 WHERE id = $7",
       [
         levelInfo.playerHome,
         levelInfo.bossHome,
         levelInfo.office,
         levelInfo.layout,
+        levelInfo.stoplights,
+        levelInfo.coffees,
         levelInfo.levelId,
-        levelInfo.stoplights
       ]
     )
     .then(result => callback(result))

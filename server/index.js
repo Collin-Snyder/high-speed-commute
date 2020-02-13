@@ -16,12 +16,14 @@ app.get("/api/levels/:id", (req, res) => {
 });
 
 app.post("/api/levels", (req, res) => {
+  console.log("POST REQUEST COFFEED: ", req.body.coffees)
   saveNewLevel(req.body, result => {
     res.send(result);
   });
 });
 
 app.patch("/api/levels", (req, res) => {
+  console.log("PATCH REQUEST COFFEES: ", req.body.coffees)
   updateLevel(req.body, result => {
     res.send(result);
   })

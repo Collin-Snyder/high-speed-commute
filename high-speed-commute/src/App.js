@@ -22,6 +22,7 @@ class App extends React.Component {
       bossHome: 681,
       office: 520,
       stoplights: {},
+      coffees: {},
       playerCar: 281,
       bossCar: 681,
       layout: [],
@@ -166,7 +167,7 @@ class App extends React.Component {
       if (this.state.playerMovable) {
         this.movePlayerCar(this.state.playerDirection);
       }
-    }, 300 - this.state.caffeineCount * 75);
+    }, 275 / (this.state.caffeineCount + 1))
   }
 
   resetPlayers() {
@@ -187,7 +188,10 @@ class App extends React.Component {
         layout[playerCar - 1].playerCar = false;
         playerCar = target.id;
         layout[playerCar - 1].playerCar = true;
-        layout[playerCar - 1].coffee = false;
+        if (layout[playerCar - 1].coffee) {
+          this.caffeinate();
+          layout[playerCar - 1].coffee = false;
+        }
         if (this.state.schoolZoneState.playerInSchoolZone) {
           if (!layout[playerCar - 1].schoolZone) {
             this.exitSchoolZone("player");
@@ -335,6 +339,12 @@ class App extends React.Component {
     let { caffeineCount } = this.state;
     caffeineCount++;
     this.setState({ caffeineCount }, () => {
+      clearInterval(this.playerInterval);
+      this.playerInterval = setInterval(() => {
+        if (this.state.playerMovable) {
+          this.movePlayerCar(this.state.playerDirection);
+        }
+      }, 275 / (this.state.caffeineCount + 1));
       setTimeout(() => {this.decaffeinate()}, 5000);
     });
   }
@@ -342,7 +352,14 @@ class App extends React.Component {
   decaffeinate() {
     let { caffeineCount } = this.state;
     caffeineCount--;
-    this.setState({ caffeineCount });
+    this.setState({ caffeineCount }, () => {
+      clearInterval(this.playerInterval);
+      this.playerInterval = setInterval(() => {
+        if (this.state.playerMovable) {
+          this.movePlayerCar(this.state.playerDirection);
+        }
+      }, 275 / (this.state.caffeineCount + 1));
+    });
   }
 
   closeBossModal() {
@@ -398,6 +415,7 @@ class App extends React.Component {
         let bossCar = bossHome;
         let office = levelInfo.office;
         let stoplights = levelInfo.stoplights;
+        let coffees = levelInfo.coffees;
         let unformattedLayout = levelInfo.layout;
 
         let uglyLayout = formatLayout(unformattedLayout);
@@ -418,6 +436,7 @@ class App extends React.Component {
             office,
             layout,
             stoplights,
+            coffees,
             designLayout: layout
           },
           () => {
@@ -474,6 +493,10 @@ class App extends React.Component {
     layout[playerCar - 1].playerCar = true;
     layout[bossCar - 1].bossCar = true;
     collision = false;
+
+    for (let coffeeSquare in this.state.coffees) {
+      layout[coffeeSquare - 1].coffee = true;
+    }
 
     this.setState({ mode, status, playerCar, bossCar, collision, layout });
   }

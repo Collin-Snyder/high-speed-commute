@@ -62,11 +62,7 @@ const PlayingField = ({
               house={square.house || null}
               coffee={square.coffee}
               borders={square.borders}
-              // squareInfo={square}
-
-              // playerCar={playerCar}
               playerHome={playerHome}
-              // bossCar={bossCar}
               bossHome={bossHome}
               office={office}
               key={square.id}
