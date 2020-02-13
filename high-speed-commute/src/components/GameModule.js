@@ -67,7 +67,7 @@ const GameModule = ({
           onClick={enterDesignMode}
           style={{ display: startDisplay }}
         >
-          Design Mode
+          Design
         </div>
       </div>
     </div>

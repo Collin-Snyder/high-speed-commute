@@ -553,21 +553,8 @@ export default class DesignModule extends React.Component {
             >
               Save As New Level
             </div>
-            <div
-              style={{
-                display:
-                  this.state.playerHome > 0 &&
-                  this.state.bossHome > 0 &&
-                  this.state.office > 0
-                    ? "inline-flex"
-                    : "none"
-              }}
-              className="btn save"
-            >
-              Test Level
-            </div>
             <div className="btn mode" onClick={this.enterPlayMode}>
-              Back To Play Mode
+              Test
             </div>
             <div
               style={{

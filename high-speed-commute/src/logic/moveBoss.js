@@ -166,7 +166,7 @@ export const findPath = (bossHome, office, layout) => {
   while (current !== bossHome.id) {
     // console.log("Path back-tracing iteration: ", current);
     pathStack.push(current);
-    // layout[current - 1]["finalPath"] = true;
+    layout[current - 1].bossPath = true;
     // console.log(layout[current - 1]);
     current = cameFrom[current];
   }
