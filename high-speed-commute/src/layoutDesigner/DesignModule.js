@@ -7,6 +7,7 @@ import OverlaySelector from "./OverlaySelector";
 import LoadSavedDesignModal from "./LoadSavedDesignModal";
 import SaveWarningModal from "./SaveWarningModal";
 import InputLevelNameModal from "./InputLevelNameModal";
+import {findPath} from "../logic/moveBoss";
 import createDesignBoard from "../logic/createDesignBoard";
 import { randomNumBtwn } from "../logic/randomNumber";
 import {
@@ -65,6 +66,7 @@ export default class DesignModule extends React.Component {
     this.handleInputChange = this.handleInputChange.bind(this);
     this.toggleOverlay = this.toggleOverlay.bind(this);
     this.clearOverlays = this.clearOverlays.bind(this);
+    this.findBossPath = this.findBossPath.bind(this);
   }
 
   componentDidUpdate(prevProps) {
@@ -90,6 +92,17 @@ export default class DesignModule extends React.Component {
   }
 
   handleBrushSelection(e) {}
+
+  findBossPath() {
+    let { bossHome, office, designLayout } = this.state;
+
+    let pathInfo = findPath(designLayout[bossHome - 1], designLayout[office - 1], designLayout);
+
+    if (!pathInfo) return null;
+
+    this.setState({ designLayout: pathInfo.layout });
+    return pathInfo.pathStack;
+  }
 
   addSquareToDesign(e, drag = false) {
     e.persist();
@@ -481,7 +494,11 @@ export default class DesignModule extends React.Component {
   toggleOverlay(overlay) {
     let { overlayVisibility } = this.state;
     overlayVisibility[overlay] = !overlayVisibility[overlay];
-    this.setState({ overlayVisibility });
+    this.setState({ overlayVisibility }, () => {
+      if (this.state.overlayVisibility.bossPath) {
+        this.findBossPath();
+      }
+    });
   }
 
   clearOverlays() {
@@ -542,6 +559,7 @@ export default class DesignModule extends React.Component {
               toggleModal={this.toggleModal}
               enterPlayMode={this.enterPlayMode}
               exiting={this.state.saveStates.exiting}
+              overlays={this.state.overlayVisibility}
             />
             <div className="overlayInfo">No overlays</div>
           </div>

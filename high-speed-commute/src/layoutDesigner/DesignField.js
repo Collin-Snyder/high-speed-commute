@@ -14,7 +14,8 @@ const DesignField = ({
   saveLevel,
   toggleModal,
   enterPlayMode,
-  exiting
+  exiting,
+  overlays
 }) => {
   const handleKeyPress = e => {
     if (e.key === "Enter") {
@@ -50,6 +51,10 @@ const DesignField = ({
           isSchoolZone={square.schoolZone === true}
           playerHome={playerHome}
           bossHome={bossHome}
+          isBossPath={square.bossPath}
+          isPlayerPath={square.playerPath}
+          bossOverlay={overlays.bossPath}
+          playerOverlay={overlays.playerPath}
           office={office}
           squareInfo={square}
           addSquareToDesign={addSquareToDesign}

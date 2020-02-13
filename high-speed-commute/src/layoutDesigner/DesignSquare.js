@@ -1,6 +1,7 @@
 import React from "react";
 
 import Coffee from "../components/Coffee";
+import BossCar from "../components/BossCar";
 
 class DesignSquare extends React.PureComponent {
   constructor(props) {
@@ -110,6 +111,7 @@ class DesignSquare extends React.PureComponent {
       >
         {this.props.id}
         {this.props.coffee ? <Coffee /> : <></>}
+        {this.props.bossOverlay ? this.props.isBossPath ? <BossCar />   : <></> : <></>}
       </div>
     );
   }
