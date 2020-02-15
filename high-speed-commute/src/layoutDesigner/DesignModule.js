@@ -646,6 +646,9 @@ export default class DesignModule extends React.Component {
                 bossPathLength={this.state.bossPath.length}
                 playerOverlay={this.state.overlayVisibility.playerOverlay}
                 playerPathLength={this.state.playerPath.length}
+                easyInterval={this.props.difficultyIntervals.easy}
+                mediumInterval={this.props.difficultyIntervals.medium}
+                hardInterval={this.props.difficultyIntervals.hard}
               />
             </div>
           </div>

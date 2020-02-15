@@ -41,7 +41,7 @@ class App extends React.Component {
       difficultyIntervals: {
         easy: 400,
         medium: 325,
-        hard: 200
+        hard: 250
       },
       collision: false,
       bossError: false
@@ -531,6 +531,7 @@ class App extends React.Component {
           enterDesignMode={this.enterDesignMode}
           loadLevel={this.loadLevel}
           deleteLevel={this.deleteLevel}
+          
         />
         <div className="designModuleContainer">
           <DesignModule
@@ -540,6 +541,7 @@ class App extends React.Component {
             enterPlayMode={this.enterPlayMode}
             loadDesign={this.loadDesign}
             userLevels={this.state.userLevels}
+            difficultyIntervals={this.state.difficultyIntervals}
           />
         </div>
         <div

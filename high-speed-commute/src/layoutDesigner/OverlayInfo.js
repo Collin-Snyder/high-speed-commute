@@ -1,6 +1,6 @@
 import React from "react";
 
-const OverlayInfo = ({ bossOverlay, bossPathLength, playerOverlay, playerPathLength }) => {
+const OverlayInfo = ({ bossOverlay, bossPathLength, playerOverlay, playerPathLength, easyInterval, mediumInterval, hardInterval }) => {
   return (
     <div className="overlayInfoContainer">
       <div
@@ -12,13 +12,13 @@ const OverlayInfo = ({ bossOverlay, bossPathLength, playerOverlay, playerPathLen
           Length: <span>{bossPathLength}</span>
         </p>
         <p>
-          Easy Time: <span>{(bossPathLength * 400) / 1000}</span>s
+          Easy Time: <span>{(bossPathLength * easyInterval) / 1000}</span>s
         </p>
         <p>
-          Medium Time: <span>{(bossPathLength * 300) / 1000}</span>s
+          Medium Time: <span>{(bossPathLength * mediumInterval) / 1000}</span>s
         </p>
         <p>
-          Hard Time: <span>{(bossPathLength * 200) / 1000}</span>s
+          Hard Time: <span>{(bossPathLength * hardInterval) / 1000}</span>s
         </p>
       </div>
       <div
