@@ -12,7 +12,13 @@ const OverlayInfo = ({ bossOverlay, bossPathLength, playerOverlay, playerPathLen
           Length: <span>{bossPathLength}</span>
         </p>
         <p>
-          Time: <span>{(bossPathLength * 300) / 1000}</span>s
+          Easy Time: <span>{(bossPathLength * 400) / 1000}</span>s
+        </p>
+        <p>
+          Medium Time: <span>{(bossPathLength * 300) / 1000}</span>s
+        </p>
+        <p>
+          Hard Time: <span>{(bossPathLength * 200) / 1000}</span>s
         </p>
       </div>
       <div
