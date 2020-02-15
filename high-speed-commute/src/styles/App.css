@@ -88,6 +88,17 @@ h4.designToolboxTitle {
   background-color: white;
 }
 
+.overlayInfo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1016px;
+  height: 100px;
+  border: 5px groove darkgray;
+  background-color: #fff;
+  margin: 20px auto;
+}
+
 .levelsListContainer {
   width: 300px;
   overflow-wrap: break-word;
@@ -216,35 +227,41 @@ h4.designToolboxTitle {
 .playerCar,
 .bossCar,
 .tree,
-.house, .coffee {
+.house, .coffee, .bossPathTile, .playerPathTile, .stoplight {
   display: inline-block;
   width: 25px;
   height: 25px;
-  z-index: 100;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 .playerCar {
   background-image: url("../assets/player_car.png");
   background-repeat: no-repeat;
   background-size: contain;
+  z-index: 100;
 }
 
 .bossCar {
   background-image: url("../assets/boss_car.png");
   background-repeat: no-repeat;
   background-size: contain;
+  z-index: 100;
 }
 
 .tree {
   background-image: url("../assets/tree.png");
   background-repeat: no-repeat;
   background-size: contain;
+  z-index: 100;
 }
 
 .house {
   background-image: url("../assets/house.png");
   background-repeat: no-repeat;
   background-size: contain;
+  z-index: 100;
 }
 
 .coffee {
@@ -254,6 +271,23 @@ h4.designToolboxTitle {
   background-image: url("../assets/coffee.png");
   background-repeat: no-repeat;
   background-size: contain;
+  z-index: 90;
+}
+
+.bossPathTile {
+  background-color: rgba(255, 0, 0, 0.4);
+  z-index: 70;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.playerPathTile {
+  background-color: rgba(0, 0, 255, 0.4);
+  z-index: 71;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 .win,
@@ -285,26 +319,31 @@ h4.designToolboxTitle {
 .designTools {
   display: flex;
   flex-direction: column;
+  width: 400px;
+  align-items: center;
 }
 
-.designToolbox {
+.designToolbox, .overlaySelector {
   display: flex;
   flex-direction: column;
   border: 5px groove darkgray;
   margin: 20px 0;
+  padding: 0px 15px;
   background-color: #fff;
   align-items: center;
   justify-content: center;
-  width: 300px;
+  width: 330px;
 }
 
-.designToolSelector {
-  display: flex;
-  flex-direction: column;
+.designToolSelector, .overlayOptions {
+  /* display: flex;
+  flex-direction: column; */
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   border: 3px dashed darkgray;
   margin-top: 20px;
   align-items: center;
-  width: 75%;
+  width: 280px;
 }
 
 .designToolSelector label {
@@ -314,7 +353,7 @@ h4.designToolboxTitle {
   justify-content: center;
 }
 
-.toolSelectorRadio {
+.toolSelectorRadio, .overlayOption {
   position: absolute;
   opacity: 0;
   display: inline;
@@ -462,28 +501,30 @@ h4.designToolboxTitle {
     0 4px black, -4px 0 black;
 }
 
-.btn.tool {
-  width: 150px;
+.btn.tool, .btn.overlay {
+  width: 100px;
+  margin: 15px 15px;
+  font-size: 0.8em;
 }
 
-.btn.tool.ph {
+.btn.tool.ph, .btn.overlay.p {
   background-color: rgba(0, 0, 255, 0.4);
   box-shadow: -4px -4px rgba(0, 0, 63, 0.4) inset, 0 -4px black, 4px 0 black,
     0 4px black, -4px 0 black;
 }
 
-.btn.tool.ph:active, .btn.tool.ph.checked {
+.btn.tool.ph:active, .btn.tool.ph.checked, .btn.overlay.p.checked {
   background-color:rgba(0, 0, 255, 0.6);
   box-shadow: 4px 4px  rgb(70, 70, 184) inset, 0 -4px black, 4px 0 black,
     0 4px black, -4px 0 black;
 }
 
-.btn.tool.bh {
+.btn.tool.bh, .btn.overlay.b {
   background-color: rgba(255, 0, 0, 0.4);
   box-shadow: -4px -4px rgba(24, 0, 0, 0.329) inset, 0 -4px black, 4px 0 black,
     0 4px black, -4px 0 black;
 }
-.btn.tool.bh:active, .btn.tool.bh.checked {
+.btn.tool.bh:active, .btn.tool.bh.checked, .btn.overlay.b.checked {
   background-color: rgb(226, 78, 78);
   box-shadow: 4px 4px rgb(161, 44, 44) inset, 0 -4px black, 4px 0 black,
     0 4px black, -4px 0 black;
@@ -581,6 +622,7 @@ h4.designToolboxTitle {
   left: 0;
   bottom: 0;
   right: 0;
+  z-index: 999;
 }
 
 .modalBackground {
@@ -635,23 +677,27 @@ h4.designToolboxTitle {
   line-height: 2em;
 }
 
+.stoplight {
+  z-index: 80; 
+}
+
 .greenlight {
   /* box-shadow: 3px 3px rgb(0, 255, 0) inset, -3px -3px rgb(0, 255, 0) inset; */
-  background-image: url(../assets/greenlight.png);
+  background-image: url(../assets/greenlight-transparent.png);
   background-size: contain;
   background-repeat: no-repeat;
 }
 
 .yellowlight {
   /* box-shadow: 3px 3px #a78600 inset, -3px -3px #ffcc00 inset; */
-  background-image: url(../assets/yellowlight.png);
+  background-image: url(../assets/yellowlight-transparent.png);
   background-size: contain;
   background-repeat: no-repeat;
 }
 
 .redlight {
   /* box-shadow: 3px 3px rgb(255, 0, 0) inset, -3px -3px rgb(255, 0, 0) inset; */
-  background-image: url(../assets/redlight.png);
+  background-image: url(../assets/redlight-transparent.png);
   background-size: contain;
   background-repeat: no-repeat;
 }
@@ -662,6 +708,23 @@ h4.designToolboxTitle {
   background-repeat: no-repeat;
   /* background-color: #ffd300; */
   /* background-image: radial-gradient(#ffd300 50%, black); */
+}
+
+.bossOverlayInfo, .playerPathInfo {
+  font-size: 0.8em;
+  flex-direction: column;
+  align-items: flex-start;
+  line-height: 1.5em;
+  color: #fff;
+  padding: 10px;
+}
+
+.bossOverlayInfo {
+  background-color: #852227;
+}
+
+.playerPathInfo {
+  background-color: #212985;
 }
 
 /* @keyframes schoolzone {

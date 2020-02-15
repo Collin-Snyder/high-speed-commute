@@ -118,6 +118,8 @@ export const getDirectionQueue = (currentSquare, targetSquare, prevMove) => {
 //
 
 export const findPath = (bossHome, office, layout) => {
+  if (!bossHome || !office) return null;
+
   let frontier = new PathQueue();
   // let has = Object.hasOwnProperty;
   let cameFrom = {};
