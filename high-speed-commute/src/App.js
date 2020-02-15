@@ -40,7 +40,7 @@ class App extends React.Component {
       difficulty: "medium",
       difficultyIntervals: {
         easy: 400,
-        medium: 300,
+        medium: 325,
         hard: 200
       },
       collision: false,
@@ -93,17 +93,9 @@ class App extends React.Component {
       this.state.playerCar !== this.state.office &&
       this.state.bossCar !== this.state.office
     ) {
-      // if (e.keyCode === 37) {
-      //   this.movePlayerCar("left");
-      // } else if (e.keyCode === 38) {
-      //   this.movePlayerCar("up");
-      // } else if (e.keyCode === 39) {
-      //   this.movePlayerCar("right");
-      // } else if (e.keyCode === 40) {
-      //   this.movePlayerCar("down");
-      // }
       if (e.keyCode === 37) {
         if (
+          this.state.layout[this.state.playerCar - 1].borders.left &&
           this.state.layout[this.state.playerCar - 1].borders.left.type ===
           "street"
         ) {
@@ -111,6 +103,7 @@ class App extends React.Component {
         }
       } else if (e.keyCode === 38) {
         if (
+          this.state.layout[this.state.playerCar - 1].borders.up &&
           this.state.layout[this.state.playerCar - 1].borders.up.type ===
           "street"
         ) {
@@ -118,6 +111,7 @@ class App extends React.Component {
         }
       } else if (e.keyCode === 39) {
         if (
+          this.state.layout[this.state.playerCar - 1].borders.right &&
           this.state.layout[this.state.playerCar - 1].borders.right.type ===
           "street"
         ) {
@@ -125,6 +119,7 @@ class App extends React.Component {
         }
       } else if (e.keyCode === 40) {
         if (
+          this.state.layout[this.state.playerCar - 1].borders.down &&
           this.state.layout[this.state.playerCar - 1].borders.down.type ===
           "street"
         ) {

@@ -237,14 +237,14 @@ h4.designToolboxTitle {
 }
 
 .playerCar {
-  background-image: url("../assets/player_car.png");
+  background-image: url("../assets/player-car-white.png");
   background-repeat: no-repeat;
   background-size: contain;
   z-index: 100;
 }
 
 .bossCar {
-  background-image: url("../assets/boss_car.png");
+  background-image: url("../assets/boss-car.png");
   background-repeat: no-repeat;
   background-size: contain;
   z-index: 100;

@@ -133,8 +133,7 @@ export default class DesignModule extends React.Component {
       designLayout
     );
 
-    if (pathInfo.pathCount === 0) return null;
-
+    if (!pathInfo) return null;
 
     this.setState({
       designLayout: pathInfo.layout,
@@ -458,6 +457,11 @@ export default class DesignModule extends React.Component {
       saveStates
     } = this.state;
 
+    for (let square of designLayout) {
+      square.bossPath = false;
+      square.playerPath = false;
+    }
+
     let levelInfo = {
       userId: 1,
       levelName,
@@ -508,6 +512,11 @@ export default class DesignModule extends React.Component {
       coffees,
       saveStates
     } = this.state;
+
+    for (let square of designLayout) {
+      square.bossPath = false;
+      square.playerPath = false;
+    }
 
     let levelInfo = {
       levelId: saveStates.currentLevel,
