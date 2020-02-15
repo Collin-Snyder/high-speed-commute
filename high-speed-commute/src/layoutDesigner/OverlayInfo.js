@@ -1,13 +1,13 @@
 import React from "react";
 
-const OverlayInfo = ({ bossOverlay, bossPathLength }) => {
+const OverlayInfo = ({ bossOverlay, bossPathLength, playerOverlay, playerPathLength }) => {
   return (
     <div className="overlayInfoContainer">
       <div
         className="bossOverlayInfo"
         style={{ display: bossOverlay ? "inline-flex" : "none" }}
       >
-        <h4>Boss Path</h4>
+        <h4 className="bossOverlayTitle">Boss Path</h4>
         <p>
           Length: <span>{bossPathLength}</span>
         </p>
@@ -15,6 +15,19 @@ const OverlayInfo = ({ bossOverlay, bossPathLength }) => {
           Time: <span>{(bossPathLength * 300) / 1000}</span>s
         </p>
       </div>
+      <div
+        className="playerPathInfo"
+        style={{ display: playerOverlay ? "inline-flex" : "none" }}
+      >
+        <h4 className="playerOverlayTitle">Player Path</h4>
+        <p>
+          Length: <span>{playerPathLength}</span>
+        </p>
+        <p>
+          Time: <span>{(playerPathLength * 300) / 1000}</span>s
+        </p>
+      </div>
+      
     </div>
   );
 };

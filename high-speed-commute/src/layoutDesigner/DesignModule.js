@@ -9,6 +9,7 @@ import LoadSavedDesignModal from "./LoadSavedDesignModal";
 import SaveWarningModal from "./SaveWarningModal";
 import InputLevelNameModal from "./InputLevelNameModal";
 import { findPath } from "../logic/moveBoss";
+import { findPlayerPath } from "../logic/movePlayer";
 import createDesignBoard from "../logic/createDesignBoard";
 import { randomNumBtwn } from "../logic/randomNumber";
 import {
@@ -70,6 +71,7 @@ export default class DesignModule extends React.Component {
     this.toggleOverlay = this.toggleOverlay.bind(this);
     this.clearOverlays = this.clearOverlays.bind(this);
     this.findBossPath = this.findBossPath.bind(this);
+    this.findPlayerPath = this.findPlayerPath.bind(this);
   }
 
   componentDidUpdate(prevProps) {
@@ -116,6 +118,35 @@ export default class DesignModule extends React.Component {
       bossPath: pathInfo.pathStack
     });
     return pathInfo.pathStack;
+  }
+
+  findPlayerPath() {
+    let { playerHome, office, designLayout, playerPath } = this.state;
+
+    for (let square of playerPath) {
+      designLayout[square - 1].playerPath = false;
+    }
+
+    let pathInfo = findPlayerPath(
+      designLayout[playerHome - 1],
+      designLayout[office - 1],
+      designLayout
+    );
+
+    if (pathInfo.pathCount === 0) return null;
+
+
+    this.setState({
+      designLayout: pathInfo.layout,
+      playerPath: pathInfo.pathStack
+    })
+    // console.log(
+    //   playerPathSearch(
+    //     designLayout[playerHome - 1],
+    //     designLayout[office - 1],
+    //     designLayout
+    //   )
+    // );
   }
 
   addSquareToDesign(e, drag = false) {
@@ -173,6 +204,7 @@ export default class DesignModule extends React.Component {
 
         this.setState({ bossHome, designLayout, saveStates }, () => {
           if (this.state.overlayVisibility.bossOverlay) this.findBossPath();
+          if (this.state.overlayVisibility.playerOverlay) this.findPlayerPath();
         });
         break;
       case "office":
@@ -193,6 +225,7 @@ export default class DesignModule extends React.Component {
 
         this.setState({ office, designLayout, saveStates }, () => {
           if (this.state.overlayVisibility.bossOverlay) this.findBossPath();
+          if (this.state.overlayVisibility.playerOverlay) this.findPlayerPath();
         });
         break;
       case "street":
@@ -215,6 +248,7 @@ export default class DesignModule extends React.Component {
 
         this.setState({ designLayout, saveStates }, () => {
           if (this.state.overlayVisibility.bossOverlay) this.findBossPath();
+          if (this.state.overlayVisibility.playerOverlay) this.findPlayerPath();
         });
         break;
       case "stoplight":
@@ -296,6 +330,7 @@ export default class DesignModule extends React.Component {
           },
           () => {
             if (this.state.overlayVisibility.bossOverlay) this.findBossPath();
+            if (this.state.overlayVisibility.playerOverlay) this.findPlayerPath();
           }
         );
         break;
@@ -525,6 +560,9 @@ export default class DesignModule extends React.Component {
       if (this.state.overlayVisibility.bossOverlay) {
         this.findBossPath();
       }
+      if (this.state.overlayVisibility.playerOverlay) {
+        this.findPlayerPath();
+      }
     });
   }
 
@@ -592,6 +630,8 @@ export default class DesignModule extends React.Component {
               <OverlayInfo
                 bossOverlay={this.state.overlayVisibility.bossOverlay}
                 bossPathLength={this.state.bossPath.length}
+                playerOverlay={this.state.overlayVisibility.playerOverlay}
+                playerPathLength={this.state.playerPath.length}
               />
             </div>
           </div>

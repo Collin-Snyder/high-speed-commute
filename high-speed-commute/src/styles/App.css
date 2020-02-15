@@ -227,10 +227,13 @@ h4.designToolboxTitle {
 .playerCar,
 .bossCar,
 .tree,
-.house, .coffee, .bossPathTile, .playerPathTile {
+.house, .coffee, .bossPathTile, .playerPathTile, .stoplight {
   display: inline-block;
   width: 25px;
   height: 25px;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 .playerCar {
@@ -273,7 +276,15 @@ h4.designToolboxTitle {
 
 .bossPathTile {
   background-color: rgba(255, 0, 0, 0.4);
-  z-index: 80;
+  z-index: 70;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.playerPathTile {
+  background-color: rgba(0, 0, 255, 0.4);
+  z-index: 71;
   position: absolute;
   top: 0;
   left: 0;
@@ -611,6 +622,7 @@ h4.designToolboxTitle {
   left: 0;
   bottom: 0;
   right: 0;
+  z-index: 999;
 }
 
 .modalBackground {
@@ -665,23 +677,27 @@ h4.designToolboxTitle {
   line-height: 2em;
 }
 
+.stoplight {
+  z-index: 80; 
+}
+
 .greenlight {
   /* box-shadow: 3px 3px rgb(0, 255, 0) inset, -3px -3px rgb(0, 255, 0) inset; */
-  background-image: url(../assets/greenlight.png);
+  background-image: url(../assets/greenlight-transparent.png);
   background-size: contain;
   background-repeat: no-repeat;
 }
 
 .yellowlight {
   /* box-shadow: 3px 3px #a78600 inset, -3px -3px #ffcc00 inset; */
-  background-image: url(../assets/yellowlight.png);
+  background-image: url(../assets/yellowlight-transparent.png);
   background-size: contain;
   background-repeat: no-repeat;
 }
 
 .redlight {
   /* box-shadow: 3px 3px rgb(255, 0, 0) inset, -3px -3px rgb(255, 0, 0) inset; */
-  background-image: url(../assets/redlight.png);
+  background-image: url(../assets/redlight-transparent.png);
   background-size: contain;
   background-repeat: no-repeat;
 }
@@ -694,11 +710,21 @@ h4.designToolboxTitle {
   /* background-image: radial-gradient(#ffd300 50%, black); */
 }
 
-.bossOverlayInfo {
+.bossOverlayInfo, .playerPathInfo {
   font-size: 0.8em;
   flex-direction: column;
   align-items: flex-start;
   line-height: 1.5em;
+  color: #fff;
+  padding: 10px;
+}
+
+.bossOverlayInfo {
+  background-color: #852227;
+}
+
+.playerPathInfo {
+  background-color: #212985;
 }
 
 /* @keyframes schoolzone {

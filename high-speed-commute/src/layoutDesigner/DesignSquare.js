@@ -1,7 +1,8 @@
 import React from "react";
 
 import Coffee from "../components/Coffee";
-import BossPathTile from "./BossPathTile";
+import OverlayPathTile from "./OverlayPathTile";
+import Stoplight from "../components/Stoplight";
 
 class DesignSquare extends React.PureComponent {
   constructor(props) {
@@ -98,7 +99,7 @@ class DesignSquare extends React.PureComponent {
   render() {
     return (
       <div
-        className={`designSquare${this.state.typeClass}${this.state.keySquareClass}${this.state.stoplightClass}${this.state.schoolZoneClass}`}
+        className={`designSquare${this.state.typeClass}${this.state.keySquareClass}${this.state.schoolZoneClass}`}
         id={this.props.squareInfo.id}
         onClick={e => {
           this.props.addSquareToDesign(e);
@@ -114,10 +115,18 @@ class DesignSquare extends React.PureComponent {
         {this.props.bossOverlay &&
         this.props.isBossPath &&
         this.props.id !== this.props.office ? (
-          <BossPathTile />
+          <OverlayPathTile path="boss" />
         ) : (
           <></>
         )}
+        {this.props.playerOverlay &&
+        this.props.isPlayerPath &&
+        this.props.id !== this.props.office ? (
+          <OverlayPathTile path="player" />
+        ) : (
+          <></>
+        )}
+        {this.props.stoplight ? <Stoplight color={this.props.stoplight} /> : <></>}
       </div>
     );
   }

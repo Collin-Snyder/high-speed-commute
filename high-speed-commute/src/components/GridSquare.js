@@ -2,6 +2,7 @@ import React, { memo } from "react";
 import PlayerCar from "./PlayerCar";
 import BossCar from "./BossCar";
 import Coffee from "./Coffee";
+import Stoplight from "./Stoplight";
 
 class GameSquare extends React.PureComponent {
   constructor(props) {
@@ -10,7 +11,6 @@ class GameSquare extends React.PureComponent {
     this.state = {
       typeClass: "",
       keySquareClass: "",
-      stoplightClass: "",
       centerLineClass: "",
       schoolZoneShadows: ""
     };
@@ -18,7 +18,6 @@ class GameSquare extends React.PureComponent {
 
   componentDidMount() {
     let keySquareClass;
-    let stoplightClass;
     let schoolZoneClass = "";
 
     this.setState({
@@ -52,21 +51,6 @@ class GameSquare extends React.PureComponent {
         keySquareClass = "";
     }
     this.setState({ keySquareClass });
-
-    switch (this.props.stoplight) {
-      case "green":
-        stoplightClass = " greenlight";
-        break;
-      case "yellow":
-        stoplightClass = " yellowlight";
-        break;
-      case "red":
-        stoplightClass = " redlight";
-        break;
-      default:
-        stoplightClass = "";
-    }
-    this.setState({ stoplightClass });
   }
 
   componentDidUpdate(prevProps) {
@@ -133,7 +117,6 @@ class GameSquare extends React.PureComponent {
   }
 
   render() {
-    if (this.props.id === 41) console.log("UNNECESSARY SQAURE RERENDER");
     if (this.props.type === "block") {
       return (
         <div
@@ -160,18 +143,11 @@ class GameSquare extends React.PureComponent {
               : this.props.id === this.props.office
               ? ` office`
               : ``
-          }${
-            this.props.stoplight === `green`
-              ? ` greenlight`
-              : this.props.stoplight === `yellow`
-              ? ` yellowlight`
-              : this.props.stoplight === `red`
-              ? ` redlight`
-              : ``
           }${this.props.schoolzone ? ` schoolzone` : ``}`}
           id={this.props.id}
           style={{ "box-shadow": this.state.schoolZoneShadows }}
         >
+          {this.props.stoplight ? <Stoplight color={this.props.stoplight} /> : <></>}
           {this.props.playerCar ? (
             <PlayerCar />
           ) : this.props.bossCar ? (

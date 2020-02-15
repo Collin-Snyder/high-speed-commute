@@ -37,6 +37,12 @@ class App extends React.Component {
         bossInSchoolZone: false,
         schoolZoneInterval: 1000
       },
+      difficulty: "medium",
+      difficultyIntervals: {
+        easy: 400,
+        medium: 300,
+        hard: 200
+      },
       collision: false,
       bossError: false
     };
@@ -158,7 +164,7 @@ class App extends React.Component {
             }
           }
         }
-      }, 300);
+      }, this.state.difficultyIntervals[this.state.difficulty]);
     });
   }
 
@@ -167,7 +173,7 @@ class App extends React.Component {
       if (this.state.playerMovable) {
         this.movePlayerCar(this.state.playerDirection);
       }
-    }, 275 / (this.state.caffeineCount + 1))
+    }, 275 / (this.state.caffeineCount + 1));
   }
 
   resetPlayers() {
@@ -345,7 +351,9 @@ class App extends React.Component {
           this.movePlayerCar(this.state.playerDirection);
         }
       }, 275 / (this.state.caffeineCount + 1));
-      setTimeout(() => {this.decaffeinate()}, 5000);
+      setTimeout(() => {
+        this.decaffeinate();
+      }, 5000);
     });
   }
 
@@ -481,7 +489,8 @@ class App extends React.Component {
       bossCar,
       bossHome,
       collision,
-      layout
+      layout,
+      playerDirection
     } = this.state;
 
     mode = "play";
@@ -493,12 +502,13 @@ class App extends React.Component {
     layout[playerCar - 1].playerCar = true;
     layout[bossCar - 1].bossCar = true;
     collision = false;
+    playerDirection = null;
 
     for (let coffeeSquare in this.state.coffees) {
       layout[coffeeSquare - 1].coffee = true;
     }
 
-    this.setState({ mode, status, playerCar, bossCar, collision, layout });
+    this.setState({ mode, status, playerCar, bossCar, collision, layout, playerDirection });
   }
 
   render() {
