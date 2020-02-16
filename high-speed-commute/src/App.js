@@ -24,6 +24,7 @@ class App extends React.Component {
       stoplights: {},
       coffees: {},
       playerCar: 281,
+      playerColor: "orange",
       bossCar: 681,
       layout: [],
       designLayout: [],
@@ -538,6 +539,7 @@ class App extends React.Component {
           deleteLevel={this.deleteLevel}
           difficulty={this.state.difficulty}
           changeDifficulty={this.changeDifficulty}
+          playerColor={this.state.playerColor}
         />
         <div className="designModuleContainer">
           <DesignModule

@@ -11,7 +11,8 @@ const PlayingField = ({
   layout,
   collision,
   resetPlayers,
-  fullReset
+  fullReset,
+  playerColor
 }) => {
   const t0 = performance.now();
   if (playerCar === office) {
@@ -65,6 +66,7 @@ const PlayingField = ({
               playerHome={playerHome}
               bossHome={bossHome}
               office={office}
+              playerColor={playerColor}
               key={square.id}
             />
           );

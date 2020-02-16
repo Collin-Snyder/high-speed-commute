@@ -24,7 +24,8 @@ const GameModule = ({
   loadLevel,
   deleteLevel,
   difficulty,
-  changeDifficulty
+  changeDifficulty,
+  playerColor
 }) => {
   let display = mode === "play" ? "flex" : "none";
   let startDisplay = status === "idle" ? "inline-flex" : "none";
@@ -52,6 +53,7 @@ const GameModule = ({
         collision={collision}
         resetPlayers={resetPlayers}
         fullReset={fullReset}
+        playerColor={playerColor}
       />
 
       <div className="buttons">
