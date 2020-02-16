@@ -47,8 +47,6 @@ const DesignField = ({
           house={square.house || null}
           coffee={square.coffee}
           borders={square.borders}
-          isStoplight={stoplights.hasOwnProperty(square.id) ? true : false}
-          isSchoolZone={square.schoolZone === true}
           playerHome={playerHome}
           bossHome={bossHome}
           isBossPath={square.bossPath}

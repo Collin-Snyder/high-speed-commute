@@ -23,7 +23,7 @@ class DesignSquare extends React.PureComponent {
         this.props.type === "block"
           ? " block"
           : this.props.type === "street"
-          ? " street"
+          ? " dstreet"
           : ""
     });
   }
@@ -40,7 +40,7 @@ class DesignSquare extends React.PureComponent {
             this.props.type === "block"
               ? " block"
               : this.props.type === "street"
-              ? " street"
+              ? " dstreet"
               : ""
         },
         () => {

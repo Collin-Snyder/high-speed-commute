@@ -39,8 +39,8 @@ class App extends React.Component {
       },
       difficulty: "medium",
       difficultyIntervals: {
-        easy: 400,
-        medium: 325,
+        easy: 500,
+        medium: 350,
         hard: 250
       },
       collision: false,
@@ -69,6 +69,7 @@ class App extends React.Component {
     this.exitSchoolZone = this.exitSchoolZone.bind(this);
     this.caffeinate = this.caffeinate.bind(this);
     this.decaffeinate = this.decaffeinate.bind(this);
+    this.changeDifficulty = this.changeDifficulty.bind(this);
   }
 
   componentDidMount() {
@@ -365,6 +366,10 @@ class App extends React.Component {
     });
   }
 
+  changeDifficulty(e) {
+    this.setState({difficulty: e.target.value})
+  }
+
   closeBossModal() {
     this.setState({ bossError: false });
   }
@@ -531,7 +536,8 @@ class App extends React.Component {
           enterDesignMode={this.enterDesignMode}
           loadLevel={this.loadLevel}
           deleteLevel={this.deleteLevel}
-          
+          difficulty={this.state.difficulty}
+          changeDifficulty={this.changeDifficulty}
         />
         <div className="designModuleContainer">
           <DesignModule

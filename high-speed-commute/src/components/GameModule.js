@@ -1,6 +1,7 @@
 import React from "react";
 import PlayingField from "./PlayingField";
 import LevelsList from "./LevelsList";
+import DifficultySelector from "./DifficultySelector";
 
 const GameModule = ({
   mode,
@@ -21,7 +22,9 @@ const GameModule = ({
   enterDesignMode,
   enterPlayMode,
   loadLevel,
-  deleteLevel
+  deleteLevel,
+  difficulty,
+  changeDifficulty
 }) => {
   let display = mode === "play" ? "flex" : "none";
   let startDisplay = status === "idle" ? "inline-flex" : "none";
@@ -69,6 +72,7 @@ const GameModule = ({
         >
           Race
         </div>
+        <DifficultySelector difficulty={difficulty} changeDifficulty={changeDifficulty}/>
       </div>
     </div>
   );

@@ -278,13 +278,16 @@ export default class DesignModule extends React.Component {
         this.setState({ designLayout, saveStates });
         break;
       case "coffee":
+        console.log("Acknowledging click")
+        console.log("Drag: ", drag)
         if (!drag && currentSquare.coffee === true) {
+          console.log("Removing coffee")
           currentSquare.coffee = false;
           delete coffees[currentSquare.id];
           saveStates.isSaved = false;
         } else if (
           currentSquare.type === "street" &&
-          currentSquare.stoplight === null
+          !currentSquare.stoplight
         ) {
           currentSquare.coffee = true;
           console.log("Saving coffee");
