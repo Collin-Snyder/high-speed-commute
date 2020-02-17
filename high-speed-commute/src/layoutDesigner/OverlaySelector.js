@@ -33,7 +33,7 @@ const OverlaySelector = ({
             <span className="overlayLabel">Boss Path</span>
           </label>   
         </div>
-        <div class="btn clear" onClick={clearOverlays}>Clear Overlays</div>
+        <div className="btn clear" onClick={clearOverlays}>Clear Overlays</div>
       </div>
     );
   };

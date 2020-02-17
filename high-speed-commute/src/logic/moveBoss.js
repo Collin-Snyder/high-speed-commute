@@ -100,17 +100,6 @@ export const getDirectionQueue = (currentSquare, targetSquare, prevMove) => {
   directionQueue[2] = Object.keys(directions)[0];
 
   return directionQueue;
-
-  if (X.diff > Y.diff) {
-    return X.optimal;
-  } else if (X.diff < Y.diff) {
-    return Y.optimal;
-  } else {
-    return X.optimal || Y.optimal;
-  }
-
-  //return a direction queue rather than one direction
-  //
 };
 
 //create Queue structure

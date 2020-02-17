@@ -29,9 +29,6 @@ class DesignSquare extends React.PureComponent {
   }
 
   componentDidUpdate(prevProps) {
-    let keySquareClass;
-    let stoplightClass;
-    let schoolZoneClass = "";
 
     if (prevProps.type !== this.props.type) {
       this.setState(
@@ -75,13 +72,13 @@ class DesignSquare extends React.PureComponent {
       let keySquareClass;
       switch (this.props.id) {
         case this.props.playerHome:
-          keySquareClass = " playerHome";
+          keySquareClass = " dplayerHome";
           break;
         case this.props.bossHome:
-          keySquareClass = " bossHome";
+          keySquareClass = " dbossHome";
           break;
         case this.props.office:
-          keySquareClass = " office";
+          keySquareClass = " doffice";
           break;
         default:
           keySquareClass = "";

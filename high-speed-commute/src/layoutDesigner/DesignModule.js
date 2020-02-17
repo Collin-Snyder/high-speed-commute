@@ -1,6 +1,5 @@
 import React from "react";
 import axios from "axios";
-import StateMachine from "javascript-state-machine";
 import DesignField from "./DesignField";
 import DesignToolbox from "./DesignToolbox";
 import OverlaySelector from "./OverlaySelector";
@@ -10,7 +9,6 @@ import SaveWarningModal from "./SaveWarningModal";
 import InputLevelNameModal from "./InputLevelNameModal";
 import { findPath } from "../logic/moveBoss";
 import { findPlayerPath } from "../logic/movePlayer";
-import createDesignBoard from "../logic/createDesignBoard";
 import { randomNumBtwn } from "../logic/randomNumber";
 import {
   convertLayoutToJSONString,
@@ -82,7 +80,7 @@ export default class DesignModule extends React.Component {
         !this.props.designLayout[0].borders.hasOwnProperty("right") ||
         !this.props.designLayout[0].borders.hasOwnProperty("left")
       ) {
-        console.log("BORDER ERROR ALERT IN DESIGN MODULE CDU");
+        console.log("BORDER ERROR ALERT IN DESIGN MODULE COMPONENTDIDUPDATE");
       }
       this.setState({ designLayout: this.props.designLayout });
     }
@@ -342,16 +340,18 @@ export default class DesignModule extends React.Component {
   }
 
   clearBoard() {
-    let { designLayout, playerHome, bossHome, office, stoplights } = this.state;
+    let { designLayout, playerHome, bossHome, office, stoplights, coffees } = this.state;
     designLayout = designLayout.map(square => {
       square.type = "block";
       square.stoplight = null;
       square.schoolZone = false;
+      square.coffee = false;
       return square;
     });
     playerHome = bossHome = office = 0;
     stoplights = {};
-    this.setState({ designLayout, playerHome, bossHome, office, stoplights });
+    coffees = {};
+    this.setState({ designLayout, playerHome, bossHome, office, stoplights, coffees });
   }
 
   sendDesignToGame() {
@@ -477,11 +477,11 @@ export default class DesignModule extends React.Component {
       coffees: JSON.stringify(coffees),
       layout: convertLayoutToJSONString(designLayout)
     };
-    console.log("Level Info coffees going to database: ", levelInfo.coffees);
 
     axios
       .post("/api/levels", levelInfo)
       .then(res => {
+        this.clearOverlays();
         saveStates.isSaved = true;
         saveStates.confirmationVisible = true;
         saveStates.currentLevel = res.data.rows[0].id;
@@ -535,6 +535,7 @@ export default class DesignModule extends React.Component {
       .patch("/api/levels", levelInfo)
       .then(res => {
         console.log("Made the update request!");
+        this.clearOverlays();
         saveStates.isSaved = true;
         saveStates.confirmationVisible = true;
         this.setState({ saveStates }, () => {
@@ -657,7 +658,7 @@ export default class DesignModule extends React.Component {
           </div>
           <div className="buttons design">
             <div
-              class="btn save"
+              className="btn save"
               onClick={() => {
                 this.toggleModal("loadDesign");
               }}

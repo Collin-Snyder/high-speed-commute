@@ -3,7 +3,6 @@ import "./styles/App.css";
 import GameModule from "./components/GameModule";
 import DesignModule from "./layoutDesigner/DesignModule";
 import BossErrorModal from "./components/BossErrorModal";
-import createSquares from "./logic/createSquares";
 import createDesignBoard from "./logic/createDesignBoard";
 import { findPath } from "./logic/moveBoss";
 import { prettify } from "./logic/prettify";
@@ -24,12 +23,13 @@ class App extends React.Component {
       stoplights: {},
       coffees: {},
       playerCar: 281,
-      playerColor: "orange",
+      playerColor: "pink",
       bossCar: 681,
       layout: [],
       designLayout: [],
       userLevels: [],
       playerDirection: null,
+      playerInterval: 275,
       caffeineCount: 0,
       playerMovable: true,
       bossMovable: true,
@@ -217,6 +217,7 @@ class App extends React.Component {
           for (let interval in this.stoplightIntervals) {
             clearInterval(this.stoplightIntervals[interval]);
           }
+          this.fullReset();
         }
       }
       this.setState({ playerCar, layout, collision, playerMovable }, () => {
@@ -347,23 +348,23 @@ class App extends React.Component {
         if (this.state.playerMovable) {
           this.movePlayerCar(this.state.playerDirection);
         }
-      }, 275 / (this.state.caffeineCount + 1));
+      }, this.state.playerInterval / (this.state.caffeineCount + 1));
       setTimeout(() => {
         this.decaffeinate();
-      }, 5000);
+      }, 4000);
     });
   }
 
   decaffeinate() {
     let { caffeineCount } = this.state;
-    caffeineCount--;
+    if (caffeineCount > 0) caffeineCount--;
     this.setState({ caffeineCount }, () => {
       clearInterval(this.playerInterval);
       this.playerInterval = setInterval(() => {
         if (this.state.playerMovable) {
           this.movePlayerCar(this.state.playerDirection);
         }
-      }, 275 / (this.state.caffeineCount + 1));
+      }, this.state.playerInterval / (this.state.caffeineCount + 1));
     });
   }
 
@@ -491,7 +492,8 @@ class App extends React.Component {
       bossHome,
       collision,
       layout,
-      playerDirection
+      playerDirection,
+      caffeineCount
     } = this.state;
 
     mode = "play";
@@ -504,12 +506,13 @@ class App extends React.Component {
     layout[bossCar - 1].bossCar = true;
     collision = false;
     playerDirection = null;
+    caffeineCount = 0;
 
     for (let coffeeSquare in this.state.coffees) {
       layout[coffeeSquare - 1].coffee = true;
     }
 
-    this.setState({ mode, status, playerCar, bossCar, collision, layout, playerDirection });
+    this.setState({ mode, status, playerCar, bossCar, collision, layout, playerDirection, caffeineCount });
   }
 
   render() {

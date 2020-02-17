@@ -117,7 +117,7 @@ h4.designToolboxTitle {
     0 4px black, -4px 0 black;
   font-size: 1em;
   padding-left: 20px;
-  cursor: text; 
+  cursor: text;
 }
 
 .levelsList {
@@ -133,7 +133,8 @@ h4.designToolboxTitle {
   overflow: scroll;
 }
 
-.levelItemGroup, .levelItem {
+.levelItemGroup,
+.levelItem {
   display: flex;
   align-items: center;
   cursor: pointer;
@@ -212,26 +213,53 @@ h4.designToolboxTitle {
   background-image: url("../assets/street.png");
 }
 
-.dstreet{
+.dstreet {
   background-color: #343434;
 }
 
-.playerHome {
-  background-color: rgba(0, 0, 255, 0.4);
+.keySquare {
+  background-color: #fff;
+  background-image: none;
 }
 
-.bossHome {
+.playerHomeTile.blue, .dplayerHome {
+  background-color: rgba(0, 0, 255, 0.4);
+}
+.playerHomeTile.green {
+  background-color: rgb(0, 211, 0, 0.4);
+}
+.playerHomeTile.pink {
+  background-color: rgba(255, 0, 238, 0.3);
+}
+.playerHomeTile.purple {
+  background-color: rgba(170, 0, 255, 0.4);
+}
+.playerHomeTile.orange {
+  background-color: rgba(255, 132, 0, 0.4);
+}
+.playerHomeTile.white {
+  background-color: rgba(43, 43, 43, 0.4);
+}
+
+.bossHomeTile, .dbossHome {
   background-color: rgba(255, 0, 0, 0.4);
 }
 
-.office {
+.officeTile, .doffice {
   background-color: rgba(255, 211, 0, 1);
 }
 
 .playerCar,
 .bossCar,
 .tree,
-.house, .coffee, .bossPathTile, .playerPathTile, .stoplight{
+.house,
+.coffee,
+.bossPathTile,
+.playerPathTile,
+.stoplight,
+.playerHomeTile,
+.bossHomeTile,
+.officeTile {
   display: inline-block;
   width: 25px;
   height: 25px;
@@ -240,10 +268,8 @@ h4.designToolboxTitle {
   left: 0;
 }
 
-
-
 .playerCar {
-  background-image: url("../assets/player-car-white.png");
+  background-image: url("../assets/player-car-pink.png");
   background-repeat: no-repeat;
   background-size: contain;
   z-index: 100;
@@ -329,7 +355,8 @@ h4.designToolboxTitle {
   align-items: center;
 }
 
-.designToolbox, .overlaySelector {
+.designToolbox,
+.overlaySelector {
   display: flex;
   flex-direction: column;
   border: 5px groove darkgray;
@@ -361,8 +388,8 @@ h4.designToolboxTitle {
   padding: 0 20px;
 }
 
-
-.designToolSelector, .overlayOptions {
+.designToolSelector,
+.overlayOptions {
   /* display: flex;
   flex-direction: column; */
   display: grid;
@@ -380,7 +407,9 @@ h4.designToolboxTitle {
   justify-content: center;
 }
 
-.toolSelectorRadio, .overlayOption, .difficultyOption {
+.toolSelectorRadio,
+.overlayOption,
+.difficultyOption {
   position: absolute;
   opacity: 0;
   display: inline;
@@ -431,7 +460,8 @@ h4.designToolboxTitle {
   cursor: pointer;
 }
 
-.btn:focus, input:focus {
+.btn:focus,
+input:focus {
   outline: none;
   font-family: "Press Start 2P", cursive;
   border: 0;
@@ -462,12 +492,15 @@ h4.designToolboxTitle {
   left: 10px;
 }
 
-.btn.play, .btn.difficulty.easy {
+.btn.play,
+.btn.difficulty.easy {
   background-color: #82e768;
-  box-shadow: -4px -4px #328f32 inset, 0 -4px black, 4px 0 black,
-    0 4px black, -4px 0 black;
+  box-shadow: -4px -4px #328f32 inset, 0 -4px black, 4px 0 black, 0 4px black,
+    -4px 0 black;
 }
-.btn.play:active, .btn.difficulty.easy.checked, .btn.difficulty.easy:active {
+.btn.play:active,
+.btn.difficulty.easy.checked,
+.btn.difficulty.easy:active {
   background-color: rgb(125, 194, 108);
   box-shadow: 4px 4px rgb(43, 122, 43) inset, 0 -4px black, 4px 0 black,
     0 4px black, -4px 0 black;
@@ -512,57 +545,73 @@ h4.designToolboxTitle {
 
 .btn.save:active {
   background-color: rgb(252, 162, 45);
-  box-shadow: 4px 4px rgb(138, 90, 29)inset, 0 -4px black, 4px 0 black,
+  box-shadow: 4px 4px rgb(138, 90, 29) inset, 0 -4px black, 4px 0 black,
     0 4px black, -4px 0 black;
 }
 
-.btn.clear, .delete, .btn.difficulty.hard {
-  background-color: #f95252; 
-  box-shadow: -4px -4px #b43b3b inset, 0 -4px black, 4px 0 black,
-    0 4px black, -4px 0 black;
+.btn.clear,
+.delete,
+.btn.difficulty.hard {
+  background-color: #f95252;
+  box-shadow: -4px -4px #b43b3b inset, 0 -4px black, 4px 0 black, 0 4px black,
+    -4px 0 black;
 }
 
-.btn.clear:active, .delete:active, .btn.difficulty.hard.checked, .btn.difficulty.hard:active {
-  background-color: rgb(206, 44, 44); 
+.btn.clear:active,
+.delete:active,
+.btn.difficulty.hard.checked,
+.btn.difficulty.hard:active {
+  background-color: rgb(206, 44, 44);
   box-shadow: 4px 4px rgb(122, 40, 40) inset, 0 -4px black, 4px 0 black,
     0 4px black, -4px 0 black;
 }
 
-.btn.tool, .btn.overlay {
+.btn.tool,
+.btn.overlay {
   width: 100px;
   margin: 15px 15px;
   font-size: 0.8em;
 }
 
-.btn.tool.ph, .btn.overlay.p {
+.btn.tool.ph,
+.btn.overlay.p {
   background-color: rgba(0, 0, 255, 0.4);
   box-shadow: -4px -4px rgba(0, 0, 63, 0.4) inset, 0 -4px black, 4px 0 black,
     0 4px black, -4px 0 black;
 }
 
-.btn.tool.ph:active, .btn.tool.ph.checked, .btn.overlay.p.checked {
-  background-color:rgba(0, 0, 255, 0.6);
-  box-shadow: 4px 4px  rgb(70, 70, 184) inset, 0 -4px black, 4px 0 black,
+.btn.tool.ph:active,
+.btn.tool.ph.checked,
+.btn.overlay.p.checked {
+  background-color: rgba(0, 0, 255, 0.6);
+  box-shadow: 4px 4px rgb(70, 70, 184) inset, 0 -4px black, 4px 0 black,
     0 4px black, -4px 0 black;
 }
 
-.btn.tool.bh, .btn.overlay.b {
+.btn.tool.bh,
+.btn.overlay.b {
   background-color: rgba(255, 0, 0, 0.4);
   box-shadow: -4px -4px rgba(24, 0, 0, 0.329) inset, 0 -4px black, 4px 0 black,
     0 4px black, -4px 0 black;
 }
-.btn.tool.bh:active, .btn.tool.bh.checked, .btn.overlay.b.checked {
+.btn.tool.bh:active,
+.btn.tool.bh.checked,
+.btn.overlay.b.checked {
   background-color: rgb(226, 78, 78);
   box-shadow: 4px 4px rgb(161, 44, 44) inset, 0 -4px black, 4px 0 black,
     0 4px black, -4px 0 black;
 }
 
-.btn.tool.o, .btn.difficulty.medium {
+.btn.tool.o,
+.btn.difficulty.medium {
   background-color: rgba(255, 211, 0, 1);
   box-shadow: -4px -4px rgb(153, 128, 0) inset, 0 -4px black, 4px 0 black,
     0 4px black, -4px 0 black;
 }
-.btn.tool.o:active, .btn.tool.o.checked, .btn.difficulty.medium:active, .btn.difficulty.medium.checked {
+.btn.tool.o:active,
+.btn.tool.o.checked,
+.btn.difficulty.medium:active,
+.btn.difficulty.medium.checked {
   background-color: rgb(235, 180, 0);
   box-shadow: 4px 4px rgb(133, 111, 0) inset, 0 -4px black, 4px 0 black,
     0 4px black, -4px 0 black;
@@ -574,7 +623,8 @@ h4.designToolboxTitle {
     -4px 0 black;
 }
 
-.btn.tool.st:active, .btn.tool.st.checked {
+.btn.tool.st:active,
+.btn.tool.st.checked {
   background-color: #353535;
   box-shadow: 4px 4px #272727 inset, 0 -4px black, 4px 0 black, 0 4px black,
     -4px 0 black;
@@ -586,20 +636,44 @@ h4.designToolboxTitle {
     -4px 0 black;
 }
 
-.btn.tool.sl:active, .btn.tool.sl.checked {
-  background-image: linear-gradient(to right, darkred, goldenrod,darkgreen);
+.btn.tool.sl:active,
+.btn.tool.sl.checked {
+  background-image: linear-gradient(to right, darkred, goldenrod, darkgreen);
   box-shadow: 4px 4px #272727 inset, 0 -4px black, 4px 0 black, 0 4px black,
     -4px 0 black;
 }
 
 .btn.tool.sz {
-  background-image: repeating-linear-gradient(to right, yellow, black, yellow, black, yellow, black, yellow, black, yellow);
+  background-image: repeating-linear-gradient(
+    to right,
+    yellow,
+    black,
+    yellow,
+    black,
+    yellow,
+    black,
+    yellow,
+    black,
+    yellow
+  );
   box-shadow: -4px -4px #343434 inset, 0 -4px black, 4px 0 black, 0 4px black,
     -4px 0 black;
 }
 
-.btn.tool.sz:active, .btn.tool.sz.checked {
-  background-image: repeating-linear-gradient(to right, rgb(162, 162, 0), black, rgb(162, 162, 0), black, rgb(162, 162, 0), black, rgb(162, 162, 0), black, rgb(162, 162, 0));
+.btn.tool.sz:active,
+.btn.tool.sz.checked {
+  background-image: repeating-linear-gradient(
+    to right,
+    rgb(162, 162, 0),
+    black,
+    rgb(162, 162, 0),
+    black,
+    rgb(162, 162, 0),
+    black,
+    rgb(162, 162, 0),
+    black,
+    rgb(162, 162, 0)
+  );
   box-shadow: 4px 4px #272727 inset, 0 -4px black, 4px 0 black, 0 4px black,
     -4px 0 black;
 }
@@ -610,7 +684,8 @@ h4.designToolboxTitle {
     -4px 0 black;
 }
 
-.btn.tool.cf:active, .btn.tool.cf.checked {
+.btn.tool.cf:active,
+.btn.tool.cf.checked {
   background-color: #35201e;
   box-shadow: 4px 4px #1a100f inset, 0 -4px black, 4px 0 black, 0 4px black,
     -4px 0 black;
@@ -622,21 +697,21 @@ h4.designToolboxTitle {
     0 4px black, -4px 0 black;
 }
 
-.btn.tool.erase:active, .btn.tool.erase.checked {
+.btn.tool.erase:active,
+.btn.tool.erase.checked {
   background-color: rgb(146, 146, 146);
   box-shadow: 4px 4px rgb(114, 114, 114) inset, 0 -4px black, 4px 0 black,
     0 4px black, -4px 0 black;
 }
 
 .btn.tool.checked {
-  outline:  rgba(255, 211, 0, 1) solid  4px ;
+  outline: rgba(255, 211, 0, 1) solid 4px;
   outline-offset: 5px;
 }
 
 .btn.difficulty {
   width: 150px;
 }
-
 
 .buttons {
   width: 250px;
@@ -687,7 +762,8 @@ h4.designToolboxTitle {
   text-shadow: 4px 4px black;
 }
 
-.userLevelSelector, .saveWarningButtons {
+.userLevelSelector,
+.saveWarningButtons {
   display: grid;
   grid-template-columns: 1fr 1fr;
   margin-top: 20px;
@@ -710,7 +786,7 @@ h4.designToolboxTitle {
 }
 
 .stoplight {
-  z-index: 80; 
+  z-index: 80;
 }
 
 .greenlight {
@@ -742,7 +818,8 @@ h4.designToolboxTitle {
   /* background-image: radial-gradient(#ffd300 50%, black); */
 }
 
-.bossOverlayInfo, .playerPathInfo {
+.bossOverlayInfo,
+.playerPathInfo {
   font-size: 0.8em;
   flex-direction: column;
   align-items: flex-start;

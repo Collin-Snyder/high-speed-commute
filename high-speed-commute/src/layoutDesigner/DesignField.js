@@ -17,14 +17,6 @@ const DesignField = ({
   exiting,
   overlays
 }) => {
-  const handleKeyPress = e => {
-    if (e.key === "Enter") {
-      saveLevel();
-      toggleModal("inputLevelName");
-      if (exiting) enterPlayMode(null, true);
-    }
-  };
-
   return (
     <div className="levelDesigner">
       <img
@@ -33,6 +25,7 @@ const DesignField = ({
         src="https://lh3.googleusercontent.com/proxy/pkVRYWgvekmqFl7y9FOHIyNVUFM3-aTjfVK5DTZ9W3WdoKtz0j8OkTA6gUdfMql_4lwFxMsS1rq3-nJZ0owweGo1xA"
         width="1px"
         height="1px"
+        alt="replacement for drag-and-draw"
       />
       {designLayout.map((square, index) => (
         <DesignSquare

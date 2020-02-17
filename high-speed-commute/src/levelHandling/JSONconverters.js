@@ -7,7 +7,18 @@ export const convertLayoutToJSONString = layout => {
   ) {
     console.log("BORDER ERROR ALERT IN CONVERT LAYOUT TO JSON - layout");
   }
+  if (
+    typeof layout[0].borders.up !== "object" ||
+    typeof layout[0].borders.down !== "object" ||
+    typeof layout[0].borders.left !== "object" ||
+    typeof layout[0].borders.right !== "object"
+  )
+    console.log(
+      "BORDER ERROR ALERT IN CONVERT LAYOUT TO JSON - BORDERS NOT OBJECTS: ", layout[0].borders
+    );
   let convertibleLayout = layout.map(square => {
+    square = {...square};
+    square.borders = {...square.borders};
     for (let direction in square.borders) {
       if (square.borders[direction] !== null) {
         let borderId = square.borders[direction].id;
@@ -23,13 +34,16 @@ export const convertLayoutToJSONString = layout => {
     !convertibleLayout[0].borders.hasOwnProperty("right") ||
     !convertibleLayout[0].borders.hasOwnProperty("left")
   ) {
-    console.log("BORDER ERROR ALERT IN CONVERT LAYOUT TO JSON - convertibleLayout");
+    console.log(
+      "BORDER ERROR ALERT IN CONVERT LAYOUT TO JSON - convertibleLayout"
+    );
   }
 
   return JSON.stringify(convertibleLayout);
 };
 
 export const formatLayout = parsedLayout => {
+
   let formattedLayout = parsedLayout.map((square, i, parsedLayout) => {
     for (let direction in square.borders) {
       if (square.borders[direction] !== null) {
@@ -39,6 +53,17 @@ export const formatLayout = parsedLayout => {
     }
     return square;
   });
+
+  if (
+    typeof formattedLayout[0].borders.up !== "object" ||
+    typeof formattedLayout[0].borders.down !== "object" ||
+    typeof formattedLayout[0].borders.left !== "object" ||
+    typeof formattedLayout[0].borders.right !== "object"
+  )
+    console.log(
+      "BORDER ERROR ALERT IN PARSE LAYOUT FROM JSON - BORDERS NOT OBJECTS: ", formattedLayout[0].borders
+    );
+
   if (
     !formattedLayout[0].borders.hasOwnProperty("up") ||
     !formattedLayout[0].borders.hasOwnProperty("down") ||

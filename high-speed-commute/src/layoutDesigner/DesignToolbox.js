@@ -100,7 +100,7 @@ const DesignToolbox = ({
           <span className="toolLabel">Eraser</span>
         </label>
       </div>
-      <div class="btn clear" onClick={clearBoard}>Clear Design</div>
+      <div className="btn clear" onClick={clearBoard}>Clear Design</div>
     </div>
   );
 };
