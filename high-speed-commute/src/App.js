@@ -306,12 +306,10 @@ class App extends React.Component {
 
   enterSchoolZone(who) {
     let { schoolZoneState } = this.state;
-    let movable = this.state[`${who}Movable`];
-    
-    movable = false;
+
     schoolZoneState[`${who}InSchoolZone`] = true;
 
-    this.setState({ [`${who}Movable`]: movable, schoolZoneState }, () => {
+    this.setState({ [`${who}Movable`]: false, schoolZoneState }, () => {
       this[`${who}SchoolZoneInterval`] = setInterval(() => {
         this.setState({ [`${who}Movable`]: true });
       }, this.state.schoolZoneState.schoolZoneInterval);
@@ -320,19 +318,12 @@ class App extends React.Component {
 
   exitSchoolZone(who) {
     let { schoolZoneState } = this.state;
-    if (who === "player") {
-      let { playerMovable } = this.state;
-      playerMovable = true;
-      schoolZoneState.playerInSchoolZone = false;
-      clearInterval(this.playerSchoolZoneInterval);
-      this.setState({ playerMovable, schoolZoneState });
-    } else if (who === "boss") {
-      let { bossMovable } = this.state;
-      bossMovable = true;
-      schoolZoneState.bossInSchoolZone = false;
-      clearInterval(this.bossSchoolZoneInterval);
-      this.setState({ bossMovable, schoolZoneState });
-    }
+
+    schoolZoneState[`${who}InSchoolZone`] = true;
+
+    clearInterval(this[`${who}SchoolZoneInterval`]);
+
+    this.setState({ [`${who}Movable`]: true, schoolZoneState });
   }
 
   caffeinate() {
