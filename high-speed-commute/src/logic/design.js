@@ -1,3 +1,7 @@
+const randomNumBtwn = (min, max) => {
+    return Math.floor(Math.random() * (max - min + 1) + min);
+}
+
 export const handleKeySquare = (
   selectedTool,
   keySquares,
@@ -44,7 +48,18 @@ export const handleStreet = (currentSquare, saveStates, stoplights, drag) => {
   return { saveStates };
 };
 
-export const handleStoplight = () => {};
+export const handleStoplight = (currentSquare, saveStates, stoplights, drag) => {
+  if (!drag && stoplights.hasOwnProperty(currentSquare.id)) {
+    currentSquare.stoplight = null;
+    delete stoplights[currentSquare.id];
+    saveStates.isSaved = false;
+  } else if (currentSquare.type === "street") {
+    currentSquare.stoplight = "green";
+    stoplights[currentSquare.id] = randomNumBtwn(4, 12) * 1000;
+    saveStates.isSaved = false;
+    if (currentSquare.schoolZone) currentSquare.schoolZone = false;
+  }
+};
 
 export const handleSchoolZone = () => {};
 

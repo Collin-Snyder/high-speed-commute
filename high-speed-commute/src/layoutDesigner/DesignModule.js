@@ -9,14 +9,14 @@ import SaveWarningModal from "./SaveWarningModal";
 import InputLevelNameModal from "./InputLevelNameModal";
 import { findPath } from "../logic/moveBoss";
 import { findPlayerPath } from "../logic/movePlayer";
-import { randomNumBtwn } from "../logic/randomNumber";
 import {
   handleKeySquare,
   handleStreet,
   handleStoplight,
   handleSchoolZone,
+  handleCoffee,
   handleEraser
-} from "../logic/design";
+} from "../logic/editDesign";
 import {
   convertLayoutToJSONString,
   formatLayout
@@ -234,23 +234,6 @@ export default class DesignModule extends React.Component {
         );
         break;
       case "street":
-        // if (
-        //   currentSquare.stoplight ||
-        //   currentSquare.schoolZone ||
-        //   currentSquare.coffee
-        // ) {
-        //   currentSquare.schoolZone = false;
-        //   currentSquare.stoplight = null;
-        //   currentSquare.coffee = false;
-        //   delete stoplights[squareId];
-        // } else if (!drag && currentSquare.type === "street") {
-        //   currentSquare.type = "block";
-        // } else {
-        //   currentSquare.type = "street";
-        // }
-
-        // saveStates.isSaved = false;
-
         handleStreet(currentSquare, saveStates, stoplights, drag);
 
         this.setState({ designLayout, saveStates, stoplights }, () => {
@@ -259,82 +242,29 @@ export default class DesignModule extends React.Component {
         });
         break;
       case "stoplight":
-        if (!drag && stoplights.hasOwnProperty(squareId)) {
-          currentSquare.stoplight = null;
-          delete stoplights[squareId];
-          saveStates.isSaved = false;
-        } else if (currentSquare.type === "street") {
-          currentSquare.stoplight = "green";
-          stoplights[squareId] = randomNumBtwn(4, 12) * 1000;
-          saveStates.isSaved = false;
-          if (currentSquare.schoolZone) currentSquare.schoolZone = false;
-        }
+        handleStoplight(currentSquare, saveStates, stoplights, drag);
 
         this.setState({ designLayout, saveStates, stoplights });
         break;
       case "schoolzone":
-        if (!drag && currentSquare.schoolZone === true) {
-          currentSquare.schoolZone = false;
-          saveStates.isSaved = false;
-        } else if (
-          currentSquare.type === "street" &&
-          !currentSquare.stoplight
-        ) {
-          currentSquare.schoolZone = true;
-          saveStates.isSaved = false;
-        }
+        handleSchoolZone(currentSquare, saveStates, drag);
+
         this.setState({ designLayout, saveStates });
         break;
       case "coffee":
-        console.log("Acknowledging click");
-        console.log("Drag: ", drag);
-        if (!drag && currentSquare.coffee === true) {
-          console.log("Removing coffee");
-          currentSquare.coffee = false;
-          delete coffees[currentSquare.id];
-          saveStates.isSaved = false;
-        } else if (
-          currentSquare.type === "street" &&
-          !currentSquare.stoplight
-        ) {
-          currentSquare.coffee = true;
-          console.log("Saving coffee");
-          console.log(currentSquare.id);
-          coffees[currentSquare.id] = true;
-          console.log(coffees);
-          console.log("Coffees in state: ", this.state.coffees);
-          saveStates.isSaved = false;
-        }
+        handleCoffee(currentSquare, saveStates, coffees, drag);
+
         this.setState({ designLayout, saveStates, coffees });
         break;
       case "eraser":
-        currentSquare.type = "block";
-
-        if (squareId === playerHome) playerHome = 0;
-        else if (squareId === bossHome) bossHome = 0;
-        else if (squareId === office) office = 0;
-
-        if (currentSquare.stoplight) {
-          currentSquare.stoplight = null;
-          delete stoplights[squareId];
-        }
-
-        if (currentSquare.schoolZone) {
-          currentSquare.schoolZone = false;
-        }
-
-        if (currentSquare.coffee) {
-          currentSquare.coffee = false;
-        }
-
-        saveStates.isSaved = false;
+        handleEraser(currentSquare, keySquares, stoplights, saveStates);
 
         this.setState(
           {
+            playerHome: keySquares.playerHome,
+            bossHome: keySquares.bossHome,
+            office: keySquares.office,
             designLayout,
-            playerHome,
-            bossHome,
-            office,
             stoplights,
             saveStates
           },
