@@ -88,25 +88,30 @@ export const handleCoffee = (currentSquare, saveStates, coffees, drag) => {
   }
 };
 
-export const handleEraser = (currentSquare, keySquares, stoplights, saveStates) => {
+export const handleEraser = (
+  currentSquare,
+  keySquares,
+  stoplights,
+  saveStates
+) => {
   currentSquare.type = "block";
 
-        if (currentSquare.id === keySquares.playerHome) keySquares.playerHome = 0;
-        else if (currentSquare.id === keySquares.bossHome) keySquares.bossHome = 0;
-        else if (currentSquare.id === keySquares.office) keySquares.office = 0;
+  if (currentSquare.id === keySquares.playerHome) keySquares.playerHome = 0;
+  else if (currentSquare.id === keySquares.bossHome) keySquares.bossHome = 0;
+  else if (currentSquare.id === keySquares.office) keySquares.office = 0;
 
-        if (currentSquare.stoplight) {
-          currentSquare.stoplight = null;
-          delete stoplights[currentSquare.id];
-        }
+  if (currentSquare.stoplight) {
+    currentSquare.stoplight = null;
+    delete stoplights[currentSquare.id];
+  }
 
-        if (currentSquare.schoolZone) {
-          currentSquare.schoolZone = false;
-        }
+  if (currentSquare.schoolZone) {
+    currentSquare.schoolZone = false;
+  }
 
-        if (currentSquare.coffee) {
-          currentSquare.coffee = false;
-        }
+  if (currentSquare.coffee) {
+    currentSquare.coffee = false;
+  }
 
-        saveStates.isSaved = false;
+  saveStates.isSaved = false;
 };

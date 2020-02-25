@@ -134,9 +134,6 @@ class App extends React.Component {
   startBoss() {
     let pathStack = this.findBossPath();
     if (!pathStack) {
-      console.log(
-        "There is no possible path for the Boss to reach the goal. Make changes to your level and try again."
-      );
       this.setState({ bossError: true });
       return;
     }
@@ -183,44 +180,52 @@ class App extends React.Component {
   }
 
   movePlayerCar(direction) {
+    //First, we check to ensure that the player is currently movable and
+    //that a direction was properly passed in
     if (this.state.playerMovable && direction) {
       let { playerCar, bossCar, collision, layout, playerMovable } = this.state;
       let target = layout[playerCar - 1].borders[direction];
 
+      //Next, we ensure the square they're moving to exists, that it's a valid street square,
+      //and that it's not a red light
       if (target && target.type === "street" && target.stoplight !== "red") {
+        //We move the player's car to the target square
         layout[playerCar - 1].playerCar = false;
         playerCar = target.id;
         layout[playerCar - 1].playerCar = true;
-        if (layout[playerCar - 1].coffee) {
-          this.caffeinate();
-          layout[playerCar - 1].coffee = false;
-        }
-        if (this.state.schoolZoneState.playerInSchoolZone) {
-          if (!layout[playerCar - 1].schoolZone) {
-            this.exitSchoolZone("player");
-          } else {
-            playerMovable = false;
-          }
-        }
 
-        if (playerCar === bossCar) {
+        //Now, we check if the player has reached the goal and handle the end
+        //of the game accordingly
+        if (playerCar === this.state.office) this.fullReset();
+        //Next, we check if the player and the boss car are now in the same spot
+        //and handle a collision accordingly
+        else if (playerCar === bossCar) {
           collision = true;
-          clearInterval(this.bossInterval);
-          clearInterval(this.playerInterval);
-          for (let interval in this.stoplightIntervals) {
-            clearInterval(this.stoplightIntervals[interval]);
-          }
-        }
-        if (playerCar === this.state.office) {
-          clearInterval(this.bossInterval);
-          clearInterval(this.playerInterval);
-          for (let interval in this.stoplightIntervals) {
-            clearInterval(this.stoplightIntervals[interval]);
-          }
           this.fullReset();
+
+          //If the game is not over yet, we check for special squares
+        } else {
+          //If the player's new location contains a coffee bonus, we caffeinate the player
+          //and remove that coffee from the board
+          if (layout[playerCar - 1].coffee) {
+            this.caffeinate();
+            layout[playerCar - 1].coffee = false;
+          }
+          //Lastly we check if the player is currently in a school zone
+          if (this.state.schoolZoneState.playerInSchoolZone) {
+            //If the player was but is no longer in a school zone, we run the appropriate exit logic
+            if (!layout[playerCar - 1].schoolZone) {
+              this.exitSchoolZone("player");
+              //If the player is still in a school zone, we reset their movability to false for
+              //the remainder of the school zone interval
+            } else {
+              playerMovable = false;
+            }
+          }
         }
       }
       this.setState({ playerCar, layout, collision, playerMovable }, () => {
+        //Once the player's information is updated in state, we check to see if they have entered a school zone
         if (
           layout[playerCar - 1].schoolZone &&
           !this.state.schoolZoneState.playerInSchoolZone
@@ -243,10 +248,17 @@ class App extends React.Component {
   }
 
   moveBossCar(nextMove) {
-    let { bossCar, layout, bossMovable } = this.state;
+    let { bossCar, layout, bossMovable, collision } = this.state;
+
     layout[bossCar - 1].bossCar = false;
     bossCar = nextMove;
     layout[bossCar - 1].bossCar = true;
+
+    if (this.state.bossCar === this.state.office) this.fullReset();
+    else if (playerCar === bossCar) {
+      collision = true;
+      this.fullReset();
+    }
 
     if (this.state.schoolZoneState.bossInSchoolZone) {
       if (!layout[bossCar - 1].schoolZone) {
@@ -256,38 +268,35 @@ class App extends React.Component {
       }
     }
 
-    this.setState({ bossCar: nextMove, layout, bossMovable }, () => {
+    this.setState({ bossCar: nextMove, layout, bossMovable, collision }, () => {
       if (
         layout[bossCar - 1].schoolZone &&
         !this.state.schoolZoneState.bossInSchoolZone
       ) {
         this.enterSchoolZone("boss");
-      } else if (this.state.bossCar === this.state.office) {
-        clearInterval(this.bossInterval);
-        clearInterval(this.playerInterval);
-        for (let interval in this.stoplightIntervals) {
-          clearInterval(this.stoplightIntervals[interval]);
-        }
-        this.setState({ status: "idle" });
-      } else if (this.state.bossCar === this.state.playerCar) {
-        clearInterval(this.playerInterval);
-        for (let interval in this.stoplightIntervals) {
-          clearInterval(this.stoplightIntervals[interval]);
-        }
-        this.setState({ collision: true });
       }
     });
   }
 
   cycleStoplight(squareId) {
     let { layout } = this.state;
+
+    //Right away, set the square's stoplight to yellow
     layout[squareId - 1].stoplight = "yellow";
+
+    //Update state with the yellow light
     this.setState({ layout });
+
+    //While state is updating, set a timer for the light to turn red
+    //after 2 seconds
     setTimeout(() => {
       let { layout } = this.state;
       layout[squareId - 1].stoplight = "red";
       this.setState({ layout });
     }, 2000);
+
+    //Set a second timer to turn the light back to green after 7 seconds
+    //(2 seconds of yellow plus 5 seconds of red)
     setTimeout(() => {
       let { layout } = this.state;
       layout[squareId - 1].stoplight = "green";
@@ -298,7 +307,6 @@ class App extends React.Component {
   enterSchoolZone(who) {
     let { schoolZoneState } = this.state;
     if (who === "player") {
-      console.log("Player entering school zone");
       let { playerMovable } = this.state;
       playerMovable = false;
       schoolZoneState.playerInSchoolZone = true;
@@ -308,7 +316,6 @@ class App extends React.Component {
         }, this.state.schoolZoneState.schoolZoneInterval);
       });
     } else if (who === "boss") {
-      console.log("Boss entering school zone");
       let { bossMovable } = this.state;
       bossMovable = false;
       schoolZoneState.bossInSchoolZone = true;
@@ -323,14 +330,12 @@ class App extends React.Component {
   exitSchoolZone(who) {
     let { schoolZoneState } = this.state;
     if (who === "player") {
-      console.log("Player exiting school zone");
       let { playerMovable } = this.state;
       playerMovable = true;
       schoolZoneState.playerInSchoolZone = false;
       clearInterval(this.playerSchoolZoneInterval);
       this.setState({ playerMovable, schoolZoneState });
     } else if (who === "boss") {
-      console.log("Boss exiting school zone");
       let { bossMovable } = this.state;
       bossMovable = true;
       schoolZoneState.bossInSchoolZone = false;

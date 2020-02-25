@@ -87,7 +87,6 @@ export default class DesignModule extends React.Component {
         !this.props.designLayout[0].borders.hasOwnProperty("right") ||
         !this.props.designLayout[0].borders.hasOwnProperty("left")
       ) {
-        console.log("BORDER ERROR ALERT IN DESIGN MODULE COMPONENTDIDUPDATE");
       }
       this.setState({ designLayout: this.props.designLayout });
     }
@@ -289,6 +288,7 @@ export default class DesignModule extends React.Component {
       stoplights,
       coffees
     } = this.state;
+
     designLayout = designLayout.map(square => {
       square.type = "block";
       square.stoplight = null;
