@@ -248,7 +248,7 @@ class App extends React.Component {
   }
 
   moveBossCar(nextMove) {
-    let { bossCar, layout, bossMovable, collision } = this.state;
+    let { bossCar, playerCar, layout, bossMovable, collision } = this.state;
 
     layout[bossCar - 1].bossCar = false;
     bossCar = nextMove;
@@ -306,25 +306,16 @@ class App extends React.Component {
 
   enterSchoolZone(who) {
     let { schoolZoneState } = this.state;
-    if (who === "player") {
-      let { playerMovable } = this.state;
-      playerMovable = false;
-      schoolZoneState.playerInSchoolZone = true;
-      this.setState({ playerMovable, schoolZoneState }, () => {
-        this.playerSchoolZoneInterval = setInterval(() => {
-          this.setState({ playerMovable: true });
-        }, this.state.schoolZoneState.schoolZoneInterval);
-      });
-    } else if (who === "boss") {
-      let { bossMovable } = this.state;
-      bossMovable = false;
-      schoolZoneState.bossInSchoolZone = true;
-      this.setState({ bossMovable, schoolZoneState }, () => {
-        this.bossSchoolZoneInterval = setInterval(() => {
-          this.setState({ bossMovable: true });
-        }, this.state.schoolZoneState.schoolZoneInterval);
-      });
-    }
+    let movable = this.state[`${who}Movable`];
+    
+    movable = false;
+    schoolZoneState[`${who}InSchoolZone`] = true;
+
+    this.setState({ [`${who}Movable`]: movable, schoolZoneState }, () => {
+      this[`${who}SchoolZoneInterval`] = setInterval(() => {
+        this.setState({ [`${who}Movable`]: true });
+      }, this.state.schoolZoneState.schoolZoneInterval);
+    });
   }
 
   exitSchoolZone(who) {
