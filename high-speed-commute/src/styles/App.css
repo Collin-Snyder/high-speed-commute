@@ -269,7 +269,7 @@ h4.designToolboxTitle {
 }
 
 .playerCar {
-  background-image: url("../assets/player-car-pink.png");
+  background-image: url("../assets/player-car-white.png");
   background-repeat: no-repeat;
   background-size: contain;
   z-index: 100;
@@ -764,13 +764,18 @@ input:focus {
 
 .userLevelSelector,
 .saveWarningButtons {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
   margin-top: 20px;
   padding: 10px;
   border: 5px double lightgray;
   border-radius: 15px;
   background-color: #fff;
+}
+
+.userLevelSelector {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  max-height: 75vh;
+  overflow: scroll;
 }
 
 .saveWarningButtons {

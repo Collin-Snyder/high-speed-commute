@@ -11,6 +11,13 @@ import { findPath } from "../logic/moveBoss";
 import { findPlayerPath } from "../logic/movePlayer";
 import { randomNumBtwn } from "../logic/randomNumber";
 import {
+  handleKeySquare,
+  handleStreet,
+  handleStoplight,
+  handleSchoolZone,
+  handleEraser
+} from "../logic/design";
+import {
   convertLayoutToJSONString,
   formatLayout
 } from "../levelHandling/JSONconverters";
@@ -136,7 +143,7 @@ export default class DesignModule extends React.Component {
     this.setState({
       designLayout: pathInfo.layout,
       playerPath: pathInfo.pathStack
-    })
+    });
     // console.log(
     //   playerPathSearch(
     //     designLayout[playerHome - 1],
@@ -160,90 +167,93 @@ export default class DesignModule extends React.Component {
       coffees
     } = this.state;
 
+    let keySquares = { playerHome, bossHome, office };
     let squareId = Number(e.currentTarget.id);
     let currentSquare = designLayout[squareId - 1];
+    let newKeySquares;
 
     switch (selectedDesignTool) {
       case "playerHome":
-        // let { playerHome } = this.state;
+        newKeySquares = handleKeySquare(
+          "playerHome",
+          keySquares,
+          currentSquare,
+          designLayout,
+          saveStates
+        );
 
-        if (playerHome === squareId) {
-          playerHome = 0;
-          currentSquare.type = "block";
-        } else {
-          if (playerHome > 0) {
-            designLayout[playerHome - 1].type = "block";
-          }
-          playerHome = squareId;
-          currentSquare.type = "street";
-          currentSquare.type = "street";
-        }
+        this.setState({
+          playerHome: newKeySquares.playerHome,
+          designLayout,
+          saveStates
+        });
 
-        saveStates.isSaved = false;
-
-        this.setState({ playerHome, designLayout, saveStates });
         break;
       case "bossHome":
-        // let { bossHome } = this.state;
+        newKeySquares = handleKeySquare(
+          "bossHome",
+          keySquares,
+          currentSquare,
+          designLayout,
+          saveStates
+        );
 
-        if (bossHome === squareId) {
-          bossHome = 0;
-          currentSquare.type = "block";
-        } else {
-          if (bossHome > 0) {
-            designLayout[bossHome - 1].type = "block";
+        this.setState(
+          {
+            bossHome: newKeySquares.bossHome,
+            designLayout,
+            saveStates
+          },
+          () => {
+            if (this.state.overlayVisibility.bossOverlay) this.findBossPath();
+            if (this.state.overlayVisibility.playerOverlay)
+              this.findPlayerPath();
           }
-          bossHome = squareId;
-          currentSquare.type = "street";
-        }
-
-        saveStates.isSaved = false;
-
-        this.setState({ bossHome, designLayout, saveStates }, () => {
-          if (this.state.overlayVisibility.bossOverlay) this.findBossPath();
-          if (this.state.overlayVisibility.playerOverlay) this.findPlayerPath();
-        });
+        );
         break;
       case "office":
-        // let { office } = this.state;
+        newKeySquares = handleKeySquare(
+          "office",
+          keySquares,
+          currentSquare,
+          designLayout,
+          saveStates
+        );
 
-        if (office === squareId) {
-          office = 0;
-          currentSquare.type = "block";
-        } else {
-          if (office > 0) {
-            designLayout[office - 1].type = "block";
+        this.setState(
+          {
+            office: newKeySquares.office,
+            designLayout,
+            saveStates
+          },
+          () => {
+            if (this.state.overlayVisibility.bossOverlay) this.findBossPath();
+            if (this.state.overlayVisibility.playerOverlay)
+              this.findPlayerPath();
           }
-          office = squareId;
-          currentSquare.type = "street";
-        }
-
-        saveStates.isSaved = false;
-
-        this.setState({ office, designLayout, saveStates }, () => {
-          if (this.state.overlayVisibility.bossOverlay) this.findBossPath();
-          if (this.state.overlayVisibility.playerOverlay) this.findPlayerPath();
-        });
+        );
         break;
       case "street":
-        if (
-          currentSquare.stoplight ||
-          currentSquare.schoolZone ||
-          currentSquare.coffee
-        ) {
-          currentSquare.schoolZone = false;
-          currentSquare.stoplight = null;
-          currentSquare.coffee = false;
-          delete stoplights[squareId];
-        } else if (!drag && currentSquare.type === "street") {
-          currentSquare.type = "block";
-        } else {
-          currentSquare.type = "street";
-        }
+        // if (
+        //   currentSquare.stoplight ||
+        //   currentSquare.schoolZone ||
+        //   currentSquare.coffee
+        // ) {
+        //   currentSquare.schoolZone = false;
+        //   currentSquare.stoplight = null;
+        //   currentSquare.coffee = false;
+        //   delete stoplights[squareId];
+        // } else if (!drag && currentSquare.type === "street") {
+        //   currentSquare.type = "block";
+        // } else {
+        //   currentSquare.type = "street";
+        // }
 
-        saveStates.isSaved = false;
+        // saveStates.isSaved = false;
 
-        this.setState({ designLayout, saveStates }, () => {
+        handleStreet(currentSquare, saveStates, stoplights, drag);
+
+        this.setState({ designLayout, saveStates, stoplights }, () => {
           if (this.state.overlayVisibility.bossOverlay) this.findBossPath();
           if (this.state.overlayVisibility.playerOverlay) this.findPlayerPath();
         });
@@ -276,10 +286,10 @@ export default class DesignModule extends React.Component {
         this.setState({ designLayout, saveStates });
         break;
       case "coffee":
-        console.log("Acknowledging click")
-        console.log("Drag: ", drag)
+        console.log("Acknowledging click");
+        console.log("Drag: ", drag);
         if (!drag && currentSquare.coffee === true) {
-          console.log("Removing coffee")
+          console.log("Removing coffee");
           currentSquare.coffee = false;
           delete coffees[currentSquare.id];
           saveStates.isSaved = false;
@@ -330,7 +340,8 @@ export default class DesignModule extends React.Component {
           },
           () => {
             if (this.state.overlayVisibility.bossOverlay) this.findBossPath();
-            if (this.state.overlayVisibility.playerOverlay) this.findPlayerPath();
+            if (this.state.overlayVisibility.playerOverlay)
+              this.findPlayerPath();
           }
         );
         break;
@@ -340,7 +351,14 @@ export default class DesignModule extends React.Component {
   }
 
   clearBoard() {
-    let { designLayout, playerHome, bossHome, office, stoplights, coffees } = this.state;
+    let {
+      designLayout,
+      playerHome,
+      bossHome,
+      office,
+      stoplights,
+      coffees
+    } = this.state;
     designLayout = designLayout.map(square => {
       square.type = "block";
       square.stoplight = null;
@@ -351,7 +369,14 @@ export default class DesignModule extends React.Component {
     playerHome = bossHome = office = 0;
     stoplights = {};
     coffees = {};
-    this.setState({ designLayout, playerHome, bossHome, office, stoplights, coffees });
+    this.setState({
+      designLayout,
+      playerHome,
+      bossHome,
+      office,
+      stoplights,
+      coffees
+    });
   }
 
   sendDesignToGame() {
@@ -387,7 +412,6 @@ export default class DesignModule extends React.Component {
       saveStates.exiting = false;
       overlayVisibility.playerOverlay = false;
       overlayVisibility.bossOverlay = false;
-
 
       for (let modal in modalVisibility) {
         modalVisibility[modal] = false;

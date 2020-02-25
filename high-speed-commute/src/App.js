@@ -23,7 +23,7 @@ class App extends React.Component {
       stoplights: {},
       coffees: {},
       playerCar: 281,
-      playerColor: "pink",
+      playerColor: "white",
       bossCar: 681,
       layout: [],
       designLayout: [],
@@ -99,7 +99,7 @@ class App extends React.Component {
         if (
           this.state.layout[this.state.playerCar - 1].borders.left &&
           this.state.layout[this.state.playerCar - 1].borders.left.type ===
-          "street"
+            "street"
         ) {
           this.setState({ playerDirection: "left" });
         }
@@ -107,7 +107,7 @@ class App extends React.Component {
         if (
           this.state.layout[this.state.playerCar - 1].borders.up &&
           this.state.layout[this.state.playerCar - 1].borders.up.type ===
-          "street"
+            "street"
         ) {
           this.setState({ playerDirection: "up" });
         }
@@ -115,7 +115,7 @@ class App extends React.Component {
         if (
           this.state.layout[this.state.playerCar - 1].borders.right &&
           this.state.layout[this.state.playerCar - 1].borders.right.type ===
-          "street"
+            "street"
         ) {
           this.setState({ playerDirection: "right" });
         }
@@ -123,7 +123,7 @@ class App extends React.Component {
         if (
           this.state.layout[this.state.playerCar - 1].borders.down &&
           this.state.layout[this.state.playerCar - 1].borders.down.type ===
-          "street"
+            "street"
         ) {
           this.setState({ playerDirection: "down" });
         }
@@ -351,7 +351,7 @@ class App extends React.Component {
       }, this.state.playerInterval / (this.state.caffeineCount + 1));
       setTimeout(() => {
         this.decaffeinate();
-      }, 4000);
+      }, 5000);
     });
   }
 
@@ -369,7 +369,7 @@ class App extends React.Component {
   }
 
   changeDifficulty(e) {
-    this.setState({difficulty: e.target.value})
+    this.setState({ difficulty: e.target.value });
   }
 
   closeBossModal() {
@@ -472,7 +472,14 @@ class App extends React.Component {
     axios
       .get(`/api/userlevels/${username}`)
       .then(data => {
-        this.setState({ userLevels: data.data.rows });
+        let userLevels = data.data.rows.sort((a, b) => {
+          if (a.level_name.toLowerCase() > b.level_name.toLowerCase()) {
+            return 1;
+          } else if (a.level_name.toLowerCase() < b.level_name.toLowerCase()) {
+            return -1;
+          }
+        });
+        this.setState({ userLevels });
       })
       .catch(err => console.error(err));
   }
@@ -512,7 +519,16 @@ class App extends React.Component {
       layout[coffeeSquare - 1].coffee = true;
     }
 
-    this.setState({ mode, status, playerCar, bossCar, collision, layout, playerDirection, caffeineCount });
+    this.setState({
+      mode,
+      status,
+      playerCar,
+      bossCar,
+      collision,
+      layout,
+      playerDirection,
+      caffeineCount
+    });
   }
 
   render() {
