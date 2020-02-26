@@ -16,7 +16,6 @@ const GameModule = ({
   collision,
   designLayout,
   startRace,
-  resetPlayers,
   fullReset,
   enterDesignMode,
   enterPlayMode,
@@ -50,7 +49,6 @@ const GameModule = ({
         layout={layout}
         designLayout={designLayout}
         collision={collision}
-        resetPlayers={resetPlayers}
         fullReset={fullReset}
         playerColor={playerColor}
       />

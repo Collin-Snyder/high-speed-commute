@@ -10,7 +10,6 @@ const PlayingField = ({
   office,
   layout,
   collision,
-  resetPlayers,
   fullReset,
   playerColor
 }) => {
