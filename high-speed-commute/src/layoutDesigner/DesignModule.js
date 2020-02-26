@@ -395,6 +395,8 @@ export default class DesignModule extends React.Component {
           stoplights,
           coffees,
           saveStates
+        }, () => {
+          this.clearOverlays();
         });
       })
       .catch(err => console.error(err));
