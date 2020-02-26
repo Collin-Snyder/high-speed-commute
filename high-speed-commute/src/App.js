@@ -337,7 +337,7 @@ class App extends React.Component {
   exitSchoolZone(who) {
     let { schoolZoneState } = this.state;
 
-    schoolZoneState[`${who}InSchoolZone`] = true;
+    schoolZoneState[`${who}InSchoolZone`] = false;
 
     clearInterval(this[`${who}SchoolZoneInterval`]);
 
