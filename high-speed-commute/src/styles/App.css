@@ -34,8 +34,18 @@ ul {
 }
 
 h3.designModuleTitle,
-h4.designToolboxTitle {
+h4.designDrawerTitle {
   font-family: "Press Start 2P", cursive;
+}
+
+.designDrawerTitle {
+  max-width: 75%;
+  min-height: 50px;
+  background-color: rgb(255, 217, 0);
+  border-radius: 10px;
+  text-align: center;
+  border: 3px solid #666666;
+  padding: 15px;
 }
 
 .App {
@@ -92,12 +102,11 @@ h4.designToolboxTitle {
   display: flex;
   align-items: center;
   justify-content: space-evenly;
-  width: 1016px;
+  max-width: 220px;
   height: 100px;
   border: 5px groove darkgray;
   background-color: #fff;
   margin: 20px auto;
-
 }
 
 .levelsListContainer {
@@ -223,7 +232,8 @@ h4.designToolboxTitle {
   background-image: none;
 }
 
-.playerHomeTile.blue, .dplayerHome {
+.playerHomeTile.blue,
+.dplayerHome {
   background-color: rgba(0, 0, 255, 0.4);
 }
 .playerHomeTile.green {
@@ -242,11 +252,13 @@ h4.designToolboxTitle {
   background-color: rgba(43, 43, 43, 0.4);
 }
 
-.bossHomeTile, .dbossHome {
+.bossHomeTile,
+.dbossHome {
   background-color: rgba(255, 0, 0, 0.4);
 }
 
-.officeTile, .doffice {
+.officeTile,
+.doffice {
   background-color: rgba(255, 211, 0, 1);
 }
 
@@ -270,7 +282,7 @@ h4.designToolboxTitle {
 }
 
 .playerCar {
-  background-image: url("../assets/player-car-white.png");
+  background-image: url("../assets/player-car-blue.png");
   background-repeat: no-repeat;
   background-size: contain;
   z-index: 100;
@@ -343,6 +355,7 @@ h4.designToolboxTitle {
 .collision {
   color: white;
   background-color: black;
+  line-height: 3em;
 }
 
 .designModuleLevelName {
@@ -352,8 +365,32 @@ h4.designToolboxTitle {
 .designTools {
   display: flex;
   flex-direction: column;
-  width: 400px;
+  max-width: 350px;
   align-items: center;
+  justify-content: flex-start;
+  align-self: flex-start;
+  margin-top: -100px;
+}
+
+.drawerTopper {
+  width: 330px;
+  height: 100px;
+  background-image: url(../assets/drawer-lights.png);
+  background-repeat: no-repeat;
+}
+
+.drawerHeader {
+  width: 330px;
+  height: 100px;
+  background-image: url(../assets/drawer-header.png);
+  background-repeat: no-repeat;
+  /* border: 5px groove darkgray; */
+  box-shadow: -4px -4px rgba(128, 128, 128, 0.5) inset, 0 -4px #666666,
+    4px 0 #666666, 0 4px #666666, -4px 0 #666666;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
 }
 
 .designToolbox,
@@ -361,12 +398,17 @@ h4.designToolboxTitle {
   display: flex;
   flex-direction: column;
   border: 5px groove darkgray;
-  margin: 20px 0;
+  /* margin: 20px auto; */
   padding: 0px 15px;
   background-color: #fff;
   align-items: center;
   justify-content: center;
   width: 330px;
+}
+
+.overlaySelector {
+  max-width: 350px;
+  /* margin: 0; */
 }
 
 .difficultySelector {
@@ -391,14 +433,21 @@ h4.designToolboxTitle {
 
 .designToolSelector,
 .overlayOptions {
-  /* display: flex;
-  flex-direction: column; */
+  border: 3px dashed darkgray;
+  margin: 20px auto;
+  align-items: center;
+}
+
+.designToolSelector {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  border: 3px dashed darkgray;
-  margin-top: 20px;
-  align-items: center;
   width: 280px;
+}
+
+.overlayOptions {
+  display: flex;
+  flex-direction: column;
+  width: 190px;
 }
 
 .designToolSelector label {
@@ -459,6 +508,7 @@ h4.designToolboxTitle {
   font-family: "Press Start 2P", cursive;
   border: 0;
   cursor: pointer;
+  line-height: 1em;
 }
 
 .btn:focus,
@@ -569,9 +619,16 @@ input:focus {
 
 .btn.tool,
 .btn.overlay {
-  width: 100px;
   margin: 15px 15px;
   font-size: 0.8em;
+}
+
+.btn.tool {
+  width: 100px;
+}
+
+.btn.overlay {
+  width: 150px;
 }
 
 .btn.tool.ph,
@@ -716,6 +773,11 @@ input:focus {
 
 .buttons {
   width: 250px;
+}
+
+.buttons.design {
+  align-self: flex-start;
+  max-width: 300px;
 }
 
 .toolLabel {

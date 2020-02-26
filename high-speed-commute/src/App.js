@@ -23,7 +23,7 @@ class App extends React.Component {
       stoplights: {},
       coffees: {},
       playerCar: 281,
-      playerColor: "white",
+      playerColor: "blue",
       bossCar: 681,
       layout: [],
       designLayout: [],

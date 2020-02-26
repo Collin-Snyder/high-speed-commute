@@ -38,6 +38,10 @@ export default class DesignModule extends React.Component {
       stoplights: {},
       coffees: {},
       levelName: "",
+      drawers: {
+        toolbox: false,
+        overlays: false
+      },
       inputVisible: false,
       playButtonVisible: false,
       overlayVisibility: {
@@ -61,6 +65,7 @@ export default class DesignModule extends React.Component {
       }
     };
 
+    this.toggleDrawer = this.toggleDrawer.bind(this);
     this.handleToolSelection = this.handleToolSelection.bind(this);
     this.handleBrushSelection = this.handleBrushSelection.bind(this);
     this.addSquareToDesign = this.addSquareToDesign.bind(this);
@@ -94,6 +99,24 @@ export default class DesignModule extends React.Component {
     if (this.props.stoplights !== prevProps.stoplights) {
       this.setState({ stoplights: this.props.stoplights });
     }
+  }
+
+  toggleDrawer(drawer) {
+    // console.log(e.target.value);
+    let drawers = { ...this.state.drawers };
+    switch (drawer) {
+      case "toolbox":
+        drawers.toolbox = !drawers.toolbox;
+        drawers.overlays = false;
+        break;
+      case "overlays":
+        drawers.overlays = !drawers.overlays;
+        drawers.toolbox = false;
+        break;
+      default:
+        return;
+    }
+    this.setState({ drawers });
   }
 
   handleToolSelection(e) {
@@ -382,22 +405,25 @@ export default class DesignModule extends React.Component {
         saveStates.currentLevel = levelId;
         saveStates.isSaved = true;
 
-        this.setState({
-          levelName,
-          boardHeight,
-          boardWidth,
-          playerHome,
-          playerCar,
-          bossHome,
-          bossCar,
-          office,
-          designLayout,
-          stoplights,
-          coffees,
-          saveStates
-        }, () => {
-          this.clearOverlays();
-        });
+        this.setState(
+          {
+            levelName,
+            boardHeight,
+            boardWidth,
+            playerHome,
+            playerCar,
+            bossHome,
+            bossCar,
+            office,
+            designLayout,
+            stoplights,
+            coffees,
+            saveStates
+          },
+          () => {
+            this.clearOverlays();
+          }
+        );
       })
       .catch(err => console.error(err));
   }
@@ -567,21 +593,54 @@ export default class DesignModule extends React.Component {
         <div className="designModule" style={{ display: this.props.display }}>
           {/* <h3 className="designModuleTitle">Design Mode</h3> */}
           <div className="designTools">
-            <h4 className="designToolboxTitle">Design Tools</h4>
-            <DesignToolbox
-              handleToolSelection={this.handleToolSelection}
-              handleBrushSelection={this.handleBrushSelection}
-              selectedDesignTool={this.state.selectedDesignTool}
-              brushSize={this.state.brushSize}
-              clearBoard={this.clearBoard}
-            />
-            <h4 className="designToolboxTitle">Overlays</h4>
-            <OverlaySelector
-              bossOverlay={this.state.overlayVisibility.bossOverlay}
-              playerOverlay={this.state.overlayVisibility.playerOverlay}
-              toggleOverlay={this.toggleOverlay}
-              clearOverlays={this.clearOverlays}
-            />
+            <div className="drawerTopper"></div>
+            <div className="drawer toolboxDrawer">
+              <header
+                className="drawerHeader"
+                onClick={e => {
+                  this.toggleDrawer("toolbox");
+                }}
+              >
+                <h4 className="designDrawerTitle">Toolbox</h4>
+              </header>
+              <section
+                className="drawerContent"
+                style={{
+                  display: this.state.drawers.toolbox ? "flex" : "none"
+                }}
+              >
+                <DesignToolbox
+                  handleToolSelection={this.handleToolSelection}
+                  handleBrushSelection={this.handleBrushSelection}
+                  selectedDesignTool={this.state.selectedDesignTool}
+                  brushSize={this.state.brushSize}
+                  clearBoard={this.clearBoard}
+                />
+              </section>
+            </div>
+            <div className="drawer overlayDrawer">
+              <header
+                className="drawerHeader"
+                onClick={e => {
+                  this.toggleDrawer("overlays");
+                }}
+              >
+                <h4 className="designDrawerTitle">Overlays</h4>
+              </header>
+              <section
+                className="drawerContent"
+                style={{
+                  display: this.state.drawers.overlays ? "flex" : "none"
+                }}
+              >
+                <OverlaySelector
+                  bossOverlay={this.state.overlayVisibility.bossOverlay}
+                  playerOverlay={this.state.overlayVisibility.playerOverlay}
+                  toggleOverlay={this.toggleOverlay}
+                  clearOverlays={this.clearOverlays}
+                />
+              </section>
+            </div>
           </div>
           <div className="designer">
             <DesignField
@@ -600,6 +659,8 @@ export default class DesignModule extends React.Component {
               exiting={this.state.saveStates.exiting}
               overlays={this.state.overlayVisibility}
             />
+          </div>
+          <div className="buttons design">
             <div className="overlayInfo">
               <OverlayInfo
                 bossOverlay={this.state.overlayVisibility.bossOverlay}
@@ -611,8 +672,6 @@ export default class DesignModule extends React.Component {
                 hardInterval={this.props.difficultyIntervals.hard}
               />
             </div>
-          </div>
-          <div className="buttons design">
             <div
               className="btn save"
               onClick={() => {
@@ -666,69 +725,70 @@ export default class DesignModule extends React.Component {
             <div className="btn mode" onClick={this.enterPlayMode}>
               Test
             </div>
-            <div
-              style={{
-                display: this.state.playButtonVisible ? "inline-flex" : "none"
-              }}
-              className="btn play design"
-              onClick={this.sendDesignToGame}
-            >
-              Play Now!
+            <div className="btn clear" onClick={this.clearBoard}>
+              Clear Design
             </div>
-            {/* <div
-            className="btn mode design"
-            onClick={this.props.enterPlayMode}
-          >
-            Switch to Play Mode
-          </div> */}
+            <div
+              className="btn clear"
+              style={{
+                display:
+                  this.state.overlayVisibility.playerOverlay ||
+                  this.state.overlayVisibility.bossOverlay
+                    ? "inline-block"
+                    : "none"
+              }}
+              onClick={this.clearOverlays}
+            >
+              Clear Overlays
+            </div>
           </div>
-          <div
-            className="modal"
-            style={{
-              display: this.state.modalVisibility.loadDesign ? "block" : "none"
-            }}
-          >
-            <LoadSavedDesignModal
-              toggleModal={this.toggleModal}
-              userLevels={this.props.userLevels}
-              loadSavedDesign={this.loadSavedDesign}
-            />
-          </div>
-          <div
-            className="modal"
-            style={{
-              display:
-                this.state.modalVisibility.saveChangesNew ||
-                this.state.modalVisibility.saveChanges
-                  ? "block"
-                  : "none"
-            }}
-          >
-            <SaveWarningModal
-              toggleModal={this.toggleModal}
-              enterPlayMode={this.enterPlayMode}
-              updateExistingLevel={this.updateExistingLevel}
-              currentLevel={this.state.saveStates.currentLevel}
-              levelName={this.state.levelName}
-            />
-          </div>
-          <div
-            className="modal"
-            style={{
-              display: this.state.modalVisibility.inputLevelName
+        </div>
+        <div
+          className="modal"
+          style={{
+            display: this.state.modalVisibility.loadDesign ? "block" : "none"
+          }}
+        >
+          <LoadSavedDesignModal
+            toggleModal={this.toggleModal}
+            userLevels={this.props.userLevels}
+            loadSavedDesign={this.loadSavedDesign}
+          />
+        </div>
+        <div
+          className="modal"
+          style={{
+            display:
+              this.state.modalVisibility.saveChangesNew ||
+              this.state.modalVisibility.saveChanges
                 ? "block"
                 : "none"
-            }}
-          >
-            <InputLevelNameModal
-              inputValue={this.state.levelName}
-              handleInputChange={this.handleInputChange}
-              saveLevel={this.saveLevelToDatabase}
-              toggleModal={this.toggleModal}
-              enterPlayMode={this.enterPlayMode}
-              exiting={this.state.saveStates.exiting}
-            />
-          </div>
+          }}
+        >
+          <SaveWarningModal
+            toggleModal={this.toggleModal}
+            enterPlayMode={this.enterPlayMode}
+            updateExistingLevel={this.updateExistingLevel}
+            currentLevel={this.state.saveStates.currentLevel}
+            levelName={this.state.levelName}
+          />
+        </div>
+        <div
+          className="modal"
+          style={{
+            display: this.state.modalVisibility.inputLevelName
+              ? "block"
+              : "none"
+          }}
+        >
+          <InputLevelNameModal
+            inputValue={this.state.levelName}
+            handleInputChange={this.handleInputChange}
+            saveLevel={this.saveLevelToDatabase}
+            toggleModal={this.toggleModal}
+            enterPlayMode={this.enterPlayMode}
+            exiting={this.state.saveStates.exiting}
+          />
         </div>
       </>
     );
