@@ -52,6 +52,7 @@ class App extends React.Component {
 
     this.handleKeyDown = this.handleKeyDown.bind(this);
     this.movePlayerCar = this.movePlayerCar.bind(this);
+    this.startRace = this.startRace.bind(this);
     this.startBoss = this.startBoss.bind(this);
     this.startPlayer = this.startPlayer.bind(this);
     this.findBossPath = this.findBossPath.bind(this);
@@ -131,12 +132,7 @@ class App extends React.Component {
     }
   }
 
-  startBoss() {
-    let pathStack = this.findBossPath();
-    if (!pathStack) {
-      this.setState({ bossError: true });
-      return;
-    }
+  startRace() {
     this.setState({ status: "active" }, () => {
       for (let stoplight in this.state.stoplights) {
         setTimeout(() => {
@@ -147,19 +143,39 @@ class App extends React.Component {
         }, this.state.stoplights[stoplight]);
       }
 
-      this.bossInterval = setInterval(() => {
-        if (this.state.bossMovable) {
-          let nextMove = pathStack.pop();
-          if (nextMove) {
-            if (this.state.layout[nextMove - 1].stoplight === "red") {
-              pathStack.push(nextMove);
-            } else {
-              this.moveBossCar(nextMove);
-            }
+      this.startBoss();
+      this.startPlayer();
+    });
+  }
+
+  startBoss() {
+    let pathStack = this.findBossPath();
+    if (!pathStack) {
+      this.setState({ bossError: true });
+      return;
+    }
+    // this.setState({ status: "active" }, () => {
+    //   for (let stoplight in this.state.stoplights) {
+    //     setTimeout(() => {
+    //       this.cycleStoplight(stoplight);
+    //       this.stoplightIntervals[stoplight] = setInterval(() => {
+    //         this.cycleStoplight(stoplight);
+    //       }, this.state.stoplights[stoplight] + 7000);
+    //     }, this.state.stoplights[stoplight]);
+    //   }
+
+    this.bossInterval = setInterval(() => {
+      if (this.state.bossMovable) {
+        let nextMove = pathStack.pop();
+        if (nextMove) {
+          if (this.state.layout[nextMove - 1].stoplight === "red") {
+            pathStack.push(nextMove);
+          } else {
+            this.moveBossCar(nextMove);
           }
         }
-      }, this.state.difficultyIntervals[this.state.difficulty]);
-    });
+      }
+    }, this.state.difficultyIntervals[this.state.difficulty]);
   }
 
   startPlayer() {
@@ -248,6 +264,8 @@ class App extends React.Component {
   }
 
   moveBossCar(nextMove) {
+    //We follow the same logic as moving the playerCar, but the stoplight and movability checks
+    // are handled in the bossInterval due to the interaction with the boss's pathStack
     let { bossCar, playerCar, layout, bossMovable, collision } = this.state;
 
     layout[bossCar - 1].bossCar = false;
@@ -288,7 +306,7 @@ class App extends React.Component {
     this.setState({ layout });
 
     //While state is updating, set a timer for the light to turn red
-    //after 2 seconds
+    //after 2 seconds of yellow
     setTimeout(() => {
       let { layout } = this.state;
       layout[squareId - 1].stoplight = "red";
@@ -328,14 +346,19 @@ class App extends React.Component {
 
   caffeinate() {
     let { caffeineCount } = this.state;
+    //Increment player's caffeineCount in state
     caffeineCount++;
     this.setState({ caffeineCount }, () => {
+      //After updating state, clear player's current interval and
+      //reset to a faster one based on new caffeineCount
       clearInterval(this.playerInterval);
       this.playerInterval = setInterval(() => {
         if (this.state.playerMovable) {
           this.movePlayerCar(this.state.playerDirection);
         }
       }, this.state.playerInterval / (this.state.caffeineCount + 1));
+
+      //Then set a timer to slow player's interval back down after 5 seconds
       setTimeout(() => {
         this.decaffeinate();
       }, 5000);
@@ -344,8 +367,12 @@ class App extends React.Component {
 
   decaffeinate() {
     let { caffeineCount } = this.state;
+
+    //Decrease player's caffeineCount by 1 and update in state
     if (caffeineCount > 0) caffeineCount--;
+
     this.setState({ caffeineCount }, () => {
+      //After updating state, clear player's interval and reset to slower interval
       clearInterval(this.playerInterval);
       this.playerInterval = setInterval(() => {
         if (this.state.playerMovable) {
@@ -364,20 +391,17 @@ class App extends React.Component {
   }
 
   enterDesignMode() {
+    //First, clear all existing intervals
     clearInterval(this.bossInterval);
     clearInterval(this.playerInterval);
     for (let interval in this.stoplightIntervals) {
       clearInterval(this.stoplightIntervals[interval]);
     }
+
+    //Then, create a blank design board
     let designLayout = createDesignBoard(40, 25);
-    if (
-      !designLayout[0].borders.hasOwnProperty("up") ||
-      !designLayout[0].borders.hasOwnProperty("down") ||
-      !designLayout[0].borders.hasOwnProperty("right") ||
-      !designLayout[0].borders.hasOwnProperty("left")
-    ) {
-      console.log("BORDER ERROR ALERT IN APP - enterDesignMode");
-    }
+
+    //Change state to design mode and apply new blank design layout
     this.setState(
       { mode: "design", designLayout, status: "idle", stoplights: {} },
       () => {
@@ -389,15 +413,19 @@ class App extends React.Component {
   enterPlayMode(levelId) {
     this.loadLevel(levelId);
     this.setState({ mode: "play", status: "idle" }, () => {
+      //Hard-coded to my levels for now
       this.getUserLevels("collin");
     });
   }
 
+  //Used specifically when transferring from Design Mode to Test/Play mode
   loadDesign(levelId) {
     this.loadLevel(levelId);
+    //Hard-coded to my levels or now
     this.getUserLevels("collin");
   }
 
+  //Used anytime a level is loaded from the database into Game state for Testing/Playing
   loadLevel(levelId) {
     axios
       .get(`/api/levels/${levelId}`)
@@ -415,9 +443,13 @@ class App extends React.Component {
         let coffees = levelInfo.coffees;
         let unformattedLayout = levelInfo.layout;
 
+        //Add circular object references back into layout
         let uglyLayout = formatLayout(unformattedLayout);
+
+        //Add tree and house properties to squares for pretty rendering
         let layout = prettify(uglyLayout);
 
+        //Set position of cars for rendering
         layout[playerHome - 1].playerCar = true;
         layout[bossHome - 1].bossCar = true;
 
@@ -536,9 +568,7 @@ class App extends React.Component {
           designLayout={this.state.designLayout}
           userLevels={this.state.userLevels}
           collision={this.state.collision}
-          startBoss={this.startBoss}
-          startPlayer={this.startPlayer}
-          resetPlayers={this.resetPlayers}
+          startRace={this.startRace}
           fullReset={this.fullReset}
           enterDesignMode={this.enterDesignMode}
           loadLevel={this.loadLevel}

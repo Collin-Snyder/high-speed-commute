@@ -15,8 +15,7 @@ const GameModule = ({
   userLevels,
   collision,
   designLayout,
-  startBoss,
-  startPlayer,
+  startRace,
   resetPlayers,
   fullReset,
   enterDesignMode,
@@ -66,10 +65,7 @@ const GameModule = ({
         </div>
         <div
           className="btn play"
-          onClick={() => {
-            startBoss();
-            startPlayer();
-          }}
+          onClick={startRace}
           style={{ display: startDisplay }}
         >
           Race
