@@ -88,6 +88,8 @@ Grab a coffee if you have time - caffeination increases your speed for a short t
 ### Front-End
 High Speed Commute was built with Javascript and vanilla React (create-react-app) on the front end. For this application I wanted to keep the technology simple to focus on the logic and data structure of the game.
 
+Custom retro button styling and behavior was created using CSS while icons and pixel artwork was created in Adobe Illustrator.
+
 ### Back-End 
 High Speed Commute uses Node.js and Express to create a server that interacts with a PostgreSQL database and provides all user, game, and level information to the React app.
 
