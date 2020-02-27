@@ -48,19 +48,39 @@ The office:
 
 Select from Easy, Medium, and Hard mode.
 
+ <img src="./high-speed-commute/src/assets/gifs/gif-1.gif" alt="Gif 1" title="Gif 1" width="700px">
+
 Start the race! The boss's speed depends on the difficulty mode.
+
+
+<img src="./high-speed-commute/src/assets/gifs/gif-2.gif" alt="Gif 2" title="Gif 2" width="700px">
+<br>
+<img src="./high-speed-commute/src/assets/gifs/gif-3.gif" alt="Gif 3" title="Gif 3" width="700px">
 
 Game outcomes: win or loss.
 
+<img src="./high-speed-commute/src/assets/gifs/gif-4_3.gif" alt="Gif 4" title="Gif 4" width="700px">
+
+
+[gif 5 - loss]
+
 Pro tip - don't hit your boss.
+
+[gif 6 - collision]
 
 ### Obstacles
 
-Stoplights cycle on individual timers. Your can run a yellow light, but you'll have to wait if you get caught at a red.
+Stoplights cycle on individual timers. You can run a yellow light, but you'll have to wait if you get caught at a red.
+
+[gif 7 - stoplight demo]
 
 Schoolzones slow down both you and your boss - safety first!
 
+[gif 8 - schoolzone demo]
+
 Grab a coffee if you have time - caffeination increases your speed for a short time!
+
+[gif 9 - coffee demo]
 
 ### Design Mode
 
