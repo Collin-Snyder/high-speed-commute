@@ -35,13 +35,13 @@ You grab a breakfast bar, brush your teeth while throwing on the last clean thin
   </tr>
   <tr>
     <!-- <td align="center"><img src="https://cdn4.iconfinder.com/data/icons/logos-3/600/React.js_logo-512.png" alt="React" title="React" width="80px"/></td> -->
-    <td align="center"><img src="./high-speed-commute/src/assets/react_logo.png" alt="React" title="React" width="80px"/></td>
-    <td align="center"><img src="./high-speed-commute/src/assets/node_express_logo.png" alt="Node.js" title="Node.js" width="80px"/></td>
+    <td align="center"><img src="./high-speed-commute/src/assets/logo-react.png" alt="React" title="React" width="80px"/></td>
+    <td align="center"><img src="./high-speed-commute/src/assets/logo-node-express.png" alt="Node.js" title="Node.js" width="80px"/></td>
   </tr>
   <tr>
     <!-- <td align="center"><img src="https://freshpet.com/wp-content/uploads/2018/01/puppy_party_freshpet.jpg" alt="Puppy" title="Puppy" width="80px"/></td> -->
     <td align="center"></td>
-    <td align="center"><img src="./high-speed-commute/src/assets/postgres_logo.png" alt="PostgreSQL" title="PostgreSQL" width="80px"/></td>
+    <td align="center"><img src="./high-speed-commute/src/assets/logo-postgres.png" alt="PostgreSQL" title="PostgreSQL" width="80px"/></td>
   </tr>
 </table>
 
