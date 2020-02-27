@@ -16,7 +16,7 @@ You grab a breakfast bar, brush your teeth while throwing on the last clean thin
 
 - Watch out for changing stoplights - you can't run a red light in this town.
 
-<img src="./high-speed-commute/src/assets/screenshots/greenlight.png" alt="Green light" title="Green light" width="100px"><img src="./high-speed-commute/src/assets/screenshots/yellowlight.png" alt="Yellow light" title="Yellow light" width="100px"><img src="./high-speed-commute/src/assets/screenshots/redlight.png" alt="Red light" title="Red light" width="100px">
+<img src="./high-speed-commute/src/assets/screenshots/greenlight.png" alt="Green light" title="Green light" width="100px">  <img src="./high-speed-commute/src/assets/screenshots/yellowlight.png" alt="Yellow light" title="Yellow light" width="100px">  <img src="./high-speed-commute/src/assets/screenshots/redlight.png" alt="Red light" title="Red light" width="100px">
 
 - Avoid school zones - you have no choice but to proceed through them slowly for safety.
 
