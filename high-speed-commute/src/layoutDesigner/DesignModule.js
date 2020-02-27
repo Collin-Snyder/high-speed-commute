@@ -357,7 +357,9 @@ export default class DesignModule extends React.Component {
         office,
         saveStates,
         modalVisibility,
-        overlayVisibility
+        overlayVisibility,
+        drawers,
+        selectedDesignTool
       } = this.state;
 
       playerHome = bossHome = office = 0;
@@ -365,6 +367,9 @@ export default class DesignModule extends React.Component {
       saveStates.exiting = false;
       overlayVisibility.playerOverlay = false;
       overlayVisibility.bossOverlay = false;
+      drawers.toolbox = false;
+      drawers.overlays = false;
+      selectedDesignTool = "playerHome";
 
       for (let modal in modalVisibility) {
         modalVisibility[modal] = false;
@@ -377,7 +382,9 @@ export default class DesignModule extends React.Component {
         saveStates,
         modalVisibility,
         overlayVisibility,
-        playButtonVisible: false
+        playButtonVisible: false,
+        drawers,
+        selectedDesignTool
       });
     }
   }
