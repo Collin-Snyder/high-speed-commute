@@ -112,6 +112,7 @@ h4.designDrawerTitle {
 
 .levelsListContainer {
   width: 300px;
+  max-width: 320px;
   overflow-wrap: break-word;
 }
 
@@ -158,7 +159,7 @@ h4.designDrawerTitle {
 }
 
 .levelItemGroup {
-  max-width: 300px;
+  max-width: 320px;
 }
 
 .levelItem:hover {
@@ -535,7 +536,7 @@ input:focus {
   color: #fff;
   height: 30px;
   min-width: 30px;
-  margin-right: 10px;
+  margin: auto 10px;
   position: relative;
 }
 
