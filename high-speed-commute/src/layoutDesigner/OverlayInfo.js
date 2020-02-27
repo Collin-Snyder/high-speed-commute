@@ -15,24 +15,19 @@ const OverlayInfo = ({
         className="bossOverlayInfo"
         style={{ display: bossOverlay ? "inline-flex" : "none" }}
       >
-        <div className="bossOverlaySubset">
-          <h4 className="bossOverlayTitle">BOSS PATH</h4>
-          <p>
-            Length: <span>{bossPathLength}</span>
-          </p>
-        </div>
-        <div className="bossOverlaySubset">
-          <p>
-            Easy Time: <span>{(bossPathLength * easyInterval) / 1000}</span>s
-          </p>
-          <p>
-            Medium Time: <span>{(bossPathLength * mediumInterval) / 1000}</span>
-            s
-          </p>
-          <p>
-            Hard Time: <span>{(bossPathLength * hardInterval) / 1000}</span>s
-          </p>
-        </div>
+        <h4 className="bossOverlayTitle">BOSS PATH</h4>
+        <p>
+          Length: <span>{bossPathLength}</span>
+        </p>
+        <p>
+          Easy Time: <span>{(bossPathLength * easyInterval) / 1000}</span>s
+        </p>
+        <p>
+          Med Time: <span>{(bossPathLength * mediumInterval) / 1000}</span>s
+        </p>
+        <p>
+          Hard Time: <span>{(bossPathLength * hardInterval) / 1000}</span>s
+        </p>
       </div>
       <div
         className="playerPathInfo"

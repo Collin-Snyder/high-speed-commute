@@ -580,20 +580,21 @@ export default class DesignModule extends React.Component {
   render() {
     return (
       <>
-        <div
-          className="designModuleLevelName"
-          style={{
-            display: this.state.saveStates.currentLevel
-              ? "inline-block"
-              : "none"
-          }}
-        >
-          {this.state.levelName}
-        </div>
         <div className="designModule" style={{ display: this.props.display }}>
           {/* <h3 className="designModuleTitle">Design Mode</h3> */}
           <div className="designTools">
-            <div className="drawerTopper"></div>
+            <div className="drawerTopper">
+              <div
+                className="designModuleLevelName"
+                style={{
+                  display: this.state.saveStates.currentLevel
+                    ? "inline-block"
+                    : "none"
+                }}
+              >
+                {this.state.levelName}
+              </div>
+            </div>
             <div className="drawer toolboxDrawer">
               <header
                 className="drawerHeader"
@@ -661,7 +662,16 @@ export default class DesignModule extends React.Component {
             />
           </div>
           <div className="buttons design">
-            <div className="overlayInfo">
+            <div
+              className="overlayInfo"
+              style={{
+                display:
+                  this.state.overlayVisibility.bossOverlay ||
+                  this.state.overlayVisibility.playerOverlay
+                    ? "flex"
+                    : "none"
+              }}
+            >
               <OverlayInfo
                 bossOverlay={this.state.overlayVisibility.bossOverlay}
                 bossPathLength={this.state.bossPath.length}
@@ -673,7 +683,7 @@ export default class DesignModule extends React.Component {
               />
             </div>
             <div
-              className="btn save"
+              className="btn design save"
               onClick={() => {
                 this.toggleModal("loadDesign");
               }}
@@ -693,7 +703,7 @@ export default class DesignModule extends React.Component {
               </span>
             </div>
             <div
-              className="btn save"
+              className="btn design save"
               style={{
                 display: !this.state.saveStates.isSaved ? "inline-flex" : "none"
               }}
@@ -708,7 +718,7 @@ export default class DesignModule extends React.Component {
               Save Level
             </div>
             <div
-              className="btn save"
+              className="btn design save"
               style={{
                 display:
                   this.state.saveStates.currentLevel &&
@@ -722,24 +732,11 @@ export default class DesignModule extends React.Component {
             >
               Save As New Level
             </div>
-            <div className="btn mode" onClick={this.enterPlayMode}>
+            <div className="btn design mode" onClick={this.enterPlayMode}>
               Test
             </div>
-            <div className="btn clear" onClick={this.clearBoard}>
+            <div className="btn design clear" onClick={this.clearBoard}>
               Clear Design
-            </div>
-            <div
-              className="btn clear"
-              style={{
-                display:
-                  this.state.overlayVisibility.playerOverlay ||
-                  this.state.overlayVisibility.bossOverlay
-                    ? "inline-block"
-                    : "none"
-              }}
-              onClick={this.clearOverlays}
-            >
-              Clear Overlays
             </div>
           </div>
         </div>

@@ -33,6 +33,19 @@ const OverlaySelector = ({
             <span className="overlayLabel">Boss Path</span>
           </label>   
         </div>
+        <div
+              className="btn clear"
+              style={{
+                display:
+                  playerOverlay ||
+                  bossOverlay
+                    ? "inline-flex"
+                    : "none"
+              }}
+              onClick={clearOverlays}
+            >
+              Clear Overlays
+            </div>
       </div>
     );
   };
