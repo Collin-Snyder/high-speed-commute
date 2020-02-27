@@ -2,6 +2,8 @@
 
 High Speed Commute is an action-packed race to work against your boss. Get there first so she doesn't know you're late!
 
+<img src="./high-speed-commute/src/assets/screenshots/wholegame.png" alt="Whole Game" title="Whole Game" width="700px">
+
 <!-- ## In Action
 
 <a href=#>Heroku Deployment Link</a> -->
@@ -42,7 +44,25 @@ The office:
 
 ## The App
 
+### Gameplay
 
+Select from Easy, Medium, and Hard mode.
+
+Start the race! The boss's speed depends on the difficulty mode.
+
+Game outcomes: win or loss.
+
+Pro tip - don't hit your boss.
+
+### Obstacles
+
+Stoplights cycle on individual timers. Your can run a yellow light, but you'll have to wait if you get caught at a red.
+
+Schoolzones slow down both you and your boss - safety first!
+
+Grab a coffee if you have time - caffeination increases your speed for a short time!
+
+### Design Mode
 
 ## Stack
 
