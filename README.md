@@ -72,7 +72,7 @@ Pro tip - don't hit your boss.
 
 Stoplights cycle on individual timers. You can run a yellow light, but you'll have to wait if you get caught at a red.
 
-[gif 7 - stoplight demo]
+<img src="./high-speed-commute/src/assets/gifs/gif-7.gif" alt="Gif 7" title="Gif 7" width="700px">
 
 Schoolzones slow down both you and your boss - safety first!
 
@@ -80,7 +80,7 @@ Schoolzones slow down both you and your boss - safety first!
 
 Grab a coffee if you have time - caffeination increases your speed for a short time!
 
-[gif 9 - coffee demo]
+<img src="./high-speed-commute/src/assets/gifs/gif-9.gif" alt="Gif 9" title="Gif 9" width="700px">
 
 ### Design Mode
 
