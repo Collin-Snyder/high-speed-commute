@@ -12,6 +12,19 @@ Uh oh! You woke up late again (you _knew_ you shouldn't have hit snooze that las
 
 You grab a breakfast bar, brush your teeth while throwing on the last clean thing in your closet, and hurry out the door - the race to work begins! Now you've got to navigate your neighborhood's maze of streets to get there first.
 
+Your car:
+
+<img src="./high-speed-commute/src/assets/screenshots/playercar.png" alt="Player Car" title="Player Car" width="100px">
+
+Your boss's car:
+
+<img src="./high-speed-commute/src/assets/screenshots/bosscar.png" alt="Boss Car" title="Boss Car" width="100px">
+
+The office:
+
+<img src="./high-speed-commute/src/assets/screenshots/office.png" alt="Office" title="Office" width="100px">
+
+
 ### A couple of pointers:
 
 - Watch out for changing stoplights - you can't run a red light in this town.
