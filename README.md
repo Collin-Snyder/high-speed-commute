@@ -48,25 +48,25 @@ The office:
 
 Select from Easy, Medium, and Hard mode.
 
- <img src="./high-speed-commute/src/assets/gifs/gif-1.gif" alt="Gif 1" title="Gif 1" width="700px">
+ <img src="./high-speed-commute/src/assets/gifs/gif-1_2.gif" alt="Gif 1" title="Gif 1" width="700px">
 
 Start the race! The boss's speed depends on the difficulty mode.
 
 
-<img src="./high-speed-commute/src/assets/gifs/gif-2.gif" alt="Gif 2" title="Gif 2" width="700px">
-<br>
-<img src="./high-speed-commute/src/assets/gifs/gif-3.gif" alt="Gif 3" title="Gif 3" width="700px">
+<img src="./high-speed-commute/src/assets/gifs/gif-2_1.gif" alt="Gif 2" title="Gif 2" width="700px">
+
+<img src="./high-speed-commute/src/assets/gifs/gif-3_1.gif" alt="Gif 3" title="Gif 3" width="700px">
 
 Game outcomes: win or loss.
 
 <img src="./high-speed-commute/src/assets/gifs/gif-4_3.gif" alt="Gif 4" title="Gif 4" width="700px">
 
+<img src="./high-speed-commute/src/assets/gifs/gif-5.gif" alt="Gif 5" title="Gif 5" width="700px">
 
-[gif 5 - loss]
 
 Pro tip - don't hit your boss.
 
-[gif 6 - collision]
+<img src="./high-speed-commute/src/assets/gifs/gif-6.gif" alt="Gif 6" title="Gif 6" width="700px">
 
 ### Obstacles
 
