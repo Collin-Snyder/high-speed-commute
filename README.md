@@ -76,7 +76,7 @@ Stoplights cycle on individual timers. You can run a yellow light, but you'll ha
 
 Schoolzones slow down both you and your boss - safety first!
 
-[gif 8 - schoolzone demo]
+<img src="./high-speed-commute/src/assets/gifs/gif-8.gif" alt="Gif 8" title="Gif 8" width="700px">
 
 Grab a coffee if you have time - caffeination increases your speed for a short time!
 
