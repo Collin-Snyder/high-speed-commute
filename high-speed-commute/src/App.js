@@ -3,6 +3,7 @@ import "./styles/App.css";
 import GameModule from "./components/GameModule";
 import DesignModule from "./layoutDesigner/DesignModule";
 import BossErrorModal from "./components/BossErrorModal";
+import IntroModal from "./components/IntroModal";
 import createDesignBoard from "./logic/createDesignBoard";
 import { findPath } from "./logic/moveBoss";
 import { prettify } from "./logic/prettify";
@@ -14,8 +15,13 @@ class App extends React.Component {
     super(props);
 
     this.state = {
-      mode: "play",
+      mode: "intro",
       status: "idle",
+      user: "collin",
+      loginInputs: {
+        newUsername: "",
+        existingUsername: ""
+      },
       levelName: 1,
       playerHome: 281,
       bossHome: 681,
@@ -72,14 +78,16 @@ class App extends React.Component {
     this.caffeinate = this.caffeinate.bind(this);
     this.decaffeinate = this.decaffeinate.bind(this);
     this.changeDifficulty = this.changeDifficulty.bind(this);
+    this.submitExistingUsername = this.submitExistingUsername.bind(this);
+    this.submitNewUsername = this.submitNewUsername.bind(this);
+    this.handleUsernameInput = this.handleUsernameInput.bind(this);
   }
 
   componentDidMount() {
     document.addEventListener("keydown", this.handleKeyDown);
-    // let layout = createSquares(40, 25);
+
     this.loadLevel(13);
     this.getUserLevels("collin");
-    // this.setState({ layout });
   }
 
   componentWillUnmount() {
@@ -90,8 +98,26 @@ class App extends React.Component {
     }
   }
 
+  submitExistingUsername(e) {
+    console.log("submitting existing username");
+  }
+
+  submitNewUsername(e) {
+    console.log("submitting new username");
+  }
+
+  handleUsernameInput(e) {
+    e.persist();
+    console.log("Inside handle username input");
+    console.log("currentTarget.id: ", e.currentTarget.id);
+    console.log("target.value: ", e.target.value);
+    let { loginInputs } = this.state;
+
+    loginInputs[e.currentTarget.id] = e.target.value;
+    this.setState({ loginInputs });
+  }
+
   handleKeyDown(e) {
-    // e.preventDefault();
     if (
       this.state.playerCar !== this.state.office &&
       this.state.bossCar !== this.state.office
@@ -150,19 +176,11 @@ class App extends React.Component {
 
   startBoss() {
     let pathStack = this.findBossPath();
+
     if (!pathStack) {
       this.setState({ bossError: true });
       return;
     }
-    // this.setState({ status: "active" }, () => {
-    //   for (let stoplight in this.state.stoplights) {
-    //     setTimeout(() => {
-    //       this.cycleStoplight(stoplight);
-    //       this.stoplightIntervals[stoplight] = setInterval(() => {
-    //         this.cycleStoplight(stoplight);
-    //       }, this.state.stoplights[stoplight] + 7000);
-    //     }, this.state.stoplights[stoplight]);
-    //   }
 
     this.bossInterval = setInterval(() => {
       if (this.state.bossMovable) {
@@ -480,7 +498,6 @@ class App extends React.Component {
     axios
       .delete(`/api/levels`, { data: { levelId } })
       .then(result => {
-        console.log(result);
         this.getUserLevels("collin");
         this.loadLevel(13);
       })
@@ -522,7 +539,7 @@ class App extends React.Component {
       caffeineCount
     } = this.state;
 
-    mode = "play";
+    if (mode !== "intro") mode = "play";
     status = "idle";
     layout[playerCar - 1].playerCar = false;
     layout[bossCar - 1].bossCar = false;
@@ -593,6 +610,18 @@ class App extends React.Component {
           style={{ display: this.state.bossError ? "block" : "none" }}
         >
           <BossErrorModal closeBossModal={this.closeBossModal} />
+        </div>
+        <div
+          className="modal"
+          style={{ display: this.state.mode === "intro" ? "block" : "none" }}
+        >
+          <IntroModal
+            existingUsername={this.state.loginInputs.existingUsername}
+            newUsername={this.state.loginInputs.newUsername}
+            submitExistingUsername={this.submitExistingUsername}
+            submitNewUsername={this.submitNewUsername}
+            handleUsernameInput={this.handleUsernameInput}
+          />
         </div>
       </div>
     );

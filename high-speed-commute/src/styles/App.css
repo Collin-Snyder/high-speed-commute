@@ -4,7 +4,7 @@
   list-style: none;
 }
 
-h1.gameTitle {
+h1.gameTitle, .introTitle {
   display: inline-block;
   background-color: darkgray;
   color: rgba(255, 211, 0, 1);
@@ -821,6 +821,7 @@ input:focus {
   justify-content: center;
 }
 
+
 .modalContent {
   width: 50%;
   border: 5px groove rgb(180, 180, 180);
@@ -836,8 +837,38 @@ input:focus {
   justify-content: center;
 }
 
+.introOptions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.modalBackground.intro, .modalContent.intro {
+  background-color: rgb(80, 205, 255);
+  border: none;
+}
+
+.usernameInput {
+  width: 500px;
+  height: 50px;
+  min-height: 50px;
+  border: none;
+  background-color: #fff;
+  box-shadow: -4px -4px rgb(194, 194, 194) inset, 0 -4px black, 4px 0 black,
+    0 4px black, -4px 0 black;
+  font-size: 1em;
+  padding-left: 20px;
+  cursor: text;
+  margin: 20px auto;
+}
+
+.usernameInput::placeholder {
+  font-size: 0.8em;
+}
+
+
 .savedLevelTitle {
-  /* color: rgba(0, 0, 255, 0.4); */
   color: rgba(255, 211, 0, 1);
   text-shadow: 4px 4px black;
 }

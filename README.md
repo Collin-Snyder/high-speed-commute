@@ -84,6 +84,26 @@ Grab a coffee if you have time - caffeination increases your speed for a short t
 
 ### Design Mode
 
+Switch to Design Mode to make your own levels.
+
+[gif 10 - switch to design mode, add key squares, clear design]
+
+View live-updating path analytics for both the player and the boss as you craft your design.
+
+[gif 11 - toggle overlays, view path analytics, edit live]
+
+Save your levels
+
+[gif 12 - save new level]
+
+Load saved level
+
+[gif 13 - load saved level]
+
+Test new levels
+
+[gif 14 - test button and save warning]
+
 ## Stack
 
 <table>
