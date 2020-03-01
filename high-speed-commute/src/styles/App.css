@@ -488,6 +488,7 @@ h4.designDrawerTitle {
   border-radius: 15px; */
 }
 
+
 .checkmark {
   background-image: url("../assets/checkmark-larger.png");
   background-repeat: no-repeat;
@@ -847,6 +848,12 @@ input:focus {
 .modalBackground.intro, .modalContent.intro {
   background-color: rgb(80, 205, 255);
   border: none;
+}
+
+.usernameError {
+  font-size: .8em;
+  color: red;
+  margin-top: 20px;
 }
 
 .usernameInput {

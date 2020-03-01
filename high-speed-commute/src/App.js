@@ -51,7 +51,11 @@ class App extends React.Component {
         hard: 250
       },
       collision: false,
-      bossError: false
+      bossError: false,
+      errors: {
+        existingUsernameError: false,
+        newUsernameError: true
+      }
     };
 
     this.stoplightIntervals = {};
@@ -86,8 +90,8 @@ class App extends React.Component {
   componentDidMount() {
     document.addEventListener("keydown", this.handleKeyDown);
 
-    this.loadLevel(13);
-    this.getUserLevels("collin");
+    // this.loadLevel(13);
+    // this.getUserLevels("collin");
   }
 
   componentWillUnmount() {
@@ -100,6 +104,23 @@ class App extends React.Component {
 
   submitExistingUsername(e) {
     console.log("submitting existing username");
+    axios
+      .get(`/api/users/${this.state.loginInputs.existingUsername}`)
+      .then(result => {
+        if (!result.data) {
+          let errors = { ...this.state.errors };
+          errors.existingUsernameError = true;
+          this.setState({ errors });
+        } else {
+          let errors = { ...this.state.errors };
+          errors.newUsernameError = false;
+          errors.existingUsernameError = false;
+          this.setState({ mode: "play", errors }, () => {
+            this.getUserLevels(result.data);
+          });
+        }
+      })
+      .catch(err => console.error(err));
   }
 
   submitNewUsername(e) {
@@ -515,7 +536,10 @@ class App extends React.Component {
             return -1;
           }
         });
-        this.setState({ userLevels });
+        this.setState({ userLevels }, () => {
+          console.log(this.state.userLevels);
+          this.loadLevel(this.state.userLevels[0].id);
+        });
       })
       .catch(err => console.error(err));
   }
@@ -621,6 +645,8 @@ class App extends React.Component {
             submitExistingUsername={this.submitExistingUsername}
             submitNewUsername={this.submitNewUsername}
             handleUsernameInput={this.handleUsernameInput}
+            existingUsernameError={this.state.errors.existingUsernameError}
+            newUsernameError={this.state.errors.newUsernameError}
           />
         </div>
       </div>

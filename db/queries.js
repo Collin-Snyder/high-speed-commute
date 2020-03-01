@@ -5,7 +5,21 @@ const client = new Client(dbConfig);
 
 client.connect();
 
-module.exports.getUser = () => {};
+module.exports.getUser = (username, callback) => {
+  client
+    .query(
+      "SELECT username FROM users WHERE EXISTS (SELECT username FROM users WHERE username = $1);",
+      [username]
+    )
+    .then(result => {
+      if (result.rowCount > 0) {
+        callback(result.rows[0].username);
+      } else {
+        callback(null);
+      }
+    })
+    .catch(err => callback(err));
+};
 
 module.exports.addUser = () => {};
 
@@ -40,7 +54,7 @@ module.exports.updateLevel = (levelInfo, callback) => {
         levelInfo.layout,
         levelInfo.stoplights,
         levelInfo.coffees,
-        levelInfo.levelId,
+        levelInfo.levelId
       ]
     )
     .then(result => callback(result))

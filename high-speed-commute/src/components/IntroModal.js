@@ -1,6 +1,6 @@
 import React from "react";
 
-const IntroModal = ({existingUsername, newUsername, submitExistingUsername, submitNewUsername, handleUsernameInput}) => {
+const IntroModal = ({existingUsername, newUsername, submitExistingUsername, submitNewUsername, handleUsernameInput, existingUsernameError, newUsernameError}) => {
   return (
     <div className="modalBackground intro" onClick={() => {}}>
       <div
@@ -12,6 +12,9 @@ const IntroModal = ({existingUsername, newUsername, submitExistingUsername, subm
         <h1 className="introTitle">High Speed Commute</h1>
         <div className="introOptions">
           <h3>Played before? Enter your commutername!</h3>
+          <div className="usernameError" style={{display: existingUsernameError ? "block" : "none"}}>
+            Sorry, that commutername doesn't seem to exist.
+          </div>
           <input
             type="text"
             value={existingUsername}
@@ -22,6 +25,7 @@ const IntroModal = ({existingUsername, newUsername, submitExistingUsername, subm
             className="usernameInput"
             id="existingUsername"
           />
+          
           <div className="btn play" onClick={submitExistingUsername}>
             Back to the grind
           </div>
