@@ -2,6 +2,7 @@ const express = require("express");
 const path = require("path");
 const {
   getUser,
+  addUser,
   saveNewLevel,
   updateLevel,
   getLevel,
@@ -17,15 +18,25 @@ app.use(express.static("../high-speed-commute/public/"));
 app.use(express.json({ limit: "50mb" }));
 
 app.get("/api/users/:username", (req, res) => {
-  console.log(`fetching user info for ${req.params.username}`);
   getUser(req.params.username, result => res.send(result));
 });
+
+
+// app.get("/api/levels/"), (req, res) => {
+//   getUserLevels("default", result => res.send(result));
+// }
 
 app.get("/api/levels/:id", (req, res) => {
   getLevel(req.params.id, result => {
     res.send(result);
   });
 });
+
+app.post("/api/users", (req, res) => {
+  addUser(req.body.username, result => res.send(result));
+})
+
+
 
 app.post("/api/levels", (req, res) => {
   saveNewLevel(req.body, result => {
@@ -46,9 +57,15 @@ app.delete("/api/levels", (req, res) => {
 });
 
 app.get("/api/userlevels/:username", (req, res) => {
-  getUserLevels(req.params.username, result => {
-    res.send(result);
-  });
+  const levels = {};
+  getUserLevels("default", result => {
+    levels.defaultLevels = result;
+    getUserLevels(req.params.username, result => {
+      levels.userLevels = result;
+      res.send(levels);
+    })
+  })
+  
 });
 
 app.listen(port, () => {

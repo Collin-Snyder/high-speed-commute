@@ -21,7 +21,14 @@ module.exports.getUser = (username, callback) => {
     .catch(err => callback(err));
 };
 
-module.exports.addUser = () => {};
+module.exports.addUser = (username, callback) => {
+  client
+    .query("INSERT INTO users (username) VALUES ($1);", [username])
+    .then(result => {
+      callback(result);
+    })
+    .catch(err => callback(err));
+};
 
 module.exports.saveNewLevel = (levelInfo, callback) => {
   client

@@ -146,7 +146,7 @@ h4.designDrawerTitle {
 }
 
 .levelItemGroup,
-.levelItem {
+.levelItem, .levelFolder {
   display: flex;
   align-items: center;
   cursor: pointer;
@@ -156,32 +156,44 @@ h4.designDrawerTitle {
   overflow-wrap: break-word;
   word-wrap: break-word;
   overflow: hidden;
+  min-height: 100px;
 }
 
-.levelItemGroup {
+.levelItemGroup, .levelFolder {
   max-width: 320px;
 }
 
-.levelItem:hover {
+.levelItem:hover, .levelFolder:hover {
   background-color: rgba(0, 0, 0, 0.1);
 }
 
-.levelIconWrapper {
+.levelIconWrapper, .folderIconWrapper {
   flex-basis: 85px;
   flex-shrink: 0;
   flex-grow: 0;
 }
 
-.levelIcon {
+.levelIcon, .folderIcon {
   display: inline-block;
   width: 75px;
   height: 75px;
-  background-image: url("../assets/level_icon.png");
   background-repeat: no-repeat;
   background-size: contain;
 }
 
-.levelName {
+.levelIcon {
+  background-image: url("../assets/level-icon.png");
+}
+
+.folderIcon.full {
+  background-image: url("../assets/folder-full.png");
+}
+
+.folderIcon.empty {
+  background-image: url("../assets/folder-empty.png");
+}
+
+.levelName, .folderName {
   text-align: left;
   margin-left: 15px;
   overflow-wrap: break-word;

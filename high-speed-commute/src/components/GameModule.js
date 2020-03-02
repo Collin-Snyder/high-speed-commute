@@ -12,7 +12,11 @@ const GameModule = ({
   bossHome,
   office,
   layout,
+  defaultLevels,
   userLevels,
+  userLevelsVisible,
+  defaultLevelsVisible,
+  toggleLevelVisibility,
   collision,
   designLayout,
   startRace,
@@ -34,8 +38,12 @@ const GameModule = ({
         <h3>Your Levels</h3>
         <LevelsList
           loadLevel={loadLevel}
+          defaultLevels={defaultLevels}
           userLevels={userLevels}
           deleteLevel={deleteLevel}
+          defaultLevelsVisible={defaultLevelsVisible}
+          userLevelsVisible={userLevelsVisible}
+          toggleLevelVisibility={toggleLevelVisibility}
         />
       </div>
 

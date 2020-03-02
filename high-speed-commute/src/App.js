@@ -33,7 +33,10 @@ class App extends React.Component {
       bossCar: 681,
       layout: [],
       designLayout: [],
+      defaultLevels: [],
       userLevels: [],
+      defaultLevelsVisible: false,
+      userLevelsVisible: false,
       playerDirection: null,
       playerInterval: 275,
       caffeineCount: 0,
@@ -54,7 +57,7 @@ class App extends React.Component {
       bossError: false,
       errors: {
         existingUsernameError: false,
-        newUsernameError: true
+        newUsernameError: false
       }
     };
 
@@ -85,13 +88,11 @@ class App extends React.Component {
     this.submitExistingUsername = this.submitExistingUsername.bind(this);
     this.submitNewUsername = this.submitNewUsername.bind(this);
     this.handleUsernameInput = this.handleUsernameInput.bind(this);
+    this.toggleLevelVisibility = this.toggleLevelVisibility.bind(this);
   }
 
   componentDidMount() {
     document.addEventListener("keydown", this.handleKeyDown);
-
-    // this.loadLevel(13);
-    // this.getUserLevels("collin");
   }
 
   componentWillUnmount() {
@@ -103,7 +104,6 @@ class App extends React.Component {
   }
 
   submitExistingUsername(e) {
-    console.log("submitting existing username");
     axios
       .get(`/api/users/${this.state.loginInputs.existingUsername}`)
       .then(result => {
@@ -113,10 +113,15 @@ class App extends React.Component {
           this.setState({ errors });
         } else {
           let errors = { ...this.state.errors };
+          let loginInputs = { ...this.state.loginInputs };
+          let { user } = this.state;
+          user = result.data;
+          loginInputs.existingUsername = "";
+          loginInputs.newUsername = "";
           errors.newUsernameError = false;
           errors.existingUsernameError = false;
-          this.setState({ mode: "play", errors }, () => {
-            this.getUserLevels(result.data);
+          this.setState({ mode: "play", errors, loginInputs, user }, () => {
+            this.getUserLevels(user);
           });
         }
       })
@@ -124,14 +129,35 @@ class App extends React.Component {
   }
 
   submitNewUsername(e) {
-    console.log("submitting new username");
+    axios
+      .post(`/api/users`, { username: this.state.loginInputs.newUsername })
+      .then(result => {
+        if (result.data.name && result.data.name === "error") {
+          if (result.data.code === "23505") {
+            let errors = { ...this.state.errors };
+            errors.newUsernameError = true;
+            this.setState({ errors });
+          }
+        } else {
+          let errors = { ...this.state.errors };
+          let loginInputs = { ...this.state.loginInputs };
+          let { user } = this.state;
+
+          user = loginInputs.newUsername;
+          loginInputs.existingUsername = "";
+          loginInputs.newUsername = "";
+          errors.newUsernameError = false;
+          errors.existingUsernameError = false;
+          this.setState({ mode: "play", errors, loginInputs, user }, () => {
+            this.getUserLevels(user);
+          });
+        }
+      })
+      .catch(err => console.log("err"));
   }
 
   handleUsernameInput(e) {
     e.persist();
-    console.log("Inside handle username input");
-    console.log("currentTarget.id: ", e.currentTarget.id);
-    console.log("target.value: ", e.target.value);
     let { loginInputs } = this.state;
 
     loginInputs[e.currentTarget.id] = e.target.value;
@@ -453,92 +479,128 @@ class App extends React.Component {
     this.loadLevel(levelId);
     this.setState({ mode: "play", status: "idle" }, () => {
       //Hard-coded to my levels for now
-      this.getUserLevels("collin");
+      this.getUserLevels(this.state.user);
     });
   }
 
+  toggleLevelVisibility(type) {
+    let visible = this.state[`${type}LevelsVisible`];
+    this.setState({ [`${type}LevelsVisible`]: !visible });
+  }
   //Used specifically when transferring from Design Mode to Test/Play mode
   loadDesign(levelId) {
     this.loadLevel(levelId);
     //Hard-coded to my levels or now
-    this.getUserLevels("collin");
+    this.getUserLevels(this.state.user);
   }
 
   //Used anytime a level is loaded from the database into Game state for Testing/Playing
   loadLevel(levelId) {
-    axios
-      .get(`/api/levels/${levelId}`)
-      .then(data => {
-        let levelInfo = data.data.rows[0];
-        let levelName = levelInfo.level_name;
-        let boardHeight = levelInfo.board_height;
-        let boardWidth = levelInfo.board_width;
-        let playerHome = levelInfo.player_home;
-        let playerCar = playerHome;
-        let bossHome = levelInfo.boss_home;
-        let bossCar = bossHome;
-        let office = levelInfo.office;
-        let stoplights = levelInfo.stoplights;
-        let coffees = levelInfo.coffees;
-        let unformattedLayout = levelInfo.layout;
+    if (levelId) {
+      axios
+        .get(`/api/levels/${levelId}`)
+        .then(data => {
+          let levelInfo = data.data.rows[0];
+          let levelName = levelInfo.level_name;
+          let boardHeight = levelInfo.board_height;
+          let boardWidth = levelInfo.board_width;
+          let playerHome = levelInfo.player_home;
+          let playerCar = playerHome;
+          let bossHome = levelInfo.boss_home;
+          let bossCar = bossHome;
+          let office = levelInfo.office;
+          let stoplights = levelInfo.stoplights;
+          let coffees = levelInfo.coffees;
+          let unformattedLayout = levelInfo.layout;
 
-        //Add circular object references back into layout
-        let uglyLayout = formatLayout(unformattedLayout);
+          //Add circular object references back into layout
+          let uglyLayout = formatLayout(unformattedLayout);
 
-        //Add tree and house properties to squares for pretty rendering
-        let layout = prettify(uglyLayout);
+          //Add tree and house properties to squares for pretty rendering
+          let layout = prettify(uglyLayout);
 
-        //Set position of cars for rendering
-        layout[playerHome - 1].playerCar = true;
-        layout[bossHome - 1].bossCar = true;
+          //Set position of cars for rendering
+          layout[playerHome - 1].playerCar = true;
+          layout[bossHome - 1].bossCar = true;
 
-        this.setState(
-          {
-            levelName,
-            boardHeight,
-            boardWidth,
-            playerHome,
-            playerCar,
-            bossHome,
-            bossCar,
-            office,
-            layout,
-            stoplights,
-            coffees,
-            designLayout: layout
-          },
-          () => {
-            this.fullReset();
-          }
-        );
-      })
-      .catch(err => console.error(err));
+          this.setState(
+            {
+              levelName,
+              boardHeight,
+              boardWidth,
+              playerHome,
+              playerCar,
+              bossHome,
+              bossCar,
+              office,
+              layout,
+              stoplights,
+              coffees,
+              designLayout: layout
+            },
+            () => {
+              this.fullReset();
+            }
+          );
+        })
+        .catch(err => console.error(err));
+    }
   }
 
   deleteLevel(levelId) {
     axios
       .delete(`/api/levels`, { data: { levelId } })
       .then(result => {
-        this.getUserLevels("collin");
-        this.loadLevel(13);
+        this.getUserLevels(this.state.user);
+        this.loadLevel(
+          this.state.userLevels[0] ? this.state.userLevels[0].id : null
+        );
       })
       .catch(err => console.log(err));
   }
+
+  // getDefaultLevels() {
+  //   axios
+  //     .get(`/api/levels/`)
+  //     .then(data => {
+  //       let defaultLevels = data.data.rows.sort((a, b) => {
+  //         if (a.level_name.toLowerCase() > b.level_name.toLowerCase()) {
+  //           return 1;
+  //         } else if (a.level_name.toLowerCase() < b.level_name.toLowerCase()) {
+  //           return -1;
+  //         }
+  //       });
+  //       this.setState({ defaultLevels }, () => {
+  //         if (this.state.defaultLevels.length > 0)
+  //           this.loadLevel(this.state.defaultLevels[0].id);
+  //       });
+  //     })
+  //     .catch(err => console.error(err));
+  // }
 
   getUserLevels(username) {
     axios
       .get(`/api/userlevels/${username}`)
       .then(data => {
-        let userLevels = data.data.rows.sort((a, b) => {
+        let userLevels = data.data.userLevels.rows.sort((a, b) => {
           if (a.level_name.toLowerCase() > b.level_name.toLowerCase()) {
             return 1;
           } else if (a.level_name.toLowerCase() < b.level_name.toLowerCase()) {
             return -1;
           }
         });
-        this.setState({ userLevels }, () => {
-          console.log(this.state.userLevels);
-          this.loadLevel(this.state.userLevels[0].id);
+
+        let defaultLevels = data.data.defaultLevels.rows.sort((a, b) => {
+          if (a.level_name.toLowerCase() > b.level_name.toLowerCase()) {
+            return 1;
+          } else if (a.level_name.toLowerCase() < b.level_name.toLowerCase()) {
+            return -1;
+          }
+        });
+
+        this.setState({ defaultLevels, userLevels }, () => {
+          // if (this.state.userLevels.length > 0)
+          //   this.loadLevel(this.state.userLevels[0].id);
         });
       })
       .catch(err => console.error(err));
@@ -607,7 +669,11 @@ class App extends React.Component {
           office={this.state.office}
           layout={this.state.layout}
           designLayout={this.state.designLayout}
+          defaultLevels={this.state.defaultLevels}
           userLevels={this.state.userLevels}
+          defaultLevelsVisible={this.state.defaultLevelsVisible}
+          userLevelsVisible={this.state.userLevelsVisible}
+          toggleLevelVisibility={this.toggleLevelVisibility}
           collision={this.state.collision}
           startRace={this.startRace}
           fullReset={this.fullReset}
@@ -636,7 +702,7 @@ class App extends React.Component {
           <BossErrorModal closeBossModal={this.closeBossModal} />
         </div>
         <div
-          className="modal"
+          className="modal intro"
           style={{ display: this.state.mode === "intro" ? "block" : "none" }}
         >
           <IntroModal
