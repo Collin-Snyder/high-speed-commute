@@ -13,7 +13,7 @@ const port = 5000;
 
 const app = express();
 
-app.use(express.static("../high-speed-commute/public/"));
+app.use(express.static("../high-speed-commute/build"));
 app.use(express.json({ limit: "50mb" }));
 
 app.get("/api/users/:username", (req, res) => {

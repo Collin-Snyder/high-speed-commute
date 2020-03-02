@@ -93,6 +93,7 @@ class App extends React.Component {
 
   componentDidMount() {
     document.addEventListener("keydown", this.handleKeyDown);
+    axios.get(`/api/`)
   }
 
   componentWillUnmount() {
