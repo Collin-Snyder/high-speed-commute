@@ -13,18 +13,12 @@ const port = 5000;
 
 const app = express();
 
-// app.use(express.static(path.join(__dirname, "high-speed-commute/public/index.html")));
 app.use(express.static("../high-speed-commute/public/"));
 app.use(express.json({ limit: "50mb" }));
 
 app.get("/api/users/:username", (req, res) => {
   getUser(req.params.username, result => res.send(result));
 });
-
-
-// app.get("/api/levels/"), (req, res) => {
-//   getUserLevels("default", result => res.send(result));
-// }
 
 app.get("/api/levels/:id", (req, res) => {
   getLevel(req.params.id, result => {
