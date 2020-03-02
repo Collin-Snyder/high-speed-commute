@@ -30,8 +30,6 @@ app.post("/api/users", (req, res) => {
   addUser(req.body.username, result => res.send(result));
 })
 
-
-
 app.post("/api/levels", (req, res) => {
   saveNewLevel(req.body, result => {
     res.send(result);
@@ -61,6 +59,10 @@ app.get("/api/userlevels/:username", (req, res) => {
   })
   
 });
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname + '/high-speed-commute/build/index.html'))
+})
 
 app.listen(port, () => {
   console.log(`Now listening on port ${port}`);
