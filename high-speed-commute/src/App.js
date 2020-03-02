@@ -599,8 +599,11 @@ class App extends React.Component {
         });
 
         this.setState({ defaultLevels, userLevels }, () => {
-          // if (this.state.userLevels.length > 0)
-          //   this.loadLevel(this.state.userLevels[0].id);
+          if (this.state.userLevels.length > 0) {
+            this.loadLevel(this.state.userLevels[0].id);
+          } else {
+            this.loadLevel(this.state.defaultLevels[0].id);
+          }
         });
       })
       .catch(err => console.error(err));
