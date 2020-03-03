@@ -18,7 +18,7 @@ app.use(express.static("../high-speed-commute/build"));
 app.use(express.json({ limit: "50mb" }));
 
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname + '/high-speed-commute/build/index.html'))
+  res.sendFile(path.join(__dirname + '/../high-speed-commute/build/index.html'))
 })
 
 app.get("/api/users/:username", (req, res) => {
