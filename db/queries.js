@@ -1,5 +1,5 @@
 const { Client } = require("pg");
-const config = require("../.env");
+// const config = require("../.env");
 
 const connectionString =
   `postgres://collinsnyder@localhost:5432/high_speed_commute`;
