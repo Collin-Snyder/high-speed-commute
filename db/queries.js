@@ -1,21 +1,21 @@
 const { Client } = require("pg");
-// const config = require("../.env");
+const config = require("../.env");
 
-// const connectionString =
-//   `postgres://${config.DB_USER}@${config.DB_HOST}:${config.DB_PORT}/${config.DB_DATABASE}`;
+const connectionString =
+  `postgres://collinsnyder@localhost:5432/high_speed_commute`;
 
-// const isProduction = process.env.NODE_ENV === "production";
-
-// const client = new Client({
-//   connectionString: isProduction ? process.env.DATABASE_URL : connectionString,
-// });
+const isProduction = process.env.NODE_ENV === "production";
 
 const client = new Client({
-  host: "localhost",
-  port: 5432,
-  user: "collinsnyder",
-  database: "high_speed_commute"
+  connectionString: isProduction ? process.env.DATABASE_URL : connectionString,
 });
+
+// const client = new Client({
+//   host: "localhost",
+//   port: 5432,
+//   user: "collinsnyder",
+//   database: "high_speed_commute"
+// });
 
 console.log(process.env.DATABASE_URL);
 
