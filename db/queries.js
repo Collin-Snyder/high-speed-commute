@@ -19,7 +19,7 @@ const client = new Client({
 
 console.log(process.env.DATABASE_URL);
 
-client.connect(process.env.DATABASE_URL);
+client.connect();
 
 module.exports.getUser = (username, callback) => {
   client
