@@ -53,6 +53,7 @@ class App extends React.Component {
         medium: 350,
         hard: 250
       },
+      gameOver: false,
       collision: false,
       bossError: false,
       errors: {
@@ -93,7 +94,7 @@ class App extends React.Component {
 
   componentDidMount() {
     document.addEventListener("keydown", this.handleKeyDown);
-    axios.get(`/api/`)
+    axios.get(`/api/`);
   }
 
   componentWillUnmount() {
@@ -231,7 +232,7 @@ class App extends React.Component {
     }
 
     this.bossInterval = setInterval(() => {
-      if (this.state.bossMovable) {
+      if (this.state.bossMovable && !this.state.gameOver) {
         let nextMove = pathStack.pop();
         if (nextMove) {
           if (this.state.layout[nextMove - 1].stoplight === "red") {
@@ -264,7 +265,7 @@ class App extends React.Component {
   movePlayerCar(direction) {
     //First, we check to ensure that the player is currently movable and
     //that a direction was properly passed in
-    if (this.state.playerMovable && direction) {
+    if (this.state.playerMovable && !this.state.gameOver && direction) {
       let { playerCar, bossCar, collision, layout, playerMovable } = this.state;
       let target = layout[playerCar - 1].borders[direction];
 
@@ -278,12 +279,16 @@ class App extends React.Component {
 
         //Now, we check if the player has reached the goal and handle the end
         //of the game accordingly
-        if (playerCar === this.state.office) this.fullReset();
+        if (playerCar === this.state.office) {
+          // this.fullReset();
+          this.setState({ gameOver: true });
+        }
         //Next, we check if the player and the boss car are now in the same spot
         //and handle a collision accordingly
         else if (playerCar === bossCar) {
           collision = true;
-          this.fullReset();
+          this.setState({gameOver: true});
+          // this.fullReset();
 
           //If the game is not over yet, we check for special squares
         } else {
@@ -338,10 +343,13 @@ class App extends React.Component {
     bossCar = nextMove;
     layout[bossCar - 1].bossCar = true;
 
-    if (this.state.bossCar === this.state.office) this.fullReset();
-    else if (playerCar === bossCar) {
+    if (this.state.bossCar === this.state.office) {
+      // this.fullReset();
+      this.setState({ gameOver: true });
+    } else if (playerCar === bossCar) {
       collision = true;
-      this.fullReset();
+      this.setState({ gameOver: true });
+      // this.fullReset();
     }
 
     if (this.state.schoolZoneState.bossInSchoolZone) {
@@ -560,25 +568,6 @@ class App extends React.Component {
       .catch(err => console.log(err));
   }
 
-  // getDefaultLevels() {
-  //   axios
-  //     .get(`/api/levels/`)
-  //     .then(data => {
-  //       let defaultLevels = data.data.rows.sort((a, b) => {
-  //         if (a.level_name.toLowerCase() > b.level_name.toLowerCase()) {
-  //           return 1;
-  //         } else if (a.level_name.toLowerCase() < b.level_name.toLowerCase()) {
-  //           return -1;
-  //         }
-  //       });
-  //       this.setState({ defaultLevels }, () => {
-  //         if (this.state.defaultLevels.length > 0)
-  //           this.loadLevel(this.state.defaultLevels[0].id);
-  //       });
-  //     })
-  //     .catch(err => console.error(err));
-  // }
-
   getUserLevels(username) {
     axios
       .get(`/api/userlevels/${username}`)
@@ -619,6 +608,7 @@ class App extends React.Component {
     let {
       mode,
       status,
+      gameOver,
       playerCar,
       playerHome,
       bossCar,
@@ -640,6 +630,7 @@ class App extends React.Component {
     collision = false;
     playerDirection = null;
     caffeineCount = 0;
+    gameOver = false;
 
     for (let coffeeSquare in this.state.coffees) {
       layout[coffeeSquare - 1].coffee = true;
@@ -648,6 +639,7 @@ class App extends React.Component {
     this.setState({
       mode,
       status,
+      gameOver,
       playerCar,
       bossCar,
       collision,

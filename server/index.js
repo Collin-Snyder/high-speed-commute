@@ -15,16 +15,6 @@ const app = express();
 app.set("port", process.env.PORT || 5000);
 
 app.use(express.static(path.join(__dirname, "/../high-speed-commute/build")));
-// app.use(
-//   "/js",
-//   express.static(path.join(__dirname, "/../high-speed-commute/build/static/js"))
-// );
-// app.use(
-//   "/css",
-//   express.static(
-//     path.join(__dirname, "/../high-speed-commute/build/static/css")
-//   )
-// );
 app.use(express.json({ limit: "50mb" }));
 
 // app.get('/', (req, res) => {
