@@ -1,5 +1,14 @@
 const { Client } = require("pg");
-// const dbConfig = require("../env/dbConfig");
+// const config = require("../.env");
+
+// const connectionString =
+//   `postgres://${config.DB_USER}@${config.DB_HOST}:${config.DB_PORT}/${config.DB_DATABASE}`;
+
+// const isProduction = process.env.NODE_ENV === "production";
+
+// const client = new Client({
+//   connectionString: isProduction ? process.env.DATABASE_URL : connectionString,
+// });
 
 const client = new Client({
   host: "localhost",
@@ -8,7 +17,9 @@ const client = new Client({
   database: "high_speed_commute"
 });
 
-client.connect();
+console.log(process.env.DATABASE_URL);
+
+client.connect(process.env.DATABASE_URL);
 
 module.exports.getUser = (username, callback) => {
   client

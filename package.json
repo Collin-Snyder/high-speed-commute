@@ -4,6 +4,7 @@
   "description": "High Speed Commute is an action-packed race to work against your boss. Get there first so he doesn't know you're late!",
   "main": "./server/index.js",
   "scripts": {
+    "start-dev": "nodemon ./server/index.js",
     "start": "node ./server/index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "heroku-postbuild": "cd high-speed-commute && npm install && npm run build"

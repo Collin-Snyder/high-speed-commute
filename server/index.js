@@ -65,8 +65,6 @@ app.get("/api/userlevels/:username", (req, res) => {
   
 });
 
-
-
 app.listen(app.get('port'), () => {
   console.log(`Now listening on port ${app.get('port')}`);
 });
