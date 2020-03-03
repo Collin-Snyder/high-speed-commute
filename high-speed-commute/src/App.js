@@ -247,7 +247,7 @@ class App extends React.Component {
 
   startPlayer() {
     this.playerInterval = setInterval(() => {
-      if (this.state.playerMovable) {
+      if (this.state.playerMovable && !this.state.gameOver) {
         this.movePlayerCar(this.state.playerDirection);
       }
     }, 275 / (this.state.caffeineCount + 1));
@@ -280,7 +280,7 @@ class App extends React.Component {
         //Now, we check if the player has reached the goal and handle the end
         //of the game accordingly
         if (playerCar === this.state.office) {
-          // this.fullReset();
+          this.fullReset();
           this.setState({ gameOver: true });
         }
         //Next, we check if the player and the boss car are now in the same spot
@@ -288,7 +288,7 @@ class App extends React.Component {
         else if (playerCar === bossCar) {
           collision = true;
           this.setState({gameOver: true});
-          // this.fullReset();
+          this.fullReset();
 
           //If the game is not over yet, we check for special squares
         } else {
@@ -343,13 +343,15 @@ class App extends React.Component {
     bossCar = nextMove;
     layout[bossCar - 1].bossCar = true;
 
-    if (this.state.bossCar === this.state.office) {
-      // this.fullReset();
+
+
+    if (bossCar === this.state.office) {
+      this.fullReset();
       this.setState({ gameOver: true });
     } else if (playerCar === bossCar) {
       collision = true;
       this.setState({ gameOver: true });
-      // this.fullReset();
+      this.fullReset();
     }
 
     if (this.state.schoolZoneState.bossInSchoolZone) {
@@ -614,10 +616,11 @@ class App extends React.Component {
       bossCar,
       bossHome,
       collision,
-      layout,
       playerDirection,
       caffeineCount
     } = this.state;
+
+    let layout = [...this.state.layout];
 
     if (mode !== "intro") mode = "play";
     status = "idle";
