@@ -32,7 +32,7 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://localhost:5000/",
+  "proxy": "https://high-speed-commute.herokuapp.com/",
   "devDependencies": {
     "javascript-state-machine": "^3.1.0"
   }
