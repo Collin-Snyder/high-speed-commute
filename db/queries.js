@@ -1,7 +1,12 @@
 const { Client } = require("pg");
-const dbConfig = require("../env/dbConfig");
+// const dbConfig = require("../env/dbConfig");
 
-const client = new Client(dbConfig);
+const client = new Client({
+  host: "localhost",
+  port: 5432,
+  user: "collinsnyder",
+  database: "high_speed_commute"
+});
 
 client.connect();
 
