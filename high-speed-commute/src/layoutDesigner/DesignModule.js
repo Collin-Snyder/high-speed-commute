@@ -604,7 +604,7 @@ export default class DesignModule extends React.Component {
             </div>
             <div className="drawer toolboxDrawer">
               <header
-                className="drawerHeader"
+                className="drawerHeader toolboxDrawer"
                 onClick={e => {
                   this.toggleDrawer("toolbox");
                 }}
@@ -628,7 +628,7 @@ export default class DesignModule extends React.Component {
             </div>
             <div className="drawer overlayDrawer">
               <header
-                className="drawerHeader"
+                className="drawerHeader overlayDrawer"
                 onClick={e => {
                   this.toggleDrawer("overlays");
                 }}

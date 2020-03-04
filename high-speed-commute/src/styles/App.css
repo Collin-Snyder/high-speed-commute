@@ -4,985 +4,2984 @@
   list-style: none;
 }
 
-h1.gameTitle, .introTitle {
-  display: inline-block;
-  background-color: darkgray;
-  color: rgba(255, 211, 0, 1);
-  font-family: "Press Start 2P", cursive;
-  margin: 0;
-  padding: 20px;
-  border: 5px groove rgb(180, 180, 180);
-  text-shadow: 4px 4px black;
-}
 
-h1.gameOverTitle {
-  font-family: "Press Start 2P", cursive;
-  margin: 0;
-}
 
-p,
-h4,
-h3,
-h2,
-ul {
-  margin: 0;
-  margin-block-start: 0;
-  margin-block-end: 0;
-  margin-inline-start: 0;
-  margin-inline-end: 0;
-  padding-inline-start: 0;
-}
+/* @media only screen and (min-width: 768px) {
+  
 
-h3.designModuleTitle,
-h4.designDrawerTitle {
-  font-family: "Press Start 2P", cursive;
-}
-
-.designDrawerTitle {
-  max-width: 75%;
-  min-height: 50px;
-  background-color: rgb(255, 217, 0);
-  border-radius: 10px;
-  text-align: center;
-  border: 3px solid #666666;
-  padding: 15px;
-}
-
-.App {
-  text-align: center;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgb(80, 205, 255);
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-.appHeader {
-  padding: 30px;
-}
-
-.gameModule,
-.designModule {
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-  background-color: rgb(80, 205, 255);
-}
-
-.designModule {
-  align-items: center;
-}
-
-.playingField,
-.levelDesigner {
-  width: 1016px;
-  height: 641px;
-  display: grid;
-  grid-template-rows: repeat(25, 1fr);
-  grid-template-columns: repeat(40, 1fr);
-  border: 8px groove rgb(180, 180, 180);
-  /* border: 8px groove black; */
-  /* border-image: url("../assets/rebar_border.png") 20% 20% 18; */
-  background-color: white;
-}
-
-.overlayInfo {
-  display: flex;
-  align-items: center;
-  justify-content: space-evenly;
-  max-width: 300px;
-  /* height: 100px; */
-  border: 5px groove darkgray;
-  background-color: #fff;
-  margin: 0px auto;
-  padding: 10px;
-}
-
-.levelsListContainer {
-  width: 300px;
-  max-width: 320px;
-  overflow-wrap: break-word;
-}
-
-.levelNameInput {
-  position: absolute;
-  top: 400px;
-  left: 600px;
-  width: 500px;
-  height: 50px;
-  min-height: 50px;
-  border: none;
-  background-color: #fff;
-  box-shadow: -4px -4px rgb(194, 194, 194) inset, 0 -4px black, 4px 0 black,
-    0 4px black, -4px 0 black;
-  font-size: 1em;
-  padding-left: 20px;
-  cursor: text;
-}
-
-.levelsList {
-  display: flex;
-  flex-direction: column;
-  border: 5px groove darkgray;
-  margin: 20px 0;
-  padding: 10px;
-  background-color: #fff;
-  align-items: center;
-  justify-content: flex-start;
-  max-height: 70vh;
-  overflow: scroll;
-}
-
-.levelItemGroup,
-.levelItem, .levelFolder {
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  width: 100%;
-  overflow-wrap: break-word;
-  word-wrap: break-word;
-  overflow: hidden;
-  min-height: 100px;
-}
-
-.levelItemGroup, .levelFolder {
-  max-width: 320px;
-}
-
-.levelItem:hover, .levelFolder:hover {
-  background-color: rgba(0, 0, 0, 0.1);
-}
-
-.levelIconWrapper, .folderIconWrapper {
-  flex-basis: 85px;
-  flex-shrink: 0;
-  flex-grow: 0;
-}
-
-.levelIcon, .folderIcon {
-  display: inline-block;
-  width: 75px;
-  height: 75px;
-  background-repeat: no-repeat;
-  background-size: contain;
-}
-
-.levelIcon {
-  background-image: url("../assets/level-icon.png");
-}
-
-.folderIcon.full {
-  background-image: url("../assets/folder-full.png");
-}
-
-.folderIcon.empty {
-  background-image: url("../assets/folder-empty.png");
-}
-
-.levelName, .folderName {
-  text-align: left;
-  margin-left: 15px;
-  overflow-wrap: break-word;
-  font-size: 1em;
-  word-wrap: break-word;
-}
-
-.gridRow {
-  display: flex;
-}
-
-.gridSquare,
-.designSquare {
-  position: relative;
-  width: 25px;
-  height: 25px;
-  font-size: 10px;
-  font-family: sans-serif;
-  transition: box-shadow 0.5s;
-  /* box-shadow: 1px 1px inset; */
-}
-
-.gridSquare {
-  cursor: default;
-}
-
-.designSquare {
-  cursor: pointer;
-  box-shadow: 1px 1px inset;
-}
-
-.gridSquare.block {
-  background-color: #81c76d;
-}
-
-.designSquare.block {
-  background-color: lightgray;
-}
-
-.street {
-  background-image: url("../assets/street.png");
-}
-
-.dstreet {
-  background-color: #343434;
-}
-
-.keySquare {
-  background-color: #fff;
-  background-image: none;
-}
-
-.playerHomeTile.blue,
-.dplayerHome {
-  background-color: rgba(0, 0, 255, 0.4);
-}
-.playerHomeTile.green {
-  background-color: rgb(0, 211, 0, 0.4);
-}
-.playerHomeTile.pink {
-  background-color: rgba(255, 0, 238, 0.3);
-}
-.playerHomeTile.purple {
-  background-color: rgba(170, 0, 255, 0.4);
-}
-.playerHomeTile.orange {
-  background-color: rgba(255, 132, 0, 0.4);
-}
-.playerHomeTile.white {
-  background-color: rgba(43, 43, 43, 0.4);
-}
-
-.bossHomeTile,
-.dbossHome {
-  background-color: rgba(255, 0, 0, 0.4);
-}
-
-.officeTile,
-.doffice {
-  background-color: rgba(255, 211, 0, 1);
-}
-
-.playerCar,
-.bossCar,
-.tree,
-.house,
-.coffee,
-.bossPathTile,
-.playerPathTile,
-.stoplight,
-.playerHomeTile,
-.bossHomeTile,
-.officeTile {
-  display: inline-block;
-  width: 25px;
-  height: 25px;
-  position: absolute;
-  top: 0;
-  left: 0;
-}
-
-.playerCar {
-  background-image: url("../assets/player-car-blue.png");
-  background-repeat: no-repeat;
-  background-size: contain;
-  z-index: 100;
-}
-
-.bossCar {
-  background-image: url("../assets/boss-car.png");
-  background-repeat: no-repeat;
-  background-size: contain;
-  z-index: 100;
-}
-
-.tree {
-  background-image: url("../assets/tree.png");
-  background-repeat: no-repeat;
-  background-size: contain;
-  z-index: 100;
-}
-
-.house {
-  background-image: url("../assets/house.png");
-  background-repeat: no-repeat;
-  background-size: contain;
-  z-index: 100;
-}
-
-.coffee {
-  position: absolute;
-  top: 0;
-  left: 0;
-  background-image: url("../assets/coffee.png");
-  background-repeat: no-repeat;
-  background-size: contain;
-  z-index: 90;
-}
-
-.bossPathTile {
-  background-color: rgba(255, 0, 0, 0.4);
-  z-index: 70;
-  position: absolute;
-  top: 0;
-  left: 0;
-}
-
-.playerPathTile {
-  background-color: rgba(0, 0, 255, 0.4);
-  z-index: 71;
-  position: absolute;
-  top: 0;
-  left: 0;
-}
-
-.win,
-.loss,
-.collision {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-.win {
-  background-color: rgb(127, 218, 100);
-}
-
-.loss {
-  background-color: rgb(235, 85, 85);
-}
-
-.collision {
-  color: white;
-  background-color: black;
-  line-height: 3em;
-}
-
-
-
-.designTools {
-  display: flex;
-  flex-direction: column;
-  max-width: 350px;
-  align-items: center;
-  justify-content: flex-start;
-  align-self: center;
-  margin-top: -100px;
-}
-
-.drawerTopper {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 330px;
-  height: 100px;
-  background-image: url(../assets/drawer-lights.png);
-  background-repeat: no-repeat;
-  position: relative;
-}
-
-.designModuleLevelName {
-  max-width: 50%;
-  line-height: 1.3em;
-}
-
-.drawerHeader {
-  width: 330px;
-  height: 100px;
-  background-image: url(../assets/drawer-header.png);
-  background-repeat: no-repeat;
-  /* border: 5px groove darkgray; */
-  box-shadow: -4px -4px rgba(128, 128, 128, 0.5) inset, 0 -4px #666666,
-    4px 0 #666666, 0 4px #666666, -4px 0 #666666;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-}
-
-.designToolbox,
-.overlaySelector {
-  display: flex;
-  flex-direction: column;
-  border: 5px groove darkgray;
-  /* margin: 20px auto; */
-  padding: 0px 15px;
-  background-color: #fff;
-  align-items: center;
-  justify-content: center;
-  width: 330px;
-}
-
-.overlaySelector {
-  max-width: 350px;
-  /* margin: 0; */
-}
-
-.difficultySelector {
-  display: flex;
-  width: 250px;
-  border: 5px groove darkgray;
-  margin: 20px 0;
-  padding: 0px 15px;
-  background-color: #fff;
-  align-items: center;
-  justify-content: center;
-}
-
-.difficultyOptions {
-  display: flex;
-  flex-direction: column;
-  border: 3px dashed darkgray;
-  margin: 20px auto;
-  align-items: center;
-  padding: 0 20px;
-}
-
-.designToolSelector,
-.overlayOptions {
-  border: 3px dashed darkgray;
-  margin: 20px auto;
-  align-items: center;
-}
-
-.designToolSelector {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  width: 280px;
-}
-
-.overlayOptions {
-  display: flex;
-  flex-direction: column;
-  width: 190px;
-}
-
-.designToolSelector label {
-  display: inline-flex;
-  margin: 20px 30px;
-  align-items: center;
-  justify-content: center;
-}
-
-.toolSelectorRadio,
-.overlayOption,
-.difficultyOption {
-  position: absolute;
-  opacity: 0;
-  display: inline;
-  padding: 0;
-  margin: 0;
-}
-
-.saveConfirmation {
-  font-size: 0.7em;
-  width: 200px;
-  height: 50px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  /* background-color: #fff;
-  border: 5px double green;
-  border-radius: 15px; */
-}
-
-
-.checkmark {
-  background-image: url("../assets/checkmark-larger.png");
-  background-repeat: no-repeat;
-  width: 20px;
-  height: 20px;
-  display: inline-block;
-  margin-left: 5px;
-}
-
-.bang {
-  background-image: url("../assets/Bang2.png");
-  background-repeat: no-repeat;
-  display: inline-block;
-  height: 110px;
-  width: 100px;
-}
-
-.btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  color: #fff;
-  font-size: 1em;
-  margin: 20px 0px;
-  width: 200px;
-  height: 50px;
-  font-family: "Press Start 2P", cursive;
-  border: 0;
-  cursor: pointer;
-  line-height: 1em;
-}
-
-.btn:focus,
-input:focus {
-  outline: none;
-  font-family: "Press Start 2P", cursive;
-  border: 0;
-  cursor: pointer;
-  height: 25px;
-}
-
-.delete {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  color: #fff;
-  height: 30px;
-  min-width: 30px;
-  margin: auto 10px;
-  position: relative;
-}
-
-.X {
-  display: inline-block;
-  position: absolute;
-  top: 6px;
-  left: 6px;
-}
-
-.X:active {
-  top: 10px;
-  left: 10px;
-}
-
-.btn.play,
-.btn.difficulty.easy {
-  background-color: #82e768;
-  box-shadow: -4px -4px #328f32 inset, 0 -4px black, 4px 0 black, 0 4px black,
-    -4px 0 black;
-}
-.btn.play:active,
-.btn.difficulty.easy.checked,
-.btn.difficulty.easy:active {
-  background-color: rgb(125, 194, 108);
-  box-shadow: 4px 4px rgb(43, 122, 43) inset, 0 -4px black, 4px 0 black,
-    0 4px black, -4px 0 black;
-}
-
-.btn.mode {
-  background-color: rgb(140, 66, 238);
-  box-shadow: -4px -4px rgb(88, 41, 150) inset, 0 -4px black, 4px 0 black,
-    0 4px black, -4px 0 black;
-}
-
-.btn.mode:active {
-  background-color: rgb(100, 39, 180);
-  box-shadow: 4px 4px rgb(71, 33, 121) inset, 0 -4px black, 4px 0 black,
-    0 4px black, -4px 0 black;
-}
-
-.btn.startOver {
-  margin-top: 50px;
-  background-color: rgb(86, 200, 253);
-  box-shadow: -4px -4px rgb(7, 107, 153) inset, 0 -4px black, 4px 0 black,
-    0 4px black, -4px 0 black;
-}
-
-.btn.startOver.collision {
-  height: 60px;
-  box-shadow: -4px -4px rgb(7, 107, 153) inset, 0 -4px white, 4px 0 white,
-    0 4px white, -4px 0 white;
-}
-
-.btn.startOver:active {
-  background-color: rgb(84, 173, 214);
-  box-shadow: 4px 4px rgb(7, 107, 153) inset, 0 -4px black, 4px 0 black,
-    0 4px black, -4px 0 black;
-}
-
-.btn.save {
-  background-color: rgb(255, 183, 88);
-  box-shadow: -4px -4px rgb(209, 131, 28) inset, 0 -4px black, 4px 0 black,
-    0 4px black, -4px 0 black;
-}
-
-.btn.save:active {
-  background-color: rgb(252, 162, 45);
-  box-shadow: 4px 4px rgb(138, 90, 29) inset, 0 -4px black, 4px 0 black,
-    0 4px black, -4px 0 black;
-}
-
-.btn.clear,
-.delete,
-.btn.difficulty.hard {
-  background-color: #f95252;
-  box-shadow: -4px -4px #b43b3b inset, 0 -4px black, 4px 0 black, 0 4px black,
-    -4px 0 black;
-}
-
-.btn.clear:active,
-.delete:active,
-.btn.difficulty.hard.checked,
-.btn.difficulty.hard:active {
-  background-color: rgb(206, 44, 44);
-  box-shadow: 4px 4px rgb(122, 40, 40) inset, 0 -4px black, 4px 0 black,
-    0 4px black, -4px 0 black;
-}
-
-.overlaySelector .btn.clear {
-  margin-top: 0;
-}
-
-.btn.tool,
-.btn.overlay {
-  margin: 15px 15px;
-  font-size: 0.8em;
-}
-
-.btn.tool {
-  width: 100px;
-}
-
-.btn.overlay {
-  width: 150px;
-}
-
-.btn.tool.ph,
-.btn.overlay.p {
-  background-color: rgba(0, 0, 255, 0.4);
-  box-shadow: -4px -4px rgba(0, 0, 63, 0.4) inset, 0 -4px black, 4px 0 black,
-    0 4px black, -4px 0 black;
-}
-
-.btn.tool.ph:active,
-.btn.tool.ph.checked,
-.btn.overlay.p.checked {
-  background-color: rgba(0, 0, 255, 0.6);
-  box-shadow: 4px 4px rgb(70, 70, 184) inset, 0 -4px black, 4px 0 black,
-    0 4px black, -4px 0 black;
-}
-
-.btn.tool.bh,
-.btn.overlay.b {
-  background-color: rgba(255, 0, 0, 0.4);
-  box-shadow: -4px -4px rgba(24, 0, 0, 0.329) inset, 0 -4px black, 4px 0 black,
-    0 4px black, -4px 0 black;
-}
-.btn.tool.bh:active,
-.btn.tool.bh.checked,
-.btn.overlay.b.checked {
-  background-color: rgb(226, 78, 78);
-  box-shadow: 4px 4px rgb(161, 44, 44) inset, 0 -4px black, 4px 0 black,
-    0 4px black, -4px 0 black;
-}
-
-.btn.tool.o,
-.btn.difficulty.medium {
-  background-color: rgba(255, 211, 0, 1);
-  box-shadow: -4px -4px rgb(153, 128, 0) inset, 0 -4px black, 4px 0 black,
-    0 4px black, -4px 0 black;
-}
-.btn.tool.o:active,
-.btn.tool.o.checked,
-.btn.difficulty.medium:active,
-.btn.difficulty.medium.checked {
-  background-color: rgb(235, 180, 0);
-  box-shadow: 4px 4px rgb(133, 111, 0) inset, 0 -4px black, 4px 0 black,
-    0 4px black, -4px 0 black;
-}
-
-.btn.tool.st {
-  background-color: #585858;
-  box-shadow: -4px -4px #343434 inset, 0 -4px black, 4px 0 black, 0 4px black,
-    -4px 0 black;
-}
-
-.btn.tool.st:active,
-.btn.tool.st.checked {
-  background-color: #353535;
-  box-shadow: 4px 4px #272727 inset, 0 -4px black, 4px 0 black, 0 4px black,
-    -4px 0 black;
-}
-
-.btn.tool.sl {
-  background-image: linear-gradient(to right, red, yellow, green);
-  box-shadow: -4px -4px #343434 inset, 0 -4px black, 4px 0 black, 0 4px black,
-    -4px 0 black;
-}
-
-.btn.tool.sl:active,
-.btn.tool.sl.checked {
-  background-image: linear-gradient(to right, darkred, goldenrod, darkgreen);
-  box-shadow: 4px 4px #272727 inset, 0 -4px black, 4px 0 black, 0 4px black,
-    -4px 0 black;
-}
-
-.btn.tool.sz {
-  background-image: repeating-linear-gradient(
-    to right,
-    yellow,
-    black,
-    yellow,
-    black,
-    yellow,
-    black,
-    yellow,
-    black,
-    yellow
-  );
-  box-shadow: -4px -4px #343434 inset, 0 -4px black, 4px 0 black, 0 4px black,
-    -4px 0 black;
-}
-
-.btn.tool.sz:active,
-.btn.tool.sz.checked {
-  background-image: repeating-linear-gradient(
-    to right,
-    rgb(162, 162, 0),
-    black,
-    rgb(162, 162, 0),
-    black,
-    rgb(162, 162, 0),
-    black,
-    rgb(162, 162, 0),
-    black,
-    rgb(162, 162, 0)
-  );
-  box-shadow: 4px 4px #272727 inset, 0 -4px black, 4px 0 black, 0 4px black,
-    -4px 0 black;
-}
-
-.btn.tool.cf {
-  background-color: #4a2c2a;
-  box-shadow: -4px -4px #35201e inset, 0 -4px black, 4px 0 black, 0 4px black,
-    -4px 0 black;
-}
-
-.btn.tool.cf:active,
-.btn.tool.cf.checked {
-  background-color: #35201e;
-  box-shadow: 4px 4px #1a100f inset, 0 -4px black, 4px 0 black, 0 4px black,
-    -4px 0 black;
-}
-
-.btn.tool.erase {
-  background-color: lightgray;
-  box-shadow: -4px -4px rgb(114, 114, 114) inset, 0 -4px black, 4px 0 black,
-    0 4px black, -4px 0 black;
-}
-
-.btn.tool.erase:active,
-.btn.tool.erase.checked {
-  background-color: rgb(146, 146, 146);
-  box-shadow: 4px 4px rgb(114, 114, 114) inset, 0 -4px black, 4px 0 black,
-    0 4px black, -4px 0 black;
-}
-
-.btn.tool.checked {
-  outline: rgba(255, 211, 0, 1) solid 4px;
-  outline-offset: 5px;
-}
-
-.btn.difficulty {
-  width: 150px;
-}
-
-.btn.design {
-  margin: 13px;
-}
-
-.buttons {
-  width: 250px;
-}
-
-.buttons.design {
-  align-self: center;
-  max-width: 300px;
-}
-
-.toolLabel {
-  display: inline-block;
-}
-
-.modal {
-  position: absolute;
-  width: 100vw;
-  height: 100vh;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  z-index: 999;
-}
-
-.modalBackground {
-  height: 100%;
-  width: 100%;
-  background-color: rgba(0, 0, 0, 0.4);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-
-.modalContent {
-  width: 50%;
-  border: 5px groove rgb(180, 180, 180);
-  background-color: darkgray;
-  padding: 20px;
-}
-
-.modalContent.bossError {
-  background-color: #fff;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-.introOptions {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-.modalBackground.intro, .modalContent.intro {
-  background-color: rgb(80, 205, 255);
-  border: none;
-}
-
-.usernameError {
-  font-size: .8em;
-  color: red;
-  margin-top: 20px;
-}
-
-.usernameInput {
-  width: 500px;
-  height: 50px;
-  min-height: 50px;
-  border: none;
-  background-color: #fff;
-  box-shadow: -4px -4px rgb(194, 194, 194) inset, 0 -4px black, 4px 0 black,
-    0 4px black, -4px 0 black;
-  font-size: 1em;
-  padding-left: 20px;
-  cursor: text;
-  margin: 20px auto;
-}
-
-.usernameInput::placeholder {
-  font-size: 0.8em;
-}
-
-
-.savedLevelTitle {
-  color: rgba(255, 211, 0, 1);
-  text-shadow: 4px 4px black;
-}
-
-.userLevelSelector,
-.saveWarningButtons {
-  margin-top: 20px;
-  padding: 10px;
-  border: 5px double lightgray;
-  border-radius: 15px;
-  background-color: #fff;
-}
-
-.userLevelSelector {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  max-height: 75vh;
-  overflow: scroll;
-}
-
-.saveWarningButtons {
-  display: flex;
-  justify-content: space-evenly;
-}
-
-.bossErrorTitle {
-  max-width: 75%;
-  margin-top: 20px;
-  margin-bottom: 20px;
-  line-height: 2em;
-}
-
-.stoplight {
-  z-index: 80;
-}
-
-.greenlight {
-  /* box-shadow: 3px 3px rgb(0, 255, 0) inset, -3px -3px rgb(0, 255, 0) inset; */
-  background-image: url(../assets/greenlight-transparent.png);
-  background-size: contain;
-  background-repeat: no-repeat;
-}
-
-.yellowlight {
-  /* box-shadow: 3px 3px #a78600 inset, -3px -3px #ffcc00 inset; */
-  background-image: url(../assets/yellowlight-transparent.png);
-  background-size: contain;
-  background-repeat: no-repeat;
-}
-
-.redlight {
-  /* box-shadow: 3px 3px rgb(255, 0, 0) inset, -3px -3px rgb(255, 0, 0) inset; */
-  background-image: url(../assets/redlight-transparent.png);
-  background-size: contain;
-  background-repeat: no-repeat;
-}
-
-.schoolzone {
-  background-image: url(../assets/schoolzone.png);
-  background-size: contain;
-  background-repeat: no-repeat;
-  /* background-color: #ffd300; */
-  /* background-image: radial-gradient(#ffd300 50%, black); */
-}
-
-.bossOverlayInfo,
-.playerPathInfo {
-  font-size: 0.8em;
-  flex-direction: column;
-  align-items: flex-start;
-  line-height: 1.5em;
-  color: #fff;
-  padding: 10px;
-  width: 230px;
-}
-
-.bossOverlayInfo {
-  background-color: #852227;
-  margin-bottom: 5px;
-}
-
-
-.playerPathInfo {
-  background-color: #212985;
-  margin-top: 5px;
-}
-
-/* @keyframes schoolzone {
-  from {box}
 } */
 
-/* .pathOption {
-  background-color: orange;
+
+  body {
+    font-size: 11px;
+  }
+
+  h1.gameTitle, .introTitle {
+    display: inline-block;
+    background-color: darkgray;
+    color: rgba(255, 211, 0, 1);
+    font-family: "Press Start 2P", cursive;
+    margin: 0;
+    padding: 20px;
+    border: 5px groove rgb(180, 180, 180);
+    text-shadow: 4px 4px black;
+  }
+  
+  h1.gameOverTitle {
+    font-family: "Press Start 2P", cursive;
+    margin: 0;
+  }
+  
+  p,
+  h4,
+  h3,
+  h2,
+  ul {
+    margin: 0;
+    margin-block-start: 0;
+    margin-block-end: 0;
+    margin-inline-start: 0;
+    margin-inline-end: 0;
+    padding-inline-start: 0;
+  }
+  
+  h3.designModuleTitle,
+  h4.designDrawerTitle {
+    font-family: "Press Start 2P", cursive;
+  }
+  
+  .designDrawerTitle {
+    max-width: 75%;
+    min-height: 50px;
+    background-color: rgb(255, 217, 0);
+    border-radius: 10px;
+    text-align: center;
+    border: 3px solid #666666;
+    padding: 15px;
+  }
+  
+  .App {
+    text-align: center;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgb(80, 205, 255);
+  }
+  
+  .App-logo {
+    height: 40vmin;
+    pointer-events: none;
+  }
+  
+  @keyframes App-logo-spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  
+  .appHeader {
+    padding: 30px;
+  }
+  
+  .gameModule,
+  .designModule {
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: space-evenly;
+    align-items: center;
+    background-color: rgb(80, 205, 255);
+  }
+  
+  .designModule {
+    align-items: center;
+  }
+  
+  .playingField,
+  .levelDesigner {
+    display: grid;
+    grid-template-rows: repeat(25, 1fr);
+    grid-template-columns: repeat(40, 1fr);
+    border: 8px groove rgb(180, 180, 180);
+    background-color: white;
+  }
+  
+  .overlayInfo {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    /* max-width: 216px; */
+    /* height: 100px; */
+    border: 5px groove darkgray;
+    background-color: #fff;
+    margin: 0px;
+    padding: 10px;
+  }
+  
+  .levelsListContainer {
+    /* width: 216px;
+    max-width: 230px; */
+    margin-top: 20px;
+    overflow-wrap: break-word;
+  }
+  
+  .levelNameInput {
+    position: absolute;
+    top: 400px;
+    left: 600px;
+    width: 360px;
+    height: 36px;
+    min-height: 36px;
+    border: none;
+    background-color: #fff;
+    box-shadow: -4px -4px rgb(194, 194, 194) inset, 0 -4px black, 4px 0 black,
+      0 4px black, -4px 0 black;
+    font-size: 1em;
+    padding-left: 20px;
+    cursor: text;
+  }
+  
+  .levelsList {
+    display: flex;
+    flex-direction: column;
+    border: 5px groove darkgray;
+    margin: 20px 0;
+    padding: 10px;
+    background-color: #fff;
+    align-items: center;
+    justify-content: flex-start;
+    max-height: 50vh;
+    overflow: scroll;
+  }
+  
+  .levelItemGroup,
+  .levelItem, .levelFolder {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    width: 100%;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    overflow: hidden;
+    min-height: 100px;
+  }
+  
+  .levelItemGroup, .levelFolder {
+    max-width: 230px;
+  }
+  
+  .levelItem:hover, .levelFolder:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+  
+  .levelIconWrapper, .folderIconWrapper {
+    flex-basis: 85px;
+    flex-shrink: 0;
+    flex-grow: 0;
+  }
+  
+  .levelIcon, .folderIcon {
+    display: inline-block;
+    width: 54px;
+    height: 54px;
+    background-repeat: no-repeat;
+    background-size: contain;
+  }
+  
+  .levelIcon {
+    background-image: url("../assets/level-icon.png");
+  }
+  
+  .folderIcon.full {
+    background-image: url("../assets/folder-full.png");
+  }
+  
+  .folderIcon.empty {
+    background-image: url("../assets/folder-empty.png");
+  }
+  
+  .levelName, .folderName {
+    text-align: left;
+    margin-left: 15px;
+    overflow-wrap: break-word;
+    font-size: 1em;
+    word-wrap: break-word;
+  }
+  
+  .gridRow {
+    display: flex;
+  }
+  
+  .gridSquare,
+  .designSquare {
+    position: relative;
+    /* width: 18px;
+    height: 18px; */
+    width: 2vw;
+    height: 2vw;
+    font-family: sans-serif;
+    font-size: 0.6em;
+    transition: box-shadow 0.5s;
+  }
+  
+  .gridSquare {
+    cursor: default;
+  }
+  
+  .designSquare {
+    cursor: pointer;
+    box-shadow: 1px 1px inset;
+  }
+  
+  .gridSquare.block {
+    background-color: #81c76d;
+  }
+  
+  .designSquare.block {
+    background-color: lightgray;
+  }
+  
+  .street {
+    background-image: url("../assets/street.png");
+  }
+  
+  .dstreet {
+    background-color: #343434;
+  }
+  
+  .keySquare {
+    background-color: #fff;
+    background-image: none;
+  }
+  
+  .playerHomeTile.blue,
+  .dplayerHome {
+    background-color: rgba(0, 0, 255, 0.4);
+  }
+  .playerHomeTile.green {
+    background-color: rgb(0, 211, 0, 0.4);
+  }
+  .playerHomeTile.pink {
+    background-color: rgba(255, 0, 238, 0.3);
+  }
+  .playerHomeTile.purple {
+    background-color: rgba(170, 0, 255, 0.4);
+  }
+  .playerHomeTile.orange {
+    background-color: rgba(255, 132, 0, 0.4);
+  }
+  .playerHomeTile.white {
+    background-color: rgba(43, 43, 43, 0.4);
+  }
+  
+  .bossHomeTile,
+  .dbossHome {
+    background-color: rgba(255, 0, 0, 0.4);
+  }
+  
+  .officeTile,
+  .doffice {
+    background-color: rgba(255, 211, 0, 1);
+  }
+  
+  .playerCar,
+  .bossCar,
+  .tree,
+  .house,
+  .coffee,
+  .bossPathTile,
+  .playerPathTile,
+  .stoplight,
+  .playerHomeTile,
+  .bossHomeTile,
+  .officeTile {
+    display: inline-block;
+    /* width: 18px;
+    height: 18px; */
+    width: 2vw;
+    height: 2vw;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  
+  .playerCar {
+    background-image: url("../assets/player-car-blue.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    z-index: 100;
+  }
+  
+  .bossCar {
+    background-image: url("../assets/boss-car.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    z-index: 100;
+  }
+  
+  .tree {
+    background-image: url("../assets/tree.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    z-index: 100;
+  }
+  
+  .house {
+    background-image: url("../assets/house.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    z-index: 100;
+  }
+  
+  .coffee {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-image: url("../assets/coffee.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    z-index: 90;
+  }
+  
+  .bossPathTile {
+    background-color: rgba(255, 0, 0, 0.4);
+    z-index: 70;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  
+  .playerPathTile {
+    background-color: rgba(0, 0, 255, 0.4);
+    z-index: 71;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  
+  .win,
+  .loss,
+  .collision {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .win {
+    background-color: rgb(127, 218, 100);
+  }
+  
+  .loss {
+    background-color: rgb(235, 85, 85);
+  }
+  
+  .collision {
+    color: white;
+    background-color: black;
+    line-height: 3em;
+  }
+  
+  
+  
+  .designTools {
+    display: flex;
+    flex-direction: row;
+    max-width: 252px;
+    align-items: center;
+    justify-content: center;
+    align-items: flex-start;
+    align-self: center;
+    margin-top: 20px;
+  }
+
+  .drawer {
+    position: relative;
+  }
+  
+  .drawerTopper {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    width: 238px;
+    height: 72px;
+    background-image: url(../assets/drawer-lights.png);
+    background-repeat: no-repeat;
+    position: relative;
+  }
+  
+  .designModuleLevelName {
+    max-width: 50%;
+    line-height: 1.3em;
+  }
+  
+  .drawerHeader {
+    width: 238px;
+    height: 72px;
+    background-image: url(../assets/drawer-header.png);
+    background-repeat: no-repeat;
+    /* border: 5px groove darkgray; */
+    box-shadow: -4px -4px rgba(128, 128, 128, 0.5) inset, 0 -4px #666666,
+      4px 0 #666666, 0 4px #666666, -4px 0 #666666;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+
+    top: 0;
+    z-index: 100;
+  }
+  
+  .designToolbox,
+  .overlaySelector {
+    display: flex;
+    flex-direction: column;
+    border: 5px groove darkgray;
+    /* margin: 20px auto; */
+    padding: 0px 15px;
+    background-color: #fff;
+    align-items: center;
+    justify-content: center;
+    width: 238px;
+  }
+  
+  .overlaySelector {
+    max-width: 252px;
+    /* margin: 0; */
+  }
+  
+  .difficultySelector {
+    display: flex;
+    /* width: 180px; */
+    /* border: 5px groove darkgray;
+    margin: 20px 0;
+    padding: 0px 15px;
+    background-color: #fff; */
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .difficultyOptions {
+    display: flex;
+    flex-direction: row;
+    /* border: 3px dashed darkgray; */
+    /* margin: 20px auto; */
+    align-items: center;
+    padding: 0 20px;
+  }
+  
+  .designToolSelector,
+  .overlayOptions {
+    border: 3px dashed darkgray;
+    margin: 20px auto;
+    align-items: center;
+  }
+  
+  .designToolSelector {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 202px;
+  }
+  
+  .overlayOptions {
+    display: flex;
+    flex-direction: column;
+    width: 137px;
+  }
+  
+  .designToolSelector label {
+    display: inline-flex;
+    margin: 20px 30px;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .toolSelectorRadio,
+  .overlayOption,
+  .difficultyOption {
+    position: absolute;
+    opacity: 0;
+    display: inline;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .saveConfirmation {
+    font-size: 0.7em;
+    width: 144px;
+    height: 36px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    /* background-color: #fff;
+    border: 5px double green;
+    border-radius: 15px; */
+  }
+  
+  
+  .checkmark {
+    background-image: url("../assets/checkmark-larger.png");
+    background-repeat: no-repeat;
+    width: 15px;
+    height: 15px;
+    display: inline-block;
+    margin-left: 5px;
+  }
+  
+  .bang {
+    background-image: url("../assets/Bang2.png");
+    background-repeat: no-repeat;
+    display: inline-block;
+    height: 79px;
+    width: 72px;
+  }
+  
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 1em;
+    margin: 20px 0px;
+    width: 144px;
+    height: 36px;
+    font-family: "Press Start 2P", cursive;
+    border: 0;
+    cursor: pointer;
+    line-height: 1em;
+  }
+  
+  .btn:focus,
+  input:focus {
+    outline: none;
+    font-family: "Press Start 2P", cursive;
+    border: 0;
+    cursor: pointer;
+    height: 25px;
+  }
+  
+  .delete {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    height: 22px;
+    min-width: 22px;
+    margin: auto 10px;
+    position: relative;
+  }
+  
+  .X {
+    display: inline-block;
+    position: absolute;
+    top: 6px;
+    left: 6px;
+  }
+  
+  .X:active {
+    top: 10px;
+    left: 10px;
+  }
+  
+  .btn.play,
+  .btn.difficulty.easy {
+    background-color: #82e768;
+    box-shadow: -4px -4px #328f32 inset, 0 -4px black, 4px 0 black, 0 4px black,
+      -4px 0 black;
+  }
+  .btn.play:active,
+  .btn.difficulty.easy.checked,
+  .btn.difficulty.easy:active {
+    background-color: rgb(125, 194, 108);
+    box-shadow: 4px 4px rgb(43, 122, 43) inset, 0 -4px black, 4px 0 black,
+      0 4px black, -4px 0 black;
+  }
+  
+  .btn.mode {
+    background-color: rgb(140, 66, 238);
+    box-shadow: -4px -4px rgb(88, 41, 150) inset, 0 -4px black, 4px 0 black,
+      0 4px black, -4px 0 black;
+  }
+  
+  .btn.mode:active {
+    background-color: rgb(100, 39, 180);
+    box-shadow: 4px 4px rgb(71, 33, 121) inset, 0 -4px black, 4px 0 black,
+      0 4px black, -4px 0 black;
+  }
+  
+  .btn.startOver {
+    margin-top: 50px;
+    background-color: rgb(86, 200, 253);
+    box-shadow: -4px -4px rgb(7, 107, 153) inset, 0 -4px black, 4px 0 black,
+      0 4px black, -4px 0 black;
+  }
+  
+  .btn.startOver.collision {
+    height: 60px;
+    box-shadow: -4px -4px rgb(7, 107, 153) inset, 0 -4px white, 4px 0 white,
+      0 4px white, -4px 0 white;
+  }
+  
+  .btn.startOver:active {
+    background-color: rgb(84, 173, 214);
+    box-shadow: 4px 4px rgb(7, 107, 153) inset, 0 -4px black, 4px 0 black,
+      0 4px black, -4px 0 black;
+  }
+  
+  .btn.save {
+    background-color: rgb(255, 183, 88);
+    box-shadow: -4px -4px rgb(209, 131, 28) inset, 0 -4px black, 4px 0 black,
+      0 4px black, -4px 0 black;
+  }
+  
+  .btn.save:active {
+    background-color: rgb(252, 162, 45);
+    box-shadow: 4px 4px rgb(138, 90, 29) inset, 0 -4px black, 4px 0 black,
+      0 4px black, -4px 0 black;
+  }
+  
+  .btn.clear,
+  .delete,
+  .btn.difficulty.hard {
+    background-color: #f95252;
+    box-shadow: -4px -4px #b43b3b inset, 0 -4px black, 4px 0 black, 0 4px black,
+      -4px 0 black;
+  }
+  
+  .btn.clear:active,
+  .delete:active,
+  .btn.difficulty.hard.checked,
+  .btn.difficulty.hard:active {
+    background-color: rgb(206, 44, 44);
+    box-shadow: 4px 4px rgb(122, 40, 40) inset, 0 -4px black, 4px 0 black,
+      0 4px black, -4px 0 black;
+  }
+  
+  .overlaySelector .btn.clear {
+    margin-top: 0;
+  }
+  
+  .btn.tool,
+  .btn.overlay {
+    margin: 15px 15px;
+    font-size: 0.8em;
+  }
+  
+  .btn.tool {
+    width: 72px;
+  }
+  
+  .btn.overlay {
+    width: 108px;
+  }
+  
+  .btn.tool.ph,
+  .btn.overlay.p {
+    background-color: rgba(0, 0, 255, 0.4);
+    box-shadow: -4px -4px rgba(0, 0, 63, 0.4) inset, 0 -4px black, 4px 0 black,
+      0 4px black, -4px 0 black;
+  }
+  
+  .btn.tool.ph:active,
+  .btn.tool.ph.checked,
+  .btn.overlay.p.checked {
+    background-color: rgba(0, 0, 255, 0.6);
+    box-shadow: 4px 4px rgb(70, 70, 184) inset, 0 -4px black, 4px 0 black,
+      0 4px black, -4px 0 black;
+  }
+  
+  .btn.tool.bh,
+  .btn.overlay.b {
+    background-color: rgba(255, 0, 0, 0.4);
+    box-shadow: -4px -4px rgba(24, 0, 0, 0.329) inset, 0 -4px black, 4px 0 black,
+      0 4px black, -4px 0 black;
+  }
+  .btn.tool.bh:active,
+  .btn.tool.bh.checked,
+  .btn.overlay.b.checked {
+    background-color: rgb(226, 78, 78);
+    box-shadow: 4px 4px rgb(161, 44, 44) inset, 0 -4px black, 4px 0 black,
+      0 4px black, -4px 0 black;
+  }
+  
+  .btn.tool.o,
+  .btn.difficulty.medium {
+    background-color: rgba(255, 211, 0, 1);
+    box-shadow: -4px -4px rgb(153, 128, 0) inset, 0 -4px black, 4px 0 black,
+      0 4px black, -4px 0 black;
+  }
+  .btn.tool.o:active,
+  .btn.tool.o.checked,
+  .btn.difficulty.medium:active,
+  .btn.difficulty.medium.checked {
+    background-color: rgb(235, 180, 0);
+    box-shadow: 4px 4px rgb(133, 111, 0) inset, 0 -4px black, 4px 0 black,
+      0 4px black, -4px 0 black;
+  }
+  
+  .btn.tool.st {
+    background-color: #585858;
+    box-shadow: -4px -4px #343434 inset, 0 -4px black, 4px 0 black, 0 4px black,
+      -4px 0 black;
+  }
+  
+  .btn.tool.st:active,
+  .btn.tool.st.checked {
+    background-color: #353535;
+    box-shadow: 4px 4px #272727 inset, 0 -4px black, 4px 0 black, 0 4px black,
+      -4px 0 black;
+  }
+  
+  .btn.tool.sl {
+    background-image: linear-gradient(to right, red, yellow, green);
+    box-shadow: -4px -4px #343434 inset, 0 -4px black, 4px 0 black, 0 4px black,
+      -4px 0 black;
+  }
+  
+  .btn.tool.sl:active,
+  .btn.tool.sl.checked {
+    background-image: linear-gradient(to right, darkred, goldenrod, darkgreen);
+    box-shadow: 4px 4px #272727 inset, 0 -4px black, 4px 0 black, 0 4px black,
+      -4px 0 black;
+  }
+  
+  .btn.tool.sz {
+    background-image: repeating-linear-gradient(
+      to right,
+      yellow,
+      black,
+      yellow,
+      black,
+      yellow,
+      black,
+      yellow,
+      black,
+      yellow
+    );
+    box-shadow: -4px -4px #343434 inset, 0 -4px black, 4px 0 black, 0 4px black,
+      -4px 0 black;
+  }
+  
+  .btn.tool.sz:active,
+  .btn.tool.sz.checked {
+    background-image: repeating-linear-gradient(
+      to right,
+      rgb(162, 162, 0),
+      black,
+      rgb(162, 162, 0),
+      black,
+      rgb(162, 162, 0),
+      black,
+      rgb(162, 162, 0),
+      black,
+      rgb(162, 162, 0)
+    );
+    box-shadow: 4px 4px #272727 inset, 0 -4px black, 4px 0 black, 0 4px black,
+      -4px 0 black;
+  }
+  
+  .btn.tool.cf {
+    background-color: #4a2c2a;
+    box-shadow: -4px -4px #35201e inset, 0 -4px black, 4px 0 black, 0 4px black,
+      -4px 0 black;
+  }
+  
+  .btn.tool.cf:active,
+  .btn.tool.cf.checked {
+    background-color: #35201e;
+    box-shadow: 4px 4px #1a100f inset, 0 -4px black, 4px 0 black, 0 4px black,
+      -4px 0 black;
+  }
+  
+  .btn.tool.erase {
+    background-color: lightgray;
+    box-shadow: -4px -4px rgb(114, 114, 114) inset, 0 -4px black, 4px 0 black,
+      0 4px black, -4px 0 black;
+  }
+  
+  .btn.tool.erase:active,
+  .btn.tool.erase.checked {
+    background-color: rgb(146, 146, 146);
+    box-shadow: 4px 4px rgb(114, 114, 114) inset, 0 -4px black, 4px 0 black,
+      0 4px black, -4px 0 black;
+  }
+  
+  .btn.tool.checked {
+    outline: rgba(255, 211, 0, 1) solid 4px;
+    outline-offset: 5px;
+  }
+  
+  .btn.difficulty {
+    width: 108px;
+  }
+  
+  .btn.design {
+    margin: 13px;
+  }
+  
+  .buttons {
+    /* width: 180px; */
+  }
+  
+  .buttons.design {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap-reverse;
+    justify-content: center;
+    width: 100%;
+  }
+  
+  .toolLabel {
+    display: inline-block;
+  }
+  
+  .modal {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 999;
+  }
+  
+  .modalBackground {
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  
+  .modalContent {
+    width: 50%;
+    border: 5px groove rgb(180, 180, 180);
+    background-color: darkgray;
+    padding: 20px;
+  }
+  
+  .modalContent.bossError {
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .introOptions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .modalBackground.intro, .modalContent.intro {
+    background-color: rgb(80, 205, 255);
+    border: none;
+  }
+  
+  .usernameError {
+    font-size: .8em;
+    color: red;
+    margin-top: 20px;
+  }
+  
+  .usernameInput {
+    width: 360px;
+    height: 36px;
+    min-height: 36px;
+    border: none;
+    background-color: #fff;
+    box-shadow: -4px -4px rgb(194, 194, 194) inset, 0 -4px black, 4px 0 black,
+      0 4px black, -4px 0 black;
+    font-size: 1em;
+    padding-left: 20px;
+    cursor: text;
+    margin: 20px auto;
+  }
+  
+  .usernameInput::placeholder {
+    font-size: 0.8em;
+  }
+  
+  
+  .savedLevelTitle {
+    color: rgba(255, 211, 0, 1);
+    text-shadow: 4px 4px black;
+  }
+  
+  .userLevelSelector,
+  .saveWarningButtons {
+    margin-top: 20px;
+    padding: 10px;
+    border: 5px double lightgray;
+    border-radius: 15px;
+    background-color: #fff;
+  }
+  
+  .userLevelSelector {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    max-height: 75vh;
+    overflow: scroll;
+  }
+  
+  .saveWarningButtons {
+    display: flex;
+    justify-content: space-evenly;
+  }
+  
+  .bossErrorTitle {
+    max-width: 75%;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    line-height: 2em;
+  }
+  
+  .stoplight {
+    z-index: 80;
+  }
+  
+  .greenlight {
+    /* box-shadow: 3px 3px rgb(0, 255, 0) inset, -3px -3px rgb(0, 255, 0) inset; */
+    background-image: url(../assets/greenlight-transparent.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
+  
+  .yellowlight {
+    /* box-shadow: 3px 3px #a78600 inset, -3px -3px #ffcc00 inset; */
+    background-image: url(../assets/yellowlight-transparent.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
+  
+  .redlight {
+    /* box-shadow: 3px 3px rgb(255, 0, 0) inset, -3px -3px rgb(255, 0, 0) inset; */
+    background-image: url(../assets/redlight-transparent.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
+  
+  .schoolzone {
+    background-image: url(../assets/schoolzone.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    /* background-color: #ffd300; */
+    /* background-image: radial-gradient(#ffd300 50%, black); */
+  }
+  
+  .bossOverlayInfo,
+  .playerPathInfo {
+    font-size: 0.8em;
+    flex-direction: column;
+    align-items: flex-start;
+    line-height: 1.5em;
+    color: #fff;
+    padding: 10px;
+    /* width: 16px; */
+  }
+  
+  .bossOverlayInfo {
+    background-color: #852227;
+    margin-bottom: 5px;
+  }
+  
+  
+  .playerPathInfo {
+    background-color: #212985;
+    margin-top: 5px;
+  }
+
+
+@media only screen and (min-width: 1200px) {
+
+  body {
+    font-size: 13px;
+  }
+
+  h1.gameTitle, .introTitle {
+    display: inline-block;
+    background-color: darkgray;
+    color: rgba(255, 211, 0, 1);
+    font-family: "Press Start 2P", cursive;
+    margin: 0;
+    padding: 20px;
+    border: 5px groove rgb(180, 180, 180);
+    text-shadow: 4px 4px black;
+  }
+  
+  h1.gameOverTitle {
+    font-family: "Press Start 2P", cursive;
+    margin: 0;
+  }
+  
+  p,
+  h4,
+  h3,
+  h2,
+  ul {
+    margin: 0;
+    margin-block-start: 0;
+    margin-block-end: 0;
+    margin-inline-start: 0;
+    margin-inline-end: 0;
+    padding-inline-start: 0;
+  }
+  
+  h3.designModuleTitle,
+  h4.designDrawerTitle {
+    font-family: "Press Start 2P", cursive;
+  }
+  
+  .designDrawerTitle {
+    max-width: 75%;
+    min-height: 50px;
+    background-color: rgb(255, 217, 0);
+    border-radius: 10px;
+    text-align: center;
+    border: 3px solid #666666;
+    padding: 15px;
+  }
+  
+  .App {
+    text-align: center;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgb(80, 205, 255);
+  }
+  
+  .App-logo {
+    height: 40vmin;
+    pointer-events: none;
+  }
+  
+  @keyframes App-logo-spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  
+  .appHeader {
+    padding: 30px;
+  }
+  
+  .gameModule,
+  .designModule {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    background-color: rgb(80, 205, 255);
+  }
+  
+  .designModule {
+    align-items: center;
+  }
+  
+  .playingField,
+  .levelDesigner {
+    display: grid;
+    grid-template-rows: repeat(25, 1fr);
+    grid-template-columns: repeat(40, 1fr);
+    border: 8px groove rgb(180, 180, 180);
+    background-color: white;
+  }
+  
+  .overlayInfo {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    max-width: 216px;
+    height: 100px;
+    border: 5px groove darkgray;
+    background-color: #fff;
+    margin: 0px auto;
+    padding: 10px;
+  }
+  
+  .levelsListContainer {
+    width: 216px;
+    max-width: 230px;
+    overflow-wrap: break-word;
+  }
+  
+  .levelNameInput {
+    position: absolute;
+    top: 400px;
+    left: 600px;
+    width: 360px;
+    height: 36px;
+    min-height: 36px;
+    border: none;
+    background-color: #fff;
+    box-shadow: -4px -4px rgb(194, 194, 194) inset, 0 -4px black, 4px 0 black,
+      0 4px black, -4px 0 black;
+    font-size: 1em;
+    padding-left: 20px;
+    cursor: text;
+  }
+  
+  .levelsList {
+    display: flex;
+    flex-direction: column;
+    border: 5px groove darkgray;
+    margin: 20px 0;
+    padding: 10px;
+    background-color: #fff;
+    align-items: center;
+    justify-content: flex-start;
+    max-height: 70vh;
+    overflow: scroll;
+  }
+  
+  .levelItemGroup,
+  .levelItem, .levelFolder {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    width: 100%;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    overflow: hidden;
+    min-height: 100px;
+  }
+  
+  .levelItemGroup, .levelFolder {
+    max-width: 230px;
+  }
+  
+  .levelItem:hover, .levelFolder:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+  
+  .levelIconWrapper, .folderIconWrapper {
+    flex-basis: 85px;
+    flex-shrink: 0;
+    flex-grow: 0;
+  }
+  
+  .levelIcon, .folderIcon {
+    display: inline-block;
+    width: 54px;
+    height: 54px;
+    background-repeat: no-repeat;
+    background-size: contain;
+  }
+  
+  .levelIcon {
+    background-image: url("../assets/level-icon.png");
+  }
+  
+  .folderIcon.full {
+    background-image: url("../assets/folder-full.png");
+  }
+  
+  .folderIcon.empty {
+    background-image: url("../assets/folder-empty.png");
+  }
+  
+  .levelName, .folderName {
+    text-align: left;
+    margin-left: 15px;
+    overflow-wrap: break-word;
+    font-size: 1em;
+    word-wrap: break-word;
+  }
+  
+  .gridRow {
+    display: flex;
+  }
+  
+  .gridSquare,
+  .designSquare {
+    position: relative;
+    /* width: 18px;
+    height: 18px; */
+    width: 1.6vw;
+    height: 1.6vw;
+    font-family: sans-serif;
+    font-size: 0.7em;
+    transition: box-shadow 0.5s;
+  }
+  
+  .gridSquare {
+    cursor: default;
+  }
+  
+  .designSquare {
+    cursor: pointer;
+    box-shadow: 1px 1px inset;
+  }
+  
+  .gridSquare.block {
+    background-color: #81c76d;
+  }
+  
+  .designSquare.block {
+    background-color: lightgray;
+  }
+  
+  .street {
+    background-image: url("../assets/street.png");
+  }
+  
+  .dstreet {
+    background-color: #343434;
+  }
+  
+  .keySquare {
+    background-color: #fff;
+    background-image: none;
+  }
+  
+  .playerHomeTile.blue,
+  .dplayerHome {
+    background-color: rgba(0, 0, 255, 0.4);
+  }
+  .playerHomeTile.green {
+    background-color: rgb(0, 211, 0, 0.4);
+  }
+  .playerHomeTile.pink {
+    background-color: rgba(255, 0, 238, 0.3);
+  }
+  .playerHomeTile.purple {
+    background-color: rgba(170, 0, 255, 0.4);
+  }
+  .playerHomeTile.orange {
+    background-color: rgba(255, 132, 0, 0.4);
+  }
+  .playerHomeTile.white {
+    background-color: rgba(43, 43, 43, 0.4);
+  }
+  
+  .bossHomeTile,
+  .dbossHome {
+    background-color: rgba(255, 0, 0, 0.4);
+  }
+  
+  .officeTile,
+  .doffice {
+    background-color: rgba(255, 211, 0, 1);
+  }
+  
+  .playerCar,
+  .bossCar,
+  .tree,
+  .house,
+  .coffee,
+  .bossPathTile,
+  .playerPathTile,
+  .stoplight,
+  .playerHomeTile,
+  .bossHomeTile,
+  .officeTile {
+    display: inline-block;
+    /* width: 18px;
+    height: 18px; */
+    width: 1.6vw;
+    height: 1.6vw;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  
+  .playerCar {
+    background-image: url("../assets/player-car-blue.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    z-index: 100;
+  }
+  
+  .bossCar {
+    background-image: url("../assets/boss-car.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    z-index: 100;
+  }
+  
+  .tree {
+    background-image: url("../assets/tree.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    z-index: 100;
+  }
+  
+  .house {
+    background-image: url("../assets/house.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    z-index: 100;
+  }
+  
+  .coffee {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-image: url("../assets/coffee.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    z-index: 90;
+  }
+  
+  .bossPathTile {
+    background-color: rgba(255, 0, 0, 0.4);
+    z-index: 70;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  
+  .playerPathTile {
+    background-color: rgba(0, 0, 255, 0.4);
+    z-index: 71;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  
+  .win,
+  .loss,
+  .collision {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .win {
+    background-color: rgb(127, 218, 100);
+  }
+  
+  .loss {
+    background-color: rgb(235, 85, 85);
+  }
+  
+  .collision {
+    color: white;
+    background-color: black;
+    line-height: 3em;
+  }
+  
+  
+  
+  .designTools {
+    display: flex;
+    flex-direction: column;
+    max-width: 252px;
+    align-items: center;
+    justify-content: flex-start;
+    align-self: center;
+    margin-top: -100px;
+  }
+  
+  .drawerTopper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 238px;
+    height: 72px;
+    background-image: url(../assets/drawer-lights-smaller.png);
+    background-repeat: no-repeat;
+    position: relative;
+  }
+  
+  .designModuleLevelName {
+    max-width: 50%;
+    line-height: 1.3em;
+  }
+  
+  .drawerHeader {
+    width: 238px;
+    height: 72px;
+    background-image: url(../assets/drawer-header.png);
+    background-repeat: no-repeat;
+    /* border: 5px groove darkgray; */
+    box-shadow: -4px -4px rgba(128, 128, 128, 0.5) inset, 0 -4px #666666,
+      4px 0 #666666, 0 4px #666666, -4px 0 #666666;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+  
+  .designToolbox,
+  .overlaySelector {
+    display: flex;
+    flex-direction: column;
+    border: 5px groove darkgray;
+    /* margin: 20px auto; */
+    padding: 0px 15px;
+    background-color: #fff;
+    align-items: center;
+    justify-content: center;
+    width: 238px;
+  }
+  
+  .overlaySelector {
+    max-width: 252px;
+    /* margin: 0; */
+  }
+  
+  .difficultySelector {
+    display: flex;
+    width: 180px;
+    border: 5px groove darkgray;
+    margin: 20px 0;
+    padding: 0px 15px;
+    background-color: #fff;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .difficultyOptions {
+    display: flex;
+    flex-direction: column;
+    border: 3px dashed darkgray;
+    margin: 20px auto;
+    align-items: center;
+    padding: 0 20px;
+  }
+  
+  .designToolSelector,
+  .overlayOptions {
+    border: 3px dashed darkgray;
+    margin: 20px auto;
+    align-items: center;
+  }
+  
+  .designToolSelector {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 202px;
+  }
+  
+  .overlayOptions {
+    display: flex;
+    flex-direction: column;
+    width: 137px;
+  }
+  
+  .designToolSelector label {
+    display: inline-flex;
+    margin: 20px 30px;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .toolSelectorRadio,
+  .overlayOption,
+  .difficultyOption {
+    position: absolute;
+    opacity: 0;
+    display: inline;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .saveConfirmation {
+    font-size: 0.7em;
+    width: 144px;
+    height: 36px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    /* background-color: #fff;
+    border: 5px double green;
+    border-radius: 15px; */
+  }
+  
+  
+  .checkmark {
+    background-image: url("../assets/checkmark-larger.png");
+    background-repeat: no-repeat;
+    width: 15px;
+    height: 15px;
+    display: inline-block;
+    margin-left: 5px;
+  }
+  
+  .bang {
+    background-image: url("../assets/Bang2.png");
+    background-repeat: no-repeat;
+    display: inline-block;
+    height: 79px;
+    width: 72px;
+  }
+  
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 1em;
+    margin: 20px 0px;
+    width: 144px;
+    height: 36px;
+    font-family: "Press Start 2P", cursive;
+    border: 0;
+    cursor: pointer;
+    line-height: 1em;
+  }
+  
+  .btn:focus,
+  input:focus {
+    outline: none;
+    font-family: "Press Start 2P", cursive;
+    border: 0;
+    cursor: pointer;
+    height: 25px;
+  }
+  
+  .delete {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    height: 22px;
+    min-width: 22px;
+    margin: auto 10px;
+    position: relative;
+  }
+  
+  .X {
+    display: inline-block;
+    position: absolute;
+    top: 6px;
+    left: 6px;
+  }
+  
+  .X:active {
+    top: 10px;
+    left: 10px;
+  }
+  
+  .btn.play,
+  .btn.difficulty.easy {
+    background-color: #82e768;
+    box-shadow: -4px -4px #328f32 inset, 0 -4px black, 4px 0 black, 0 4px black,
+      -4px 0 black;
+  }
+  .btn.play:active,
+  .btn.difficulty.easy.checked,
+  .btn.difficulty.easy:active {
+    background-color: rgb(125, 194, 108);
+    box-shadow: 4px 4px rgb(43, 122, 43) inset, 0 -4px black, 4px 0 black,
+      0 4px black, -4px 0 black;
+  }
+  
+  .btn.mode {
+    background-color: rgb(140, 66, 238);
+    box-shadow: -4px -4px rgb(88, 41, 150) inset, 0 -4px black, 4px 0 black,
+      0 4px black, -4px 0 black;
+  }
+  
+  .btn.mode:active {
+    background-color: rgb(100, 39, 180);
+    box-shadow: 4px 4px rgb(71, 33, 121) inset, 0 -4px black, 4px 0 black,
+      0 4px black, -4px 0 black;
+  }
+  
+  .btn.startOver {
+    margin-top: 50px;
+    background-color: rgb(86, 200, 253);
+    box-shadow: -4px -4px rgb(7, 107, 153) inset, 0 -4px black, 4px 0 black,
+      0 4px black, -4px 0 black;
+  }
+  
+  .btn.startOver.collision {
+    height: 60px;
+    box-shadow: -4px -4px rgb(7, 107, 153) inset, 0 -4px white, 4px 0 white,
+      0 4px white, -4px 0 white;
+  }
+  
+  .btn.startOver:active {
+    background-color: rgb(84, 173, 214);
+    box-shadow: 4px 4px rgb(7, 107, 153) inset, 0 -4px black, 4px 0 black,
+      0 4px black, -4px 0 black;
+  }
+  
+  .btn.save {
+    background-color: rgb(255, 183, 88);
+    box-shadow: -4px -4px rgb(209, 131, 28) inset, 0 -4px black, 4px 0 black,
+      0 4px black, -4px 0 black;
+  }
+  
+  .btn.save:active {
+    background-color: rgb(252, 162, 45);
+    box-shadow: 4px 4px rgb(138, 90, 29) inset, 0 -4px black, 4px 0 black,
+      0 4px black, -4px 0 black;
+  }
+  
+  .btn.clear,
+  .delete,
+  .btn.difficulty.hard {
+    background-color: #f95252;
+    box-shadow: -4px -4px #b43b3b inset, 0 -4px black, 4px 0 black, 0 4px black,
+      -4px 0 black;
+  }
+  
+  .btn.clear:active,
+  .delete:active,
+  .btn.difficulty.hard.checked,
+  .btn.difficulty.hard:active {
+    background-color: rgb(206, 44, 44);
+    box-shadow: 4px 4px rgb(122, 40, 40) inset, 0 -4px black, 4px 0 black,
+      0 4px black, -4px 0 black;
+  }
+  
+  .overlaySelector .btn.clear {
+    margin-top: 0;
+  }
+  
+  .btn.tool,
+  .btn.overlay {
+    margin: 15px 15px;
+    font-size: 0.8em;
+  }
+  
+  .btn.tool {
+    width: 72px;
+  }
+  
+  .btn.overlay {
+    width: 108px;
+  }
+  
+  .btn.tool.ph,
+  .btn.overlay.p {
+    background-color: rgba(0, 0, 255, 0.4);
+    box-shadow: -4px -4px rgba(0, 0, 63, 0.4) inset, 0 -4px black, 4px 0 black,
+      0 4px black, -4px 0 black;
+  }
+  
+  .btn.tool.ph:active,
+  .btn.tool.ph.checked,
+  .btn.overlay.p.checked {
+    background-color: rgba(0, 0, 255, 0.6);
+    box-shadow: 4px 4px rgb(70, 70, 184) inset, 0 -4px black, 4px 0 black,
+      0 4px black, -4px 0 black;
+  }
+  
+  .btn.tool.bh,
+  .btn.overlay.b {
+    background-color: rgba(255, 0, 0, 0.4);
+    box-shadow: -4px -4px rgba(24, 0, 0, 0.329) inset, 0 -4px black, 4px 0 black,
+      0 4px black, -4px 0 black;
+  }
+  .btn.tool.bh:active,
+  .btn.tool.bh.checked,
+  .btn.overlay.b.checked {
+    background-color: rgb(226, 78, 78);
+    box-shadow: 4px 4px rgb(161, 44, 44) inset, 0 -4px black, 4px 0 black,
+      0 4px black, -4px 0 black;
+  }
+  
+  .btn.tool.o,
+  .btn.difficulty.medium {
+    background-color: rgba(255, 211, 0, 1);
+    box-shadow: -4px -4px rgb(153, 128, 0) inset, 0 -4px black, 4px 0 black,
+      0 4px black, -4px 0 black;
+  }
+  .btn.tool.o:active,
+  .btn.tool.o.checked,
+  .btn.difficulty.medium:active,
+  .btn.difficulty.medium.checked {
+    background-color: rgb(235, 180, 0);
+    box-shadow: 4px 4px rgb(133, 111, 0) inset, 0 -4px black, 4px 0 black,
+      0 4px black, -4px 0 black;
+  }
+  
+  .btn.tool.st {
+    background-color: #585858;
+    box-shadow: -4px -4px #343434 inset, 0 -4px black, 4px 0 black, 0 4px black,
+      -4px 0 black;
+  }
+  
+  .btn.tool.st:active,
+  .btn.tool.st.checked {
+    background-color: #353535;
+    box-shadow: 4px 4px #272727 inset, 0 -4px black, 4px 0 black, 0 4px black,
+      -4px 0 black;
+  }
+  
+  .btn.tool.sl {
+    background-image: linear-gradient(to right, red, yellow, green);
+    box-shadow: -4px -4px #343434 inset, 0 -4px black, 4px 0 black, 0 4px black,
+      -4px 0 black;
+  }
+  
+  .btn.tool.sl:active,
+  .btn.tool.sl.checked {
+    background-image: linear-gradient(to right, darkred, goldenrod, darkgreen);
+    box-shadow: 4px 4px #272727 inset, 0 -4px black, 4px 0 black, 0 4px black,
+      -4px 0 black;
+  }
+  
+  .btn.tool.sz {
+    background-image: repeating-linear-gradient(
+      to right,
+      yellow,
+      black,
+      yellow,
+      black,
+      yellow,
+      black,
+      yellow,
+      black,
+      yellow
+    );
+    box-shadow: -4px -4px #343434 inset, 0 -4px black, 4px 0 black, 0 4px black,
+      -4px 0 black;
+  }
+  
+  .btn.tool.sz:active,
+  .btn.tool.sz.checked {
+    background-image: repeating-linear-gradient(
+      to right,
+      rgb(162, 162, 0),
+      black,
+      rgb(162, 162, 0),
+      black,
+      rgb(162, 162, 0),
+      black,
+      rgb(162, 162, 0),
+      black,
+      rgb(162, 162, 0)
+    );
+    box-shadow: 4px 4px #272727 inset, 0 -4px black, 4px 0 black, 0 4px black,
+      -4px 0 black;
+  }
+  
+  .btn.tool.cf {
+    background-color: #4a2c2a;
+    box-shadow: -4px -4px #35201e inset, 0 -4px black, 4px 0 black, 0 4px black,
+      -4px 0 black;
+  }
+  
+  .btn.tool.cf:active,
+  .btn.tool.cf.checked {
+    background-color: #35201e;
+    box-shadow: 4px 4px #1a100f inset, 0 -4px black, 4px 0 black, 0 4px black,
+      -4px 0 black;
+  }
+  
+  .btn.tool.erase {
+    background-color: lightgray;
+    box-shadow: -4px -4px rgb(114, 114, 114) inset, 0 -4px black, 4px 0 black,
+      0 4px black, -4px 0 black;
+  }
+  
+  .btn.tool.erase:active,
+  .btn.tool.erase.checked {
+    background-color: rgb(146, 146, 146);
+    box-shadow: 4px 4px rgb(114, 114, 114) inset, 0 -4px black, 4px 0 black,
+      0 4px black, -4px 0 black;
+  }
+  
+  .btn.tool.checked {
+    outline: rgba(255, 211, 0, 1) solid 4px;
+    outline-offset: 5px;
+  }
+  
+  .btn.difficulty {
+    width: 108px;
+  }
+  
+  .btn.design {
+    margin: 13px;
+  }
+  
+  .buttons {
+    width: 180px;
+  }
+  
+  .buttons.design {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-self: center;
+    max-width: 216px;
+  }
+  
+  .toolLabel {
+    display: inline-block;
+  }
+  
+  .modal {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 999;
+  }
+  
+  .modalBackground {
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  
+  .modalContent {
+    width: 50%;
+    border: 5px groove rgb(180, 180, 180);
+    background-color: darkgray;
+    padding: 20px;
+  }
+  
+  .modalContent.bossError {
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .introOptions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .modalBackground.intro, .modalContent.intro {
+    background-color: rgb(80, 205, 255);
+    border: none;
+  }
+  
+  .usernameError {
+    font-size: .8em;
+    color: red;
+    margin-top: 20px;
+  }
+  
+  .usernameInput {
+    width: 360px;
+    height: 36px;
+    min-height: 36px;
+    border: none;
+    background-color: #fff;
+    box-shadow: -4px -4px rgb(194, 194, 194) inset, 0 -4px black, 4px 0 black,
+      0 4px black, -4px 0 black;
+    font-size: 1em;
+    padding-left: 20px;
+    cursor: text;
+    margin: 20px auto;
+  }
+  
+  .usernameInput::placeholder {
+    font-size: 0.8em;
+  }
+  
+  
+  .savedLevelTitle {
+    color: rgba(255, 211, 0, 1);
+    text-shadow: 4px 4px black;
+  }
+  
+  .userLevelSelector,
+  .saveWarningButtons {
+    margin-top: 20px;
+    padding: 10px;
+    border: 5px double lightgray;
+    border-radius: 15px;
+    background-color: #fff;
+  }
+  
+  .userLevelSelector {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    max-height: 75vh;
+    overflow: scroll;
+  }
+  
+  .saveWarningButtons {
+    display: flex;
+    justify-content: space-evenly;
+  }
+  
+  .bossErrorTitle {
+    max-width: 75%;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    line-height: 2em;
+  }
+  
+  .stoplight {
+    z-index: 80;
+  }
+  
+  .greenlight {
+    /* box-shadow: 3px 3px rgb(0, 255, 0) inset, -3px -3px rgb(0, 255, 0) inset; */
+    background-image: url(../assets/greenlight-transparent.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
+  
+  .yellowlight {
+    /* box-shadow: 3px 3px #a78600 inset, -3px -3px #ffcc00 inset; */
+    background-image: url(../assets/yellowlight-transparent.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
+  
+  .redlight {
+    /* box-shadow: 3px 3px rgb(255, 0, 0) inset, -3px -3px rgb(255, 0, 0) inset; */
+    background-image: url(../assets/redlight-transparent.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
+  
+  .schoolzone {
+    background-image: url(../assets/schoolzone.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    /* background-color: #ffd300; */
+    /* background-image: radial-gradient(#ffd300 50%, black); */
+  }
+  
+  .bossOverlayInfo,
+  .playerPathInfo {
+    font-size: 0.8em;
+    flex-direction: column;
+    align-items: flex-start;
+    line-height: 1.5em;
+    color: #fff;
+    padding: 10px;
+    width: 16px;
+  }
+  
+  .bossOverlayInfo {
+    background-color: #852227;
+    margin-bottom: 5px;
+  }
+  
+  
+  .playerPathInfo {
+    background-color: #212985;
+    margin-top: 5px;
+  }
+
 }
 
-.finalPath {
-  background-color: yellow;
-} */
+@media only screen and (min-width: 1600px) {
+
+  body {
+    font-size: 16px;
+  }
+
+
+  h1.gameTitle, .introTitle {
+    display: inline-block;
+    background-color: darkgray;
+    color: rgba(255, 211, 0, 1);
+    font-family: "Press Start 2P", cursive;
+    margin: 0;
+    padding: 20px;
+    border: 5px groove rgb(180, 180, 180);
+    text-shadow: 4px 4px black;
+  }
+  
+  h1.gameOverTitle {
+    font-family: "Press Start 2P", cursive;
+    margin: 0;
+  }
+  
+  p,
+  h4,
+  h3,
+  h2,
+  ul {
+    margin: 0;
+    margin-block-start: 0;
+    margin-block-end: 0;
+    margin-inline-start: 0;
+    margin-inline-end: 0;
+    padding-inline-start: 0;
+  }
+  
+  h3.designModuleTitle,
+  h4.designDrawerTitle {
+    font-family: "Press Start 2P", cursive;
+  }
+  
+  .designDrawerTitle {
+    max-width: 75%;
+    min-height: 50px;
+    background-color: rgb(255, 217, 0);
+    border-radius: 10px;
+    text-align: center;
+    border: 3px solid #666666;
+    padding: 15px;
+  }
+  
+  .App {
+    text-align: center;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgb(80, 205, 255);
+  }
+  
+  .App-logo {
+    height: 40vmin;
+    pointer-events: none;
+  }
+  
+  @keyframes App-logo-spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  
+  .appHeader {
+    padding: 30px;
+  }
+  
+  .gameModule,
+  .designModule {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    background-color: rgb(80, 205, 255);
+  }
+  
+  .designModule {
+    align-items: center;
+  }
+  
+  .playingField,
+  .levelDesigner {
+    /* width: 1016px;
+    height: 641px; */
+    display: grid;
+    grid-template-rows: repeat(25, 1fr);
+    grid-template-columns: repeat(40, 1fr);
+    border: 8px groove rgb(180, 180, 180);
+    /* border: 8px groove black; */
+    /* border-image: url("../assets/rebar_border.png") 20% 20% 18; */
+    background-color: white;
+  }
+  
+  .overlayInfo {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    max-width: 300px;
+    /* height: 100px; */
+    border: 5px groove darkgray;
+    background-color: #fff;
+    margin: 0px auto;
+    padding: 10px;
+  }
+  
+  .levelsListContainer {
+    width: 300px;
+    max-width: 320px;
+    overflow-wrap: break-word;
+  }
+  
+  .levelNameInput {
+    position: absolute;
+    top: 400px;
+    left: 600px;
+    width: 500px;
+    height: 50px;
+    min-height: 50px;
+    border: none;
+    background-color: #fff;
+    box-shadow: -4px -4px rgb(194, 194, 194) inset, 0 -4px black, 4px 0 black,
+      0 4px black, -4px 0 black;
+    font-size: 1em;
+    padding-left: 20px;
+    cursor: text;
+  }
+  
+  .levelsList {
+    display: flex;
+    flex-direction: column;
+    border: 5px groove darkgray;
+    margin: 20px 0;
+    padding: 10px;
+    background-color: #fff;
+    align-items: center;
+    justify-content: flex-start;
+    max-height: 70vh;
+    overflow: scroll;
+  }
+  
+  .levelItemGroup,
+  .levelItem, .levelFolder {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    width: 100%;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    overflow: hidden;
+    min-height: 100px;
+  }
+  
+  .levelItemGroup, .levelFolder {
+    max-width: 320px;
+  }
+  
+  .levelItem:hover, .levelFolder:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+  
+  .levelIconWrapper, .folderIconWrapper {
+    flex-basis: 85px;
+    flex-shrink: 0;
+    flex-grow: 0;
+  }
+  
+  .levelIcon, .folderIcon {
+    display: inline-block;
+    width: 75px;
+    height: 75px;
+    background-repeat: no-repeat;
+    background-size: contain;
+  }
+  
+  .levelIcon {
+    background-image: url("../assets/level-icon.png");
+  }
+  
+  .folderIcon.full {
+    background-image: url("../assets/folder-full.png");
+  }
+  
+  .folderIcon.empty {
+    background-image: url("../assets/folder-empty.png");
+  }
+  
+  .levelName, .folderName {
+    text-align: left;
+    margin-left: 15px;
+    overflow-wrap: break-word;
+    font-size: 1em;
+    word-wrap: break-word;
+  }
+  
+  .gridRow {
+    display: flex;
+  }
+  
+  .gridSquare,
+  .designSquare {
+    position: relative;
+    /* width: 25px;
+    height: 25px; */
+    width: 1.5vw;
+    height: 1.5vw;
+    font-family: sans-serif;
+    font-size: 0.7em;
+    transition: box-shadow 0.5s;
+  }
+  
+  .gridSquare {
+    cursor: default;
+  }
+  
+  .designSquare {
+    cursor: pointer;
+    box-shadow: 1px 1px inset;
+  }
+  
+  .gridSquare.block {
+    background-color: #81c76d;
+  }
+  
+  .designSquare.block {
+    background-color: lightgray;
+  }
+  
+  .street {
+    background-image: url("../assets/street.png");
+  }
+  
+  .dstreet {
+    background-color: #343434;
+  }
+  
+  .keySquare {
+    background-color: #fff;
+    background-image: none;
+  }
+  
+  .playerHomeTile.blue,
+  .dplayerHome {
+    background-color: rgba(0, 0, 255, 0.4);
+  }
+  .playerHomeTile.green {
+    background-color: rgb(0, 211, 0, 0.4);
+  }
+  .playerHomeTile.pink {
+    background-color: rgba(255, 0, 238, 0.3);
+  }
+  .playerHomeTile.purple {
+    background-color: rgba(170, 0, 255, 0.4);
+  }
+  .playerHomeTile.orange {
+    background-color: rgba(255, 132, 0, 0.4);
+  }
+  .playerHomeTile.white {
+    background-color: rgba(43, 43, 43, 0.4);
+  }
+  
+  .bossHomeTile,
+  .dbossHome {
+    background-color: rgba(255, 0, 0, 0.4);
+  }
+  
+  .officeTile,
+  .doffice {
+    background-color: rgba(255, 211, 0, 1);
+  }
+  
+  .playerCar,
+  .bossCar,
+  .tree,
+  .house,
+  .coffee,
+  .bossPathTile,
+  .playerPathTile,
+  .stoplight,
+  .playerHomeTile,
+  .bossHomeTile,
+  .officeTile {
+    display: inline-block;
+    /* width: 25px;
+    height: 25px; */
+    width: 1.5vw;
+    height: 1.5vw;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  
+  .playerCar {
+    background-image: url("../assets/player-car-blue.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    z-index: 100;
+  }
+  
+  .bossCar {
+    background-image: url("../assets/boss-car.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    z-index: 100;
+  }
+  
+  .tree {
+    background-image: url("../assets/tree.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    z-index: 100;
+  }
+  
+  .house {
+    background-image: url("../assets/house.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    z-index: 100;
+  }
+  
+  .coffee {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-image: url("../assets/coffee.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    z-index: 90;
+  }
+  
+  .bossPathTile {
+    background-color: rgba(255, 0, 0, 0.4);
+    z-index: 70;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  
+  .playerPathTile {
+    background-color: rgba(0, 0, 255, 0.4);
+    z-index: 71;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  
+  .win,
+  .loss,
+  .collision {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .win {
+    background-color: rgb(127, 218, 100);
+  }
+  
+  .loss {
+    background-color: rgb(235, 85, 85);
+  }
+  
+  .collision {
+    color: white;
+    background-color: black;
+    line-height: 3em;
+  }
+  
+  
+  
+  .designTools {
+    display: flex;
+    flex-direction: column;
+    max-width: 350px;
+    align-items: center;
+    justify-content: flex-start;
+    align-self: center;
+    margin-top: -100px;
+  }
+  
+  .drawerTopper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 330px;
+    height: 100px;
+    background-image: url(../assets/drawer-lights.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    position: relative;
+  }
+  
+  .designModuleLevelName {
+    max-width: 50%;
+    line-height: 1.3em;
+  }
+  
+  .drawerHeader {
+    width: 330px;
+    height: 100px;
+    background-image: url(../assets/drawer-header.png);
+    background-repeat: no-repeat;
+    /* border: 5px groove darkgray; */
+    box-shadow: -4px -4px rgba(128, 128, 128, 0.5) inset, 0 -4px #666666,
+      4px 0 #666666, 0 4px #666666, -4px 0 #666666;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+  
+  .designToolbox,
+  .overlaySelector {
+    display: flex;
+    flex-direction: column;
+    border: 5px groove darkgray;
+    /* margin: 20px auto; */
+    padding: 0px 15px;
+    background-color: #fff;
+    align-items: center;
+    justify-content: center;
+    width: 330px;
+  }
+  
+  .overlaySelector {
+    max-width: 350px;
+    /* margin: 0; */
+  }
+  
+  .difficultySelector {
+    display: flex;
+    width: 250px;
+    border: 5px groove darkgray;
+    margin: 20px 0;
+    padding: 0px 15px;
+    background-color: #fff;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .difficultyOptions {
+    display: flex;
+    flex-direction: column;
+    border: 3px dashed darkgray;
+    margin: 20px auto;
+    align-items: center;
+    padding: 0 20px;
+  }
+  
+  .designToolSelector,
+  .overlayOptions {
+    border: 3px dashed darkgray;
+    margin: 20px auto;
+    align-items: center;
+  }
+  
+  .designToolSelector {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 280px;
+  }
+  
+  .overlayOptions {
+    display: flex;
+    flex-direction: column;
+    width: 190px;
+  }
+  
+  .designToolSelector label {
+    display: inline-flex;
+    margin: 20px 30px;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .toolSelectorRadio,
+  .overlayOption,
+  .difficultyOption {
+    position: absolute;
+    opacity: 0;
+    display: inline;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .saveConfirmation {
+    font-size: 0.7em;
+    width: 200px;
+    height: 50px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    /* background-color: #fff;
+    border: 5px double green;
+    border-radius: 15px; */
+  }
+  
+  
+  .checkmark {
+    background-image: url("../assets/checkmark-larger.png");
+    background-repeat: no-repeat;
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    margin-left: 5px;
+  }
+  
+  .bang {
+    background-image: url("../assets/Bang2.png");
+    background-repeat: no-repeat;
+    display: inline-block;
+    height: 110px;
+    width: 100px;
+  }
+  
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 1em;
+    margin: 20px 0px;
+    width: 200px;
+    height: 50px;
+    font-family: "Press Start 2P", cursive;
+    border: 0;
+    cursor: pointer;
+    line-height: 1em;
+  }
+  
+  .btn:focus,
+  input:focus {
+    outline: none;
+    font-family: "Press Start 2P", cursive;
+    border: 0;
+    cursor: pointer;
+    height: 25px;
+  }
+  
+  .delete {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    height: 30px;
+    min-width: 30px;
+    margin: auto 10px;
+    position: relative;
+  }
+  
+  .X {
+    display: inline-block;
+    position: absolute;
+    top: 6px;
+    left: 6px;
+  }
+  
+  .X:active {
+    top: 10px;
+    left: 10px;
+  }
+  
+  .btn.play,
+  .btn.difficulty.easy {
+    background-color: #82e768;
+    box-shadow: -4px -4px #328f32 inset, 0 -4px black, 4px 0 black, 0 4px black,
+      -4px 0 black;
+  }
+  .btn.play:active,
+  .btn.difficulty.easy.checked,
+  .btn.difficulty.easy:active {
+    background-color: rgb(125, 194, 108);
+    box-shadow: 4px 4px rgb(43, 122, 43) inset, 0 -4px black, 4px 0 black,
+      0 4px black, -4px 0 black;
+  }
+  
+  .btn.mode {
+    background-color: rgb(140, 66, 238);
+    box-shadow: -4px -4px rgb(88, 41, 150) inset, 0 -4px black, 4px 0 black,
+      0 4px black, -4px 0 black;
+  }
+  
+  .btn.mode:active {
+    background-color: rgb(100, 39, 180);
+    box-shadow: 4px 4px rgb(71, 33, 121) inset, 0 -4px black, 4px 0 black,
+      0 4px black, -4px 0 black;
+  }
+  
+  .btn.startOver {
+    margin-top: 50px;
+    background-color: rgb(86, 200, 253);
+    box-shadow: -4px -4px rgb(7, 107, 153) inset, 0 -4px black, 4px 0 black,
+      0 4px black, -4px 0 black;
+  }
+  
+  .btn.startOver.collision {
+    height: 60px;
+    box-shadow: -4px -4px rgb(7, 107, 153) inset, 0 -4px white, 4px 0 white,
+      0 4px white, -4px 0 white;
+  }
+  
+  .btn.startOver:active {
+    background-color: rgb(84, 173, 214);
+    box-shadow: 4px 4px rgb(7, 107, 153) inset, 0 -4px black, 4px 0 black,
+      0 4px black, -4px 0 black;
+  }
+  
+  .btn.save {
+    background-color: rgb(255, 183, 88);
+    box-shadow: -4px -4px rgb(209, 131, 28) inset, 0 -4px black, 4px 0 black,
+      0 4px black, -4px 0 black;
+  }
+  
+  .btn.save:active {
+    background-color: rgb(252, 162, 45);
+    box-shadow: 4px 4px rgb(138, 90, 29) inset, 0 -4px black, 4px 0 black,
+      0 4px black, -4px 0 black;
+  }
+  
+  .btn.clear,
+  .delete,
+  .btn.difficulty.hard {
+    background-color: #f95252;
+    box-shadow: -4px -4px #b43b3b inset, 0 -4px black, 4px 0 black, 0 4px black,
+      -4px 0 black;
+  }
+  
+  .btn.clear:active,
+  .delete:active,
+  .btn.difficulty.hard.checked,
+  .btn.difficulty.hard:active {
+    background-color: rgb(206, 44, 44);
+    box-shadow: 4px 4px rgb(122, 40, 40) inset, 0 -4px black, 4px 0 black,
+      0 4px black, -4px 0 black;
+  }
+  
+  .overlaySelector .btn.clear {
+    margin-top: 0;
+  }
+  
+  .btn.tool,
+  .btn.overlay {
+    margin: 15px 15px;
+    font-size: 0.8em;
+  }
+  
+  .btn.tool {
+    width: 100px;
+  }
+  
+  .btn.overlay {
+    width: 150px;
+  }
+  
+  .btn.tool.ph,
+  .btn.overlay.p {
+    background-color: rgba(0, 0, 255, 0.4);
+    box-shadow: -4px -4px rgba(0, 0, 63, 0.4) inset, 0 -4px black, 4px 0 black,
+      0 4px black, -4px 0 black;
+  }
+  
+  .btn.tool.ph:active,
+  .btn.tool.ph.checked,
+  .btn.overlay.p.checked {
+    background-color: rgba(0, 0, 255, 0.6);
+    box-shadow: 4px 4px rgb(70, 70, 184) inset, 0 -4px black, 4px 0 black,
+      0 4px black, -4px 0 black;
+  }
+  
+  .btn.tool.bh,
+  .btn.overlay.b {
+    background-color: rgba(255, 0, 0, 0.4);
+    box-shadow: -4px -4px rgba(24, 0, 0, 0.329) inset, 0 -4px black, 4px 0 black,
+      0 4px black, -4px 0 black;
+  }
+  .btn.tool.bh:active,
+  .btn.tool.bh.checked,
+  .btn.overlay.b.checked {
+    background-color: rgb(226, 78, 78);
+    box-shadow: 4px 4px rgb(161, 44, 44) inset, 0 -4px black, 4px 0 black,
+      0 4px black, -4px 0 black;
+  }
+  
+  .btn.tool.o,
+  .btn.difficulty.medium {
+    background-color: rgba(255, 211, 0, 1);
+    box-shadow: -4px -4px rgb(153, 128, 0) inset, 0 -4px black, 4px 0 black,
+      0 4px black, -4px 0 black;
+  }
+  .btn.tool.o:active,
+  .btn.tool.o.checked,
+  .btn.difficulty.medium:active,
+  .btn.difficulty.medium.checked {
+    background-color: rgb(235, 180, 0);
+    box-shadow: 4px 4px rgb(133, 111, 0) inset, 0 -4px black, 4px 0 black,
+      0 4px black, -4px 0 black;
+  }
+  
+  .btn.tool.st {
+    background-color: #585858;
+    box-shadow: -4px -4px #343434 inset, 0 -4px black, 4px 0 black, 0 4px black,
+      -4px 0 black;
+  }
+  
+  .btn.tool.st:active,
+  .btn.tool.st.checked {
+    background-color: #353535;
+    box-shadow: 4px 4px #272727 inset, 0 -4px black, 4px 0 black, 0 4px black,
+      -4px 0 black;
+  }
+  
+  .btn.tool.sl {
+    background-image: linear-gradient(to right, red, yellow, green);
+    box-shadow: -4px -4px #343434 inset, 0 -4px black, 4px 0 black, 0 4px black,
+      -4px 0 black;
+  }
+  
+  .btn.tool.sl:active,
+  .btn.tool.sl.checked {
+    background-image: linear-gradient(to right, darkred, goldenrod, darkgreen);
+    box-shadow: 4px 4px #272727 inset, 0 -4px black, 4px 0 black, 0 4px black,
+      -4px 0 black;
+  }
+  
+  .btn.tool.sz {
+    background-image: repeating-linear-gradient(
+      to right,
+      yellow,
+      black,
+      yellow,
+      black,
+      yellow,
+      black,
+      yellow,
+      black,
+      yellow
+    );
+    box-shadow: -4px -4px #343434 inset, 0 -4px black, 4px 0 black, 0 4px black,
+      -4px 0 black;
+  }
+  
+  .btn.tool.sz:active,
+  .btn.tool.sz.checked {
+    background-image: repeating-linear-gradient(
+      to right,
+      rgb(162, 162, 0),
+      black,
+      rgb(162, 162, 0),
+      black,
+      rgb(162, 162, 0),
+      black,
+      rgb(162, 162, 0),
+      black,
+      rgb(162, 162, 0)
+    );
+    box-shadow: 4px 4px #272727 inset, 0 -4px black, 4px 0 black, 0 4px black,
+      -4px 0 black;
+  }
+  
+  .btn.tool.cf {
+    background-color: #4a2c2a;
+    box-shadow: -4px -4px #35201e inset, 0 -4px black, 4px 0 black, 0 4px black,
+      -4px 0 black;
+  }
+  
+  .btn.tool.cf:active,
+  .btn.tool.cf.checked {
+    background-color: #35201e;
+    box-shadow: 4px 4px #1a100f inset, 0 -4px black, 4px 0 black, 0 4px black,
+      -4px 0 black;
+  }
+  
+  .btn.tool.erase {
+    background-color: lightgray;
+    box-shadow: -4px -4px rgb(114, 114, 114) inset, 0 -4px black, 4px 0 black,
+      0 4px black, -4px 0 black;
+  }
+  
+  .btn.tool.erase:active,
+  .btn.tool.erase.checked {
+    background-color: rgb(146, 146, 146);
+    box-shadow: 4px 4px rgb(114, 114, 114) inset, 0 -4px black, 4px 0 black,
+      0 4px black, -4px 0 black;
+  }
+  
+  .btn.tool.checked {
+    outline: rgba(255, 211, 0, 1) solid 4px;
+    outline-offset: 5px;
+  }
+  
+  .btn.difficulty {
+    width: 150px;
+  }
+  
+  .btn.design {
+    margin: 13px;
+  }
+  
+  .buttons {
+    width: 250px;
+  }
+  
+  .buttons.design {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-self: center;
+    max-width: 300px;
+  }
+  
+  .toolLabel {
+    display: inline-block;
+  }
+  
+  .modal {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 999;
+  }
+  
+  .modalBackground {
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  
+  .modalContent {
+    width: 50%;
+    border: 5px groove rgb(180, 180, 180);
+    background-color: darkgray;
+    padding: 20px;
+  }
+  
+  .modalContent.bossError {
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .introOptions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .modalBackground.intro, .modalContent.intro {
+    background-color: rgb(80, 205, 255);
+    border: none;
+  }
+  
+  .usernameError {
+    font-size: .8em;
+    color: red;
+    margin-top: 20px;
+  }
+  
+  .usernameInput {
+    width: 500px;
+    height: 50px;
+    min-height: 50px;
+    border: none;
+    background-color: #fff;
+    box-shadow: -4px -4px rgb(194, 194, 194) inset, 0 -4px black, 4px 0 black,
+      0 4px black, -4px 0 black;
+    font-size: 1em;
+    padding-left: 20px;
+    cursor: text;
+    margin: 20px auto;
+  }
+  
+  .usernameInput::placeholder {
+    font-size: 0.8em;
+  }
+  
+  
+  .savedLevelTitle {
+    color: rgba(255, 211, 0, 1);
+    text-shadow: 4px 4px black;
+  }
+  
+  .userLevelSelector,
+  .saveWarningButtons {
+    margin-top: 20px;
+    padding: 10px;
+    border: 5px double lightgray;
+    border-radius: 15px;
+    background-color: #fff;
+  }
+  
+  .userLevelSelector {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    max-height: 75vh;
+    overflow: scroll;
+  }
+  
+  .saveWarningButtons {
+    display: flex;
+    justify-content: space-evenly;
+  }
+  
+  .bossErrorTitle {
+    max-width: 75%;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    line-height: 2em;
+  }
+  
+  .stoplight {
+    z-index: 80;
+  }
+  
+  .greenlight {
+    /* box-shadow: 3px 3px rgb(0, 255, 0) inset, -3px -3px rgb(0, 255, 0) inset; */
+    background-image: url(../assets/greenlight-transparent.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
+  
+  .yellowlight {
+    /* box-shadow: 3px 3px #a78600 inset, -3px -3px #ffcc00 inset; */
+    background-image: url(../assets/yellowlight-transparent.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
+  
+  .redlight {
+    /* box-shadow: 3px 3px rgb(255, 0, 0) inset, -3px -3px rgb(255, 0, 0) inset; */
+    background-image: url(../assets/redlight-transparent.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
+  
+  .schoolzone {
+    background-image: url(../assets/schoolzone.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    /* background-color: #ffd300; */
+    /* background-image: radial-gradient(#ffd300 50%, black); */
+  }
+  
+  .bossOverlayInfo,
+  .playerPathInfo {
+    font-size: 0.8em;
+    flex-direction: column;
+    align-items: flex-start;
+    line-height: 1.5em;
+    color: #fff;
+    padding: 10px;
+    width: 230px;
+  }
+  
+  .bossOverlayInfo {
+    background-color: #852227;
+    margin-bottom: 5px;
+  }
+  
+  
+  .playerPathInfo {
+    background-color: #212985;
+    margin-top: 5px;
+  }
+  
+  
+  
+  /* @keyframes schoolzone {
+    from {box}
+  } */
+  
+  /* .pathOption {
+    background-color: orange;
+  }
+  
+  .finalPath {
+    background-color: yellow;
+  } */
+  
+
+}  
+
