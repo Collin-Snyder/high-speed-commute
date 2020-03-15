@@ -48,25 +48,18 @@ The office:
 
 Select from Easy, Medium, and Hard mode.
 
- <img src="./high-speed-commute/src/assets/gifs/gif-1_2.gif" alt="Gif 1" title="Gif 1" width="700px">
-
-Start the race! The boss's speed depends on the difficulty mode.
-
-
-<img src="./high-speed-commute/src/assets/gifs/gif-2_1.gif" alt="Gif 2" title="Gif 2" width="700px">
-
-<img src="./high-speed-commute/src/assets/gifs/gif-3_1.gif" alt="Gif 3" title="Gif 3" width="700px">
+ <img src="./high-speed-commute/src/assets/gifs/difficulty.gif" alt="Difficulty buttons" title="Gif 1" width="300px">
 
 Game outcomes: win or loss.
 
-<img src="./high-speed-commute/src/assets/gifs/gif-4_3.gif" alt="Gif 4" title="Gif 4" width="700px">
+<img src="./high-speed-commute/src/assets/screenshots/win.png" alt="Gif 4" title="Gif 4" width="700px">
 
-<img src="./high-speed-commute/src/assets/gifs/gif-5.gif" alt="Gif 5" title="Gif 5" width="700px">
+<img src="./high-speed-commute/src/assets/screenshots/loss.png" alt="Gif 5" title="Gif 5" width="700px">
 
 
 Pro tip - don't hit your boss.
 
-<img src="./high-speed-commute/src/assets/gifs/gif-6.gif" alt="Gif 6" title="Gif 6" width="700px">
+<img src="./high-speed-commute/src/assets/screenshots/collision.png" alt="Gif 6" title="Gif 6" width="700px">
 
 ### Obstacles
 
@@ -80,29 +73,20 @@ Schoolzones slow down both you and your boss - safety first!
 
 Grab a coffee if you have time - caffeination increases your speed for a short time!
 
-<img src="./high-speed-commute/src/assets/gifs/gif-9.gif" alt="Gif 9" title="Gif 9" width="700px">
+<img src="./high-speed-commute/src/assets/gifs/coffee.gif" alt="Coffee bonus demonstration" title="Gif 9" width="700px">
 
 ### Design Mode
 
 Switch to Design Mode to make your own levels.
 
-[gif 10 - switch to design mode, add key squares, clear design]
+<img src="./high-speed-commute/src/assets/screenshots/design.png" alt="Design mode screenshot" title="Gif 10" width="700px">
 
 View live-updating path analytics for both the player and the boss as you craft your design.
 
-[gif 11 - toggle overlays, view path analytics, edit live]
+<img src="./high-speed-commute/src/assets/screenshots/overlays.png" alt="Overlay screenshot" title="Gif 11" width="700px">
+<img src="./high-speed-commute/src/assets/gifs/overlay_live.gif" alt="Overlay live gif" title="Gif 12" width="700px">
 
-Save your levels
-
-[gif 12 - save new level]
-
-Load saved level
-
-[gif 13 - load saved level]
-
-Test new levels
-
-[gif 14 - test button and save warning]
+Save your levels, load saved levels, and test levels you've just built!
 
 ## Stack
 
@@ -128,7 +112,7 @@ Test new levels
 ### Front-End
 High Speed Commute was built with Javascript and vanilla React (create-react-app) on the front end. For this application I wanted to keep the technology simple to focus on the logic and data structure of the game.
 
-Custom retro button styling and behavior was created using CSS while icons and pixel artwork was created in Adobe Illustrator.
+Custom retro button styling and behavior was created using CSS while icons and pixel artwork were created in Adobe Illustrator.
 
 ### Back-End 
 High Speed Commute uses Node.js and Express to create a server that interacts with a PostgreSQL database and provides all user, game, and level information to the React app.

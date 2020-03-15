@@ -170,10 +170,12 @@ class PathQueue {
     this.front = 0;
     this.end = -1;
     this.storage = {};
+    this.size = 0;
   }
 
   put(square) {
     this.end++;
+    this.size++;
     this.storage[this.end] = square.id;
   }
 
@@ -185,6 +187,7 @@ class PathQueue {
 
     this.front++;
     delete this.storage[oldFront];
+    this.size--;
 
     return output;
   }
