@@ -129,13 +129,6 @@ How to run the app on localhost:
     - cd
   -  -->
 
-
-### Challenges
-- In building High Speed Commute, I wanted to learn more about pathfinding algorithms used to move non-player characters, since the Boss character has to both find a working path to a given target and also navigate a maze in the process. Initially I attempted to implement
-
-### Learnings
-- ...
-
 ### Contributors
 
 [Collin Snyder](https://github.com/Collin-Snyder)
