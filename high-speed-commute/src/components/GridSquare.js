@@ -3,9 +3,7 @@ import PlayerCar from "./PlayerCar";
 import BossCar from "./BossCar";
 import Coffee from "./Coffee";
 import Stoplight from "./Stoplight";
-import PlayerHomeTile from "./PlayerHomeTile";
-import BossHomeTile from "./BossHomeTile";
-import OfficeTile from "./OfficeTile";
+import Tile from "./Tile";
 
 class GameSquare extends React.PureComponent {
   constructor(props) {
@@ -24,7 +22,7 @@ class GameSquare extends React.PureComponent {
           ? " block"
           : this.props.type === "street"
           ? " street"
-          : ""
+          : "",
     });
 
     if (
@@ -44,7 +42,7 @@ class GameSquare extends React.PureComponent {
             ? " block"
             : this.props.type === "street"
             ? " street"
-            : ""
+            : "",
       });
     }
 
@@ -60,14 +58,11 @@ class GameSquare extends React.PureComponent {
   render() {
     if (this.props.type === "block") {
       return (
-        <div
-          className={`gridSquare${this.state.typeClass}`}
-          id={this.props.id}
-        >
+        <div className={`gridSquare${this.state.typeClass}`} id={this.props.id}>
           {this.props.tree ? (
-            <span className="tree"></span>
+            <Tile type="tree"/>
           ) : this.props.house ? (
-            <span className="house"></span>
+            <Tile type="house"/>
           ) : (
             ""
           )}
@@ -82,31 +77,34 @@ class GameSquare extends React.PureComponent {
             this.props.id === this.props.office
               ? ` keySquare`
               : ``
-          }${this.props.schoolzone ? ` schoolzone` : ``}`}
+          }
+          
+          `}
           id={this.props.id}
         >
+          {this.props.schoolzone ? <Tile type="schoolZone"/> : <></>}
           {this.props.id === this.props.playerHome ? (
-            <PlayerHomeTile color={this.props.playerColor} />
+            <Tile type="playerHome" color={this.props.playerColor} />
           ) : this.props.id === this.props.bossHome ? (
-            <BossHomeTile />
+            <Tile type="bossHome" />
           ) : this.props.id === this.props.office ? (
-            <OfficeTile />
+            <Tile type="office" />
           ) : (
             <></>
           )}
           {this.props.stoplight ? (
-            <Stoplight color={this.props.stoplight} />
+            <Tile type="stoplight" color={this.props.stoplight} />
           ) : (
             <></>
           )}
           {this.props.playerCar ? (
-            <PlayerCar />
+            <Tile type="playerCar" />
           ) : this.props.bossCar ? (
-            <BossCar />
+            <Tile type="bossCar" />
           ) : (
             <></>
           )}
-          {this.props.coffee ? <Coffee /> : ""}
+          {this.props.coffee ? <Tile type="coffee" /> : <></>}
         </div>
       );
     }
