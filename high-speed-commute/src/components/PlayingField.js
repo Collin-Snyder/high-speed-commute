@@ -1,5 +1,6 @@
 import React from "react";
 import GameSquare from "./GridSquare";
+import Square from "./Square";
 
 const PlayingField = ({
   mode,
@@ -11,7 +12,7 @@ const PlayingField = ({
   layout,
   collision,
   fullReset,
-  playerColor
+  playerColor,
 }) => {
   if (playerCar === office) {
     return (
@@ -46,13 +47,12 @@ const PlayingField = ({
   } else {
     return (
       <div className="playingField">
-        {layout.map((square, index) => {
-          // console.log(`Square ${square.id} being mapped`);
+        {layout.map((square) => {
           return (
-            <GameSquare
+            <Square
+              mode={mode}
               id={square.id}
               type={square.type}
-              layout={square.layout}
               playerCar={square.playerCar}
               bossCar={square.bossCar}
               stoplight={square.stoplight}
@@ -60,7 +60,6 @@ const PlayingField = ({
               tree={square.tree || null}
               house={square.house || null}
               coffee={square.coffee}
-              borders={square.borders}
               playerHome={playerHome}
               bossHome={bossHome}
               office={office}
@@ -75,3 +74,22 @@ const PlayingField = ({
 };
 
 export default PlayingField;
+
+// <GameSquare
+//               id={square.id}
+//               type={square.type}
+//               layout={square.layout}
+//               playerCar={square.playerCar}
+//               bossCar={square.bossCar}
+//               stoplight={square.stoplight}
+//               schoolzone={square.schoolZone}
+//               tree={square.tree || null}
+//               house={square.house || null}
+//               coffee={square.coffee}
+//               borders={square.borders}
+//               playerHome={playerHome}
+//               bossHome={bossHome}
+//               office={office}
+//               playerColor={playerColor}
+//               key={square.id}
+//             />

@@ -1,5 +1,9 @@
 import React from "react";
-import DesignSquare from "./DesignSquare";
+import Square from "../components/Square";
+
+const handleDrag = (e) => {
+  e.dataTransfer.setDragImage(document.getElementById("dragImage"), 0, 0);
+};
 
 const DesignField = ({
   inputVisible,
@@ -10,12 +14,13 @@ const DesignField = ({
   office,
   stoplights,
   designLayout,
+  addDragSquareToDesign,
   addSquareToDesign,
   saveLevel,
   toggleModal,
   enterPlayMode,
   exiting,
-  overlays
+  overlays,
 }) => {
   return (
     <div className="levelDesigner">
@@ -27,11 +32,11 @@ const DesignField = ({
         height="1px"
         alt="replacement for drag-and-draw"
       />
-      {designLayout.map((square, index) => (
-        <DesignSquare
+      {designLayout.map((square) => (
+        <Square
+          mode="design"
           id={square.id}
           type={square.type}
-          layout={square.layout}
           playerCar={square.playerCar}
           bossCar={square.bossCar}
           stoplight={square.stoplight}
@@ -39,16 +44,17 @@ const DesignField = ({
           tree={square.tree || null}
           house={square.house || null}
           coffee={square.coffee}
-          borders={square.borders}
           playerHome={playerHome}
           bossHome={bossHome}
+          office={office}
+          playerColor="blue"
           isBossPath={square.bossPath}
           isPlayerPath={square.playerPath}
           bossOverlay={overlays.bossOverlay}
           playerOverlay={overlays.playerOverlay}
-          office={office}
-          squareInfo={square}
+          addDragSquareToDesign={addDragSquareToDesign}
           addSquareToDesign={addSquareToDesign}
+          handleDrag={handleDrag}
           key={square.id}
         />
       ))}
@@ -57,3 +63,28 @@ const DesignField = ({
 };
 
 export default DesignField;
+
+// <DesignSquare
+// id={square.id}
+// type={square.type}
+// layout={square.layout}
+// playerCar={square.playerCar}
+// bossCar={square.bossCar}
+// stoplight={square.stoplight}
+// schoolzone={square.schoolZone}
+// tree={square.tree || null}
+// house={square.house || null}
+// coffee={square.coffee}
+// borders={square.borders}
+// playerHome={playerHome}
+// bossHome={bossHome}
+// isBossPath={square.bossPath}
+// isPlayerPath={square.playerPath}
+// bossOverlay={overlays.bossOverlay}
+// playerOverlay={overlays.playerOverlay}
+// office={office}
+// squareInfo={square}
+// addDragSquareToDesign={addDragSquareToDesign}
+// addSquareToDesign={addSquareToDesign}
+// key={square.id}
+// />

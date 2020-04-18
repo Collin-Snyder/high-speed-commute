@@ -177,6 +177,8 @@ export default class DesignModule extends React.Component {
 
   addSquareToDesign(e, drag = false) {
     e.persist();
+    e.preventDefault();
+    e.stopPropagation();
 
     let {
       selectedDesignTool,
@@ -300,6 +302,11 @@ export default class DesignModule extends React.Component {
       default:
         return;
     }
+  }
+
+  addDragSquareToDesign = (e) => {
+    e.stopPropagation(); e.preventDefault();
+    this.addSquareToDesign(e, true)
   }
 
   clearBoard() {
@@ -660,6 +667,7 @@ export default class DesignModule extends React.Component {
               stoplights={this.state.stoplights}
               designLayout={this.state.designLayout}
               addSquareToDesign={this.addSquareToDesign}
+              addDragSquareToDesign={this.addDragSquareToDesign}
               handleInputChange={this.handleInputChange}
               saveLevel={this.saveLevelToDatabase}
               toggleModal={this.toggleModal}

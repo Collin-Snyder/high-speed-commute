@@ -3,6 +3,7 @@ import React from "react";
 import Coffee from "../components/Coffee";
 import OverlayPathTile from "./OverlayPathTile";
 import Stoplight from "../components/Stoplight";
+import Tile from "../components/Tile";
 
 class DesignSquare extends React.PureComponent {
   constructor(props) {

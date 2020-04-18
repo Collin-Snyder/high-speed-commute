@@ -1,8 +1,4 @@
 import React from "react";
-import PlayerCar from "./PlayerCar";
-import BossCar from "./BossCar";
-import Coffee from "./Coffee";
-import Stoplight from "./Stoplight";
 import Tile from "./Tile";
 
 class GameSquare extends React.PureComponent {
