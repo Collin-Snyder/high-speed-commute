@@ -286,80 +286,52 @@
   .doffice {
     background-color: rgba(255, 211, 0, 1);
   }
-  
-  .playerCar,
-  .bossCar,
-  .tree,
-  .house,
-  .coffee,
-  .bossPathTile,
-  .playerPathTile,
-  .stoplight,
-  .playerHomeTile,
-  .bossHomeTile,
-  .officeTile {
+
+  .tile {
     display: inline-block;
-    /* width: 18px;
-    height: 18px; */
     width: 2vw;
     height: 2vw;
     position: absolute;
     top: 0;
     left: 0;
+    background-repeat: no-repeat;
+    background-size: contain;
+    z-index: 100;
   }
   
-  .playerCar {
+  .playerCarTile {
     background-image: url("../assets/player-car-blue.png");
-    background-repeat: no-repeat;
-    background-size: contain;
     z-index: 100;
   }
   
-  .bossCar {
+  .bossCarTile {
     background-image: url("../assets/boss-car.png");
-    background-repeat: no-repeat;
-    background-size: contain;
     z-index: 100;
   }
   
-  .tree {
+  .treeTile {
     background-image: url("../assets/tree.png");
-    background-repeat: no-repeat;
-    background-size: contain;
     z-index: 100;
   }
   
-  .house {
+  .houseTile {
     background-image: url("../assets/house.png");
-    background-repeat: no-repeat;
-    background-size: contain;
     z-index: 100;
   }
   
-  .coffee {
-    position: absolute;
-    top: 0;
-    left: 0;
+  .coffeeTile {
     background-image: url("../assets/coffee.png");
-    background-repeat: no-repeat;
-    background-size: contain;
     z-index: 90;
   }
   
   .bossPathTile {
     background-color: rgba(255, 0, 0, 0.4);
     z-index: 70;
-    position: absolute;
-    top: 0;
-    left: 0;
   }
   
   .playerPathTile {
     background-color: rgba(0, 0, 255, 0.4);
     z-index: 71;
-    position: absolute;
-    top: 0;
-    left: 0;
   }
   
   .win,
@@ -944,37 +916,25 @@
     line-height: 2em;
   }
   
-  .stoplight {
+  .stoplightTile {
     z-index: 80;
   }
   
-  .greenlight {
-    /* box-shadow: 3px 3px rgb(0, 255, 0) inset, -3px -3px rgb(0, 255, 0) inset; */
+  .stoplightTile.green {
     background-image: url(../assets/greenlight-transparent.png);
-    background-size: contain;
-    background-repeat: no-repeat;
   }
   
-  .yellowlight {
-    /* box-shadow: 3px 3px #a78600 inset, -3px -3px #ffcc00 inset; */
+  .stoplightTile.yellow {
     background-image: url(../assets/yellowlight-transparent.png);
-    background-size: contain;
-    background-repeat: no-repeat;
+
   }
   
-  .redlight {
-    /* box-shadow: 3px 3px rgb(255, 0, 0) inset, -3px -3px rgb(255, 0, 0) inset; */
+  .stoplightTile.red {
     background-image: url(../assets/redlight-transparent.png);
-    background-size: contain;
-    background-repeat: no-repeat;
   }
   
-  .schoolzone {
+  .schoolZoneTile {
     background-image: url(../assets/schoolzone.png);
-    background-size: contain;
-    background-repeat: no-repeat;
-    /* background-color: #ffd300; */
-    /* background-image: radial-gradient(#ffd300 50%, black); */
   }
   
   .bossOverlayInfo,
@@ -1245,110 +1205,10 @@
     background-color: #fff;
     background-image: none;
   }
-  
-  .playerHomeTile.blue,
-  .dplayerHome {
-    background-color: rgba(0, 0, 255, 0.4);
-  }
-  .playerHomeTile.green {
-    background-color: rgb(0, 211, 0, 0.4);
-  }
-  .playerHomeTile.pink {
-    background-color: rgba(255, 0, 238, 0.3);
-  }
-  .playerHomeTile.purple {
-    background-color: rgba(170, 0, 255, 0.4);
-  }
-  .playerHomeTile.orange {
-    background-color: rgba(255, 132, 0, 0.4);
-  }
-  .playerHomeTile.white {
-    background-color: rgba(43, 43, 43, 0.4);
-  }
-  
-  .bossHomeTile,
-  .dbossHome {
-    background-color: rgba(255, 0, 0, 0.4);
-  }
-  
-  .officeTile,
-  .doffice {
-    background-color: rgba(255, 211, 0, 1);
-  }
-  
-  .playerCar,
-  .bossCar,
-  .tree,
-  .house,
-  .coffee,
-  .bossPathTile,
-  .playerPathTile,
-  .stoplight,
-  .playerHomeTile,
-  .bossHomeTile,
-  .officeTile {
-    display: inline-block;
-    /* width: 18px;
-    height: 18px; */
+
+  .tile {
     width: 1.6vw;
     height: 1.6vw;
-    position: absolute;
-    top: 0;
-    left: 0;
-  }
-  
-  .playerCar {
-    background-image: url("../assets/player-car-blue.png");
-    background-repeat: no-repeat;
-    background-size: contain;
-    z-index: 100;
-  }
-  
-  .bossCar {
-    background-image: url("../assets/boss-car.png");
-    background-repeat: no-repeat;
-    background-size: contain;
-    z-index: 100;
-  }
-  
-  .tree {
-    background-image: url("../assets/tree.png");
-    background-repeat: no-repeat;
-    background-size: contain;
-    z-index: 100;
-  }
-  
-  .house {
-    background-image: url("../assets/house.png");
-    background-repeat: no-repeat;
-    background-size: contain;
-    z-index: 100;
-  }
-  
-  .coffee {
-    position: absolute;
-    top: 0;
-    left: 0;
-    background-image: url("../assets/coffee.png");
-    background-repeat: no-repeat;
-    background-size: contain;
-    z-index: 90;
-  }
-  
-  .bossPathTile {
-    background-color: rgba(255, 0, 0, 0.4);
-    z-index: 70;
-    position: absolute;
-    top: 0;
-    left: 0;
-  }
-  
-  .playerPathTile {
-    background-color: rgba(0, 0, 255, 0.4);
-    z-index: 71;
-    position: absolute;
-    top: 0;
-    left: 0;
   }
   
   .win,
@@ -1375,8 +1235,7 @@
     background-color: black;
     line-height: 3em;
   }
-  
-  
+
   
   .designTools {
     display: flex;
@@ -1927,39 +1786,6 @@
     line-height: 2em;
   }
   
-  .stoplight {
-    z-index: 80;
-  }
-  
-  .greenlight {
-    /* box-shadow: 3px 3px rgb(0, 255, 0) inset, -3px -3px rgb(0, 255, 0) inset; */
-    background-image: url(../assets/greenlight-transparent.png);
-    background-size: contain;
-    background-repeat: no-repeat;
-  }
-  
-  .yellowlight {
-    /* box-shadow: 3px 3px #a78600 inset, -3px -3px #ffcc00 inset; */
-    background-image: url(../assets/yellowlight-transparent.png);
-    background-size: contain;
-    background-repeat: no-repeat;
-  }
-  
-  .redlight {
-    /* box-shadow: 3px 3px rgb(255, 0, 0) inset, -3px -3px rgb(255, 0, 0) inset; */
-    background-image: url(../assets/redlight-transparent.png);
-    background-size: contain;
-    background-repeat: no-repeat;
-  }
-  
-  .schoolzone {
-    background-image: url(../assets/schoolzone.png);
-    background-size: contain;
-    background-repeat: no-repeat;
-    /* background-color: #ffd300; */
-    /* background-image: radial-gradient(#ffd300 50%, black); */
-  }
-  
   .bossOverlayInfo,
   .playerPathInfo {
     font-size: 0.8em;
@@ -2235,109 +2061,9 @@
     background-image: none;
   }
   
-  .playerHomeTile.blue,
-  .dplayerHome {
-    background-color: rgba(0, 0, 255, 0.4);
-  }
-  .playerHomeTile.green {
-    background-color: rgb(0, 211, 0, 0.4);
-  }
-  .playerHomeTile.pink {
-    background-color: rgba(255, 0, 238, 0.3);
-  }
-  .playerHomeTile.purple {
-    background-color: rgba(170, 0, 255, 0.4);
-  }
-  .playerHomeTile.orange {
-    background-color: rgba(255, 132, 0, 0.4);
-  }
-  .playerHomeTile.white {
-    background-color: rgba(43, 43, 43, 0.4);
-  }
-  
-  .bossHomeTile,
-  .dbossHome {
-    background-color: rgba(255, 0, 0, 0.4);
-  }
-  
-  .officeTile,
-  .doffice {
-    background-color: rgba(255, 211, 0, 1);
-  }
-  
-  .playerCar,
-  .bossCar,
-  .tree,
-  .house,
-  .coffee,
-  .bossPathTile,
-  .playerPathTile,
-  .stoplight,
-  .playerHomeTile,
-  .bossHomeTile,
-  .officeTile {
-    display: inline-block;
-    /* width: 25px;
-    height: 25px; */
+  .tile {
     width: 1.5vw;
     height: 1.5vw;
-    position: absolute;
-    top: 0;
-    left: 0;
-  }
-  
-  .playerCar {
-    background-image: url("../assets/player-car-blue.png");
-    background-repeat: no-repeat;
-    background-size: contain;
-    z-index: 100;
-  }
-  
-  .bossCar {
-    background-image: url("../assets/boss-car.png");
-    background-repeat: no-repeat;
-    background-size: contain;
-    z-index: 100;
-  }
-  
-  .tree {
-    background-image: url("../assets/tree.png");
-    background-repeat: no-repeat;
-    background-size: contain;
-    z-index: 100;
-  }
-  
-  .house {
-    background-image: url("../assets/house.png");
-    background-repeat: no-repeat;
-    background-size: contain;
-    z-index: 100;
-  }
-  
-  .coffee {
-    position: absolute;
-    top: 0;
-    left: 0;
-    background-image: url("../assets/coffee.png");
-    background-repeat: no-repeat;
-    background-size: contain;
-    z-index: 90;
-  }
-  
-  .bossPathTile {
-    background-color: rgba(255, 0, 0, 0.4);
-    z-index: 70;
-    position: absolute;
-    top: 0;
-    left: 0;
-  }
-  
-  .playerPathTile {
-    background-color: rgba(0, 0, 255, 0.4);
-    z-index: 71;
-    position: absolute;
-    top: 0;
-    left: 0;
   }
   
   .win,
@@ -2362,8 +2088,6 @@
     background-color: black;
     line-height: 3em;
   }
-  
-  
   
   .designTools {
     display: flex;
@@ -2914,40 +2638,7 @@
     margin-bottom: 20px;
     line-height: 2em;
   }
-  
-  .stoplight {
-    z-index: 80;
-  }
-  
-  .greenlight {
-    /* box-shadow: 3px 3px rgb(0, 255, 0) inset, -3px -3px rgb(0, 255, 0) inset; */
-    background-image: url(../assets/greenlight-transparent.png);
-    background-size: contain;
-    background-repeat: no-repeat;
-  }
-  
-  .yellowlight {
-    /* box-shadow: 3px 3px #a78600 inset, -3px -3px #ffcc00 inset; */
-    background-image: url(../assets/yellowlight-transparent.png);
-    background-size: contain;
-    background-repeat: no-repeat;
-  }
-  
-  .redlight {
-    /* box-shadow: 3px 3px rgb(255, 0, 0) inset, -3px -3px rgb(255, 0, 0) inset; */
-    background-image: url(../assets/redlight-transparent.png);
-    background-size: contain;
-    background-repeat: no-repeat;
-  }
-  
-  .schoolzone {
-    background-image: url(../assets/schoolzone.png);
-    background-size: contain;
-    background-repeat: no-repeat;
-    /* background-color: #ffd300; */
-    /* background-image: radial-gradient(#ffd300 50%, black); */
-  }
-  
+
   .bossOverlayInfo,
   .playerPathInfo {
     font-size: 0.8em;

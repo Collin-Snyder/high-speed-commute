@@ -14,8 +14,6 @@ class GameSquare extends React.PureComponent {
     this.state = {
       typeClass: "",
       keySquareClass: "",
-      centerLineClass: "",
-      schoolZoneShadows: ""
     };
   }
 
