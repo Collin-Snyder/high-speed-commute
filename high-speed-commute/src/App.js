@@ -64,32 +64,32 @@ class App extends React.Component {
 
     this.stoplightIntervals = {};
 
-    this.handleKeyDown = this.handleKeyDown.bind(this);
-    this.movePlayerCar = this.movePlayerCar.bind(this);
-    this.startRace = this.startRace.bind(this);
-    this.startBoss = this.startBoss.bind(this);
-    this.startPlayer = this.startPlayer.bind(this);
-    this.findBossPath = this.findBossPath.bind(this);
-    this.moveBossCar = this.moveBossCar.bind(this);
-    this.resetPlayers = this.resetPlayers.bind(this);
-    this.enterDesignMode = this.enterDesignMode.bind(this);
-    this.enterPlayMode = this.enterPlayMode.bind(this);
-    this.loadDesign = this.loadDesign.bind(this);
-    this.loadLevel = this.loadLevel.bind(this);
-    this.deleteLevel = this.deleteLevel.bind(this);
-    this.getUserLevels = this.getUserLevels.bind(this);
-    this.fullReset = this.fullReset.bind(this);
-    this.closeBossModal = this.closeBossModal.bind(this);
-    this.cycleStoplight = this.cycleStoplight.bind(this);
-    this.enterSchoolZone = this.enterSchoolZone.bind(this);
-    this.exitSchoolZone = this.exitSchoolZone.bind(this);
-    this.caffeinate = this.caffeinate.bind(this);
-    this.decaffeinate = this.decaffeinate.bind(this);
-    this.changeDifficulty = this.changeDifficulty.bind(this);
-    this.submitExistingUsername = this.submitExistingUsername.bind(this);
-    this.submitNewUsername = this.submitNewUsername.bind(this);
-    this.handleUsernameInput = this.handleUsernameInput.bind(this);
-    this.toggleLevelVisibility = this.toggleLevelVisibility.bind(this);
+    // this.handleKeyDown = this.handleKeyDown.bind(this);
+    // this.movePlayerCar = this.movePlayerCar.bind(this);
+    // this.startRace = this.startRace.bind(this);
+    // this.startBoss = this.startBoss.bind(this);
+    // this.startPlayer = this.startPlayer.bind(this);
+    // this.findBossPath = this.findBossPath.bind(this);
+    // this.moveBossCar = this.moveBossCar.bind(this);
+    // this.resetPlayers = this.resetPlayers.bind(this);
+    // this.enterDesignMode = this.enterDesignMode.bind(this);
+    // this.enterPlayMode = this.enterPlayMode.bind(this);
+    // this.loadDesign = this.loadDesign.bind(this);
+    // this.loadLevel = this.loadLevel.bind(this);
+    // this.deleteLevel = this.deleteLevel.bind(this);
+    // this.getUserLevels = this.getUserLevels.bind(this);
+    // this.fullReset = this.fullReset.bind(this);
+    // this.closeBossModal = this.closeBossModal.bind(this);
+    // this.cycleStoplight = this.cycleStoplight.bind(this);
+    // this.enterSchoolZone = this.enterSchoolZone.bind(this);
+    // this.exitSchoolZone = this.exitSchoolZone.bind(this);
+    // this.caffeinate = this.caffeinate.bind(this);
+    // this.decaffeinate = this.decaffeinate.bind(this);
+    // this.changeDifficulty = this.changeDifficulty.bind(this);
+    // this.submitExistingUsername = this.submitExistingUsername.bind(this);
+    // this.submitNewUsername = this.submitNewUsername.bind(this);
+    // this.handleUsernameInput = this.handleUsernameInput.bind(this);
+    // this.toggleLevelVisibility = this.toggleLevelVisibility.bind(this);
   }
 
   componentDidMount() {
@@ -105,7 +105,7 @@ class App extends React.Component {
     }
   }
 
-  submitExistingUsername(e) {
+  submitExistingUsername = (e) => {
     axios
       .get(`/api/users/${this.state.loginInputs.existingUsername}`)
       .then(result => {
@@ -130,7 +130,7 @@ class App extends React.Component {
       .catch(err => console.error(err));
   }
 
-  submitNewUsername(e) {
+  submitNewUsername = (e) => {
     axios
       .post(`/api/users`, { username: this.state.loginInputs.newUsername })
       .then(result => {
@@ -158,7 +158,7 @@ class App extends React.Component {
       .catch(err => console.log("err"));
   }
 
-  handleUsernameInput(e) {
+  handleUsernameInput = (e) => {
     e.persist();
     let { loginInputs } = this.state;
 
@@ -166,7 +166,7 @@ class App extends React.Component {
     this.setState({ loginInputs });
   }
 
-  handleKeyDown(e) {
+  handleKeyDown = (e) => {
     if (
       this.state.playerCar !== this.state.office &&
       this.state.bossCar !== this.state.office
@@ -207,7 +207,7 @@ class App extends React.Component {
     }
   }
 
-  startRace() {
+  startRace = () => {
     this.setState({ status: "active" }, () => {
       for (let stoplight in this.state.stoplights) {
         setTimeout(() => {
@@ -223,7 +223,7 @@ class App extends React.Component {
     });
   }
 
-  startBoss() {
+  startBoss = () => {
     let pathStack = this.findBossPath();
 
     if (!pathStack) {
@@ -245,7 +245,7 @@ class App extends React.Component {
     }, this.state.difficultyIntervals[this.state.difficulty]);
   }
 
-  startPlayer() {
+  startPlayer = () => {
     this.playerInterval = setInterval(() => {
       if (this.state.playerMovable && !this.state.gameOver) {
         this.movePlayerCar(this.state.playerDirection);
@@ -253,7 +253,7 @@ class App extends React.Component {
     }, 275 / (this.state.caffeineCount + 1));
   }
 
-  resetPlayers() {
+  resetPlayers = () => {
     let { playerCar, playerHome, bossCar, bossHome } = this.state;
 
     playerCar = playerHome;
@@ -262,7 +262,7 @@ class App extends React.Component {
     this.setState({ playerCar, bossCar });
   }
 
-  movePlayerCar(direction) {
+  movePlayerCar = (direction) => {
     //First, we check to ensure that the player is currently movable and
     //that a direction was properly passed in
     if (this.state.playerMovable && !this.state.gameOver && direction) {
@@ -323,7 +323,7 @@ class App extends React.Component {
     }
   }
 
-  findBossPath() {
+  findBossPath = () => {
     let { bossHome, office, layout } = this.state;
 
     let pathInfo = findPath(layout[bossHome - 1], layout[office - 1], layout);
@@ -334,7 +334,7 @@ class App extends React.Component {
     return pathInfo.pathStack;
   }
 
-  moveBossCar(nextMove) {
+  moveBossCar = (nextMove) => {
     //We follow the same logic as moving the playerCar, but the stoplight and movability checks
     // are handled in the bossInterval due to the interaction with the boss's pathStack
     let { bossCar, playerCar, layout, bossMovable, collision } = this.state;
@@ -372,7 +372,7 @@ class App extends React.Component {
     });
   }
 
-  cycleStoplight(squareId) {
+  cycleStoplight = (squareId) => {
     let { layout } = this.state;
 
     //Right away, set the square's stoplight to yellow
@@ -398,7 +398,7 @@ class App extends React.Component {
     }, 7000);
   }
 
-  enterSchoolZone(who) {
+  enterSchoolZone = (who) => {
     let { schoolZoneState } = this.state;
 
     schoolZoneState[`${who}InSchoolZone`] = true;
@@ -410,7 +410,7 @@ class App extends React.Component {
     });
   }
 
-  exitSchoolZone(who) {
+  exitSchoolZone = (who) => {
     let { schoolZoneState } = this.state;
 
     schoolZoneState[`${who}InSchoolZone`] = false;
@@ -420,7 +420,7 @@ class App extends React.Component {
     this.setState({ [`${who}Movable`]: true, schoolZoneState });
   }
 
-  caffeinate() {
+  caffeinate = () => {
     let { caffeineCount } = this.state;
     //Increment player's caffeineCount in state
     caffeineCount++;
@@ -441,7 +441,7 @@ class App extends React.Component {
     });
   }
 
-  decaffeinate() {
+  decaffeinate = () => {
     let { caffeineCount } = this.state;
 
     //Decrease player's caffeineCount by 1 and update in state
@@ -458,15 +458,15 @@ class App extends React.Component {
     });
   }
 
-  changeDifficulty(e) {
+  changeDifficulty = (e) => {
     this.setState({ difficulty: e.target.value });
   }
 
-  closeBossModal() {
+  closeBossModal = () => {
     this.setState({ bossError: false });
   }
 
-  enterDesignMode() {
+  enterDesignMode = () => {
     //First, clear all existing intervals
     clearInterval(this.bossInterval);
     clearInterval(this.playerInterval);
@@ -486,7 +486,7 @@ class App extends React.Component {
     );
   }
 
-  enterPlayMode(levelId) {
+  enterPlayMode = (levelId) => {
     this.loadLevel(levelId);
     this.setState({ mode: "play", status: "idle" }, () => {
       //Hard-coded to my levels for now
@@ -494,19 +494,19 @@ class App extends React.Component {
     });
   }
 
-  toggleLevelVisibility(type) {
+  toggleLevelVisibility = (type) => {
     let visible = this.state[`${type}LevelsVisible`];
     this.setState({ [`${type}LevelsVisible`]: !visible });
   }
   //Used specifically when transferring from Design Mode to Test/Play mode
-  loadDesign(levelId) {
+  loadDesign = (levelId) => {
     this.loadLevel(levelId);
     //Hard-coded to my levels or now
     this.getUserLevels(this.state.user);
   }
 
   //Used anytime a level is loaded from the database into Game state for Testing/Playing
-  loadLevel(levelId) {
+  loadLevel = (levelId) => {
     if (levelId) {
       axios
         .get(`/api/levels/${levelId}`)
@@ -558,7 +558,7 @@ class App extends React.Component {
     }
   }
 
-  deleteLevel(levelId) {
+  deleteLevel = (levelId) => {
     axios
       .delete(`/api/levels`, { data: { levelId } })
       .then(result => {
@@ -570,7 +570,7 @@ class App extends React.Component {
       .catch(err => console.log(err));
   }
 
-  getUserLevels(username) {
+  getUserLevels = (username) => {
     axios
       .get(`/api/userlevels/${username}`)
       .then(data => {
@@ -601,7 +601,7 @@ class App extends React.Component {
       .catch(err => console.error(err));
   }
 
-  fullReset() {
+  fullReset = () => {
     clearInterval(this.bossInterval);
     clearInterval(this.playerInterval);
     for (let interval in this.stoplightIntervals) {

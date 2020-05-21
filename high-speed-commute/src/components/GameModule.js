@@ -48,7 +48,7 @@ const GameModule = ({
       </div>
 
       <PlayingField
-        mode={mode}
+        mode="play"
         playerCar={playerCar}
         playerHome={playerHome}
         bossCar={bossCar}
